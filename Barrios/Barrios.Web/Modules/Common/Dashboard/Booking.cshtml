@@ -7,6 +7,7 @@
 @section Head {
     @Html.StyleBundle("Pages/Booking")
     @Html.ScriptBundle("Pages/Booking")
+
     <link rel="stylesheet" href="~/Content/iCheck/flat/blue.css">
     @*<link rel="stylesheet" href="~/Scripts/morris/morris.css">*@
     <link rel="stylesheet" href="~/Scripts/jvectormap/jquery-jvectormap-1.2.2.css">
@@ -41,7 +42,7 @@
         </p>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRecurso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Recurso
+                Recurso nombre
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 @foreach (var obj in Model.Recursos)
