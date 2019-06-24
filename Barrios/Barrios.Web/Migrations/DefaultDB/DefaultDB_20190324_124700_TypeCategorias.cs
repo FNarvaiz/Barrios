@@ -9,14 +9,14 @@ namespace Barrios.Migrations.DefaultDB
     { 
         public override void Up()
         {
-            Execute.Sql("update categorias set type=0, dateInsert= NOW()  ");
+            /*  Execute.Sql("update categorias set type=0, dateInsert= NOW()  ");
             //Update.Table("Categorias").Set(" Type = 1 ").AllRows();
             Alter.Column("Type").OnTable("Categorias").AsInt32().NotNullable().WithDefaultValue(1);
-            
+            */
         }
         public override void Down()
         {
-            Alter.Column("Type").OnTable("Categorias").AsInt32();
+            //Alter.Column("Type").OnTable("Categorias").AsInt32();
 
         }
 

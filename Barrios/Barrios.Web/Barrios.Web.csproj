@@ -1820,8 +1820,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190321_090000_Locations.cs" />
-    <Compile Include="Migrations\DefaultDB\DefaultDB_20190322_230000_UserRec.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190617_230000_ForeingKeys.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190324_124700_TypeCategorias.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190617_231500_Views.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190617_223100_Tables.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190618_132600_Functions - Copy.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190616_130000_ZeroPad.cs" />
     <Compile Include="Migrations\OthersDB\Other_20190321_140000_Initial.cs" />
     <Compile Include="Migrations\OthersDB\TestDB_20190321_200000_TestUser2.cs" />
     <Compile Include="Migrations\OthersDB\TestDB_20190326_145500_Logs.cs" />

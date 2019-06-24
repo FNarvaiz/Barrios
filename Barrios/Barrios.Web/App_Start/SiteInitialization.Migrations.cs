@@ -4,6 +4,7 @@
     using FluentMigrator.Runner.Initialization;
     using Serenity.Data;
     using System;
+    using System.Collections.Generic;
     using System.Data.SqlClient;
     using System.IO;
     using System.Linq;
@@ -151,12 +152,12 @@
 
             // safety check to ensure that we are not modifying an arbitrary database.
             // remove these lines if you want Barrios migrations to run on your DB.
-            if (!isOracle && cs.ConnectionString.IndexOf(typeof(SiteInitialization).Namespace +
+           /* if (!isOracle && cs.ConnectionString.IndexOf(typeof(SiteInitialization).Namespace +
                     @"_" + databaseKey + "_v1", StringComparison.OrdinalIgnoreCase) < 0)
             {
                 SkippedMigrations = true;
                 return;
-            }
+            }*/
 
             string databaseType = isOracle ? "OracleManaged" : serverType;
             var connectionString = cs.ConnectionString;
@@ -173,6 +174,7 @@
                     Connection = connectionString,
                     Targets = new string[] { typeof(SiteInitialization).Assembly.Location },
                     Task = "migrate:up",
+                    Tags= new List<string>() { "Default" },
                     WorkingDirectory = Path.GetDirectoryName(typeof(SiteInitialization).Assembly.Location),
                     Namespace = "Barrios.Migrations." + databaseKey + "DB",
                     Timeout = 90

@@ -48,63 +48,10 @@ namespace Barrios.Migrations.DefaultDB
 
             Insert.IntoTable("Languages").Row(new
             {
-                LanguageId = "ru",
-                LanguageName = "Russian"
-            });
-
-            Insert.IntoTable("Languages").Row(new
-            {
                 LanguageId = "es",
                 LanguageName = "Spanish"
             });
 
-            Insert.IntoTable("Languages").Row(new
-            {
-                LanguageId = "tr",
-                LanguageName = "Turkish"
-            });
-
-            Insert.IntoTable("Languages").Row(new
-            {
-                LanguageId = "de",
-                LanguageName = "German"
-            });
-
-            Insert.IntoTable("Languages").Row(new
-            {
-                LanguageId = "zh-CN",
-                LanguageName = "Chinese (Simplified)"
-            });
-
-            Insert.IntoTable("Languages").Row(new
-            {
-                LanguageId = "it",
-                LanguageName = "Italian"
-            });
-
-            Insert.IntoTable("Languages").Row(new
-            {
-                LanguageId = "pt",
-                LanguageName = "Portuguese"
-            });
-
-            Insert.IntoTable("Languages").Row(new
-            {
-                LanguageId = "pt-BR",
-                LanguageName = "Portuguese (Brazil)"
-            });
-
-            Insert.IntoTable("Languages").Row(new
-            {
-                LanguageId = "fa",
-                LanguageName = "Farsi"
-            });
-
-            Insert.IntoTable("Languages").Row(new
-            {
-                LanguageId = "vi-VN",
-                LanguageName = "Vietnamese (Vietnam)"
-            });
         }
     }
 }
