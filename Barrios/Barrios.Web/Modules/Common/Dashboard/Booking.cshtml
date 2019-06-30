@@ -33,24 +33,20 @@
 }
 <div class="box">
     <div class="box-header">
-        <h3 class="box-title">Vertical Button Group</h3>
+        <h3 class="box-title">Estado de reservas de: <div class="dropdown">
+    <button class="btn btn-secondary btn-info dropdown-toggle" type="button" id="dropdownRecurso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Recurso nombre
+    </button>
+    <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+        @foreach (var obj in Model.Recursos)
+        {
+            <li><a class="ItemRecurso" id="@obj.Id" href="#">@obj.Nombre</a></li>
+        }
+    </ul>
+</div></h3>
     </div>
     <div class="box-body table-responsive pad">
-        <p>
-            Vertical button groups are easy to create with bootstrap. Just add your buttons
-            inside <code>&lt;div class="btn-group-vertical"&gt;&lt;/div&gt;</code>
-        </p>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRecurso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Recurso nombre
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                @foreach (var obj in Model.Recursos)
-                {
-                    <li><a class="ItemRecurso" id="@obj.Id" href="#">@obj.Nombre</a></li>
-                }
-            </ul>
-        </div>
+        
         <table id="Bookingtable"class="table table-bordered">
             <tbody>
                 <tr>
@@ -260,7 +256,8 @@
 </div>
 <script>
     jQuery(function () {
-        new Dashboard.Booking($("#dropdownRecurso"), $(".ItemRecurso"), $("#Bookingtable"));
+        var obj = new Dashboard.Booking($("#dropdownRecurso"), $(".ItemRecurso"), $("#Bookingtable"));
+        
     });
     
 </script>

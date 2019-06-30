@@ -2567,6 +2567,9 @@ var Dashboard;
             });
             this._resource.text(item.text());
         };
+        Booking.prototype.bookingsTake = function (element, resourceId, date, start, type, neighbour) {
+            console.log(element);
+        };
         return Booking;
     }());
     Dashboard.Booking = Booking;

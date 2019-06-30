@@ -10,7 +10,7 @@ namespace Barrios.Default.Repositories
     using System.Data;
     using System.Text;
     using MyRow = Entities.ReservasRow;
-
+    using System.Linq;
     public class ReservasRepository
     {
         private static MyRow.RowFields fld { get { return MyRow.Fields; } }
@@ -51,11 +51,12 @@ namespace Barrios.Default.Repositories
               "dbo.ESTADO_TURNO_RESERVA(" + resourceId + ", E.FECHA, E.INICIO, T.DURACION) AS ESTADO_TURNO, " +
               "dbo.TURNO_RESERVA_VALIDO(" + resourceId + ", E.INICIO, T.DURACION) AS VALIDO, T.REQUIERE_VECINO_2, " +
               "dbo.NOMBRE_TIPO_RESERVA(" + resourceId + ", E.ID_TIPO) AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE, " +
-              "dbo.UNIDAD_VECINO(E.ID_VECINO) AS UNIDAD, dbo.UNIDAD_VECINO(E.ID_VECINO) AS UNIDAD_PRIMARIA, dbo.UNIDAD_VECINO(E.ID_VECINO_2) AS UNIDAD_EXTRA " +
-              "FROM dbo.ESTADOS_RESERVAS(" + resourceId + ") E " +
-              "JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = " + resourceId + " AND T.ID>1 " +
-              "GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO " +
-              "ORDER BY E.FECHA,E.INICIO,  T.ID");
+              " v1.unidad AS UNIDAD,  " +
+                " v1.unidad AS UNIDAD_PRIMARIA, v2.unidad AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS(" + resourceId + ") E JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = " + resourceId +" AND T.ID > 1 " +
+                " left join vecinos v1 on v1.id = E.ID_VECINO " +
+                "left join vecinos v2 on v2.id = E.ID_VECINO_2 " +
+                " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, v1.unidad, v2.unidad " +
+              "ORDER BY E.INICIO, E.FECHA, T.ID");
             DataTable dt=  Utils.GetRequestString(connection, sql.ToString());
             int count = 0;
             foreach(DataRow DR in dt.Rows)
@@ -66,7 +67,8 @@ namespace Barrios.Default.Repositories
                     Finalizado= Convert.ToBoolean(DR["FINALIZADO"]),
                     Reservable = Convert.ToBoolean(DR["RESERVABLE"]),
                     Valido = Convert.ToBoolean(DR["VALIDO"]),
-                    Estado_Turno = DR["ESTADO_TURNO"].ToString(),
+                    Turno = DR["Turno"].ToString(),
+                    Estado = DR["ESTADO_TURNO"].ToString(),
                     IdTipo = Convert.ToInt16(DR["ID_TIPO_RESERVA_DISPONIBLE"]),
                     Tipo=DR["TipoNombre"].ToString(),
                     Required_Vecino= Convert.ToBoolean(DR["REQUIERE_VECINO_2"]),
@@ -78,7 +80,16 @@ namespace Barrios.Default.Repositories
             }
             return list;
         }
-
+        public List<DateTime> DaysList(List<MyRow> list)
+        {
+            List<DateTime> result = new List<DateTime>();
+           var days = (from p in list
+                   group p.Fecha by p.Fecha into L
+                   select L).ToList();
+            foreach(var aux in days)
+                result.Add(aux.Key.Value);
+            return result;
+        }
         private class MySaveHandler : SaveRequestHandler<MyRow> { }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }

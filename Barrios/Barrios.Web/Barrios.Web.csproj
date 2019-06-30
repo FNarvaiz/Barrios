@@ -837,6 +837,7 @@
     <Content Include="Modules\Contenidos\ProveedoresValoraciones\ProveedoresValoracionesIndex.cshtml" />
     <Content Include="Modules\Contenidos\Proveedores\ProveedoresIndex.cshtml" />
     <Content Include="Modules\Common\Dashboard\Booking.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1824,7 +1825,7 @@
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190324_124700_TypeCategorias.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190617_231500_Views.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190617_223100_Tables.cs" />
-    <Compile Include="Migrations\DefaultDB\DefaultDB_20190618_132600_Functions - Copy.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190618_132600_Functions.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190616_130000_ZeroPad.cs" />
     <Compile Include="Migrations\OthersDB\Other_20190321_140000_Initial.cs" />
     <Compile Include="Migrations\OthersDB\TestDB_20190321_200000_TestUser2.cs" />

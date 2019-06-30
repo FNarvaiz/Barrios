@@ -23,6 +23,9 @@ namespace Dashboard {
              });
              this._resource.text(item.text());
          }
+         public bookingsTake(element, resourceId: Number, date: string, start: number, type: number, neighbour: boolean) {
+             console.log(element);
+         }
         
     }
 }

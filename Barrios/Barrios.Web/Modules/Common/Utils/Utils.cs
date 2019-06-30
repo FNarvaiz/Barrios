@@ -185,7 +185,7 @@ namespace Barrios.Modules.Common.Utils
             DateTime obj;
             return DateTime.TryParse(text, out obj);
         }
-
+        
 
         #region shortcut query sql
         static public string OrderAndPagination(string defaultColumn, ListRequest request,string tableName="")

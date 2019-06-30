@@ -5,6 +5,7 @@ namespace Barrios.Default.Endpoints
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Text;
@@ -45,33 +46,123 @@ namespace Barrios.Default.Endpoints
         {
             return new MyRepository().List(connection, request);
         }
+       
         [HttpPost]
         public string renderBookingStatus(IDbConnection connection, IdRequest request)
         {
-            string html = "<tbody><tr>    <th> Fecha </th>    <th> Nombre </th >    <th> Boton </th ></tr>";
-            foreach (var aux in new MyRepository().BookingList(connection, request.ID))
+            var idUser = Convert.ToInt32(Serenity.Authorization.UserDefinition.Id);
+            bool first = true;
+            var rowClass = "class";
+            var dateClass = "date";
+            var oddRow = false;
+            var firstTurn = true;
+            var fecha = DateTime.Now.AddDays(-20);
+            var turnAnterior = -2;
+            bool vacanteEscrita=false;
+            var indexDay = 0;
+            var pastDay = DateTime.Now.AddDays(-10);
+            StringBuilder html = new StringBuilder();
+            html.Append("<tbody><tr><th></th>");
+            MyRepository repo = new MyRepository();
+            List<MyRow> list = repo.BookingList(connection, request.ID);
+            List<DateTime> days = repo.DaysList(list);
+            foreach (var aux in days)
+                html.Append("<th> " + aux.Day + "/" + aux.Month + " </th>");
+            html.Append("</tr>");
+            foreach (var aux in list)
             {
-                html= html+"<tr>" +
-                    "    <td>" +
-                    "        <div>" + aux.Fecha.Value.ToShortDateString() + " </div>" +
-                    "</td>" +
-                    "<td> " +
-                    "<div class='btn-group-vertical'>" + aux.IdVecinoDisplayName + " </div> " +
-                    "</td> " +
-                    "<td>" +
-                    " <div class='btn-group-vertical'>" +
-                    " <button type = 'button' class='btn btn-default btn-flat'>" +
-                    "<i class='fa fa-align-left'></i>" +
-                    "</button> " +
-                    "</div>    " +
-                    "</td>" +
-                    "</tr>"; 
-                    };
-            html = html + "</tbody>";
+                var date = aux.Fecha.Value;
+                if (turnAnterior != aux.Inicio) {
+                    if (!first) {
+                        html.Append("</tr>");
 
+                    }
+                    html.Append("<tr><td>" + aux.Turno + "</td>");
+                    fecha = aux.Fecha.Value;
+                    pastDay = aux.Fecha.Value;
+                    vacanteEscrita = false;
+                    first = false;
+                    firstTurn = true;
+                    indexDay = 0;
+                    turnAnterior = aux.Inicio.Value;
+                }
+                if (pastDay != date && !firstTurn) {
+                    html.Append("</td>");
+                    firstTurn = true;
+                }
+               /* while (days[indexDay] != date)
+                {
+                    html.Append("<td></td>");
+                    indexDay++;
+                    firstTurn = true;
+                }*/
+                if (firstTurn)
+                {
+                    html.Append("<td>");
+                    firstTurn = false;
+                }
+                if (aux.Finalizado.Value) {
+                    if (pastDay != date)
+                        pastDay = date;
+                }
+                else
+                {
+                    if (aux.Reservable.Value)
+                    {
+                        if (1 == 1)// Condicionales segun el barrio
+                        {
+                            if (aux.Estado == "Disponible" && aux.Valido.Value)
+                            {
+                                html.Append("<button onclick='bookingsTake(this," + request.ID + ", \"" + date.ToString("yyyyMMdd") + "\"," +
+                                    aux.Inicio + "," + aux.IdTipo + "," + aux.Required_Vecino + ")' " +
+                                    "type = 'button' class='btn btn-success btn-flat'>" + aux.Tipo + "</button>");
+                            }
+                        }
+                        else
+                        {
+                            html.Append("<button title = 'Bloqueado' type = 'button' class='btn btn-default btn-flat'><i class='fa fa-align-center'>No disponible</i></button>");
+                        }
+                    }
+                    else if (aux.Estado == "Vacante")
+                    {
+                        if (!vacanteEscrita)
+                        {
+                            html.Append("<button  type = 'button' class='btn btn-default btn-flat'>Vacante</button>");
+                            vacanteEscrita = true;
+                        }
+                    }
+                    else if (aux.IdVecino == idUser)
+                    {
+                        if (turnAnterior != aux.Inicio)
+                        {
+                            if (!aux.IdVecinoUnidadExtra.IsEmptyOrNull())
+                                html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + " con lote " + aux.IdVecinoUnidadExtra + "</button>");
+                            else
+                                html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + " (reserva propia)</button>");
+                        }
 
+                    }
+                    else if (aux.IdVecino2 == idUser) {
+                        if (turnAnterior != aux.Inicio)
+                            html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + " con lote " + aux.IdVecinoUnidad + "</button>");
+                    }
+                    else
+                    {
+                        if (turnAnterior != aux.Inicio)
+                        {
+                            if (!aux.IdVecinoUnidadExtra.IsEmptyOrNull())
+                                html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + ": " + aux.IdVecinoUnidad + " y " + aux.IdVecinoUnidadExtra + "</button>");
+                            else
+                                html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + ": " + aux.IdVecinoUnidad + "</button>");
+                        }
+                    }
+                }
+                pastDay = date;
+                turnAnterior = aux.Inicio.Value;
+            }
+            html.Append("</td></tr></tbody>");
 
-            return html;
+            return html.ToString();
         }
     }
 
