@@ -1,0 +1,18 @@
+
+Log Entry : 15:06:07 miércoles, 3 de julio de 2019
+  :
+ CONTROLLER :System.Web.HttpContextWrapper
+ MESSAGE :Existe otro usuario con este correo electrónico!
+ STACKTRACE :   en Barrios.Membership.Pages.AccountController.<>c__DisplayClass7_0.<SignUp>b__0(IDbConnection connection) en C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\Modules\Membership\Account\SignUp\AccountPage.SignUp.cs:línea 48
+ DATA :System.Collections.ListDictionaryInternal
+-------------------------------
+
+Log Entry : 15:06:33 miércoles, 3 de julio de 2019
+  :
+ CONTROLLER :System.Web.HttpContextWrapper
+ MESSAGE :Error al enviar correo.
+ STACKTRACE :   en System.Net.Mail.SmtpClient.Send(MailMessage message)
+   en Barrios.Common.EmailHelper.Send(String subject, String body, String address, String displayName, String from) en C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\Modules\Common\Helpers\EmailHelper.cs:línea 33
+   en Barrios.Membership.Pages.AccountController.<>c__DisplayClass7_0.<SignUp>b__0(IDbConnection connection) en C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\Modules\Membership\Account\SignUp\AccountPage.SignUp.cs:línea 103
+ DATA :System.Collections.ListDictionaryInternal
+-------------------------------

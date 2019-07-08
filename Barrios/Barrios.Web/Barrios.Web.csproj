@@ -1820,6 +1820,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190703_142000_UpdateUserAndBarriosTable.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190702_095300_UpdateBarriosTable.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190321_090000_Locations.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190617_230000_ForeingKeys.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190324_124700_TypeCategorias.cs" />
@@ -1838,6 +1840,7 @@
     <Compile Include="Modules\Administration\Barrios\BarriosPage.cs" />
     <Compile Include="Modules\Administration\Barrios\BarriosRepository.cs" />
     <Compile Include="Modules\Administration\Barrios\BarriosRow.cs" />
+    <Compile Include="Modules\Administration\Barrios\CurrentNeigborhood.cs" />
     <Compile Include="Modules\Administration\Language\LanguageLookup.cs" />
     <Compile Include="Modules\Administration\RolePermission\RolePermissionUpdateRequest.cs" />
     <Compile Include="Modules\Administration\RolePermission\RolePermissionListResponse.cs" />

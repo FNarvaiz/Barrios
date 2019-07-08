@@ -72,7 +72,7 @@ namespace Barrios
                     public static LocalText ActivationCompleteMessage = "Your account is now activated. " + 
                         "Use the e-mail and password you used while signing up to login.";
                     public static LocalText FormInfo = "Enter your details to create a free account.";
-                    public static LocalText FormTitle = "Sign up for Barrios";
+                    public static LocalText FormTitle = "Sign up";
                     public static LocalText SubmitButton = "Sign Up";
                     public static LocalText Success = "An e-mail with instructions to active your account is " + 
                         "sent to your e-mail address. Please check your e-mails.";

@@ -1,0 +1,19 @@
+
+Log Entry : 21:07:57 jueves, 4 de julio de 2019
+  :
+ CONTROLLER :/Account/SignUp
+ MESSAGE :Error al enviar correo.
+ INNERMESSAGE :System.Net.WebException: No se puede resolver el nombre remoto: 'mail.localhost'
+   en System.Net.ServicePoint.GetConnection(PooledStream PooledStream, Object owner, Boolean async, IPAddress& address, Socket& abortSocket, Socket& abortSocket6)
+   en System.Net.PooledStream.Activate(Object owningObject, Boolean async, GeneralAsyncDelegate asyncCallback)
+   en System.Net.PooledStream.Activate(Object owningObject, GeneralAsyncDelegate asyncCallback)
+   en System.Net.ConnectionPool.GetConnection(Object owningObject, GeneralAsyncDelegate asyncCallback, Int32 creationTimeout)
+   en System.Net.Mail.SmtpConnection.GetConnection(ServicePoint servicePoint)
+   en System.Net.Mail.SmtpTransport.GetConnection(ServicePoint servicePoint)
+   en System.Net.Mail.SmtpClient.GetConnection()
+   en System.Net.Mail.SmtpClient.Send(MailMessage message)
+ STACKTRACE :   en Barrios.Common.EmailHelper.Send(String subject, String body, String address, String displayName, String from) en C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\Modules\Common\Helpers\EmailHelper.cs:línea 42
+   en Barrios.Membership.Pages.AccountController.<>c__DisplayClass7_0.<SignUp>b__0(IDbConnection connection) en C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\Modules\Membership\Account\SignUp\AccountPage.SignUp.cs:línea 103
+ DATA :System.Collections.ListDictionaryInternal
+ SOURCE :HOST: mail.localhost Credentials: info@vecinosdelyacht.com.ar pass: _D2b8vr2
+-------------------------------

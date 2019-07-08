@@ -1,6 +1,7 @@
 ﻿
 namespace Barrios.Membership.Pages
 {
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Services;
     using System;
@@ -17,7 +18,6 @@ namespace Barrios.Membership.Pages
         {
             ViewData["Activated"] = activated;
             ViewData["HideLeftNavigation"] = true;
-
             if (UseAdminLTELoginBox)
                 return View(MVC.Views.Membership.Account.AccountLogin_AdminLTE);
             else

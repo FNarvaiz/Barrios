@@ -4,6 +4,7 @@ namespace Barrios.Membership.Pages
     using Administration;
     using Administration.Entities;
     using Administration.Repositories;
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
@@ -31,7 +32,9 @@ namespace Barrios.Membership.Pages
         {
             return this.UseConnection("Default", connection =>
             {
-                request.CheckNotNull();
+                try
+                {
+                    request.CheckNotNull();
 
                 Check.NotNullOrWhiteSpace(request.Email, "email");
                 Check.NotNullOrEmpty(request.Password, "password");
@@ -44,7 +47,7 @@ namespace Barrios.Membership.Pages
                 {
                     throw new ValidationError("EmailInUse", Texts.Validation.EmailInUse);
                 }
-
+                var userId = 0;
                 using (var uow = new UnitOfWork(connection))
                 {
                     string salt = null;
@@ -52,9 +55,10 @@ namespace Barrios.Membership.Pages
                     var displayName = request.DisplayName.TrimToEmpty();
                     var email = request.Email;
                     var username = request.Email;
+                    var unit = request.Unit;
 
                     var fld = UserRow.Fields;
-                    var userId = (int)connection.InsertAndGetID(new UserRow
+                    userId = (int)connection.InsertAndGetID(new UserRow
                     {
                         Username = username,
                         Source = "sign",
@@ -62,10 +66,11 @@ namespace Barrios.Membership.Pages
                         Email = email,
                         PasswordHash = hash,
                         PasswordSalt = salt,
+                        Unit = unit,
                         IsActive = 0,
                         InsertDate = DateTime.Now,
                         InsertUserId = 1,
-                        LastDirectoryUpdate = DateTime.Now
+                        LastDirectoryUpdate = DateTime.Now,
                     });
 
                     byte[] bytes;
@@ -95,15 +100,34 @@ namespace Barrios.Membership.Pages
                     var emailBody = TemplateHelper.RenderTemplate(
                         MVC.Views.Membership.Account.SignUp.AccountActivateEmail, emailModel);
 
-                    Common.EmailHelper.Send(emailSubject, emailBody, email);
+
+
+                    Common.EmailHelper.Send(emailSubject, emailBody, email, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
 
                     uow.Commit();
                     UserRetrieveService.RemoveCachedUser(userId, username);
 
-                    return new ServiceResponse();
+
+                }
+                Utils.InsertOrUpdateString(Utils.GetConnection(), "insert into [Users-Barrios] (userid,BarrioId) values (" + userId + "," + CurrentNeigborhood.Get().Id.Value + ")");
+                return new ServiceResponse();
+                }
+                catch (ValidationError)
+                {
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    Utils.WriteErrorLogs(this, ex);
+                   
+                    throw ;
+                  
+                    
                 }
             });
         }
+            
+        
 
         [HttpGet]
         public ActionResult Activate(string t)

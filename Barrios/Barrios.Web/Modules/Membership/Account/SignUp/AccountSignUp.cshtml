@@ -6,7 +6,8 @@
 
 <script id="Template_Membership_SignUpPanel" type="text/template">
     <div>
-        <h3 class="page-title">@Texts.Forms.Membership.SignUp.FormTitle</h3>
+        <h3 class="page-title">Registrarce en @CurrentNeigborhood.Get().LargeDisplayName
+        </h3>
         <p class="form-info">@Texts.Forms.Membership.SignUp.FormInfo</p>
         <form id="~_Form" action="">
             <div class="s-Form">
@@ -17,7 +18,6 @@
                 <div class="buttons">
                     <button id="~_SubmitButton" type="submit" class="btn btn-primary">
                         @Texts.Forms.Membership.SignUp.SubmitButton
-
                     </button>
                 </div>
             </div>

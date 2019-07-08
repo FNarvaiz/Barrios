@@ -30,7 +30,31 @@ namespace Barrios.Administration.Entities
             get { return Fields.Nombre[this]; }
             set { Fields.Nombre[this] = value; }
         }
-
+        [DisplayName("Mail emisor"), Size(50), Required, NotNull, EmailEditor]
+        public String Mail
+        {
+            get { return Fields.Mail[this]; }
+            set { Fields.Mail[this] = value; }
+        }
+        [DisplayName("Password Mail"), Size(50), Required, NotNull]
+        public String PasswordMail
+        {
+            get { return Fields.PasswordMail[this]; }
+            set { Fields.PasswordMail[this] = value; }
+        }
+        [DisplayName("Nombre corto"),Placeholder("Se utiliza para la cabecera"), Size(50), Required, NotNull]
+        public String ShortDisplayName
+        {
+            get { return Fields.ShortDisplayName[this]; }
+            set { Fields.ShortDisplayName[this] = value; }
+        }
+        [DisplayName("Nombre largo"), Placeholder("Se utiliza para el login"), Size(100), Required, NotNull]
+        public String LargeDisplayName
+        {
+            get { return Fields.LargeDisplayName[this]; }
+            set { Fields.LargeDisplayName[this] = value; }
+        }
+        
         [DisplayName("Logo"), Column("LOGO"), Required, Size(50)]
         [ImageUploadEditor(FilenameFormat = "UserImage/~", CopyToHistory = true)]
         public String Logo
@@ -92,7 +116,9 @@ namespace Barrios.Administration.Entities
             public Int32Field Id;
 
             public StringField Nombre;
-
+            public StringField Mail;
+            public StringField LargeDisplayName;
+            public StringField ShortDisplayName;
             public StringField Logo;
 
             public StringField Url;
@@ -100,6 +126,8 @@ namespace Barrios.Administration.Entities
             public StringField TelefonOs;
 
             public StringField Direccion;
+            public StringField PasswordMail;
+            
 
             public BooleanField IsActive;
 

@@ -9,5 +9,6 @@ namespace Barrios.Membership
         public String DisplayName { get; set; }
         public String Email { get; set; }
         public String Password { get; set; }
+        public String Unit { get; set; }
     }
 }

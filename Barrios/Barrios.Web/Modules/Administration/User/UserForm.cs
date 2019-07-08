@@ -11,6 +11,7 @@
     {
         public String Username { get; set; }
         public String DisplayName { get; set; }
+        public String Unit { get; set; }
         [EmailEditor]
         public String Email { get; set; }
         public String UserImage { get; set; }

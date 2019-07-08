@@ -64,7 +64,7 @@ namespace Barrios.Membership.Pages
                 var emailBody = TemplateHelper.RenderTemplate(
                     MVC.Views.Membership.Account.ResetPassword.AccountResetPasswordEmail, emailModel);
 
-                Common.EmailHelper.Send(emailSubject, emailBody, user.Email);
+                Common.EmailHelper.Send(emailSubject, emailBody, user.Email, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
 
                 return new ServiceResponse();
             });

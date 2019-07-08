@@ -2,6 +2,9 @@
 
 namespace Barrios.Modules.Common.Utils
 {
+    using global::Barrios.Administration.Endpoints;
+    using global::Barrios.Administration.Entities;
+    using global::Barrios.Administration.Repositories;
     using Newtonsoft.Json;
     using Serenity.Data;
     using Serenity.Services;
@@ -10,6 +13,8 @@ namespace Barrios.Modules.Common.Utils
     using System.Data;
     using System.IO;
     using System.Text;
+    using System.Web.Hosting;
+
     static public class Utils
     {
         public static DataTable GetRequestString(IDbConnection connection, string cmdText)
@@ -29,6 +34,20 @@ namespace Barrios.Modules.Common.Utils
                 }
             }
         }
+        public static int InsertOrUpdateString(IDbConnection connection, string cmdText)
+        {
+            using (IDbCommand cmd = connection.CreateCommand())
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = cmdText;
+                cmd.CommandTimeout = 0;
+                if (connection.State == ConnectionState.Closed)
+                    connection.EnsureOpen();
+                int rows = cmd.ExecuteNonQuery();
+                connection.Close();
+                return rows;
+            }
+        }
         static public IEnumerable<TSource> DistinctBy<TSource, TKey>
             (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
@@ -41,14 +60,7 @@ namespace Barrios.Modules.Common.Utils
                 }
             }
         }
-        /*static public int NextId(IDbConnection connection, string tableName)
-        {
-            DataTable DT = CommonMethods.GetRequestString(connection, "Select max(id) FROM "+tableName);
-            if (DT.Rows[0][0] is DBNull)
-                return 1;
-            else
-                return Convert.ToInt32(DT.Rows[0][0])+1;
-        }*/
+      
         static public void RegisterUserActivity(IActivityClass obj, bool IsNew)
         {
             if (IsNew)
@@ -59,44 +71,64 @@ namespace Barrios.Modules.Common.Utils
             obj.DateUpdate = DateTime.Now;
             obj.UserUpdate = Convert.ToInt32(Serenity.Authorization.UserDefinition.Id);
         }
+
+        internal static void WriteErrorLogs(System.Web.Mvc.Controller Controller, Exception ex)
+        {
+            var directori = Environment.CurrentDirectory;
+            using (StreamWriter w = File.AppendText(HostingEnvironment.MapPath("~/") +"logs.txt"))
+            {
+                w.Write("\r\nLog Entry : ");
+                w.WriteLine($"{DateTime.Now.ToLongTimeString()} {DateTime.Now.ToLongDateString()}");
+                w.WriteLine("  :");
+                w.WriteLine($" CONTROLLER :{Controller.Request.CurrentExecutionFilePath}");
+                w.WriteLine($" MESSAGE :{ex.Message}");
+                w.WriteLine($" INNERMESSAGE :{ex.InnerException}");
+                w.WriteLine($" STACKTRACE :{ex.StackTrace}");
+                w.WriteLine($" DATA :{ex.Data}");
+                w.WriteLine($" SOURCE :{ex.Source}");
+                w.WriteLine("-------------------------------");
+            }
+            
+        }
+
         /*static public List<GenericComboBoxRow> SelectColumnForLookup(string columnID, string columnDescription,string table)
-        {
-            IDbConnection connection = new SqlConnection(CommonMethods.getClientConnectionString("EIS"));
-            DataTable DT = CommonMethods.GetRequestString(connection, "Select " + columnID + "," + columnDescription + " FROM " + table);
-            List<GenericComboBoxRow> list = new List<GenericComboBoxRow>();
-            foreach (System.Data.DataRow x in DT.Rows)
-                list.Add(new GenericComboBoxRow((int?)x[0], x[1].ToString()));
-            return list;
-        }
-        static public List<GenericComboBoxRow> SelectColumnForLookup(string columnID, string columnDescription, string where, string table)
-        {
-            IDbConnection connection = new SqlConnection(CommonMethods.getClientConnectionString("EIS"));
-            DataTable DT = CommonMethods.GetRequestString(connection, "Select " + columnID + "," + columnDescription + " FROM " + table + " WHERE " + where);
-            List<GenericComboBoxRow> list = new List<GenericComboBoxRow>();
-            foreach (System.Data.DataRow x in DT.Rows)
-                list.Add(new GenericComboBoxRow((int?)x[0], x[1].ToString()));
-            return list;
-        }
-        static public List<GenericComboBoxRow> Status(string StatusGroup,string whereOthers = "")
-        {
-            IDbConnection connection =  new SqlConnection(CommonMethods.getClientConnectionString("EIS"));
-            DataTable DT = CommonMethods.GetRequestString(connection, "Select id, status FROM STATUS WHERE  StatusGroup='" + StatusGroup+"' "+whereOthers);
-            List<GenericComboBoxRow> list = new List<GenericComboBoxRow>();
-            foreach (System.Data.DataRow x in DT.Rows)
-                list.Add(new GenericComboBoxRow((int?)x[0], x[1].ToString()));
-            return list;
-        }
-        static public List<FieldsNamesRow> FieldNames(string tableName)
-        {
-            IDbConnection connection =  new SqlConnection(CommonMethods.getClientConnectionString("EIS"));
-            DataTable DT = CommonMethods.GetRequestString(connection, "select S.FieldName,S.Description from SystemInfoData S where (S.Selected=1 or S.FieldName='ColumnHeaderHeight' ) and S.TableName='" + tableName + "'");
-            List<FieldsNamesRow> list = new List<FieldsNamesRow>();
+{
+   IDbConnection connection = new SqlConnection(CommonMethods.getClientConnectionString("EIS"));
+   DataTable DT = CommonMethods.GetRequestString(connection, "Select " + columnID + "," + columnDescription + " FROM " + table);
+   List<GenericComboBoxRow> list = new List<GenericComboBoxRow>();
+   foreach (System.Data.DataRow x in DT.Rows)
+       list.Add(new GenericComboBoxRow((int?)x[0], x[1].ToString()));
+   return list;
+}
+static public List<GenericComboBoxRow> SelectColumnForLookup(string columnID, string columnDescription, string where, string table)
+{
+   IDbConnection connection = new SqlConnection(CommonMethods.getClientConnectionString("EIS"));
+   DataTable DT = CommonMethods.GetRequestString(connection, "Select " + columnID + "," + columnDescription + " FROM " + table + " WHERE " + where);
+   List<GenericComboBoxRow> list = new List<GenericComboBoxRow>();
+   foreach (System.Data.DataRow x in DT.Rows)
+       list.Add(new GenericComboBoxRow((int?)x[0], x[1].ToString()));
+   return list;
+}
+static public List<GenericComboBoxRow> Status(string StatusGroup,string whereOthers = "")
+{
+   IDbConnection connection =  new SqlConnection(CommonMethods.getClientConnectionString("EIS"));
+   DataTable DT = CommonMethods.GetRequestString(connection, "Select id, status FROM STATUS WHERE  StatusGroup='" + StatusGroup+"' "+whereOthers);
+   List<GenericComboBoxRow> list = new List<GenericComboBoxRow>();
+   foreach (System.Data.DataRow x in DT.Rows)
+       list.Add(new GenericComboBoxRow((int?)x[0], x[1].ToString()));
+   return list;
+}
+static public List<FieldsNamesRow> FieldNames(string tableName)
+{
+   IDbConnection connection =  new SqlConnection(CommonMethods.getClientConnectionString("EIS"));
+   DataTable DT = CommonMethods.GetRequestString(connection, "select S.FieldName,S.Description from SystemInfoData S where (S.Selected=1 or S.FieldName='ColumnHeaderHeight' ) and S.TableName='" + tableName + "'");
+   List<FieldsNamesRow> list = new List<FieldsNamesRow>();
 
-            foreach (System.Data.DataRow x in DT.Rows)
-                list.Add(new FieldsNamesRow((int?)x[0], x[1].ToString(), x[2].ToString()));
-            return list;
+   foreach (System.Data.DataRow x in DT.Rows)
+       list.Add(new FieldsNamesRow((int?)x[0], x[1].ToString(), x[2].ToString()));
+   return list;
 
-        }*/
+}*/
         static public string Criterios(string Json, string alias)
         {
             string Lines = "";
@@ -185,7 +217,20 @@ namespace Barrios.Modules.Common.Utils
             DateTime obj;
             return DateTime.TryParse(text, out obj);
         }
-        
+        static public IDbConnection GetConnection()
+        {
+            var cb = SqlConnections.GetConnectionString("Default");
+            return SqlConnections.New(cb.ConnectionString, cb.ProviderName);
+        }
+        static public BarriosRow GetBarrio(string dominio)
+        {
+            IEnumerable<BarriosRow> list = GetConnection().Query<BarriosRow>("Select * from barrios");
+            //ListResponse<BarriosRow> list= new BarriosRepository().List(GetConnection(), new ListRequest());
+            foreach (BarriosRow obj in list)
+                if (dominio.Contains(obj.Url.ToLower()))
+                    return obj;
+            return null;
+        }
 
         #region shortcut query sql
         static public string OrderAndPagination(string defaultColumn, ListRequest request,string tableName="")
