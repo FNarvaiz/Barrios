@@ -8,6 +8,7 @@
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<ReservasRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<ReservasRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function renderBookingStatus(request: IdRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function bookingsTake(request: BookingTakeRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
         export declare const enum Methods {
             Create = "Default/Reservas/Create",
@@ -15,7 +16,8 @@
             Delete = "Default/Reservas/Delete",
             Retrieve = "Default/Reservas/Retrieve",
             List = "Default/Reservas/List",
-            renderBookingStatus = "Default/Reservas/renderBookingStatus"
+            renderBookingStatus = "Default/Reservas/renderBookingStatus",
+            bookingsTake = "Default/Reservas/bookingsTake"
         }
 
         [
@@ -24,7 +26,8 @@
             'Delete', 
             'Retrieve', 
             'List', 
-            'renderBookingStatus'
+            'renderBookingStatus', 
+            'bookingsTake'
         ].forEach(x => {
             (<any>ReservasService)[x] = function (r, s, o) {
                 return Q.serviceRequest(baseUrl + '/' + x, r, s, o);

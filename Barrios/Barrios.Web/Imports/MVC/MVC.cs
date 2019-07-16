@@ -31,11 +31,6 @@ namespace MVC
                 public const string UserIndex = "~/Modules/Administration/User/UserIndex.cshtml";
             }
 
-            public static class UsersBarrios
-            {
-                public const string UsersBarriosIndex = "~/Modules/Administration/UsersBarrios/UsersBarriosIndex.cshtml";
-            }
-
         }
 
         public static class Common
@@ -112,16 +107,6 @@ namespace MVC
             public static class ReservasRecursos
             {
                 public const string ReservasRecursosIndex = "~/Modules/Default/ReservasRecursos/ReservasRecursosIndex.cshtml";
-            }
-
-            public static class ReservasTipos
-            {
-                public const string ReservasTiposIndex = "~/Modules/Default/ReservasTipos/ReservasTiposIndex.cshtml";
-            }
-
-            public static class ReservasTurnosEspeciales
-            {
-                public const string ReservasTurnosEspecialesIndex = "~/Modules/Default/ReservasTurnosEspeciales/ReservasTurnosEspecialesIndex.cshtml";
             }
         }
 

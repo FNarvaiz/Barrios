@@ -2,6 +2,7 @@
 namespace Barrios.Default.Endpoints
 {
     using Barrios.Common;
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
@@ -113,8 +114,8 @@ namespace Barrios.Default.Endpoints
                         {
                             if (aux.Estado == "Disponible" && aux.Valido.Value)
                             {
-                                html.Append("<button onclick='bookingsTake(this," + request.ID + ", \"" + date.ToString("yyyyMMdd") + "\"," +
-                                    aux.Inicio + "," + aux.IdTipo + "," + aux.Required_Vecino + ")' " +
+                                html.Append("<button onclick='Booking.bookingsTake(this," + request.ID + ", \"" + date.ToString("yyyyMMdd") + "\"," +
+                                    aux.Inicio + "," + aux.IdTipo + "," + aux.Required_Vecino.ToString().ToLower() + ")' " +
                                     "type = 'button' class='btn btn-success btn-flat'>" + aux.Tipo + "</button>");
                             }
                         }
@@ -133,13 +134,12 @@ namespace Barrios.Default.Endpoints
                     }
                     else if (aux.IdVecino == idUser)
                     {
-                        if (turnAnterior != aux.Inicio)
-                        {
+                        
                             if (!aux.IdVecinoUnidadExtra.IsEmptyOrNull())
                                 html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + " con lote " + aux.IdVecinoUnidadExtra + "</button>");
                             else
                                 html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + " (reserva propia)</button>");
-                        }
+                        
 
                     }
                     else if (aux.IdVecino2 == idUser) {
@@ -164,10 +164,25 @@ namespace Barrios.Default.Endpoints
 
             return html.ToString();
         }
+        [HttpPost]
+        public string bookingsTake(IDbConnection connection, BookingTakeRequest request)
+        {
+            new MyRepository().BookingTake(connection,request);
+            return renderBookingStatus(Utils.GetConnection(), new IdRequest() { ID = request.resourceId });
+        }
     }
 
 
-    public class IdRequest{
+    public class IdRequest : ServiceRequest
+    {
        public int ID { get; set; }
+    }
+    public class BookingTakeRequest : ServiceRequest
+    {
+        public Int16 resourceId { get; set; }
+        public string bookingDate { get; set; }
+        public Int16 turnStart { get; set; }
+        public Int16 turnType { get; set; }
+        public Int16 extraNeighborUnit { get; set; }
     }
 }

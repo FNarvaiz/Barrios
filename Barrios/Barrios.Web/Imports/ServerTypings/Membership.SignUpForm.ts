@@ -1,6 +1,7 @@
 ﻿namespace Barrios.Membership {
     export interface SignUpForm {
         DisplayName: Serenity.StringEditor;
+        Unit: Serenity.StringEditor;
         Email: Serenity.EmailEditor;
         ConfirmEmail: Serenity.EmailEditor;
         Password: Serenity.PasswordEditor;
@@ -24,6 +25,7 @@
 
                 Q.initFormType(SignUpForm, [
                     'DisplayName', w0,
+                    'Unit', w0,
                     'Email', w1,
                     'ConfirmEmail', w1,
                     'Password', w2,

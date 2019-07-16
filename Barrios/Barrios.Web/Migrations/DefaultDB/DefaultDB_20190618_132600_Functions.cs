@@ -94,13 +94,14 @@ namespace Barrios.Migrations.DefaultDB
                         " END " +
                     " END) " +
                 " END ");
+            this.Alter.Table("Barrios").AddColumn("CantDiasReservables").AsInt16().NotNullable().WithDefaultValue("7");
 
-            Execute.Sql(" CREATE FUNCTION [dbo].[ESTADOS_RESERVAS] ( @idRecurso smallint ) "+
+            Execute.Sql(" CREATE FUNCTION [dbo].[ESTADOS_RESERVAS] ( @idRecurso smallint,@cantDias smallint,@turnosEspeciales bit ) "+
                 " RETURNS @resultado TABLE(FECHA date, INICIO smallint, DURACION smallint, ID_TIPO smallint,  " +
                   " ID_VECINO smallint, ID_VECINO_2 smallint, ESTADO nvarchar(100)) " +
                 " AS "+
                 " BEGIN " +
-                  " IF @idRecurso = 100 " +
+                  " IF @turnosEspeciales = 1 " +
                     " INSERT INTO @resultado " +
                     " SELECT R.FECHA, R.INICIO, R.DURACION, R.ID_TIPO, R.ID_VECINO, R.ID_VECINO_2, " +
                       " dbo.ESTADO_TURNO_RESERVA(R.ID_RECURSO, R.FECHA, R.INICIO, R.DURACION) " +
@@ -113,7 +114,7 @@ namespace Barrios.Migrations.DefaultDB
                         " dbo.ID_VECINO_TURNO_RESERVA(@idRecurso, F.FECHA, T.INICIO), " +
                         " dbo.ID_VECINO_2_TURNO_RESERVA(@idRecurso, F.FECHA, T.INICIO), " +
                         " dbo.ESTADO_TURNO_RESERVA(@idRecurso, F.FECHA, T.INICIO, T.DURACION) " +
-                      " FROM dbo.LISTA_FECHAS() AS F " +
+                      " FROM dbo.LISTA_FECHAS(@cantDias) AS F " +
                       " CROSS JOIN dbo.RESERVAS_TURNOS(@idRecurso) T  " +
                   " RETURN " +
                 " END ");
@@ -216,14 +217,14 @@ namespace Barrios.Migrations.DefaultDB
                 " BEGIN " +
                   " RETURN(SELECT INICIO FROM RESERVAS WHERE ID=@id) " +
                 " END ");
-            Execute.Sql("CREATE FUNCTION [dbo].[LISTA_FECHAS]() "+
+            Execute.Sql("CREATE FUNCTION [dbo].[LISTA_FECHAS](@cantDias smallint) " +
                 " RETURNS @resultado TABLE(FECHA DATE) " +
                 "AS " +
                 " BEGIN " +
                   " DECLARE @fechaInicial DATE;  " +
                   " SELECT @fechaInicial = FECHA FROM HOY " +
                   " DECLARE @fechaFinal DATE;  " +
-                  " SELECT @fechaFinal = DATEADD(d, 2, @fechaInicial); " +
+                  " SELECT @fechaFinal = DATEADD(d, @cantDias, @fechaInicial); " +
 
                   " WITH fechas(FECHA) AS ( " +
                     " SELECT @fechaInicial AS FECHA " +

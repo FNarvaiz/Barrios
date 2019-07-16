@@ -22,35 +22,33 @@ namespace Barrios.Default.Entities
             set { Fields.IdRecurso[this] = value; }
         }
 
-        [DisplayName("Id"), Column("ID"), PrimaryKey]
+        [DisplayName("Id"),Identity, Column("ID"), PrimaryKey]
         public Int16? Id
         {
             get { return Fields.Id[this]; }
             set { Fields.Id[this] = value; }
         }
-
-        [DisplayName("Inicio"), Column("INICIO")]
-        public Int16? Inicio
-        {
-            get { return Fields.Inicio[this]; }
-            set { Fields.Inicio[this] = value; }
-        }
-
-        [DisplayName("Duracion"), Column("DURACION"), NotNull]
-        public Int16? Duracion
-        {
-            get { return Fields.Duracion[this]; }
-            set { Fields.Duracion[this] = value; }
-        }
-
-        [DisplayName("Nombre"), Column("NOMBRE"), Size(100), QuickSearch]
+        [DisplayName("Nombre"),Required, Column("NOMBRE"), Size(100), QuickSearch]
         public String Nombre
         {
             get { return Fields.Nombre[this]; }
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Dias"), Column("DIAS"), Size(8)]
+        [DisplayName("Inicio"), Required, LookupEditor("ReservasRecursos.HorariosLookup"), Column("INICIO")]
+        public Int16? Inicio
+        {
+            get { return Fields.Inicio[this]; }
+            set { Fields.Inicio[this] = value; }
+        }
+
+        [DisplayName("Duración"), Required, TimeEditor(EndHour = 8), Column("DURACION"), NotNull]
+        public Int16? Duracion
+        {
+            get { return Fields.Duracion[this]; }
+            set { Fields.Duracion[this] = value; }
+        }
+        [DisplayName("Días"), Required, Column("DIAS"), Size(8)]
         public String Dias
         {
             get { return Fields.Dias[this]; }
@@ -59,7 +57,7 @@ namespace Barrios.Default.Entities
 
         IIdField IIdRow.IdField
         {
-            get { return Fields.IdRecurso; }
+            get { return Fields.Id; }
         }
 
         StringField INameRow.NameField

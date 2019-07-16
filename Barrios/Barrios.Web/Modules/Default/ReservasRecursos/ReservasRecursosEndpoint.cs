@@ -16,6 +16,9 @@ namespace Barrios.Default.Endpoints
         [HttpPost, AuthorizeCreate(typeof(MyRow))]
         public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
+            if (request.Entity.ClientIdList==null)
+                request.Entity.ClientIdList = new System.Collections.Generic.List<int>();
+            request.Entity.ClientIdList.Add(CurrentNeigborhood.Get().Id.Value);
             return new MyRepository().Create(uow, request);
         }
 
@@ -40,6 +43,9 @@ namespace Barrios.Default.Endpoints
         [HttpPost]
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
+            if (request.EqualityFilter == null)
+                request.EqualityFilter = new System.Collections.Generic.Dictionary<string, object>();
+            request.EqualityFilter.Add("BarrioId", 1);
             return new MyRepository().List(connection, request);
         }
     }

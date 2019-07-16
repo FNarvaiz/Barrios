@@ -21,6 +21,7 @@ namespace Barrios.Administration.Forms
         public String Logo { get; set; }
         public String Url { get; set; }
         public String TelefonOs { get; set; }
+        public Int16 CantDiasReservables { get; set; }
         public String Direccion { get; set; }
         public Boolean IsActive { get; set; }
     }

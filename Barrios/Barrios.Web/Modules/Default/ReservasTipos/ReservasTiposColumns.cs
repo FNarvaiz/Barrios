@@ -14,7 +14,6 @@ namespace Barrios.Default.Columns
     public class ReservasTiposColumns
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
-        public Int16 IdRecurso { get; set; }
         public Int16 Id { get; set; }
         [EditLink]
         public String Nombre { get; set; }

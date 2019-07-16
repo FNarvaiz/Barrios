@@ -1,9 +1,8 @@
 ﻿namespace Barrios.Default {
     export interface ReservasTurnosEspecialesForm {
-        Id: Serenity.IntegerEditor;
-        Inicio: Serenity.IntegerEditor;
-        Duracion: Serenity.IntegerEditor;
         Nombre: Serenity.StringEditor;
+        Inicio: Serenity.LookupEditor;
+        Duracion: Serenity.TimeEditor;
         Dias: Serenity.StringEditor;
     }
 
@@ -18,15 +17,15 @@
                 ReservasTurnosEspecialesForm.init = true;
 
                 var s = Serenity;
-                var w0 = s.IntegerEditor;
-                var w1 = s.StringEditor;
+                var w0 = s.StringEditor;
+                var w1 = s.LookupEditor;
+                var w2 = s.TimeEditor;
 
                 Q.initFormType(ReservasTurnosEspecialesForm, [
-                    'Id', w0,
-                    'Inicio', w0,
-                    'Duracion', w0,
-                    'Nombre', w1,
-                    'Dias', w1
+                    'Nombre', w0,
+                    'Inicio', w1,
+                    'Duracion', w2,
+                    'Dias', w0
                 ]);
             }
         }

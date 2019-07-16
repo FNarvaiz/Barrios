@@ -13,6 +13,7 @@
         Password?: string;
         PasswordConfirm?: string;
         ClientIdList?: number[];
+        Unit?: string;
         InsertUserId?: number;
         InsertDate?: string;
         UpdateUserId?: number;
@@ -44,6 +45,7 @@
             Password = "Password",
             PasswordConfirm = "PasswordConfirm",
             ClientIdList = "ClientIdList",
+            Unit = "Unit",
             InsertUserId = "InsertUserId",
             InsertDate = "InsertDate",
             UpdateUserId = "UpdateUserId",

@@ -90,7 +90,12 @@ namespace Barrios.Administration.Entities
             get { return Fields.IsActive[this]; }
             set { Fields.IsActive[this] = value; }
         }
-
+        [DisplayName("Cant dias reservables"), NotNull]
+        public Int16? CantDiasReservables
+        {
+            get { return Fields.CantDiasReservables[this]; }
+            set { Fields.CantDiasReservables[this] = value; }
+        }
 
 
         IIdField IIdRow.IdField
@@ -127,7 +132,7 @@ namespace Barrios.Administration.Entities
 
             public StringField Direccion;
             public StringField PasswordMail;
-            
+            public Int16Field CantDiasReservables;
 
             public BooleanField IsActive;
 

@@ -9,7 +9,7 @@
     }
 
     export namespace ReservasTiposRow {
-        export const idProperty = 'IdRecurso';
+        export const idProperty = 'Id';
         export const nameProperty = 'Nombre';
         export const localTextPrefix = 'Default.ReservasTipos';
 

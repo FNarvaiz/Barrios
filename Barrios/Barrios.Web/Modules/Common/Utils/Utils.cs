@@ -48,6 +48,25 @@ namespace Barrios.Modules.Common.Utils
                 return rows;
             }
         }
+        public static void ExecuteNonQueryWithParam(IDbConnection connection, string spname, Dictionary<string, string> paramlist)
+        {
+            using (IDbCommand cmd = connection.CreateCommand())
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = spname;
+                cmd.CommandTimeout = 0;
+                foreach (var a in paramlist)
+                {
+                    var param1 = cmd.CreateParameter();
+                    param1.ParameterName = a.Key;
+                    param1.Value = a.Value;
+                    cmd.Parameters.Add(param1);
+                }
+                connection.EnsureOpen();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
         static public IEnumerable<TSource> DistinctBy<TSource, TKey>
             (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {

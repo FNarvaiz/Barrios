@@ -3,6 +3,7 @@
         DisplayName?: string;
         Email?: string;
         Password?: string;
+        Unit?: string;
     }
 }
 

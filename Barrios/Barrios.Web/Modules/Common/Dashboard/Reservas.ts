@@ -6,7 +6,7 @@
 namespace Dashboard {
      export class Booking {
 
-         _resource;
+         _resource: JQuery;
          _table;
          constructor(resource: JQuery, items: JQuery, table: JQuery) {
              this._resource = resource;
@@ -18,13 +18,23 @@ namespace Dashboard {
              
              var obj = this;
              Barrios.Default.ReservasService.renderBookingStatus({ Id: item.attr("ID") }, (response) => {
-                 console.log(response);
                  obj._table.html($.parseHTML(response));
              });
              this._resource.text(item.text());
          }
-         public bookingsTake(element, resourceId: Number, date: string, start: number, type: number, neighbour: boolean) {
-             console.log(element);
+         public bookingsTake(element, resourceId: number, date: string, start: number, type: number, neighbour: boolean) {
+             var table = this._table;
+             //if (neighbour)
+                 //Serenity.form
+             Barrios.Default.ReservasService.bookingsTake({
+                 resourceId: resourceId,
+                 bookingDate: date,
+                 turnStart: start,
+                 turnType: type,
+                 extraNeighborUnit: null
+             }, (response) => {
+                 table.html($.parseHTML(response));
+             });
          }
         
     }

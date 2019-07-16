@@ -11,6 +11,8 @@ namespace Barrios.Default.Repositories
     using System.Text;
     using MyRow = Entities.ReservasRow;
     using System.Linq;
+    using Barrios.Default.Endpoints;
+
     public class ReservasRepository
     {
         private static MyRow.RowFields fld { get { return MyRow.Fields; } }
@@ -52,7 +54,7 @@ namespace Barrios.Default.Repositories
               "dbo.TURNO_RESERVA_VALIDO(" + resourceId + ", E.INICIO, T.DURACION) AS VALIDO, T.REQUIERE_VECINO_2, " +
               "dbo.NOMBRE_TIPO_RESERVA(" + resourceId + ", E.ID_TIPO) AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE, " +
               " v1.unidad AS UNIDAD,  " +
-                " v1.unidad AS UNIDAD_PRIMARIA, v2.unidad AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS(" + resourceId + ") E JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = " + resourceId +" AND T.ID > 1 " +
+                " v1.unidad AS UNIDAD_PRIMARIA, v2.unidad AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS(" + resourceId + ","+CurrentNeigborhood.Get().CantDiasReservables+","+0+") E JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = " + resourceId +"  AND T.VIGENTE=1 " +
                 " left join vecinos v1 on v1.id = E.ID_VECINO " +
                 "left join vecinos v2 on v2.id = E.ID_VECINO_2 " +
                 " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, v1.unidad, v2.unidad " +
@@ -61,7 +63,8 @@ namespace Barrios.Default.Repositories
             int count = 0;
             foreach(DataRow DR in dt.Rows)
             {
-                list.Add(new MyRow() { Id = count,
+
+               list.Add(new MyRow() { Id = count,
                     Fecha = Convert.ToDateTime(DR[0]),
                     Inicio = Convert.ToInt16(DR["INICIO"]),
                     Finalizado= Convert.ToBoolean(DR["FINALIZADO"]),
@@ -72,13 +75,26 @@ namespace Barrios.Default.Repositories
                     IdTipo = Convert.ToInt16(DR["ID_TIPO_RESERVA_DISPONIBLE"]),
                     Tipo=DR["TipoNombre"].ToString(),
                     Required_Vecino= Convert.ToBoolean(DR["REQUIERE_VECINO_2"]),
-                    IdVecinoUnidad= DR["UNIDAD_PRIMARIA"].ToString(),
+                    IdVecino = DR["ID_VECINO"].ToString().IsEmptyOrNull() ? (int?)null : Convert.ToInt32(DR["ID_VECINO"]),
+                    IdVecino2 = DR["ID_VECINO_2"].ToString().IsEmptyOrNull() ? (int?)null : Convert.ToInt32(DR["ID_VECINO"]),
+                    IdVecinoUnidad = DR["UNIDAD_PRIMARIA"].ToString(),
                     IdVecinoUnidadExtra = DR["UNIDAD_EXTRA"].ToString(),
 
                 });
                 count++;
             }
             return list;
+        }
+        public void BookingTake(IDbConnection connection, BookingTakeRequest request)
+        {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("resourceId", request.resourceId.ToString());
+            parameters.Add("turnTypeId", request.turnType.ToString());
+            parameters.Add("turnStart", request.turnStart.ToString());
+            parameters.Add("date", request.bookingDate.ToString());
+            parameters.Add("UserId", Authorization.UserDefinition.Id.ToString());
+            parameters.Add("extraNeighborId", request.extraNeighborUnit.ToString());
+            Utils.ExecuteNonQueryWithParam(connection, "YachtBookingTake", parameters);
         }
         public List<DateTime> DaysList(List<MyRow> list)
         {

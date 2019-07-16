@@ -95,8 +95,8 @@ C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\bin\System.Web.Razor.xml
 C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\bin\System.Web.WebPages.xml
 C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\bin\System.Web.WebPages.Deployment.xml
 C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\bin\System.Web.WebPages.Razor.xml
-C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\obj\Debug\Barrios.Web.csprojAssemblyReference.cache
 C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\obj\Debug\Barrios.Web.csproj.CoreCompileInputs.cache
 C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\obj\Debug\Barrios.Web.csproj.CopyComplete
 C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\obj\Debug\Barrios.Web.dll
 C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\obj\Debug\Barrios.Web.pdb
+C:\Users\PcOiga\Documents\Barrios\Barrios\Barrios.Web\obj\Debug\Barrios.Web.csprojAssemblyReference.cache

@@ -1,9 +1,12 @@
 ﻿namespace Barrios.Default {
     export interface ReservasRecursosForm {
         Nombre: Serenity.StringEditor;
-        Apertura: Serenity.IntegerEditor;
-        Cierre: Serenity.IntegerEditor;
-        Resolucion: Serenity.IntegerEditor;
+        Apertura: Serenity.LookupEditor;
+        Cierre: Serenity.LookupEditor;
+        Resolucion: Serenity.LookupEditor;
+        TypeList: ReservasTiposGrid;
+        ClientIdList: Serenity.CheckLookupEditor;
+        SpecialTurnList: ReservasTurnosEspecialesGrid;
     }
 
     export class ReservasRecursosForm extends Serenity.PrefixedContext {
@@ -18,13 +21,19 @@
 
                 var s = Serenity;
                 var w0 = s.StringEditor;
-                var w1 = s.IntegerEditor;
+                var w1 = s.LookupEditor;
+                var w2 = ReservasTiposGrid;
+                var w3 = s.CheckLookupEditor;
+                var w4 = ReservasTurnosEspecialesGrid;
 
                 Q.initFormType(ReservasRecursosForm, [
                     'Nombre', w0,
                     'Apertura', w1,
                     'Cierre', w1,
-                    'Resolucion', w1
+                    'Resolucion', w1,
+                    'TypeList', w2,
+                    'ClientIdList', w3,
+                    'SpecialTurnList', w4
                 ]);
             }
         }

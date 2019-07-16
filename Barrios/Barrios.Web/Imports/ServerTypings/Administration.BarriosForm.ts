@@ -1,9 +1,14 @@
 ﻿namespace Barrios.Administration {
     export interface BarriosForm {
         Nombre: Serenity.StringEditor;
+        ShortDisplayName: Serenity.StringEditor;
+        LargeDisplayName: Serenity.StringEditor;
+        Mail: Serenity.EmailEditor;
+        PasswordMail: Serenity.StringEditor;
         Logo: Serenity.ImageUploadEditor;
         Url: Serenity.StringEditor;
         TelefonOs: Serenity.StringEditor;
+        CantDiasReservables: Serenity.IntegerEditor;
         Direccion: Serenity.StringEditor;
         IsActive: Serenity.BooleanEditor;
     }
@@ -20,16 +25,23 @@
 
                 var s = Serenity;
                 var w0 = s.StringEditor;
-                var w1 = s.ImageUploadEditor;
-                var w2 = s.BooleanEditor;
+                var w1 = s.EmailEditor;
+                var w2 = s.ImageUploadEditor;
+                var w3 = s.IntegerEditor;
+                var w4 = s.BooleanEditor;
 
                 Q.initFormType(BarriosForm, [
                     'Nombre', w0,
-                    'Logo', w1,
+                    'ShortDisplayName', w0,
+                    'LargeDisplayName', w0,
+                    'Mail', w1,
+                    'PasswordMail', w0,
+                    'Logo', w2,
                     'Url', w0,
                     'TelefonOs', w0,
+                    'CantDiasReservables', w3,
                     'Direccion', w0,
-                    'IsActive', w2
+                    'IsActive', w4
                 ]);
             }
         }

@@ -18,6 +18,7 @@
         Finalizado?: boolean;
         Reservable?: boolean;
         Tipo?: string;
+        TipoReservaHecha?: string;
         Estado_Turno?: string;
         Valido?: boolean;
         Required_Vecino?: boolean;
@@ -69,6 +70,7 @@
             Finalizado = "Finalizado",
             Reservable = "Reservable",
             Tipo = "Tipo",
+            TipoReservaHecha = "TipoReservaHecha",
             Estado_Turno = "Estado_Turno",
             Valido = "Valido",
             Required_Vecino = "Required_Vecino",

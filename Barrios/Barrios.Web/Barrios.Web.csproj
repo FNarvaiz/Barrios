@@ -826,7 +826,6 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="wkhtmltopdf-license.txt" />
     <Content Include="Modules\Administration\Barrios\BarriosIndex.cshtml" />
-    <Content Include="Modules\Administration\UsersBarrios\UsersBarriosIndex.cshtml" />
     <Content Include="Modules\Contenidos\Avisos\AvisosIndex.cshtml" />
     <Content Include="Modules\Contenidos\Categorias\CategoriasIndex.cshtml" />
     <Content Include="Modules\Contenidos\ComisionesIntegrantes\ComisionesIntegrantesIndex.cshtml" />
@@ -1045,12 +1044,6 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Administration.BarriosService.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Administration.UsersBarriosColumns.ts">
-      <DependentUpon>ServerTypings.tt</DependentUpon>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Administration.UsersBarriosForm.ts">
-      <DependentUpon>ServerTypings.tt</DependentUpon>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Administration.UsersBarriosRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
@@ -1162,6 +1155,12 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.ProveedoresValoracionesService.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.BookingTakeRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.IdRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasColumns.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
@@ -1185,8 +1184,6 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosDialog.ts" />
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosGrid.ts" />
-    <TypeScriptCompile Include="Modules\Administration\UsersBarrios\UsersBarriosDialog.ts" />
-    <TypeScriptCompile Include="Modules\Administration\UsersBarrios\UsersBarriosGrid.ts" />
     <TypeScriptCompile Include="Modules\Common\Dashboard\Reservas.ts" />
     <TypeScriptCompile Include="Modules\Contenidos\Avisos\AvisosDialog.ts" />
     <TypeScriptCompile Include="Modules\Contenidos\Avisos\AvisosGrid.ts" />
@@ -1782,10 +1779,6 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasTiposRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasTiposService.ts">
-      <DependentUpon>ServerTypings.tt</DependentUpon>
-    </TypeScriptCompile>
-    <Content Include="Modules\Default\ReservasTipos\ReservasTiposIndex.cshtml" />
     <TypeScriptCompile Include="Modules\Default\ReservasTipos\ReservasTiposDialog.ts" />
     <TypeScriptCompile Include="Modules\Default\ReservasTipos\ReservasTiposGrid.ts" />
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasTiposForm.ts">
@@ -1794,13 +1787,12 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasTurnosEspecialesRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasTurnosEspecialesService.ts">
-      <DependentUpon>ServerTypings.tt</DependentUpon>
-    </TypeScriptCompile>
-    <Content Include="Modules\Default\ReservasTurnosEspeciales\ReservasTurnosEspecialesIndex.cshtml" />
     <TypeScriptCompile Include="Modules\Default\ReservasTurnosEspeciales\ReservasTurnosEspecialesDialog.ts" />
     <TypeScriptCompile Include="Modules\Default\ReservasTurnosEspeciales\ReservasTurnosEspecialesGrid.ts" />
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasTurnosEspecialesForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.RecursosBarriosRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
   </ItemGroup>
@@ -1820,6 +1812,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ClientTypes\Default.ReservasTiposGridAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\Default.ReservasTurnosEspecialesGridAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190712_121800_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190711_114800_UpdateReservasRecursos.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190703_142000_UpdateUserAndBarriosTable.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190702_095300_UpdateBarriosTable.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190321_090000_Locations.cs" />
@@ -1853,9 +1853,6 @@
     <Compile Include="Modules\Administration\UserRole\UserRoleListResponse.cs" />
     <Compile Include="Modules\Administration\UserRole\UserRoleListRequest.cs" />
     <Compile Include="Modules\Administration\UserRole\UserRoleEndpoint.cs" />
-    <Compile Include="Modules\Administration\UsersBarrios\UsersBarriosColumns.cs" />
-    <Compile Include="Modules\Administration\UsersBarrios\UsersBarriosForm.cs" />
-    <Compile Include="Modules\Administration\UsersBarrios\UsersBarriosPage.cs" />
     <Compile Include="Modules\Administration\UsersBarrios\UsersBarriosRow.cs" />
     <Compile Include="Modules\Administration\User\Authentication\DirectoryEntry.cs" />
     <Compile Include="Modules\Administration\User\Authentication\ActiveDirectoryService.cs" />
@@ -1966,6 +1963,9 @@
     <Compile Include="Modules\Contenidos\Proveedores\ProveedoresPage.cs" />
     <Compile Include="Modules\Contenidos\Proveedores\ProveedoresRepository.cs" />
     <Compile Include="Modules\Contenidos\Proveedores\ProveedoresRow.cs" />
+    <Compile Include="Modules\Default\ReservasRecursos\ResourceTypeLookup.cs" />
+    <Compile Include="Modules\Default\ReservasRecursos\IntervalosLookup.cs" />
+    <Compile Include="Modules\Default\ReservasRecursos\HorariosLookup.cs" />
     <Compile Include="Modules\Membership\Account\ChangePassword\AccountPage.ChangePassword.cs" />
     <Compile Include="Modules\Membership\Account\EnvironmentSettings.cs" />
     <Compile Include="Modules\Membership\Account\ForgotPassword\AccountPage.ForgotPassword.cs" />
@@ -2035,16 +2035,13 @@
     <Compile Include="Modules\Default\ReservasRecursos\ReservasRecursosForm.cs" />
     <Compile Include="Modules\Default\ReservasTipos\ReservasTiposRow.cs" />
     <Compile Include="Modules\Default\ReservasTipos\ReservasTiposRepository.cs" />
-    <Compile Include="Modules\Default\ReservasTipos\ReservasTiposEndpoint.cs" />
-    <Compile Include="Modules\Default\ReservasTipos\ReservasTiposPage.cs" />
     <Compile Include="Modules\Default\ReservasTipos\ReservasTiposColumns.cs" />
     <Compile Include="Modules\Default\ReservasTipos\ReservasTiposForm.cs" />
     <Compile Include="Modules\Default\ReservasTurnosEspeciales\ReservasTurnosEspecialesRow.cs" />
     <Compile Include="Modules\Default\ReservasTurnosEspeciales\ReservasTurnosEspecialesRepository.cs" />
-    <Compile Include="Modules\Default\ReservasTurnosEspeciales\ReservasTurnosEspecialesEndpoint.cs" />
-    <Compile Include="Modules\Default\ReservasTurnosEspeciales\ReservasTurnosEspecialesPage.cs" />
     <Compile Include="Modules\Default\ReservasTurnosEspeciales\ReservasTurnosEspecialesColumns.cs" />
     <Compile Include="Modules\Default\ReservasTurnosEspeciales\ReservasTurnosEspecialesForm.cs" />
+    <Compile Include="Modules\Default\RecursosBarrios\RecursosBarriosRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

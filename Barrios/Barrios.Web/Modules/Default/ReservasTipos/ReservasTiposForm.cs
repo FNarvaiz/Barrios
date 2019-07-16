@@ -13,10 +13,9 @@ namespace Barrios.Default.Forms
     [BasedOnRow(typeof(Entities.ReservasTiposRow), CheckNames = true)]
     public class ReservasTiposForm
     {
-        public Int16 Id { get; set; }
         public String Nombre { get; set; }
         public Int16 Duracion { get; set; }
-        public Boolean Vigente { get; set; }
         public Boolean RequiereVecino2 { get; set; }
+        public Boolean Vigente { get; set; }
     }
 }

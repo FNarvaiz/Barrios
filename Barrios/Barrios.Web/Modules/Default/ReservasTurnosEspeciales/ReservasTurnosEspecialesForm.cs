@@ -13,10 +13,10 @@ namespace Barrios.Default.Forms
     [BasedOnRow(typeof(Entities.ReservasTurnosEspecialesRow), CheckNames = true)]
     public class ReservasTurnosEspecialesForm
     {
-        public Int16 Id { get; set; }
+        public String Nombre { get; set; }
         public Int16 Inicio { get; set; }
         public Int16 Duracion { get; set; }
-        public String Nombre { get; set; }
+       
         public String Dias { get; set; }
     }
 }

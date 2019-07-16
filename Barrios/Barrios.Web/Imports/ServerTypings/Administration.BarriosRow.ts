@@ -2,10 +2,15 @@
     export interface BarriosRow {
         Id?: number;
         Nombre?: string;
+        Mail?: string;
+        LargeDisplayName?: string;
+        ShortDisplayName?: string;
         Logo?: string;
         Url?: string;
         TelefonOs?: string;
         Direccion?: string;
+        PasswordMail?: string;
+        CantDiasReservables?: number;
         IsActive?: boolean;
     }
 
@@ -22,10 +27,15 @@
         export declare const enum Fields {
             Id = "Id",
             Nombre = "Nombre",
+            Mail = "Mail",
+            LargeDisplayName = "LargeDisplayName",
+            ShortDisplayName = "ShortDisplayName",
             Logo = "Logo",
             Url = "Url",
             TelefonOs = "TelefonOs",
             Direccion = "Direccion",
+            PasswordMail = "PasswordMail",
+            CantDiasReservables = "CantDiasReservables",
             IsActive = "IsActive"
         }
     }

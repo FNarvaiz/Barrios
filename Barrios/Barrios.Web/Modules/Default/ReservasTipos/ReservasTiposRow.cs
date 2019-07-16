@@ -10,7 +10,7 @@ namespace Barrios.Default.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS_TIPOS]")]
-    [DisplayName("Reservas Tipos"), InstanceName("Reservas Tipos")]
+    [DisplayName("Tipos de Reserva"), InstanceName("Reservas Tipos")]
     [ReadPermission("Administration:General")]
     [ModifyPermission("Administration:General")]
     public sealed class ReservasTiposRow : Row, IIdRow, INameRow
@@ -22,21 +22,21 @@ namespace Barrios.Default.Entities
             set { Fields.IdRecurso[this] = value; }
         }
 
-        [DisplayName("Id"), Column("ID")]
+        [DisplayName("Id"),Identity, Column("ID")]
         public Int16? Id
         {
             get { return Fields.Id[this]; }
             set { Fields.Id[this] = value; }
         }
 
-        [DisplayName("Nombre"), Column("NOMBRE"), Size(30), NotNull, QuickSearch]
+        [DisplayName("Nombre"), Column("Nombre"), Size(30), NotNull, QuickSearch]
         public String Nombre
         {
             get { return Fields.Nombre[this]; }
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Duracion"), Column("DURACION"), NotNull]
+        [DisplayName("Duración"),Required,TimeEditor(EndHour =8), Column("Duracion") , NotNull]
         public Int16? Duracion
         {
             get { return Fields.Duracion[this]; }
@@ -50,7 +50,7 @@ namespace Barrios.Default.Entities
             set { Fields.Vigente[this] = value; }
         }
 
-        [DisplayName("Requiere Vecino 2"), Column("REQUIERE_VECINO_2")]
+        [DisplayName("Requiere 2do vecino"), Column("Requiere_Vecino_2")]
         public Boolean? RequiereVecino2
         {
             get { return Fields.RequiereVecino2[this]; }
@@ -59,7 +59,7 @@ namespace Barrios.Default.Entities
 
         IIdField IIdRow.IdField
         {
-            get { return Fields.IdRecurso; }
+            get { return Fields.Id; }
         }
 
         StringField INameRow.NameField
