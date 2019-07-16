@@ -13,6 +13,13 @@ namespace Barrios.Migrations.DefaultDB
             this.Alter.Table("RESERVAS_RECURSOS")
                .AddColumn("TIPO").AsInt16().NotNullable().WithDefaultValue("1");
 
+            this.Alter.Table("VECINOS_MASCOTAS")
+              .AddColumn("FOTO").AsString();
+
+            this.Delete.Column("FOTO_CONTENTTYPE")
+                .Column("FOTO_BINARYDATA")
+                .FromTable("VECINOS_MASCOTAS");
+
             Execute.Sql("ALTER FUNCTION [dbo].[LISTA_FECHAS](@cantDias smallint) " +
                 " RETURNS @resultado TABLE(FECHA DATE) " +
                 "AS " +

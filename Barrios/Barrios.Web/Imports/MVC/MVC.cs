@@ -147,6 +147,30 @@ namespace MVC
                     public const string AccountSignUp_AdminLTE = "~/Modules/Membership/Account/SignUp/AccountSignUp.AdminLTE.cshtml";
                 }
             }
+
+        }
+
+        public static class Perfil
+        {
+            public static class VecinosActividades
+            {
+                public const string VecinosActividadesIndex = "~/Modules/Perfil/VecinosActividades/VecinosActividadesIndex.cshtml";
+            }
+
+            public static class VecinosEventos
+            {
+                public const string VecinosEventosIndex = "~/Modules/Perfil/VecinosEventos/VecinosEventosIndex.cshtml";
+            }
+
+            public static class VecinosMascotas
+            {
+                public const string VecinosMascotasIndex = "~/Modules/Perfil/VecinosMascotas/VecinosMascotasIndex.cshtml";
+            }
+
+            public static class VecinosVisitantesFrecuentes
+            {
+                public const string VecinosVisitantesFrecuentesIndex = "~/Modules/Perfil/VecinosVisitantesFrecuentes/VecinosVisitantesFrecuentesIndex.cshtml";
+            }
         }
 
         public static class Shared

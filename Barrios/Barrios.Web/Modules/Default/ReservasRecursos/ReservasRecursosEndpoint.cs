@@ -45,7 +45,8 @@ namespace Barrios.Default.Endpoints
         {
             if (request.EqualityFilter == null)
                 request.EqualityFilter = new System.Collections.Generic.Dictionary<string, object>();
-            request.EqualityFilter.Add("BarrioId", 1);
+            
+            request.EqualityFilter.Add("BarrioId", CurrentNeigborhood.Get().Id);
             return new MyRepository().List(connection, request);
         }
     }

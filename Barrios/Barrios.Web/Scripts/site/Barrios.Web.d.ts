@@ -1603,6 +1603,279 @@ declare namespace Barrios.Modules.Common.Utils {
         Id?: number;
     }
 }
+declare namespace Barrios.Perfil {
+}
+declare namespace Barrios.Perfil {
+    interface VecinosActividadesForm {
+        Fecha: Serenity.DateEditor;
+        Actividad: Serenity.StringEditor;
+        ActividadDetalles: Serenity.StringEditor;
+    }
+    class VecinosActividadesForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Perfil {
+    interface VecinosActividadesRow {
+        Id?: number;
+        Fecha?: string;
+        Actividad?: string;
+        ActividadDetalles?: string;
+        Ip?: string;
+        Userid?: number;
+    }
+    namespace VecinosActividadesRow {
+        const idProperty = "Id";
+        const nameProperty = "Actividad";
+        const localTextPrefix = "Perfil.VecinosActividades";
+        const enum Fields {
+            Id = "Id",
+            Fecha = "Fecha",
+            Actividad = "Actividad",
+            ActividadDetalles = "ActividadDetalles",
+            Ip = "Ip",
+            Userid = "Userid"
+        }
+    }
+}
+declare namespace Barrios.Perfil {
+    namespace VecinosActividadesService {
+        const baseUrl = "Perfil/VecinosActividades";
+        function Create(request: Serenity.SaveRequest<VecinosActividadesRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<VecinosActividadesRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<VecinosActividadesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<VecinosActividadesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Perfil/VecinosActividades/Create",
+            Update = "Perfil/VecinosActividades/Update",
+            Delete = "Perfil/VecinosActividades/Delete",
+            Retrieve = "Perfil/VecinosActividades/Retrieve",
+            List = "Perfil/VecinosActividades/List"
+        }
+    }
+}
+declare namespace Barrios.Perfil {
+}
+declare namespace Barrios.Perfil {
+}
+declare namespace Barrios.Perfil {
+    interface VecinosEventosConcurrentesForm {
+        Nombre: Serenity.StringEditor;
+    }
+    class VecinosEventosConcurrentesForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Perfil {
+    interface VecinosEventosConcurrentesRow {
+        Id?: number;
+        IdEvento?: number;
+        Nombre?: string;
+        Userid?: number;
+    }
+    namespace VecinosEventosConcurrentesRow {
+        const idProperty = "Id";
+        const nameProperty = "Nombre";
+        const localTextPrefix = "Perfil.VecinosEventosConcurrentes";
+        const enum Fields {
+            Id = "Id",
+            IdEvento = "IdEvento",
+            Nombre = "Nombre",
+            Userid = "Userid"
+        }
+    }
+}
+declare namespace Barrios.Perfil {
+    namespace VecinosEventosConcurrentesService {
+        const baseUrl = "Perfil/VecinosEventosConcurrentes";
+        function Create(request: Serenity.SaveRequest<VecinosEventosConcurrentesRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<VecinosEventosConcurrentesRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<VecinosEventosConcurrentesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<VecinosEventosConcurrentesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Perfil/VecinosEventosConcurrentes/Create",
+            Update = "Perfil/VecinosEventosConcurrentes/Update",
+            Delete = "Perfil/VecinosEventosConcurrentes/Delete",
+            Retrieve = "Perfil/VecinosEventosConcurrentes/Retrieve",
+            List = "Perfil/VecinosEventosConcurrentes/List"
+        }
+    }
+}
+declare namespace Barrios.Perfil {
+    interface VecinosEventosForm {
+        Fecha: Serenity.DateEditor;
+        Nombre: Serenity.StringEditor;
+        Lugar: Serenity.StringEditor;
+        ConcurrentesList: Serenity.StringEditor;
+    }
+    class VecinosEventosForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Perfil {
+    interface VecinosEventosRow {
+        Id?: number;
+        Nombre?: string;
+        Fecha?: string;
+        Lugar?: string;
+        Userid?: number;
+        UseridUsername?: string;
+        ConcurrentesList?: VecinosEventosConcurrentesRow[];
+    }
+    namespace VecinosEventosRow {
+        const idProperty = "Id";
+        const nameProperty = "Nombre";
+        const localTextPrefix = "Perfil.VecinosEventos";
+        const enum Fields {
+            Id = "Id",
+            Nombre = "Nombre",
+            Fecha = "Fecha",
+            Lugar = "Lugar",
+            Userid = "Userid",
+            UseridUsername = "UseridUsername",
+            ConcurrentesList = "ConcurrentesList"
+        }
+    }
+}
+declare namespace Barrios.Perfil {
+    namespace VecinosEventosService {
+        const baseUrl = "Perfil/VecinosEventos";
+        function Create(request: Serenity.SaveRequest<VecinosEventosRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<VecinosEventosRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<VecinosEventosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<VecinosEventosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Perfil/VecinosEventos/Create",
+            Update = "Perfil/VecinosEventos/Update",
+            Delete = "Perfil/VecinosEventos/Delete",
+            Retrieve = "Perfil/VecinosEventos/Retrieve",
+            List = "Perfil/VecinosEventos/List"
+        }
+    }
+}
+declare namespace Barrios.Perfil {
+}
+declare namespace Barrios.Perfil {
+    interface VecinosMascotasForm {
+        Nombre: Serenity.StringEditor;
+        IdTipo: Serenity.LookupEditor;
+        Raza: Serenity.StringEditor;
+        Foto: Serenity.ImageUploadEditor;
+    }
+    class VecinosMascotasForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Perfil {
+    interface VecinosMascotasRow {
+        Id?: number;
+        Nombre?: string;
+        IdTipo?: number;
+        Raza?: string;
+        Foto?: string;
+        Userid?: number;
+        UseridUsername?: string;
+        UseridUnit?: string;
+    }
+    namespace VecinosMascotasRow {
+        const idProperty = "Id";
+        const nameProperty = "Nombre";
+        const localTextPrefix = "Perfil.VecinosMascotas";
+        const enum Fields {
+            Id = "Id",
+            Nombre = "Nombre",
+            IdTipo = "IdTipo",
+            Raza = "Raza",
+            Foto = "Foto",
+            Userid = "Userid",
+            UseridUsername = "UseridUsername",
+            UseridUnit = "UseridUnit"
+        }
+    }
+}
+declare namespace Barrios.Perfil {
+    namespace VecinosMascotasService {
+        const baseUrl = "Perfil/VecinosMascotas";
+        function Create(request: Serenity.SaveRequest<VecinosMascotasRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<VecinosMascotasRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<VecinosMascotasRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<VecinosMascotasRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Perfil/VecinosMascotas/Create",
+            Update = "Perfil/VecinosMascotas/Update",
+            Delete = "Perfil/VecinosMascotas/Delete",
+            Retrieve = "Perfil/VecinosMascotas/Retrieve",
+            List = "Perfil/VecinosMascotas/List"
+        }
+    }
+}
+declare namespace Barrios.Perfil {
+}
+declare namespace Barrios.Perfil {
+    interface VecinosVisitantesFrecuentesForm {
+        Nombre: Serenity.StringEditor;
+        Dni: Serenity.StringEditor;
+        Vehiculo: Serenity.StringEditor;
+        Tipo: Serenity.StringEditor;
+    }
+    class VecinosVisitantesFrecuentesForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Perfil {
+    interface VecinosVisitantesFrecuentesRow {
+        Id?: number;
+        Nombre?: string;
+        Dni?: string;
+        Vehiculo?: string;
+        Tipo?: string;
+        Userid?: number;
+    }
+    namespace VecinosVisitantesFrecuentesRow {
+        const idProperty = "Id";
+        const nameProperty = "Nombre";
+        const localTextPrefix = "Perfil.VecinosVisitantesFrecuentes";
+        const enum Fields {
+            Id = "Id",
+            Nombre = "Nombre",
+            Dni = "Dni",
+            Vehiculo = "Vehiculo",
+            Tipo = "Tipo",
+            Userid = "Userid"
+        }
+    }
+}
+declare namespace Barrios.Perfil {
+    namespace VecinosVisitantesFrecuentesService {
+        const baseUrl = "Perfil/VecinosVisitantesFrecuentes";
+        function Create(request: Serenity.SaveRequest<VecinosVisitantesFrecuentesRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<VecinosVisitantesFrecuentesRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<VecinosVisitantesFrecuentesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<VecinosVisitantesFrecuentesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Perfil/VecinosVisitantesFrecuentes/Create",
+            Update = "Perfil/VecinosVisitantesFrecuentes/Update",
+            Delete = "Perfil/VecinosVisitantesFrecuentes/Delete",
+            Retrieve = "Perfil/VecinosVisitantesFrecuentes/Retrieve",
+            List = "Perfil/VecinosVisitantesFrecuentes/List"
+        }
+    }
+}
 declare namespace Barrios {
     interface ScriptUserDefinition {
         Username?: string;
@@ -2338,6 +2611,100 @@ declare namespace Barrios.Membership {
     class SignUpPanel extends Serenity.PropertyPanel<SignUpRequest, any> {
         protected getFormKey(): string;
         private form;
+        constructor(container: JQuery);
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosActividadesDialog extends Serenity.EntityDialog<VecinosActividadesRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected form: VecinosActividadesForm;
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosActividadesGrid extends Serenity.EntityGrid<VecinosActividadesRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof VecinosActividadesDialog;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosEventosDialog extends Serenity.EntityDialog<VecinosEventosRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected form: VecinosEventosForm;
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosEventosGrid extends Serenity.EntityGrid<VecinosEventosRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof VecinosEventosDialog;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosEventosConcurrentesDialog extends Common.GridEditorDialog<VecinosEventosConcurrentesRow> {
+        protected getFormKey(): string;
+        protected getLocalTextPrefix(): string;
+        protected form: VecinosEventosConcurrentesForm;
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosEventosConcurrentesGrid extends Common.GridEditorBase<VecinosEventosConcurrentesRow> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof VecinosEventosConcurrentesDialog;
+        constructor(container: JQuery);
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosMascotasDialog extends Serenity.EntityDialog<VecinosMascotasRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected form: VecinosMascotasForm;
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosMascotasGrid extends Serenity.EntityGrid<VecinosMascotasRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof VecinosMascotasDialog;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosVisitantesFrecuentesDialog extends Serenity.EntityDialog<VecinosVisitantesFrecuentesRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected form: VecinosVisitantesFrecuentesForm;
+    }
+}
+declare namespace Barrios.Perfil {
+    class VecinosVisitantesFrecuentesGrid extends Serenity.EntityGrid<VecinosVisitantesFrecuentesRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof VecinosVisitantesFrecuentesDialog;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
         constructor(container: JQuery);
     }
 }

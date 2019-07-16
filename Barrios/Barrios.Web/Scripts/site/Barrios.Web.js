@@ -1416,10 +1416,310 @@ var Barrios;
     })(Modules = Barrios.Modules || (Barrios.Modules = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosActividadesForm = /** @class */ (function (_super) {
+            __extends(VecinosActividadesForm, _super);
+            function VecinosActividadesForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!VecinosActividadesForm.init) {
+                    VecinosActividadesForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.DateEditor;
+                    var w1 = s.StringEditor;
+                    Q.initFormType(VecinosActividadesForm, [
+                        'Fecha', w0,
+                        'Actividad', w1,
+                        'ActividadDetalles', w1
+                    ]);
+                }
+                return _this;
+            }
+            VecinosActividadesForm.formKey = 'Perfil.VecinosActividades';
+            return VecinosActividadesForm;
+        }(Serenity.PrefixedContext));
+        Perfil.VecinosActividadesForm = VecinosActividadesForm;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosActividadesRow;
+        (function (VecinosActividadesRow) {
+            VecinosActividadesRow.idProperty = 'Id';
+            VecinosActividadesRow.nameProperty = 'Actividad';
+            VecinosActividadesRow.localTextPrefix = 'Perfil.VecinosActividades';
+        })(VecinosActividadesRow = Perfil.VecinosActividadesRow || (Perfil.VecinosActividadesRow = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosActividadesService;
+        (function (VecinosActividadesService) {
+            VecinosActividadesService.baseUrl = 'Perfil/VecinosActividades';
+            [
+                'Create',
+                'Update',
+                'Delete',
+                'Retrieve',
+                'List'
+            ].forEach(function (x) {
+                VecinosActividadesService[x] = function (r, s, o) {
+                    return Q.serviceRequest(VecinosActividadesService.baseUrl + '/' + x, r, s, o);
+                };
+            });
+        })(VecinosActividadesService = Perfil.VecinosActividadesService || (Perfil.VecinosActividadesService = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosConcurrentesForm = /** @class */ (function (_super) {
+            __extends(VecinosEventosConcurrentesForm, _super);
+            function VecinosEventosConcurrentesForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!VecinosEventosConcurrentesForm.init) {
+                    VecinosEventosConcurrentesForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.StringEditor;
+                    Q.initFormType(VecinosEventosConcurrentesForm, [
+                        'Nombre', w0
+                    ]);
+                }
+                return _this;
+            }
+            VecinosEventosConcurrentesForm.formKey = 'Perfil.VecinosEventosConcurrentes';
+            return VecinosEventosConcurrentesForm;
+        }(Serenity.PrefixedContext));
+        Perfil.VecinosEventosConcurrentesForm = VecinosEventosConcurrentesForm;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosConcurrentesRow;
+        (function (VecinosEventosConcurrentesRow) {
+            VecinosEventosConcurrentesRow.idProperty = 'Id';
+            VecinosEventosConcurrentesRow.nameProperty = 'Nombre';
+            VecinosEventosConcurrentesRow.localTextPrefix = 'Perfil.VecinosEventosConcurrentes';
+        })(VecinosEventosConcurrentesRow = Perfil.VecinosEventosConcurrentesRow || (Perfil.VecinosEventosConcurrentesRow = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosConcurrentesService;
+        (function (VecinosEventosConcurrentesService) {
+            VecinosEventosConcurrentesService.baseUrl = 'Perfil/VecinosEventosConcurrentes';
+            [
+                'Create',
+                'Update',
+                'Delete',
+                'Retrieve',
+                'List'
+            ].forEach(function (x) {
+                VecinosEventosConcurrentesService[x] = function (r, s, o) {
+                    return Q.serviceRequest(VecinosEventosConcurrentesService.baseUrl + '/' + x, r, s, o);
+                };
+            });
+        })(VecinosEventosConcurrentesService = Perfil.VecinosEventosConcurrentesService || (Perfil.VecinosEventosConcurrentesService = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosForm = /** @class */ (function (_super) {
+            __extends(VecinosEventosForm, _super);
+            function VecinosEventosForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!VecinosEventosForm.init) {
+                    VecinosEventosForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.DateEditor;
+                    var w1 = s.StringEditor;
+                    Q.initFormType(VecinosEventosForm, [
+                        'Fecha', w0,
+                        'Nombre', w1,
+                        'Lugar', w1,
+                        'ConcurrentesList', w1
+                    ]);
+                }
+                return _this;
+            }
+            VecinosEventosForm.formKey = 'Perfil.VecinosEventos';
+            return VecinosEventosForm;
+        }(Serenity.PrefixedContext));
+        Perfil.VecinosEventosForm = VecinosEventosForm;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosRow;
+        (function (VecinosEventosRow) {
+            VecinosEventosRow.idProperty = 'Id';
+            VecinosEventosRow.nameProperty = 'Nombre';
+            VecinosEventosRow.localTextPrefix = 'Perfil.VecinosEventos';
+        })(VecinosEventosRow = Perfil.VecinosEventosRow || (Perfil.VecinosEventosRow = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosService;
+        (function (VecinosEventosService) {
+            VecinosEventosService.baseUrl = 'Perfil/VecinosEventos';
+            [
+                'Create',
+                'Update',
+                'Delete',
+                'Retrieve',
+                'List'
+            ].forEach(function (x) {
+                VecinosEventosService[x] = function (r, s, o) {
+                    return Q.serviceRequest(VecinosEventosService.baseUrl + '/' + x, r, s, o);
+                };
+            });
+        })(VecinosEventosService = Perfil.VecinosEventosService || (Perfil.VecinosEventosService = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosMascotasForm = /** @class */ (function (_super) {
+            __extends(VecinosMascotasForm, _super);
+            function VecinosMascotasForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!VecinosMascotasForm.init) {
+                    VecinosMascotasForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.StringEditor;
+                    var w1 = s.LookupEditor;
+                    var w2 = s.ImageUploadEditor;
+                    Q.initFormType(VecinosMascotasForm, [
+                        'Nombre', w0,
+                        'IdTipo', w1,
+                        'Raza', w0,
+                        'Foto', w2
+                    ]);
+                }
+                return _this;
+            }
+            VecinosMascotasForm.formKey = 'Perfil.VecinosMascotas';
+            return VecinosMascotasForm;
+        }(Serenity.PrefixedContext));
+        Perfil.VecinosMascotasForm = VecinosMascotasForm;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosMascotasRow;
+        (function (VecinosMascotasRow) {
+            VecinosMascotasRow.idProperty = 'Id';
+            VecinosMascotasRow.nameProperty = 'Nombre';
+            VecinosMascotasRow.localTextPrefix = 'Perfil.VecinosMascotas';
+        })(VecinosMascotasRow = Perfil.VecinosMascotasRow || (Perfil.VecinosMascotasRow = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosMascotasService;
+        (function (VecinosMascotasService) {
+            VecinosMascotasService.baseUrl = 'Perfil/VecinosMascotas';
+            [
+                'Create',
+                'Update',
+                'Delete',
+                'Retrieve',
+                'List'
+            ].forEach(function (x) {
+                VecinosMascotasService[x] = function (r, s, o) {
+                    return Q.serviceRequest(VecinosMascotasService.baseUrl + '/' + x, r, s, o);
+                };
+            });
+        })(VecinosMascotasService = Perfil.VecinosMascotasService || (Perfil.VecinosMascotasService = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosVisitantesFrecuentesForm = /** @class */ (function (_super) {
+            __extends(VecinosVisitantesFrecuentesForm, _super);
+            function VecinosVisitantesFrecuentesForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!VecinosVisitantesFrecuentesForm.init) {
+                    VecinosVisitantesFrecuentesForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.StringEditor;
+                    Q.initFormType(VecinosVisitantesFrecuentesForm, [
+                        'Nombre', w0,
+                        'Dni', w0,
+                        'Vehiculo', w0,
+                        'Tipo', w0
+                    ]);
+                }
+                return _this;
+            }
+            VecinosVisitantesFrecuentesForm.formKey = 'Perfil.VecinosVisitantesFrecuentes';
+            return VecinosVisitantesFrecuentesForm;
+        }(Serenity.PrefixedContext));
+        Perfil.VecinosVisitantesFrecuentesForm = VecinosVisitantesFrecuentesForm;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosVisitantesFrecuentesRow;
+        (function (VecinosVisitantesFrecuentesRow) {
+            VecinosVisitantesFrecuentesRow.idProperty = 'Id';
+            VecinosVisitantesFrecuentesRow.nameProperty = 'Nombre';
+            VecinosVisitantesFrecuentesRow.localTextPrefix = 'Perfil.VecinosVisitantesFrecuentes';
+        })(VecinosVisitantesFrecuentesRow = Perfil.VecinosVisitantesFrecuentesRow || (Perfil.VecinosVisitantesFrecuentesRow = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosVisitantesFrecuentesService;
+        (function (VecinosVisitantesFrecuentesService) {
+            VecinosVisitantesFrecuentesService.baseUrl = 'Perfil/VecinosVisitantesFrecuentes';
+            [
+                'Create',
+                'Update',
+                'Delete',
+                'Retrieve',
+                'List'
+            ].forEach(function (x) {
+                VecinosVisitantesFrecuentesService[x] = function (r, s, o) {
+                    return Q.serviceRequest(VecinosVisitantesFrecuentesService.baseUrl + '/' + x, r, s, o);
+                };
+            });
+        })(VecinosVisitantesFrecuentesService = Perfil.VecinosVisitantesFrecuentesService || (Perfil.VecinosVisitantesFrecuentesService = {}));
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
 (function (Barrios_1) {
     var Texts;
     (function (Texts) {
-        Barrios['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Barrios: { CantDiasReservables: 1, Direccion: 1, Id: 1, IsActive: 1, LargeDisplayName: 1, Logo: 1, Mail: 1, Nombre: 1, PasswordMail: 1, ShortDisplayName: 1, TelefonOs: 1, Url: 1 }, Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { ClientIdList: 1, DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, Unit: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 }, UsersBarrios: { BarrioId: 1, BarrioNombre: 1, UserId: 1, UserUsername: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Contenidos: { Avisos: { Caducidad: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, Id: 1, IdCategoria: 1, IdCategoriaNombre: 1, Imagen: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Categorias: { DateInsert: 1, DateUpdate: 1, Id: 1, Mostrar: 1, Nombre: 1, Type: 1, TypeName: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Comisiones: { BarrioId: 1, BarrioNombre: 1, Color: 1, DateInsert: 1, DateUpdate: 1, Habilitada: 1, Id: 1, Mails: 1, Nombre: 1, Sigla: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, ComisionesIntegrantes: { DateInsert: 1, DateUpdate: 1, Id: 1, IdComision: 1, IdComisionNombre: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, Encuestas: { DateInsert: 1, DateUpdate: 1, Descripcion: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, EncuestasValoraciones: { Comentario: 1, Fecha: 1, Id: 1, IdEncuesta: 1, IdEncuestaNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 }, LineaTiempo: { Anio: 1, Aprobado: 1, ArchivoBinarydata: 1, ArchivoContenttype: 1, ArchivoFilename: 1, ArchivoFilesize: 1, ContenidoTexto: 1, Id: 1, IdCategoria: 1, Mes: 1, Nombre: 1, Periodo: 1, PeriodoFecha: 1, Userid: 1, UseridUsername: 1 }, Proveedores: { DateInsert: 1, DateUpdate: 1, Domicilio: 1, Email: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Nombre: 1, Notas: 1, Telefonos: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, ProveedoresValoraciones: { Fecha: 1, Id: 1, IdProveedor: 1, IdProveedorNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 } }, Default: { RecursosBarrios: { BarrioId: 1, BarrioNombre: 1, RecursoId: 1 }, Reservas: { DateInsert: 1, Duracion: 1, Estado: 1, Estado_Turno: 1, Fecha: 1, FechaFin: 1, Finalizado: 1, Id: 1, IdRecurso: 1, IdRecursoApertura: 1, IdRecursoCierre: 1, IdRecursoNombre: 1, IdRecursoResolucion: 1, IdResultado: 1, IdTipo: 1, IdVecino: 1, IdVecino2: 1, IdVecinoDisplayName: 1, IdVecinoEmail: 1, IdVecinoInsertDate: 1, IdVecinoInsertUserId: 1, IdVecinoIsActive: 1, IdVecinoLastDirectoryUpdate: 1, IdVecinoLatestAccess: 1, IdVecinoNote: 1, IdVecinoPasswordHash: 1, IdVecinoPasswordSalt: 1, IdVecinoPhones: 1, IdVecinoSource: 1, IdVecinoUnidad: 1, IdVecinoUnidadExtra: 1, IdVecinoUpdateDate: 1, IdVecinoUpdateUserId: 1, IdVecinoUserImage: 1, IdVecinoUsername: 1, Inicio: 1, Observaciones: 1, Required_Vecino: 1, Reservable: 1, Tipo: 1, TipoReservaHecha: 1, Turno: 1, UserInsert: 1, Valido: 1 }, ReservasRecursos: { Apertura: 1, BarrioId: 1, Cierre: 1, ClientIdList: 1, Id: 1, Nombre: 1, Resolucion: 1, SpecialTurnList: 1, TypeList: 1 }, ReservasTipos: { Duracion: 1, Id: 1, IdRecurso: 1, Nombre: 1, RequiereVecino2: 1, Vigente: 1 }, ReservasTurnosEspeciales: { Dias: 1, Duracion: 1, Id: 1, IdRecurso: 1, Inicio: 1, Nombre: 1 } }, Modules: { Common: { Utils: { GenericComboBox: { Id: 1, Name: 1 } } } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
+        Barrios['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Barrios: { CantDiasReservables: 1, Direccion: 1, Id: 1, IsActive: 1, LargeDisplayName: 1, Logo: 1, Mail: 1, Nombre: 1, PasswordMail: 1, ShortDisplayName: 1, TelefonOs: 1, Url: 1 }, Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { ClientIdList: 1, DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, Unit: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 }, UsersBarrios: { BarrioId: 1, BarrioNombre: 1, UserId: 1, UserUsername: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Contenidos: { Avisos: { Caducidad: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, Id: 1, IdCategoria: 1, IdCategoriaNombre: 1, Imagen: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Categorias: { DateInsert: 1, DateUpdate: 1, Id: 1, Mostrar: 1, Nombre: 1, Type: 1, TypeName: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Comisiones: { BarrioId: 1, BarrioNombre: 1, Color: 1, DateInsert: 1, DateUpdate: 1, Habilitada: 1, Id: 1, Mails: 1, Nombre: 1, Sigla: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, ComisionesIntegrantes: { DateInsert: 1, DateUpdate: 1, Id: 1, IdComision: 1, IdComisionNombre: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, Encuestas: { DateInsert: 1, DateUpdate: 1, Descripcion: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, EncuestasValoraciones: { Comentario: 1, Fecha: 1, Id: 1, IdEncuesta: 1, IdEncuestaNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 }, LineaTiempo: { Anio: 1, Aprobado: 1, ArchivoBinarydata: 1, ArchivoContenttype: 1, ArchivoFilename: 1, ArchivoFilesize: 1, ContenidoTexto: 1, Id: 1, IdCategoria: 1, Mes: 1, Nombre: 1, Periodo: 1, PeriodoFecha: 1, Userid: 1, UseridUsername: 1 }, Proveedores: { DateInsert: 1, DateUpdate: 1, Domicilio: 1, Email: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Nombre: 1, Notas: 1, Telefonos: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, ProveedoresValoraciones: { Fecha: 1, Id: 1, IdProveedor: 1, IdProveedorNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 } }, Default: { RecursosBarrios: { BarrioId: 1, BarrioNombre: 1, RecursoId: 1 }, Reservas: { DateInsert: 1, Duracion: 1, Estado: 1, Estado_Turno: 1, Fecha: 1, FechaFin: 1, Finalizado: 1, Id: 1, IdRecurso: 1, IdRecursoApertura: 1, IdRecursoCierre: 1, IdRecursoNombre: 1, IdRecursoResolucion: 1, IdResultado: 1, IdTipo: 1, IdVecino: 1, IdVecino2: 1, IdVecinoDisplayName: 1, IdVecinoEmail: 1, IdVecinoInsertDate: 1, IdVecinoInsertUserId: 1, IdVecinoIsActive: 1, IdVecinoLastDirectoryUpdate: 1, IdVecinoLatestAccess: 1, IdVecinoNote: 1, IdVecinoPasswordHash: 1, IdVecinoPasswordSalt: 1, IdVecinoPhones: 1, IdVecinoSource: 1, IdVecinoUnidad: 1, IdVecinoUnidadExtra: 1, IdVecinoUpdateDate: 1, IdVecinoUpdateUserId: 1, IdVecinoUserImage: 1, IdVecinoUsername: 1, Inicio: 1, Observaciones: 1, Required_Vecino: 1, Reservable: 1, Tipo: 1, TipoReservaHecha: 1, Turno: 1, UserInsert: 1, Valido: 1 }, ReservasRecursos: { Apertura: 1, BarrioId: 1, Cierre: 1, ClientIdList: 1, Id: 1, Nombre: 1, Resolucion: 1, SpecialTurnList: 1, TypeList: 1 }, ReservasTipos: { Duracion: 1, Id: 1, IdRecurso: 1, Nombre: 1, RequiereVecino2: 1, Vigente: 1 }, ReservasTurnosEspeciales: { Dias: 1, Duracion: 1, Id: 1, IdRecurso: 1, Inicio: 1, Nombre: 1 } }, Modules: { Common: { Utils: { GenericComboBox: { Id: 1, Name: 1 } } } }, Perfil: { VecinosActividades: { Actividad: 1, ActividadDetalles: 1, Fecha: 1, Id: 1, Ip: 1, Userid: 1 }, VecinosEventos: { ConcurrentesList: 1, Fecha: 1, Id: 1, Lugar: 1, Nombre: 1, Userid: 1, UseridUsername: 1 }, VecinosEventosConcurrentes: { Id: 1, IdEvento: 1, Nombre: 1, Userid: 1 }, VecinosMascotas: { Foto: 1, Id: 1, IdTipo: 1, Nombre: 1, Raza: 1, Userid: 1, UseridUnit: 1, UseridUsername: 1 }, VecinosVisitantesFrecuentes: { Dni: 1, Id: 1, Nombre: 1, Tipo: 1, Userid: 1, Vehiculo: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
     })(Texts = Barrios_1.Texts || (Barrios_1.Texts = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -4401,5 +4701,229 @@ var Barrios;
         }(Serenity.PropertyPanel));
         Membership.SignUpPanel = SignUpPanel;
     })(Membership = Barrios.Membership || (Barrios.Membership = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosActividadesDialog = /** @class */ (function (_super) {
+            __extends(VecinosActividadesDialog, _super);
+            function VecinosActividadesDialog() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.form = new Perfil.VecinosActividadesForm(_this.idPrefix);
+                return _this;
+            }
+            VecinosActividadesDialog.prototype.getFormKey = function () { return Perfil.VecinosActividadesForm.formKey; };
+            VecinosActividadesDialog.prototype.getIdProperty = function () { return Perfil.VecinosActividadesRow.idProperty; };
+            VecinosActividadesDialog.prototype.getLocalTextPrefix = function () { return Perfil.VecinosActividadesRow.localTextPrefix; };
+            VecinosActividadesDialog.prototype.getNameProperty = function () { return Perfil.VecinosActividadesRow.nameProperty; };
+            VecinosActividadesDialog.prototype.getService = function () { return Perfil.VecinosActividadesService.baseUrl; };
+            VecinosActividadesDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosActividadesDialog);
+            return VecinosActividadesDialog;
+        }(Serenity.EntityDialog));
+        Perfil.VecinosActividadesDialog = VecinosActividadesDialog;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosActividadesGrid = /** @class */ (function (_super) {
+            __extends(VecinosActividadesGrid, _super);
+            function VecinosActividadesGrid(container) {
+                return _super.call(this, container) || this;
+            }
+            VecinosActividadesGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosActividades'; };
+            VecinosActividadesGrid.prototype.getDialogType = function () { return Perfil.VecinosActividadesDialog; };
+            VecinosActividadesGrid.prototype.getIdProperty = function () { return Perfil.VecinosActividadesRow.idProperty; };
+            VecinosActividadesGrid.prototype.getLocalTextPrefix = function () { return Perfil.VecinosActividadesRow.localTextPrefix; };
+            VecinosActividadesGrid.prototype.getService = function () { return Perfil.VecinosActividadesService.baseUrl; };
+            VecinosActividadesGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosActividadesGrid);
+            return VecinosActividadesGrid;
+        }(Serenity.EntityGrid));
+        Perfil.VecinosActividadesGrid = VecinosActividadesGrid;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosDialog = /** @class */ (function (_super) {
+            __extends(VecinosEventosDialog, _super);
+            function VecinosEventosDialog() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.form = new Perfil.VecinosEventosForm(_this.idPrefix);
+                return _this;
+            }
+            VecinosEventosDialog.prototype.getFormKey = function () { return Perfil.VecinosEventosForm.formKey; };
+            VecinosEventosDialog.prototype.getIdProperty = function () { return Perfil.VecinosEventosRow.idProperty; };
+            VecinosEventosDialog.prototype.getLocalTextPrefix = function () { return Perfil.VecinosEventosRow.localTextPrefix; };
+            VecinosEventosDialog.prototype.getNameProperty = function () { return Perfil.VecinosEventosRow.nameProperty; };
+            VecinosEventosDialog.prototype.getService = function () { return Perfil.VecinosEventosService.baseUrl; };
+            VecinosEventosDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosEventosDialog);
+            return VecinosEventosDialog;
+        }(Serenity.EntityDialog));
+        Perfil.VecinosEventosDialog = VecinosEventosDialog;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosGrid = /** @class */ (function (_super) {
+            __extends(VecinosEventosGrid, _super);
+            function VecinosEventosGrid(container) {
+                return _super.call(this, container) || this;
+            }
+            VecinosEventosGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosEventos'; };
+            VecinosEventosGrid.prototype.getDialogType = function () { return Perfil.VecinosEventosDialog; };
+            VecinosEventosGrid.prototype.getIdProperty = function () { return Perfil.VecinosEventosRow.idProperty; };
+            VecinosEventosGrid.prototype.getLocalTextPrefix = function () { return Perfil.VecinosEventosRow.localTextPrefix; };
+            VecinosEventosGrid.prototype.getService = function () { return Perfil.VecinosEventosService.baseUrl; };
+            VecinosEventosGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosEventosGrid);
+            return VecinosEventosGrid;
+        }(Serenity.EntityGrid));
+        Perfil.VecinosEventosGrid = VecinosEventosGrid;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosConcurrentesDialog = /** @class */ (function (_super) {
+            __extends(VecinosEventosConcurrentesDialog, _super);
+            function VecinosEventosConcurrentesDialog() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.form = new Perfil.VecinosEventosConcurrentesForm(_this.idPrefix);
+                return _this;
+            }
+            VecinosEventosConcurrentesDialog.prototype.getFormKey = function () { return Perfil.VecinosEventosConcurrentesForm.formKey; };
+            VecinosEventosConcurrentesDialog.prototype.getLocalTextPrefix = function () { return Perfil.VecinosEventosConcurrentesRow.localTextPrefix; };
+            VecinosEventosConcurrentesDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosEventosConcurrentesDialog);
+            return VecinosEventosConcurrentesDialog;
+        }(Barrios.Common.GridEditorDialog));
+        Perfil.VecinosEventosConcurrentesDialog = VecinosEventosConcurrentesDialog;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosEventosConcurrentesGrid = /** @class */ (function (_super) {
+            __extends(VecinosEventosConcurrentesGrid, _super);
+            function VecinosEventosConcurrentesGrid(container) {
+                return _super.call(this, container) || this;
+            }
+            VecinosEventosConcurrentesGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosEventosConcurrentes'; };
+            VecinosEventosConcurrentesGrid.prototype.getDialogType = function () { return Perfil.VecinosEventosConcurrentesDialog; };
+            VecinosEventosConcurrentesGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosEventosConcurrentesGrid);
+            return VecinosEventosConcurrentesGrid;
+        }(Barrios.Common.GridEditorBase));
+        Perfil.VecinosEventosConcurrentesGrid = VecinosEventosConcurrentesGrid;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosMascotasDialog = /** @class */ (function (_super) {
+            __extends(VecinosMascotasDialog, _super);
+            function VecinosMascotasDialog() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.form = new Perfil.VecinosMascotasForm(_this.idPrefix);
+                return _this;
+            }
+            VecinosMascotasDialog.prototype.getFormKey = function () { return Perfil.VecinosMascotasForm.formKey; };
+            VecinosMascotasDialog.prototype.getIdProperty = function () { return Perfil.VecinosMascotasRow.idProperty; };
+            VecinosMascotasDialog.prototype.getLocalTextPrefix = function () { return Perfil.VecinosMascotasRow.localTextPrefix; };
+            VecinosMascotasDialog.prototype.getNameProperty = function () { return Perfil.VecinosMascotasRow.nameProperty; };
+            VecinosMascotasDialog.prototype.getService = function () { return Perfil.VecinosMascotasService.baseUrl; };
+            VecinosMascotasDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosMascotasDialog);
+            return VecinosMascotasDialog;
+        }(Serenity.EntityDialog));
+        Perfil.VecinosMascotasDialog = VecinosMascotasDialog;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosMascotasGrid = /** @class */ (function (_super) {
+            __extends(VecinosMascotasGrid, _super);
+            function VecinosMascotasGrid(container) {
+                return _super.call(this, container) || this;
+            }
+            VecinosMascotasGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosMascotas'; };
+            VecinosMascotasGrid.prototype.getDialogType = function () { return Perfil.VecinosMascotasDialog; };
+            VecinosMascotasGrid.prototype.getIdProperty = function () { return Perfil.VecinosMascotasRow.idProperty; };
+            VecinosMascotasGrid.prototype.getLocalTextPrefix = function () { return Perfil.VecinosMascotasRow.localTextPrefix; };
+            VecinosMascotasGrid.prototype.getService = function () { return Perfil.VecinosMascotasService.baseUrl; };
+            VecinosMascotasGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosMascotasGrid);
+            return VecinosMascotasGrid;
+        }(Serenity.EntityGrid));
+        Perfil.VecinosMascotasGrid = VecinosMascotasGrid;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosVisitantesFrecuentesDialog = /** @class */ (function (_super) {
+            __extends(VecinosVisitantesFrecuentesDialog, _super);
+            function VecinosVisitantesFrecuentesDialog() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.form = new Perfil.VecinosVisitantesFrecuentesForm(_this.idPrefix);
+                return _this;
+            }
+            VecinosVisitantesFrecuentesDialog.prototype.getFormKey = function () { return Perfil.VecinosVisitantesFrecuentesForm.formKey; };
+            VecinosVisitantesFrecuentesDialog.prototype.getIdProperty = function () { return Perfil.VecinosVisitantesFrecuentesRow.idProperty; };
+            VecinosVisitantesFrecuentesDialog.prototype.getLocalTextPrefix = function () { return Perfil.VecinosVisitantesFrecuentesRow.localTextPrefix; };
+            VecinosVisitantesFrecuentesDialog.prototype.getNameProperty = function () { return Perfil.VecinosVisitantesFrecuentesRow.nameProperty; };
+            VecinosVisitantesFrecuentesDialog.prototype.getService = function () { return Perfil.VecinosVisitantesFrecuentesService.baseUrl; };
+            VecinosVisitantesFrecuentesDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosVisitantesFrecuentesDialog);
+            return VecinosVisitantesFrecuentesDialog;
+        }(Serenity.EntityDialog));
+        Perfil.VecinosVisitantesFrecuentesDialog = VecinosVisitantesFrecuentesDialog;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var VecinosVisitantesFrecuentesGrid = /** @class */ (function (_super) {
+            __extends(VecinosVisitantesFrecuentesGrid, _super);
+            function VecinosVisitantesFrecuentesGrid(container) {
+                return _super.call(this, container) || this;
+            }
+            VecinosVisitantesFrecuentesGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosVisitantesFrecuentes'; };
+            VecinosVisitantesFrecuentesGrid.prototype.getDialogType = function () { return Perfil.VecinosVisitantesFrecuentesDialog; };
+            VecinosVisitantesFrecuentesGrid.prototype.getIdProperty = function () { return Perfil.VecinosVisitantesFrecuentesRow.idProperty; };
+            VecinosVisitantesFrecuentesGrid.prototype.getLocalTextPrefix = function () { return Perfil.VecinosVisitantesFrecuentesRow.localTextPrefix; };
+            VecinosVisitantesFrecuentesGrid.prototype.getService = function () { return Perfil.VecinosVisitantesFrecuentesService.baseUrl; };
+            VecinosVisitantesFrecuentesGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], VecinosVisitantesFrecuentesGrid);
+            return VecinosVisitantesFrecuentesGrid;
+        }(Serenity.EntityGrid));
+        Perfil.VecinosVisitantesFrecuentesGrid = VecinosVisitantesFrecuentesGrid;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
 })(Barrios || (Barrios = {}));
 //# sourceMappingURL=Barrios.Web.js.map

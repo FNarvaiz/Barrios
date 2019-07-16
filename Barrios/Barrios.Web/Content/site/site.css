@@ -7423,3 +7423,33 @@ section.content > .s-DataGrid {
 .s-Default-ReservasTurnosEspecialesDialog .caption {
   width: 150px;
 }
+.s-Perfil-VecinosActividadesDialog > .size {
+  width: 650px;
+}
+.s-Perfil-VecinosActividadesDialog .caption {
+  width: 150px;
+}
+.s-Perfil-VecinosEventosDialog > .size {
+  width: 650px;
+}
+.s-Perfil-VecinosEventosDialog .caption {
+  width: 150px;
+}
+.s-Perfil-VecinosEventosConcurrentesDialog > .size {
+  width: 650px;
+}
+.s-Perfil-VecinosEventosConcurrentesDialog .caption {
+  width: 150px;
+}
+.s-Perfil-VecinosMascotasDialog > .size {
+  width: 650px;
+}
+.s-Perfil-VecinosMascotasDialog .caption {
+  width: 150px;
+}
+.s-Perfil-VecinosVisitantesFrecuentesDialog > .size {
+  width: 650px;
+}
+.s-Perfil-VecinosVisitantesFrecuentesDialog .caption {
+  width: 150px;
+}
