@@ -30,7 +30,11 @@ namespace MVC
             {
                 public const string UserIndex = "~/Modules/Administration/User/UserIndex.cshtml";
             }
+        }
 
+        public static class Commissions
+        {
+            public const string CommissionsIndex = "~/Modules/Views/Commissions/CommissionsIndex.cshtml";
         }
 
         public static class Common
@@ -65,11 +69,6 @@ namespace MVC
                 public const string ComisionesIndex = "~/Modules/Contenidos/Comisiones/ComisionesIndex.cshtml";
             }
 
-            public static class ComisionesIntegrantes
-            {
-                public const string ComisionesIntegrantesIndex = "~/Modules/Contenidos/ComisionesIntegrantes/ComisionesIntegrantesIndex.cshtml";
-            }
-
             public static class Encuestas
             {
                 public const string EncuestasIndex = "~/Modules/Contenidos/Encuestas/EncuestasIndex.cshtml";
@@ -88,11 +87,6 @@ namespace MVC
             public static class Proveedores
             {
                 public const string ProveedoresIndex = "~/Modules/Contenidos/Proveedores/ProveedoresIndex.cshtml";
-            }
-
-            public static class ProveedoresValoraciones
-            {
-                public const string ProveedoresValoracionesIndex = "~/Modules/Contenidos/ProveedoresValoraciones/ProveedoresValoracionesIndex.cshtml";
             }
 
         }
@@ -173,6 +167,11 @@ namespace MVC
             }
         }
 
+        public static class Providers
+        {
+            public const string ProvidersIndex = "~/Modules/Views/Providers/ProvidersIndex.cshtml";
+        }
+
         public static class Shared
         {
             public const string _Layout = "~/Views/Shared/_Layout.cshtml";
@@ -182,6 +181,16 @@ namespace MVC
             public const string _LayoutSlimHead = "~/Views/Shared/_LayoutSlimHead.cshtml";
             public const string Error = "~/Views/Shared/Error.cshtml";
             public const string LeftNavigation = "~/Views/Shared/LeftNavigation.cshtml";
+        }
+
+        public static class Surveys
+        {
+            public const string SurveysIndex = "~/Modules/Views/Surveys/SurveysIndex.cshtml";
+        }
+
+        public static class TimeLine
+        {
+            public const string TimeLineIndex = "~/Modules/Views/TimeLine/TimeLineIndex.cshtml";
         }
     }
 }

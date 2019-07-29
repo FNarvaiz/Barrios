@@ -1,6 +1,7 @@
 ﻿namespace Barrios.Administration {
     export interface UserRow {
         UserId?: number;
+        BarrioId?: number;
         Username?: string;
         Source?: string;
         PasswordHash?: string;
@@ -33,6 +34,7 @@
 
         export declare const enum Fields {
             UserId = "UserId",
+            BarrioId = "BarrioId",
             Username = "Username",
             Source = "Source",
             PasswordHash = "PasswordHash",

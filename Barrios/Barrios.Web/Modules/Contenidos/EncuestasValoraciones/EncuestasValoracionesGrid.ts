@@ -1,8 +1,7 @@
 ﻿
 namespace Barrios.Contenidos {
-
-    @Serenity.Decorators.registerClass()
-    export class EncuestasValoracionesGrid extends Serenity.EntityGrid<EncuestasValoracionesRow, any> {
+    
+    export class EncuestasValoracionesGrid extends DetailGridBase<EncuestasValoracionesRow> {
         protected getColumnsKey() { return 'Contenidos.EncuestasValoraciones'; }
         protected getDialogType() { return EncuestasValoracionesDialog; }
         protected getIdProperty() { return EncuestasValoracionesRow.idProperty; }
@@ -11,6 +10,11 @@ namespace Barrios.Contenidos {
 
         constructor(container: JQuery) {
             super(container);
+
+            this.setTitle("Valoraciones");
+        }
+        protected getMasterFieldName() {
+            return "ID_Encuesta";
         }
     }
 }

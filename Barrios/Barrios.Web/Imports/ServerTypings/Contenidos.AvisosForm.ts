@@ -1,15 +1,11 @@
 ﻿namespace Barrios.Contenidos {
     export interface AvisosForm {
         Nombre: Serenity.StringEditor;
-        IdCategoria: Serenity.IntegerEditor;
+        IdCategoria: Serenity.LookupEditor;
         Caducidad: Serenity.DateEditor;
         Vigente: Serenity.BooleanEditor;
         Descripcion: Serenity.StringEditor;
         Imagen: Serenity.ImageUploadEditor;
-        UserInsert: Serenity.IntegerEditor;
-        UserUpdate: Serenity.IntegerEditor;
-        DateUpdate: Serenity.DateEditor;
-        DateInsert: Serenity.DateEditor;
     }
 
     export class AvisosForm extends Serenity.PrefixedContext {
@@ -24,7 +20,7 @@
 
                 var s = Serenity;
                 var w0 = s.StringEditor;
-                var w1 = s.IntegerEditor;
+                var w1 = s.LookupEditor;
                 var w2 = s.DateEditor;
                 var w3 = s.BooleanEditor;
                 var w4 = s.ImageUploadEditor;
@@ -35,11 +31,7 @@
                     'Caducidad', w2,
                     'Vigente', w3,
                     'Descripcion', w0,
-                    'Imagen', w4,
-                    'UserInsert', w1,
-                    'UserUpdate', w1,
-                    'DateUpdate', w2,
-                    'DateInsert', w2
+                    'Imagen', w4
                 ]);
             }
         }

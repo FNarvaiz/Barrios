@@ -1,0 +1,46 @@
+﻿@model System.Collections.Generic.List<Barrios.Contenidos.Entities.LineaTiempoRow>
+@{
+    ViewData["Title"] = "Comisiones"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
+}
+<h2>Históricos <small>Informes y novedades historicas con archivos adjuntos o no. </small></h2>
+
+        <table class="table table-custom">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Periodo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Texto</th>
+                    <th scope="col">Archivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var aux in Model)
+                {
+                    <tr>
+                        <td>@aux.PeriodoFecha.Value.ToString("yyyy/MM")</td>
+                        <td>@aux.Nombre</td>
+                        <td>@aux.CategoryName</td>
+                        <td>@aux.ContenidoTexto</td>
+
+                        <td>
+                            @if (!aux.ArchivoFilename.IsEmptyOrNull())
+                            {
+                                <a class="btn btn-info" href="~/Upload/@aux.ArchivoFilename" target="_blank">Adjunto .@aux.Extension()</a>
+                            }
+                        </td>
+
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <script type="text/javascript">
+            jQuery(function () {
+                // new Barrios.Views.ProveedoresViewGrid($('#GridDiv'), {}).init();
+
+                // Q.initFullHeightGridPage($('#GridDiv'));
+            });
+        </script>

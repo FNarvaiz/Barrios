@@ -11,8 +11,13 @@
         DateInsert?: string;
         UserUpdate?: number;
         DateUpdate?: string;
+        CategoryName?: string;
+        BarrioId?: number;
         UserInsertUsername?: string;
         UserUpdateUsername?: string;
+        Rating?: number;
+        RatingCount?: number;
+        Liked?: number;
     }
 
     export namespace EncuestasRow {
@@ -32,8 +37,13 @@
             DateInsert = "DateInsert",
             UserUpdate = "UserUpdate",
             DateUpdate = "DateUpdate",
+            CategoryName = "CategoryName",
+            BarrioId = "BarrioId",
             UserInsertUsername = "UserInsertUsername",
-            UserUpdateUsername = "UserUpdateUsername"
+            UserUpdateUsername = "UserUpdateUsername",
+            Rating = "Rating",
+            RatingCount = "RatingCount",
+            Liked = "Liked"
         }
     }
 }

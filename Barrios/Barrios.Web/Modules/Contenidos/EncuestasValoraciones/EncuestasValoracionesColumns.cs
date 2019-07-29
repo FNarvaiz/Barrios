@@ -13,13 +13,10 @@ namespace Barrios.Contenidos.Columns
     [BasedOnRow(typeof(Entities.EncuestasValoracionesRow), CheckNames = true)]
     public class EncuestasValoracionesColumns
     {
-        [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
-        public Int32 Id { get; set; }
-        public String IdEncuestaNombre { get; set; }
+        [DisplayName("Usuario")]
+        public String UseridUsername { get; set; }
         public DateTime Fecha { get; set; }
         public Int16 Valoracion { get; set; }
-        [EditLink]
         public String Comentario { get; set; }
-        public String UseridUsername { get; set; }
     }
 }

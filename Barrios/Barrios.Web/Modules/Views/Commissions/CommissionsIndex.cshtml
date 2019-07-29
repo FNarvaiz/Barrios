@@ -1,0 +1,76 @@
+﻿@model System.Collections.Generic.List<Barrios.Contenidos.Entities.ComisionesRow>
+@{
+    ViewData["Title"] = "Comisiones"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
+}
+<h2>Comisiones <small>Integraciòn de las comisiones de nuestro barrio.</small></h2>
+<div class="row">
+        <div class="col-xs-12 col-md-8" style="height:inherit">
+            <table class="table table-custom">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Emails</th>
+                        <th scope="col">Integrantes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var aux in Model)
+                    {
+                        <tr>
+                            <th scope="row">@aux.Nombre</th>
+                            <td>@aux.Mails</td>
+
+                            <td>
+                                @foreach (var member in aux.MembersList)
+                                {
+                                    @member.Nombre <br>
+                                }
+                            </td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    <div class="col-xs-6 col-md-4" id="formCommission" style="height:inherit">
+        <section class="styleSerenity">
+            <form id="sendMail">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Comisión</label>
+                    <select name="commissions" id=commissionMails required>
+                        @foreach(var aux in Model)
+                        {
+                            <option value="@aux.Mails">@aux.Nombre</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje</label>
+                    <textarea class="form-control" required id="Message" placeholder="Que quiere decirnos?"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-info">Enviar</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(function () {
+        $("#sendMail").submit(function (event) {
+            try {
+                Barrios.Contenidos.ComisionesService.SendMail({
+                    Mails: $("#commissionMails").val(),
+                    Message: $("#Message").val()
+                }, (response) => {
+                    Q.notifySuccess(response, "Notificación", { timeOut: 5000 });
+                });
+            }
+            catch (err) {
+                alert(err);
+            }
+            return false;
+        });
+    });
+</script>

@@ -15,18 +15,20 @@ namespace Barrios.Default.Columns
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
         public Int32 Id { get; set; }
-        public String IdRecursoNombre { get; set; }
-        public Int16 IdResultado { get; set; }
+        [EditLink]
         public DateTime Fecha { get; set; }
+        public String IdVecinoUsername { get; set; }
+        public String IdRecursoNombre { get; set; }
         public Int16 Inicio { get; set; }
         public Int16 Duracion { get; set; }
-        [EditLink]
-        public String Observaciones { get; set; }
-        public Int32 IdVecino2 { get; set; }
         public Int32 IdTipo { get; set; }
         public DateTime FechaFin { get; set; }
-        public String IdVecinoUsername { get; set; }
+        public String Observaciones { get; set; }
+        public Int32 IdVecino2 { get; set; }
         public DateTime DateInsert { get; set; }
         public Int32 UserInsert { get; set; }
+        [Hidden]
+        public Int16 IdRecurso { get; set; }
+        
     }
 }

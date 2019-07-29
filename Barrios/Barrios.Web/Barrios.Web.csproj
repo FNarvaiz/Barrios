@@ -47,6 +47,19 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>None</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile>Scripts\site\Barrios.Web.js</TypeScriptOutFile>
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>True</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -828,14 +841,16 @@
     <Content Include="Modules\Administration\Barrios\BarriosIndex.cshtml" />
     <Content Include="Modules\Contenidos\Avisos\AvisosIndex.cshtml" />
     <Content Include="Modules\Contenidos\Categorias\CategoriasIndex.cshtml" />
-    <Content Include="Modules\Contenidos\ComisionesIntegrantes\ComisionesIntegrantesIndex.cshtml" />
     <Content Include="Modules\Contenidos\Comisiones\ComisionesIndex.cshtml" />
     <Content Include="Modules\Contenidos\EncuestasValoraciones\EncuestasValoracionesIndex.cshtml" />
     <Content Include="Modules\Contenidos\Encuestas\EncuestasIndex.cshtml" />
     <Content Include="Modules\Contenidos\LineaTiempo\LineaTiempoIndex.cshtml" />
-    <Content Include="Modules\Contenidos\ProveedoresValoraciones\ProveedoresValoracionesIndex.cshtml" />
+    <Content Include="Modules\Views\Providers\ProvidersIndex.cshtml" />
     <Content Include="Modules\Contenidos\Proveedores\ProveedoresIndex.cshtml" />
     <Content Include="Modules\Common\Dashboard\Booking.cshtml" />
+    <Content Include="Modules\Views\TimeLine\TimeLineIndex.cshtml" />
+    <Content Include="Modules\Views\Commissions\CommissionsIndex.cshtml" />
+    <Content Include="Modules\Views\Surveys\SurveysIndex.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1031,7 +1046,6 @@
     <Content Include="tools\Node\less\lib\less\tree\variable.js" />
     <Content Include="tools\Node\less\lib\less\visitor.js" />
     <Content Include="tools\Node\node.exe" />
-    <Content Include="tsconfig.json" />
     <TypeScriptCompile Include="Imports\ServerTypings\Administration.BarriosColumns.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
@@ -1084,9 +1098,6 @@
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.ComisionesIntegrantesRow.ts">
-      <DependentUpon>ServerTypings.tt</DependentUpon>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.ComisionesIntegrantesService.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.ComisionesRow.ts">
@@ -1173,10 +1184,16 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasTurnosEspecialesColumns.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Common.Utils.EmailRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Modules.Common.Utils.GenericComboBoxRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Modules.Common.Utils.IdRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Common.Utils.RatingRequest.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Perfil.VecinosActividadesColumns.ts">
@@ -1200,6 +1217,9 @@
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosDialog.ts" />
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosGrid.ts" />
     <TypeScriptCompile Include="Modules\Common\Dashboard\Reservas.ts" />
+    <TypeScriptCompile Include="Modules\Common\Helpers\BulkActionInAnyGrid.ts" />
+    <TypeScriptCompile Include="Modules\Common\Helpers\DetailGridBase.ts" />
+    <TypeScriptCompile Include="Modules\Common\Helpers\MasterGridBase.ts" />
     <TypeScriptCompile Include="Modules\Contenidos\Avisos\AvisosDialog.ts" />
     <TypeScriptCompile Include="Modules\Contenidos\Avisos\AvisosGrid.ts" />
     <TypeScriptCompile Include="Modules\Contenidos\Categorias\CategoriasDialog.ts" />
@@ -1218,14 +1238,6 @@
     <TypeScriptCompile Include="Modules\Contenidos\ProveedoresValoraciones\ProveedoresValoracionesGrid.ts" />
     <TypeScriptCompile Include="Modules\Contenidos\Proveedores\ProveedoresDialog.ts" />
     <TypeScriptCompile Include="Modules\Contenidos\Proveedores\ProveedoresGrid.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\jquery\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\jqueryui\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\jquery.blockui\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\jquery.cookie\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\jquery.validation\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\jspdf\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\sortablejs\index.d.ts" />
-    <TypeScriptCompile Include="node_modules\%40types\toastr\index.d.ts" />
     <Content Include="Content\site\images\accordion-arrows.png" />
     <Content Include="Modules\Membership\Account\SignUp\AccountSignUp.AdminLTE.cshtml" />
     <Content Include="Imports\Web.config" />
@@ -1749,6 +1761,7 @@
     <Content Include="Scripts\SlickGrid\README.md" />
     <Content Include="tools\Node\lessc.cmd" />
     <Content Include="tools\JsEngine\lib.d.ts_" />
+    <Content Include="tsconfig.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1887,6 +1900,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ClientTypes\Contenidos.ComisionesIntegrantesGridAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
     <Compile Include="Imports\ClientTypes\Default.ReservasTiposGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
@@ -1896,6 +1912,9 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190724_162300_UpdateCommissions.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190722_172700_UpdateTimeLine.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190721_133400_UpdateCategory.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190712_121800_UpdateReservasStoreProcedure.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190711_114800_UpdateReservasRecursos.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190703_142000_UpdateUserAndBarriosTable.cs" />
@@ -1981,7 +2000,9 @@
     <Compile Include="Modules\Common\UserPreference\UserPreferenceModels.cs" />
     <Compile Include="Modules\Common\UserPreference\UserPreferenceEndpoint.cs" />
     <Compile Include="Modules\Common\UserPreference\UserPreferenceRepository.cs" />
+    <Compile Include="Modules\Common\Utils\RatingRequest.cs" />
     <Compile Include="Modules\Common\Utils\GenericComboBoxRow.cs" />
+    <Compile Include="Modules\Common\Utils\EmailRequest.cs" />
     <Compile Include="Modules\Common\Utils\IActivityClass.cs" />
     <Compile Include="Modules\Common\Utils\TypeStatus.cs" />
     <Compile Include="Modules\Common\Utils\Utils.cs" />
@@ -1991,6 +2012,7 @@
     <Compile Include="Modules\Contenidos\Avisos\AvisosPage.cs" />
     <Compile Include="Modules\Contenidos\Avisos\AvisosRepository.cs" />
     <Compile Include="Modules\Contenidos\Avisos\AvisosRow.cs" />
+    <Compile Include="Modules\Contenidos\Avisos\NoticesCategoryLookup.cs" />
     <Compile Include="Modules\Contenidos\Categorias\CategoriasColumns.cs" />
     <Compile Include="Modules\Contenidos\Categorias\CategoriasEndpoint.cs" />
     <Compile Include="Modules\Contenidos\Categorias\CategoriasForm.cs" />
@@ -1999,9 +2021,7 @@
     <Compile Include="Modules\Contenidos\Categorias\CategoriasRow.cs" />
     <Compile Include="Modules\Contenidos\Categorias\CategoryTypeLookup.cs" />
     <Compile Include="Modules\Contenidos\ComisionesIntegrantes\ComisionesIntegrantesColumns.cs" />
-    <Compile Include="Modules\Contenidos\ComisionesIntegrantes\ComisionesIntegrantesEndpoint.cs" />
     <Compile Include="Modules\Contenidos\ComisionesIntegrantes\ComisionesIntegrantesForm.cs" />
-    <Compile Include="Modules\Contenidos\ComisionesIntegrantes\ComisionesIntegrantesPage.cs" />
     <Compile Include="Modules\Contenidos\ComisionesIntegrantes\ComisionesIntegrantesRepository.cs" />
     <Compile Include="Modules\Contenidos\ComisionesIntegrantes\ComisionesIntegrantesRow.cs" />
     <Compile Include="Modules\Contenidos\Comisiones\ComisionesColumns.cs" />
@@ -2017,6 +2037,7 @@
     <Compile Include="Modules\Contenidos\EncuestasValoraciones\EncuestasValoracionesPage.cs" />
     <Compile Include="Modules\Contenidos\EncuestasValoraciones\EncuestasValoracionesRepository.cs" />
     <Compile Include="Modules\Contenidos\EncuestasValoraciones\EncuestasValoracionesRow.cs" />
+    <Compile Include="Modules\Contenidos\Encuestas\SurveysCategoryLookup.cs" />
     <Compile Include="Modules\Contenidos\Encuestas\EncuestasColumns.cs" />
     <Compile Include="Modules\Contenidos\Encuestas\EncuestasEndpoint.cs" />
     <Compile Include="Modules\Contenidos\Encuestas\EncuestasForm.cs" />
@@ -2029,6 +2050,7 @@
     <Compile Include="Modules\Contenidos\LineaTiempo\LineaTiempoPage.cs" />
     <Compile Include="Modules\Contenidos\LineaTiempo\LineaTiempoRepository.cs" />
     <Compile Include="Modules\Contenidos\LineaTiempo\LineaTiempoRow.cs" />
+    <Compile Include="Modules\Contenidos\LineaTiempo\TimeLineCategoryLookup.cs" />
     <Compile Include="Modules\Contenidos\ProveedoresValoraciones\ProveedoresValoracionesColumns.cs" />
     <Compile Include="Modules\Contenidos\ProveedoresValoraciones\ProveedoresValoracionesEndpoint.cs" />
     <Compile Include="Modules\Contenidos\ProveedoresValoraciones\ProveedoresValoracionesForm.cs" />
@@ -2041,9 +2063,14 @@
     <Compile Include="Modules\Contenidos\Proveedores\ProveedoresPage.cs" />
     <Compile Include="Modules\Contenidos\Proveedores\ProveedoresRepository.cs" />
     <Compile Include="Modules\Contenidos\Proveedores\ProveedoresRow.cs" />
+    <Compile Include="Modules\Contenidos\Proveedores\ProviderCategoryLookup.cs" />
     <Compile Include="Modules\Default\ReservasRecursos\ResourceTypeLookup.cs" />
     <Compile Include="Modules\Default\ReservasRecursos\IntervalosLookup.cs" />
     <Compile Include="Modules\Default\ReservasRecursos\HorariosLookup.cs" />
+    <Compile Include="Modules\Default\Reservas\UsersLookup.cs" />
+    <Compile Include="Modules\Default\Reservas\TypeLookup.cs" />
+    <Compile Include="Modules\Default\Reservas\StartLookup.cs" />
+    <Compile Include="Modules\Default\Reservas\ResourceLookup.cs" />
     <Compile Include="Modules\Membership\Account\ChangePassword\AccountPage.ChangePassword.cs" />
     <Compile Include="Modules\Membership\Account\EnvironmentSettings.cs" />
     <Compile Include="Modules\Membership\Account\ForgotPassword\AccountPage.ForgotPassword.cs" />
@@ -2154,6 +2181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Modules\Contenidos\ProveedoresValoraciones\ProviderView\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

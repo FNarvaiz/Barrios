@@ -13,9 +13,7 @@
       "./node_modules/@types/"
     ]
   },
-  "include": [
-    "./Imports/",
-    "./Modules/",
-    "./Scripts/typings/"
+  "exclude": [
+    "Scripts/site/MCTApplication.Web.d.ts"
   ]
 }

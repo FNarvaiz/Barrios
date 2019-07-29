@@ -3,8 +3,6 @@
         Id?: number;
         Nombre?: string;
         Habilitada?: boolean;
-        Sigla?: string;
-        Color?: string;
         Mails?: string;
         UserInsert?: number;
         DateInsert?: string;
@@ -14,6 +12,7 @@
         UserInsertUsername?: string;
         UserUpdateUsername?: string;
         BarrioNombre?: string;
+        MembersList?: ComisionesIntegrantesRow[];
     }
 
     export namespace ComisionesRow {
@@ -25,8 +24,6 @@
             Id = "Id",
             Nombre = "Nombre",
             Habilitada = "Habilitada",
-            Sigla = "Sigla",
-            Color = "Color",
             Mails = "Mails",
             UserInsert = "UserInsert",
             DateInsert = "DateInsert",
@@ -35,7 +32,8 @@
             BarrioId = "BarrioId",
             UserInsertUsername = "UserInsertUsername",
             UserUpdateUsername = "UserUpdateUsername",
-            BarrioNombre = "BarrioNombre"
+            BarrioNombre = "BarrioNombre",
+            MembersList = "MembersList"
         }
     }
 }

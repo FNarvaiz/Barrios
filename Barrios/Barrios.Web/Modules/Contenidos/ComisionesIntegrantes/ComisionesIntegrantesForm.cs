@@ -13,11 +13,6 @@ namespace Barrios.Contenidos.Forms
     [BasedOnRow(typeof(Entities.ComisionesIntegrantesRow), CheckNames = true)]
     public class ComisionesIntegrantesForm
     {
-        public Int16 Id { get; set; }
         public String Nombre { get; set; }
-        public Int32 UserInsert { get; set; }
-        public DateTime DateInsert { get; set; }
-        public Int32 UserUpdate { get; set; }
-        public DateTime DateUpdate { get; set; }
     }
 }

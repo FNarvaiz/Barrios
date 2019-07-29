@@ -10,6 +10,9 @@ namespace Barrios.Contenidos {
         protected getService() { return AvisosService.baseUrl; }
 
         protected form = new AvisosForm(this.idPrefix);
-
+        constructor(container: JQuery) {
+            super(container);
+            CategoriasDialog.typeCategory =0;
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Barrios.Contenidos.Columns
         public Int32 Id { get; set; }
         [EditLink]
         public String Nombre { get; set; }
-        public Int16 IdCategoria { get; set; }
+        public String CategoryName { get; set; }
         public DateTime FechaAlta { get; set; }
         public DateTime FechaBaja { get; set; }
         public Boolean Vigente { get; set; }

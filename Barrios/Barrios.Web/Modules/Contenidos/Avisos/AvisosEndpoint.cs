@@ -1,9 +1,11 @@
 ﻿
 namespace Barrios.Contenidos.Endpoints
 {
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
+    using System;
     using System.Data;
     using System.Web.Mvc;
     using MyRepository = Repositories.AvisosRepository;
@@ -16,12 +18,19 @@ namespace Barrios.Contenidos.Endpoints
         [HttpPost, AuthorizeCreate(typeof(MyRow))]
         public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
+
+            request.Entity.DateInsert = DateTime.Now;
+
+            request.Entity.UserInsert = Convert.ToInt32(Authorization.UserId);
+            request.Entity.BarrioId = CurrentNeigborhood.Get().Id.Value;
             return new MyRepository().Create(uow, request);
         }
 
         [HttpPost, AuthorizeUpdate(typeof(MyRow))]
         public SaveResponse Update(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
+            request.Entity.DateUpdate = DateTime.Now;
+            request.Entity.UserUpdate = Convert.ToInt32( Authorization.UserId);
             return new MyRepository().Update(uow, request);
         }
  
@@ -40,6 +49,8 @@ namespace Barrios.Contenidos.Endpoints
         [HttpPost]
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
+
+            Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
         }
     }

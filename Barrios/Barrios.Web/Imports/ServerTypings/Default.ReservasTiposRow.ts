@@ -12,6 +12,11 @@
         export const idProperty = 'Id';
         export const nameProperty = 'Nombre';
         export const localTextPrefix = 'Default.ReservasTipos';
+        export const lookupKey = 'Reservas.ReservasTipos';
+
+        export function getLookup(): Q.Lookup<ReservasTiposRow> {
+            return Q.getLookup<ReservasTiposRow>('Reservas.ReservasTipos');
+        }
 
         export declare const enum Fields {
             IdRecurso = "IdRecurso",

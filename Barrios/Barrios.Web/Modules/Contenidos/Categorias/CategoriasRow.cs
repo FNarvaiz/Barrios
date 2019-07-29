@@ -32,7 +32,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Vigente"), Column("VIGENTE"), NotNull]
+        [DisplayName("Vigente"), Column("VIGENTE"),DefaultValue(true), NotNull]
         public Boolean? Vigente
         {
             get { return Fields.Vigente[this]; }
@@ -46,7 +46,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.UserInsert[this] = value; }
         }
 
-        [DisplayName("Date Insert")]
+        [DisplayName("Ingresado")]
         public DateTime? DateInsert
         {
             get { return Fields.DateInsert[this]; }
@@ -60,7 +60,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.UserUpdate[this] = value; }
         }
 
-        [DisplayName("Date Update")]
+        [DisplayName("Actualizado")]
         public DateTime? DateUpdate
         {
             get { return Fields.DateUpdate[this]; }
@@ -80,7 +80,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.TypeName[this] = value; }
         }
 
-        [DisplayName("Mostrar")]
+        [DisplayName("Mostrar"),DefaultValue(true)]
         public Boolean? Mostrar
         {
             get { return Fields.Mostrar[this]; }
@@ -89,7 +89,7 @@ namespace Barrios.Contenidos.Entities
 
 
         
-        [DisplayName("User Insert Username"), Expression("jUserInsert.[Username]")]
+        [DisplayName("Ingresado por"), Expression("jUserInsert.[Username]")]
         public String UserInsertUsername
         {
             get { return Fields.UserInsertUsername[this]; }
@@ -97,7 +97,7 @@ namespace Barrios.Contenidos.Entities
         }
 
 
-        [DisplayName("User Update Username"), Expression("jUserUpdate.[Username]")]
+        [DisplayName("Actualizado por"), Expression("jUserUpdate.[Username]")]
         public String UserUpdateUsername
         {
             get { return Fields.UserUpdateUsername[this]; }

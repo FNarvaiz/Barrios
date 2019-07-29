@@ -14,6 +14,11 @@
         DateInsert?: string;
         UserUpdate?: number;
         DateUpdate?: string;
+        CategoryName?: string;
+        BarrioId?: number;
+        Rating?: number;
+        RatingCount?: number;
+        Liked?: number;
         UserInsertUsername?: string;
         UserUpdateUsername?: string;
     }
@@ -38,6 +43,11 @@
             DateInsert = "DateInsert",
             UserUpdate = "UserUpdate",
             DateUpdate = "DateUpdate",
+            CategoryName = "CategoryName",
+            BarrioId = "BarrioId",
+            Rating = "Rating",
+            RatingCount = "RatingCount",
+            Liked = "Liked",
             UserInsertUsername = "UserInsertUsername",
             UserUpdateUsername = "UserUpdateUsername"
         }

@@ -7,13 +7,12 @@
         DateInsert?: string;
         UserUpdate?: number;
         DateUpdate?: string;
-        IdComisionNombre?: string;
         UserInsertUsername?: string;
         UserUpdateUsername?: string;
     }
 
     export namespace ComisionesIntegrantesRow {
-        export const idProperty = 'IdComision';
+        export const idProperty = 'Id';
         export const nameProperty = 'Nombre';
         export const localTextPrefix = 'Contenidos.ComisionesIntegrantes';
 
@@ -25,7 +24,6 @@
             DateInsert = "DateInsert",
             UserUpdate = "UserUpdate",
             DateUpdate = "DateUpdate",
-            IdComisionNombre = "IdComisionNombre",
             UserInsertUsername = "UserInsertUsername",
             UserUpdateUsername = "UserUpdateUsername"
         }

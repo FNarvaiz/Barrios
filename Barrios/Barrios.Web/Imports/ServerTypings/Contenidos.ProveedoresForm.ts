@@ -4,15 +4,11 @@
         IdCategoria: Serenity.LookupEditor;
         FechaAlta: Serenity.DateEditor;
         FechaBaja: Serenity.DateEditor;
-        Vigente: Serenity.BooleanEditor;
         Domicilio: Serenity.StringEditor;
         Telefonos: Serenity.StringEditor;
-        Email: Serenity.StringEditor;
+        Email: Serenity.EmailEditor;
         Notas: Serenity.StringEditor;
-        UserInsert: Serenity.IntegerEditor;
-        DateInsert: Serenity.DateEditor;
-        UserUpdate: Serenity.IntegerEditor;
-        DateUpdate: Serenity.DateEditor;
+        Vigente: Serenity.BooleanEditor;
     }
 
     export class ProveedoresForm extends Serenity.PrefixedContext {
@@ -29,23 +25,19 @@
                 var w0 = s.StringEditor;
                 var w1 = s.LookupEditor;
                 var w2 = s.DateEditor;
-                var w3 = s.BooleanEditor;
-                var w4 = s.IntegerEditor;
+                var w3 = s.EmailEditor;
+                var w4 = s.BooleanEditor;
 
                 Q.initFormType(ProveedoresForm, [
                     'Nombre', w0,
                     'IdCategoria', w1,
                     'FechaAlta', w2,
                     'FechaBaja', w2,
-                    'Vigente', w3,
                     'Domicilio', w0,
                     'Telefonos', w0,
-                    'Email', w0,
+                    'Email', w3,
                     'Notas', w0,
-                    'UserInsert', w4,
-                    'DateInsert', w2,
-                    'UserUpdate', w4,
-                    'DateUpdate', w2
+                    'Vigente', w4
                 ]);
             }
         }

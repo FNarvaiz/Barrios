@@ -52,12 +52,11 @@ namespace Barrios.Default.Repositories
               "CAST(CAST(T.DURACION AS FLOAT) / 60 AS NVARCHAR) + ' hs (' + T.NOMBRE + ')' AS TIPO, T.NOMBRE AS TipoNombre, T.DURACION, " +
               "dbo.ESTADO_TURNO_RESERVA(" + resourceId + ", E.FECHA, E.INICIO, T.DURACION) AS ESTADO_TURNO, " +
               "dbo.TURNO_RESERVA_VALIDO(" + resourceId + ", E.INICIO, T.DURACION) AS VALIDO, T.REQUIERE_VECINO_2, " +
-              "dbo.NOMBRE_TIPO_RESERVA(" + resourceId + ", E.ID_TIPO) AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE, " +
-              " v1.unidad AS UNIDAD,  " +
-                " v1.unidad AS UNIDAD_PRIMARIA, v2.unidad AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS(" + resourceId + ","+CurrentNeigborhood.Get().CantDiasReservables+","+0+") E JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = " + resourceId +"  AND T.VIGENTE=1 " +
-                " left join vecinos v1 on v1.id = E.ID_VECINO " +
-                "left join vecinos v2 on v2.id = E.ID_VECINO_2 " +
-                " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, v1.unidad, v2.unidad " +
+              "dbo.NOMBRE_TIPO_RESERVA(" + resourceId + ", E.ID_TIPO) AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE,  " +
+                " v1.Unit AS UNIDAD_PRIMARIA, v2.Unit AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS(" + resourceId + ","+CurrentNeigborhood.Get().CantDiasReservables+","+0+") E JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = " + resourceId +"  AND T.VIGENTE=1 " +
+                " left join Users v1 on v1.userid = E.ID_VECINO " +
+                "left join Users v2 on v2.userid = E.ID_VECINO_2 " +
+                " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, v1.Unit, v2.Unit " +
               "ORDER BY E.INICIO, E.FECHA, T.ID");
             DataTable dt=  Utils.GetRequestString(connection, sql.ToString());
             int count = 0;
@@ -72,6 +71,7 @@ namespace Barrios.Default.Repositories
                     Valido = Convert.ToBoolean(DR["VALIDO"]),
                     Turno = DR["Turno"].ToString(),
                     Estado = DR["ESTADO_TURNO"].ToString(),
+                    TipoReservaHecha= DR["TIPO_RESERVA_HECHA"].ToString(),
                     IdTipo = Convert.ToInt16(DR["ID_TIPO_RESERVA_DISPONIBLE"]),
                     Tipo=DR["TipoNombre"].ToString(),
                     Required_Vecino= Convert.ToBoolean(DR["REQUIERE_VECINO_2"]),

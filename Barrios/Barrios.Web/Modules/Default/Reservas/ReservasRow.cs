@@ -22,7 +22,7 @@ namespace Barrios.Default.Entities
             set { Fields.Id[this] = value; }
         }
 
-        [DisplayName("Id Recurso"), Column("ID_RECURSO"), NotNull, ForeignKey("[dbo].[RESERVAS_RECURSOS]", "ID"), LeftJoin("jIdRecurso"), TextualField("IdRecursoNombre")]
+        [DisplayName("Id Recurso"),QuickFilter,LookupEditor("Reservas.ResourceLookup"), Column("ID_RECURSO"), NotNull, ForeignKey("[dbo].[RESERVAS_RECURSOS]", "ID"), LeftJoin("jIdRecurso"), TextualField("IdRecursoNombre")]
         public Int16? IdRecurso
         {
             get { return Fields.IdRecurso[this]; }
@@ -43,7 +43,7 @@ namespace Barrios.Default.Entities
             set { Fields.Fecha[this] = value; }
         }
 
-        [DisplayName("Inicio"), Column("INICIO"), NotNull]
+        [DisplayName("Inicio") , LookupEditor("ReservasRecursos.HorariosLookup"), Column("INICIO"), NotNull]
         public Int16? Inicio
         {
             get { return Fields.Inicio[this]; }
@@ -64,19 +64,31 @@ namespace Barrios.Default.Entities
             set { Fields.Observaciones[this] = value; }
         }
 
-        [DisplayName("Id Vecino 2"), Column("ID_VECINO_2")]
+        [DisplayName("Id Vecino 2"), LookupEditor("Reservas.UsersLookup"), Column("ID_VECINO_2"), ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jIdVecino2"), TextualField("IdVecinoUsername")]
         public Int32? IdVecino2
         {
             get { return Fields.IdVecino2[this]; }
             set { Fields.IdVecino2[this] = value; }
         }
-
-        [DisplayName("Id Tipo"), Column("ID_TIPO")]
+        [DisplayName("Vecino 2"), Expression("jIdVecino2.[Username]")]
+        public String IdVecinoUsername2
+        {
+            get { return Fields.IdVecinoUsername2[this]; }
+            set { Fields.IdVecinoUsername2[this] = value; }
+        }
+        [DisplayName("Tipo"), LookupEditor(typeof(ReservasTiposRow), CascadeFrom = "IdRecurso", CascadeField = "IdRecurso"), Column("ID_TIPO")]
         public Int32? IdTipo
         {
             get { return Fields.IdTipo[this]; }
             set { Fields.IdTipo[this] = value; }
         }
+        [DisplayName("Turno"), LookupEditor(typeof(ReservasTurnosEspecialesRow), CascadeFrom = "IdRecurso", CascadeField = "IdRecurso"),NotMapped]
+        public Int32? IdTurnosEspeciales
+        {
+            get { return Fields.IdTurnosEspeciales[this]; }
+            set { Fields.IdTurnosEspeciales[this] = value; }
+        }
+
 
         [DisplayName("Fecha Fin"), Column("FECHA_FIN")]
         public DateTime? FechaFin
@@ -84,15 +96,15 @@ namespace Barrios.Default.Entities
             get { return Fields.FechaFin[this]; }
             set { Fields.FechaFin[this] = value; }
         }
-
-        [DisplayName("Id Vecino"), Column("ID_VECINO"), NotNull, ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jIdVecino"), TextualField("IdVecinoUsername")]
+        [DisplayName("Id Vecino"), LookupEditor("Reservas.UsersLookup"), Column("ID_VECINO"), NotNull, ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jIdVecino"), TextualField("IdVecinoUsername")]
         public Int32? IdVecino
         {
             get { return Fields.IdVecino[this]; }
             set { Fields.IdVecino[this] = value; }
         }
+       
 
-        [DisplayName("Date Insert")]
+        [DisplayName("Ingresado")]
         public DateTime? DateInsert
         {
             get { return Fields.DateInsert[this]; }
@@ -112,141 +124,15 @@ namespace Barrios.Default.Entities
             get { return Fields.IdRecursoNombre[this]; }
             set { Fields.IdRecursoNombre[this] = value; }
         }
-
-        [DisplayName("Id Recurso Apertura"), Expression("jIdRecurso.[APERTURA]")]
-        public Int16? IdRecursoApertura
-        {
-            get { return Fields.IdRecursoApertura[this]; }
-            set { Fields.IdRecursoApertura[this] = value; }
-        }
-
-        [DisplayName("Id Recurso Cierre"), Expression("jIdRecurso.[CIERRE]")]
-        public Int16? IdRecursoCierre
-        {
-            get { return Fields.IdRecursoCierre[this]; }
-            set { Fields.IdRecursoCierre[this] = value; }
-        }
-
-        [DisplayName("Id Recurso Resolucion"), Expression("jIdRecurso.[RESOLUCION]")]
-        public Int16? IdRecursoResolucion
-        {
-            get { return Fields.IdRecursoResolucion[this]; }
-            set { Fields.IdRecursoResolucion[this] = value; }
-        }
-
+        
         [DisplayName("Id Vecino Username"), Expression("jIdVecino.[Username]")]
         public String IdVecinoUsername
         {
             get { return Fields.IdVecinoUsername[this]; }
             set { Fields.IdVecinoUsername[this] = value; }
         }
-
-        [DisplayName("Id Vecino Display Name"), Expression("jIdVecino.[DisplayName]")]
-        public String IdVecinoDisplayName
-        {
-            get { return Fields.IdVecinoDisplayName[this]; }
-            set { Fields.IdVecinoDisplayName[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Email"), Expression("jIdVecino.[Email]")]
-        public String IdVecinoEmail
-        {
-            get { return Fields.IdVecinoEmail[this]; }
-            set { Fields.IdVecinoEmail[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Source"), Expression("jIdVecino.[Source]")]
-        public String IdVecinoSource
-        {
-            get { return Fields.IdVecinoSource[this]; }
-            set { Fields.IdVecinoSource[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Password Hash"), Expression("jIdVecino.[PasswordHash]")]
-        public String IdVecinoPasswordHash
-        {
-            get { return Fields.IdVecinoPasswordHash[this]; }
-            set { Fields.IdVecinoPasswordHash[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Password Salt"), Expression("jIdVecino.[PasswordSalt]")]
-        public String IdVecinoPasswordSalt
-        {
-            get { return Fields.IdVecinoPasswordSalt[this]; }
-            set { Fields.IdVecinoPasswordSalt[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Last Directory Update"), Expression("jIdVecino.[LastDirectoryUpdate]")]
-        public DateTime? IdVecinoLastDirectoryUpdate
-        {
-            get { return Fields.IdVecinoLastDirectoryUpdate[this]; }
-            set { Fields.IdVecinoLastDirectoryUpdate[this] = value; }
-        }
-
-        [DisplayName("Id Vecino User Image"), Expression("jIdVecino.[UserImage]")]
-        public String IdVecinoUserImage
-        {
-            get { return Fields.IdVecinoUserImage[this]; }
-            set { Fields.IdVecinoUserImage[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Insert Date"), Expression("jIdVecino.[InsertDate]")]
-        public DateTime? IdVecinoInsertDate
-        {
-            get { return Fields.IdVecinoInsertDate[this]; }
-            set { Fields.IdVecinoInsertDate[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Insert User Id"), Expression("jIdVecino.[InsertUserId]")]
-        public Int32? IdVecinoInsertUserId
-        {
-            get { return Fields.IdVecinoInsertUserId[this]; }
-            set { Fields.IdVecinoInsertUserId[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Update Date"), Expression("jIdVecino.[UpdateDate]")]
-        public DateTime? IdVecinoUpdateDate
-        {
-            get { return Fields.IdVecinoUpdateDate[this]; }
-            set { Fields.IdVecinoUpdateDate[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Update User Id"), Expression("jIdVecino.[UpdateUserId]")]
-        public Int32? IdVecinoUpdateUserId
-        {
-            get { return Fields.IdVecinoUpdateUserId[this]; }
-            set { Fields.IdVecinoUpdateUserId[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Is Active"), Expression("jIdVecino.[IsActive]")]
-        public Int16? IdVecinoIsActive
-        {
-            get { return Fields.IdVecinoIsActive[this]; }
-            set { Fields.IdVecinoIsActive[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Phones"), Expression("jIdVecino.[Phones]")]
-        public String IdVecinoPhones
-        {
-            get { return Fields.IdVecinoPhones[this]; }
-            set { Fields.IdVecinoPhones[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Note"), Expression("jIdVecino.[Note]")]
-        public String IdVecinoNote
-        {
-            get { return Fields.IdVecinoNote[this]; }
-            set { Fields.IdVecinoNote[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Latest Access"), Expression("jIdVecino.[Latest_Access]")]
-        public DateTime? IdVecinoLatestAccess
-        {
-            get { return Fields.IdVecinoLatestAccess[this]; }
-            set { Fields.IdVecinoLatestAccess[this] = value; }
-        }
-
-        [DisplayName("Id Vecino Unidad"), Expression("jIdVecino.[Unidad]")]
+        
+        [DisplayName("Id Vecino Unidad"),NotMapped]
         public String IdVecinoUnidad
         {
             get { return Fields.IdVecinoUnidad[this]; }
@@ -345,7 +231,9 @@ namespace Barrios.Default.Entities
             public Int32Field IdVecino;
             public DateTimeField DateInsert;
             public Int32Field UserInsert;
-            
+            public Int32Field IdTurnosEspeciales;
+
+
             public StringField Turno;
             public StringField Estado;
             public BooleanField Finalizado;
@@ -358,27 +246,11 @@ namespace Barrios.Default.Entities
             public StringField IdVecinoUnidadExtra;
 
             public StringField IdRecursoNombre;
-            public Int16Field IdRecursoApertura;
-            public Int16Field IdRecursoCierre;
-            public Int16Field IdRecursoResolucion;
 
             public StringField IdVecinoUsername;
-            public StringField IdVecinoDisplayName;
-            public StringField IdVecinoEmail;
-            public StringField IdVecinoSource;
-            public StringField IdVecinoPasswordHash;
-            public StringField IdVecinoPasswordSalt;
-            public DateTimeField IdVecinoLastDirectoryUpdate;
-            public StringField IdVecinoUserImage;
-            public DateTimeField IdVecinoInsertDate;
-            public Int32Field IdVecinoInsertUserId;
-            public DateTimeField IdVecinoUpdateDate;
-            public Int32Field IdVecinoUpdateUserId;
-            public Int16Field IdVecinoIsActive;
-            public StringField IdVecinoPhones;
-            public StringField IdVecinoNote;
-            public DateTimeField IdVecinoLatestAccess;
             public StringField IdVecinoUnidad;
+            public StringField IdVecinoUsername2;
+            
         }
     }
 }

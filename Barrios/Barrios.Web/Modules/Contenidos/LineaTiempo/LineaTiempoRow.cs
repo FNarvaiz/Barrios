@@ -31,61 +31,20 @@ namespace Barrios.Contenidos.Entities
         }
 
         [DisplayName("Archivo Filename"), Column("ARCHIVO_FILENAME"), Size(100)]
+        [FileUploadEditor(FilenameFormat = "TimeLineFiles/~", CopyToHistory = true)]
         public String ArchivoFilename
         {
             get { return Fields.ArchivoFilename[this]; }
             set { Fields.ArchivoFilename[this] = value; }
         }
-
-        [DisplayName("Archivo Filesize"), Column("ARCHIVO_FILESIZE")]
-        public Int32? ArchivoFilesize
-        {
-            get { return Fields.ArchivoFilesize[this]; }
-            set { Fields.ArchivoFilesize[this] = value; }
-        }
-
-        [DisplayName("Archivo Contenttype"), Column("ARCHIVO_CONTENTTYPE"), Size(200)]
-        public String ArchivoContenttype
-        {
-            get { return Fields.ArchivoContenttype[this]; }
-            set { Fields.ArchivoContenttype[this] = value; }
-        }
-
-        [DisplayName("Archivo Binarydata"), Column("ARCHIVO_BINARYDATA"), Size(2147483647)]
-        public Stream ArchivoBinarydata
-        {
-            get { return Fields.ArchivoBinarydata[this]; }
-            set { Fields.ArchivoBinarydata[this] = value; }
-        }
-
+        
         [DisplayName("Aprobado"), Column("APROBADO"), NotNull]
         public Boolean? Aprobado
         {
             get { return Fields.Aprobado[this]; }
             set { Fields.Aprobado[this] = value; }
         }
-
-        [DisplayName("Mes"), Column("MES"), NotNull]
-        public Int16? Mes
-        {
-            get { return Fields.Mes[this]; }
-            set { Fields.Mes[this] = value; }
-        }
-
-        [DisplayName("Anio"), Column("ANIO"), NotNull]
-        public Int16? Anio
-        {
-            get { return Fields.Anio[this]; }
-            set { Fields.Anio[this] = value; }
-        }
-
-        [DisplayName("Periodo"), Column("PERIODO"), Size(105)]
-        public String Periodo
-        {
-            get { return Fields.Periodo[this]; }
-            set { Fields.Periodo[this] = value; }
-        }
-
+        
         [DisplayName("Periodo Fecha"), Column("PERIODO_FECHA")]
         public DateTime? PeriodoFecha
         {
@@ -107,13 +66,18 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Userid[this] = value; }
         }
 
-        [DisplayName("Id Categoria"), Column("id_categoria"), NotNull]
+        [DisplayName("Id Categoria"), ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), LookupEditor("Category.TimeLineCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog"), Column("id_categoria"), NotNull]
         public Int16? IdCategoria
         {
             get { return Fields.IdCategoria[this]; }
             set { Fields.IdCategoria[this] = value; }
         }
-
+        [DisplayName("Categoria"), Expression("jCategory.[Nombre]")]
+        public String CategoryName
+        {
+            get { return Fields.CategoryName[this]; }
+            set { Fields.CategoryName[this] = value; }
+        }
 
 
         [DisplayName("Userid Username"), Expression("jUserid.[Username]")]
@@ -122,7 +86,12 @@ namespace Barrios.Contenidos.Entities
             get { return Fields.UseridUsername[this]; }
             set { Fields.UseridUsername[this] = value; }
         }
-
+        [DisplayName("Barrio"), ForeignKey("[dbo].[Barrios]", "ID")]
+        public Int16? BarrioId
+        {
+            get { return Fields.BarrioId[this]; }
+            set { Fields.BarrioId[this] = value; }
+        }
 
         IIdField IIdRow.IdField
         {
@@ -150,19 +119,7 @@ namespace Barrios.Contenidos.Entities
 
             public StringField ArchivoFilename;
 
-            public Int32Field ArchivoFilesize;
-
-            public StringField ArchivoContenttype;
-
-            public StreamField ArchivoBinarydata;
-
             public BooleanField Aprobado;
-
-            public Int16Field Mes;
-
-            public Int16Field Anio;
-
-            public StringField Periodo;
 
             public DateTimeField PeriodoFecha;
 
@@ -173,9 +130,18 @@ namespace Barrios.Contenidos.Entities
             public Int16Field IdCategoria;
 
 
+            public Int16Field BarrioId;
+
+            public StringField CategoryName;
 
             public StringField UseridUsername;
 
 		}
+        public String Extension()
+        {
+            var array = ArchivoFilename.Split('.');
+            return array[array.Length - 1];
+        }
+
     }
 }

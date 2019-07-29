@@ -13,6 +13,7 @@
         IdVecino?: number;
         DateInsert?: string;
         UserInsert?: number;
+        IdTurnosEspeciales?: number;
         Turno?: string;
         Estado?: string;
         Finalizado?: boolean;
@@ -24,26 +25,10 @@
         Required_Vecino?: boolean;
         IdVecinoUnidadExtra?: string;
         IdRecursoNombre?: string;
-        IdRecursoApertura?: number;
-        IdRecursoCierre?: number;
-        IdRecursoResolucion?: number;
         IdVecinoUsername?: string;
-        IdVecinoDisplayName?: string;
-        IdVecinoEmail?: string;
-        IdVecinoSource?: string;
-        IdVecinoPasswordHash?: string;
-        IdVecinoPasswordSalt?: string;
-        IdVecinoLastDirectoryUpdate?: string;
-        IdVecinoUserImage?: string;
-        IdVecinoInsertDate?: string;
-        IdVecinoInsertUserId?: number;
-        IdVecinoUpdateDate?: string;
-        IdVecinoUpdateUserId?: number;
-        IdVecinoIsActive?: number;
-        IdVecinoPhones?: string;
-        IdVecinoNote?: string;
-        IdVecinoLatestAccess?: string;
         IdVecinoUnidad?: string;
+        IdVecinoUsername2?: string;
+        IdVecinoUnidad2?: string;
     }
 
     export namespace ReservasRow {
@@ -65,6 +50,7 @@
             IdVecino = "IdVecino",
             DateInsert = "DateInsert",
             UserInsert = "UserInsert",
+            IdTurnosEspeciales = "IdTurnosEspeciales",
             Turno = "Turno",
             Estado = "Estado",
             Finalizado = "Finalizado",
@@ -76,26 +62,10 @@
             Required_Vecino = "Required_Vecino",
             IdVecinoUnidadExtra = "IdVecinoUnidadExtra",
             IdRecursoNombre = "IdRecursoNombre",
-            IdRecursoApertura = "IdRecursoApertura",
-            IdRecursoCierre = "IdRecursoCierre",
-            IdRecursoResolucion = "IdRecursoResolucion",
             IdVecinoUsername = "IdVecinoUsername",
-            IdVecinoDisplayName = "IdVecinoDisplayName",
-            IdVecinoEmail = "IdVecinoEmail",
-            IdVecinoSource = "IdVecinoSource",
-            IdVecinoPasswordHash = "IdVecinoPasswordHash",
-            IdVecinoPasswordSalt = "IdVecinoPasswordSalt",
-            IdVecinoLastDirectoryUpdate = "IdVecinoLastDirectoryUpdate",
-            IdVecinoUserImage = "IdVecinoUserImage",
-            IdVecinoInsertDate = "IdVecinoInsertDate",
-            IdVecinoInsertUserId = "IdVecinoInsertUserId",
-            IdVecinoUpdateDate = "IdVecinoUpdateDate",
-            IdVecinoUpdateUserId = "IdVecinoUpdateUserId",
-            IdVecinoIsActive = "IdVecinoIsActive",
-            IdVecinoPhones = "IdVecinoPhones",
-            IdVecinoNote = "IdVecinoNote",
-            IdVecinoLatestAccess = "IdVecinoLatestAccess",
-            IdVecinoUnidad = "IdVecinoUnidad"
+            IdVecinoUnidad = "IdVecinoUnidad",
+            IdVecinoUsername2 = "IdVecinoUsername2",
+            IdVecinoUnidad2 = "IdVecinoUnidad2"
         }
     }
 }

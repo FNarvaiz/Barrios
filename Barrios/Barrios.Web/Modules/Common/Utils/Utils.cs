@@ -90,7 +90,12 @@ namespace Barrios.Modules.Common.Utils
             obj.DateUpdate = DateTime.Now;
             obj.UserUpdate = Convert.ToInt32(Serenity.Authorization.UserDefinition.Id);
         }
-
+        static public void AddNeigborhoodFilter(ListRequest request)
+        {
+            if (request.EqualityFilter == null)
+                request.EqualityFilter = new System.Collections.Generic.Dictionary<string, object>();
+            request.EqualityFilter.Add("BarrioId", CurrentNeigborhood.Get().Id);
+        }
         internal static void WriteErrorLogs(System.Web.Mvc.Controller Controller, Exception ex)
         {
             var directori = Environment.CurrentDirectory;
@@ -241,6 +246,11 @@ static public List<FieldsNamesRow> FieldNames(string tableName)
             var cb = SqlConnections.GetConnectionString("Default");
             return SqlConnections.New(cb.ConnectionString, cb.ProviderName);
         }
+        static public UnitOfWork GetUnitOfWork()
+        {
+            return new UnitOfWork(GetConnection());
+        }
+        
         static public BarriosRow GetBarrio(string dominio)
         {
             IEnumerable<BarriosRow> list = GetConnection().Query<BarriosRow>("Select * from barrios");

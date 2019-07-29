@@ -63,7 +63,7 @@ namespace Barrios.Default.Entities
             set { Fields.Cierre[this] = value; }
         }
 
-        [DisplayName("Resolucion"), LookupEditor("ReservasRecursos.IntervalosLookup"),  Required, Column("RESOLUCION")]
+        [DisplayName("Resolucion"),LookupInclude, LookupEditor("ReservasRecursos.IntervalosLookup"),  Required, Column("RESOLUCION")]
         public Int16? Resolucion
         {
             get { return Fields.Resolucion[this]; }

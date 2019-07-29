@@ -3,17 +3,13 @@
         Id?: number;
         Nombre?: string;
         ArchivoFilename?: string;
-        ArchivoFilesize?: number;
-        ArchivoContenttype?: string;
-        ArchivoBinarydata?: number[];
         Aprobado?: boolean;
-        Mes?: number;
-        Anio?: number;
-        Periodo?: string;
         PeriodoFecha?: string;
         ContenidoTexto?: string;
         Userid?: number;
         IdCategoria?: number;
+        BarrioId?: number;
+        CategoryName?: string;
         UseridUsername?: string;
     }
 
@@ -26,17 +22,13 @@
             Id = "Id",
             Nombre = "Nombre",
             ArchivoFilename = "ArchivoFilename",
-            ArchivoFilesize = "ArchivoFilesize",
-            ArchivoContenttype = "ArchivoContenttype",
-            ArchivoBinarydata = "ArchivoBinarydata",
             Aprobado = "Aprobado",
-            Mes = "Mes",
-            Anio = "Anio",
-            Periodo = "Periodo",
             PeriodoFecha = "PeriodoFecha",
             ContenidoTexto = "ContenidoTexto",
             Userid = "Userid",
             IdCategoria = "IdCategoria",
+            BarrioId = "BarrioId",
+            CategoryName = "CategoryName",
             UseridUsername = "UseridUsername"
         }
     }

@@ -36,7 +36,8 @@
                     request: {
                         DisplayName: this.form.DisplayName.value,
                         Email: this.form.Email.value,
-                        Password: this.form.Password.value
+                        Password: this.form.Password.value,
+                        Unit: this.form.Unit.value
                     },
                     onSuccess: response => {
                         Q.information(Q.text('Forms.Membership.SignUp.Success'), () => {

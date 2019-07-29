@@ -30,41 +30,69 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Id Categoria"), Column("ID_CATEGORIA"), NotNull]
+        [DisplayName("Id Categoria"), ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), LookupEditor("Category.SurveysCategoryLookup",InplaceAdd =true, DialogType = "Contenidos.CategoriasDialog"), Column("ID_CATEGORIA"), NotNull]
         public Int16? IdCategoria
         {
             get { return Fields.IdCategoria[this]; }
             set { Fields.IdCategoria[this] = value; }
         }
+        [DisplayName("Categoria"), Expression("jCategory.[Nombre]")]
+        public String CategoryName
+        {
+            get { return Fields.CategoryName[this]; }
+            set { Fields.CategoryName[this] = value; }
+        }
+        [DisplayName("Valoración"),NotMapped]
+        public decimal? Rating
+        {
+            get { return Fields.Rating[this]; }
+            set { Fields.Rating[this] = value; }
+        }
+        [DisplayName("Liked"), NotMapped]
+        public int? Liked
+        {
+            get { return Fields.Liked[this]; }
+            set { Fields.Liked[this] = value; }
+        }
+        [DisplayName("Cantidad Votos"), NotMapped]
+        public int? RatingCount
+        {
+            get { return Fields.RatingCount[this]; }
+            set { Fields.RatingCount[this] = value; }
+        }
 
-        [DisplayName("Fecha Alta"), Column("FECHA_ALTA"), NotNull]
+        [DisplayName("Descripción"), Column("DESCRIPCION"),TextAreaEditor, Size(1073741823)]
+        public String Descripcion
+        {
+            get { return Fields.Descripcion[this]; }
+            set { Fields.Descripcion[this] = value; }
+        }
+        [DisplayName("Desde"), Column("FECHA_ALTA"), NotNull]
         public DateTime? FechaAlta
         {
             get { return Fields.FechaAlta[this]; }
             set { Fields.FechaAlta[this] = value; }
         }
-
-        [DisplayName("Fecha Baja"), Column("FECHA_BAJA")]
+        [DisplayName("Hasta"), Column("FECHA_BAJA")]
         public DateTime? FechaBaja
         {
             get { return Fields.FechaBaja[this]; }
             set { Fields.FechaBaja[this] = value; }
         }
-
-        [DisplayName("Vigente"), Column("VIGENTE"), NotNull]
+        [DisplayName("Barrio"), ForeignKey("[dbo].[Barrios]", "ID")]
+        public Int16? BarrioId
+        {
+            get { return Fields.BarrioId[this]; }
+            set { Fields.BarrioId[this] = value; }
+        }
+        [DisplayName("Vigente"), DefaultValue(true), Column("VIGENTE"), NotNull]
         public Boolean? Vigente
         {
             get { return Fields.Vigente[this]; }
             set { Fields.Vigente[this] = value; }
         }
 
-        [DisplayName("Descripcion"), Column("DESCRIPCION"), Size(1073741823)]
-        public String Descripcion
-        {
-            get { return Fields.Descripcion[this]; }
-            set { Fields.Descripcion[this] = value; }
-        }
-
+       
         [DisplayName("User Insert"), NotNull, ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jUserInsert"), TextualField("UserInsertUsername")]
         public Int32? UserInsert
         {
@@ -72,7 +100,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.UserInsert[this] = value; }
         }
 
-        [DisplayName("Date Insert")]
+        [DisplayName("Ingresado")]
         public DateTime? DateInsert
         {
             get { return Fields.DateInsert[this]; }
@@ -86,7 +114,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.UserUpdate[this] = value; }
         }
 
-        [DisplayName("Date Update")]
+        [DisplayName("Actualizado")]
         public DateTime? DateUpdate
         {
             get { return Fields.DateUpdate[this]; }
@@ -95,7 +123,7 @@ namespace Barrios.Contenidos.Entities
 
 
 
-        [DisplayName("User Insert Username"), Expression("jUserInsert.[Username]")]
+        [DisplayName("Ingresado por"), Expression("jUserInsert.[Username]")]
         public String UserInsertUsername
         {
             get { return Fields.UserInsertUsername[this]; }
@@ -103,7 +131,7 @@ namespace Barrios.Contenidos.Entities
         }
 
 
-        [DisplayName("User Update Username"), Expression("jUserUpdate.[Username]")]
+        [DisplayName("Actualizado por"), Expression("jUserUpdate.[Username]")]
         public String UserUpdateUsername
         {
             get { return Fields.UserUpdateUsername[this]; }
@@ -153,13 +181,19 @@ namespace Barrios.Contenidos.Entities
 
             public DateTimeField DateUpdate;
 
-
+            public StringField CategoryName;
+            
+            public Int16Field BarrioId;
 
             public StringField UserInsertUsername;
 
             public StringField UserUpdateUsername;
 
 
-		}
+            public DecimalField Rating;
+            public Int32Field RatingCount;
+
+            public Int32Field Liked;
+        }
     }
 }

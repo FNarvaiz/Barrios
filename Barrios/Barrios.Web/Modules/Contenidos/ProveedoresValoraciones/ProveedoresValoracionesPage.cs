@@ -11,7 +11,7 @@ namespace Barrios.Contenidos.Pages
     {
         public ActionResult Index()
         {
-            return View("~/Modules/Contenidos/ProveedoresValoraciones/ProveedoresValoracionesIndex.cshtml");
+            return View("~/Modules/Views/Providers/ProvidersIndex.cshtml");
         }
     }
 }

@@ -1,13 +1,35 @@
 ﻿@{
     ViewData["Title"] = Serenity.LocalText.Get("Db.Contenidos.Proveedores.EntityPlural");
 }
-
-<div id="GridDiv"></div>
-
+<div id="ProovedoresPage">
+    <div class="row rowstyle" style="height: inherit">
+        <div class="col-lg-5 col-md-5 col-sm-12" style="height:inherit">
+            <div class="box box-solid" style="border-top: 3px solid #3c8dbc; height: inherit">
+                <div class="box-body" style="height:inherit">
+                    <div id="GridDiv"></div>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-12" style="height:inherit">
+            <div class="box box-solid" style="border-top: 3px solid #3c8dbc; height:inherit; ">
+                <div class="box-header" style="height:inherit">
+                    <div id="GridMapping"></div>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="salestemplate_mapping" style="overflow: hidden;">
+                    @*<div  class="auditgrid" > </div> @*style="height:835px;"*@
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     jQuery(function () {
-        new Barrios.Contenidos.ProveedoresGrid($('#GridDiv'), {}).init();
+        var detail = new Barrios.Contenidos.ProveedoresValoracionesGrid($('#GridMapping'), {});
+        detail.init();
 
+        new Barrios.Contenidos.ProveedoresGrid($('#GridDiv'), detail, {}).init();
+        Q.initFullHeightGridPage($('#ProovedoresPage'));
         Q.initFullHeightGridPage($('#GridDiv'));
+        Q.initFullHeightGridPage($('#GridMapping'));
     });
 </script>

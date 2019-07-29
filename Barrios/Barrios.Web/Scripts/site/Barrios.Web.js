@@ -438,7 +438,7 @@ var Barrios;
                     AvisosForm.init = true;
                     var s = Serenity;
                     var w0 = s.StringEditor;
-                    var w1 = s.IntegerEditor;
+                    var w1 = s.LookupEditor;
                     var w2 = s.DateEditor;
                     var w3 = s.BooleanEditor;
                     var w4 = s.ImageUploadEditor;
@@ -448,11 +448,7 @@ var Barrios;
                         'Caducidad', w2,
                         'Vigente', w3,
                         'Descripcion', w0,
-                        'Imagen', w4,
-                        'UserInsert', w1,
-                        'UserUpdate', w1,
-                        'DateUpdate', w2,
-                        'DateInsert', w2
+                        'Imagen', w4
                     ]);
                 }
                 return _this;
@@ -575,20 +571,13 @@ var Barrios;
                     ComisionesForm.init = true;
                     var s = Serenity;
                     var w0 = s.StringEditor;
-                    var w1 = s.BooleanEditor;
-                    var w2 = s.IntegerEditor;
-                    var w3 = s.DateEditor;
+                    var w1 = Contenidos.ComisionesIntegrantesGrid;
+                    var w2 = s.BooleanEditor;
                     Q.initFormType(ComisionesForm, [
                         'Nombre', w0,
-                        'Habilitada', w1,
-                        'Sigla', w0,
-                        'Color', w0,
                         'Mails', w0,
-                        'UserInsert', w2,
-                        'DateInsert', w3,
-                        'UserUpdate', w2,
-                        'DateUpdate', w3,
-                        'BarrioId', w2
+                        'MembersList', w1,
+                        'Habilitada', w2
                     ]);
                 }
                 return _this;
@@ -610,16 +599,9 @@ var Barrios;
                 if (!ComisionesIntegrantesForm.init) {
                     ComisionesIntegrantesForm.init = true;
                     var s = Serenity;
-                    var w0 = s.IntegerEditor;
-                    var w1 = s.StringEditor;
-                    var w2 = s.DateEditor;
+                    var w0 = s.StringEditor;
                     Q.initFormType(ComisionesIntegrantesForm, [
-                        'Id', w0,
-                        'Nombre', w1,
-                        'UserInsert', w0,
-                        'DateInsert', w2,
-                        'UserUpdate', w0,
-                        'DateUpdate', w2
+                        'Nombre', w0
                     ]);
                 }
                 return _this;
@@ -636,31 +618,10 @@ var Barrios;
     (function (Contenidos) {
         var ComisionesIntegrantesRow;
         (function (ComisionesIntegrantesRow) {
-            ComisionesIntegrantesRow.idProperty = 'IdComision';
+            ComisionesIntegrantesRow.idProperty = 'Id';
             ComisionesIntegrantesRow.nameProperty = 'Nombre';
             ComisionesIntegrantesRow.localTextPrefix = 'Contenidos.ComisionesIntegrantes';
         })(ComisionesIntegrantesRow = Contenidos.ComisionesIntegrantesRow || (Contenidos.ComisionesIntegrantesRow = {}));
-    })(Contenidos = Barrios.Contenidos || (Barrios.Contenidos = {}));
-})(Barrios || (Barrios = {}));
-var Barrios;
-(function (Barrios) {
-    var Contenidos;
-    (function (Contenidos) {
-        var ComisionesIntegrantesService;
-        (function (ComisionesIntegrantesService) {
-            ComisionesIntegrantesService.baseUrl = 'Contenidos/ComisionesIntegrantes';
-            [
-                'Create',
-                'Update',
-                'Delete',
-                'Retrieve',
-                'List'
-            ].forEach(function (x) {
-                ComisionesIntegrantesService[x] = function (r, s, o) {
-                    return Q.serviceRequest(ComisionesIntegrantesService.baseUrl + '/' + x, r, s, o);
-                };
-            });
-        })(ComisionesIntegrantesService = Contenidos.ComisionesIntegrantesService || (Contenidos.ComisionesIntegrantesService = {}));
     })(Contenidos = Barrios.Contenidos || (Barrios.Contenidos = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -687,7 +648,9 @@ var Barrios;
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'SendMail',
+                'ListView'
             ].forEach(function (x) {
                 ComisionesService[x] = function (r, s, o) {
                     return Q.serviceRequest(ComisionesService.baseUrl + '/' + x, r, s, o);
@@ -708,20 +671,17 @@ var Barrios;
                     EncuestasForm.init = true;
                     var s = Serenity;
                     var w0 = s.StringEditor;
-                    var w1 = s.IntegerEditor;
-                    var w2 = s.DateEditor;
-                    var w3 = s.BooleanEditor;
+                    var w1 = s.DateEditor;
+                    var w2 = s.LookupEditor;
+                    var w3 = s.TextAreaEditor;
+                    var w4 = s.BooleanEditor;
                     Q.initFormType(EncuestasForm, [
                         'Nombre', w0,
-                        'IdCategoria', w1,
-                        'FechaAlta', w2,
-                        'FechaBaja', w2,
-                        'Vigente', w3,
-                        'Descripcion', w0,
-                        'UserInsert', w1,
-                        'DateInsert', w2,
-                        'UserUpdate', w1,
-                        'DateUpdate', w2
+                        'FechaAlta', w1,
+                        'FechaBaja', w1,
+                        'IdCategoria', w2,
+                        'Descripcion', w3,
+                        'Vigente', w4
                     ]);
                 }
                 return _this;
@@ -756,7 +716,10 @@ var Barrios;
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'ListRatings',
+                'Rating',
+                'SeeMore'
             ].forEach(function (x) {
                 EncuestasService[x] = function (r, s, o) {
                     return Q.serviceRequest(EncuestasService.baseUrl + '/' + x, r, s, o);
@@ -840,23 +803,17 @@ var Barrios;
                     LineaTiempoForm.init = true;
                     var s = Serenity;
                     var w0 = s.StringEditor;
-                    var w1 = s.IntegerEditor;
-                    var w2 = s.BooleanEditor;
-                    var w3 = s.DateEditor;
+                    var w1 = s.LookupEditor;
+                    var w2 = s.DateEditor;
+                    var w3 = s.ImageUploadEditor;
+                    var w4 = s.BooleanEditor;
                     Q.initFormType(LineaTiempoForm, [
                         'Nombre', w0,
-                        'ArchivoFilename', w0,
-                        'ArchivoFilesize', w1,
-                        'ArchivoContenttype', w0,
-                        'ArchivoBinarydata', w0,
-                        'Aprobado', w2,
-                        'Mes', w1,
-                        'Anio', w1,
-                        'Periodo', w0,
-                        'PeriodoFecha', w3,
+                        'IdCategoria', w1,
+                        'PeriodoFecha', w2,
                         'ContenidoTexto', w0,
-                        'Userid', w1,
-                        'IdCategoria', w1
+                        'ArchivoFilename', w3,
+                        'Aprobado', w4
                     ]);
                 }
                 return _this;
@@ -914,22 +871,18 @@ var Barrios;
                     var w0 = s.StringEditor;
                     var w1 = s.LookupEditor;
                     var w2 = s.DateEditor;
-                    var w3 = s.BooleanEditor;
-                    var w4 = s.IntegerEditor;
+                    var w3 = s.EmailEditor;
+                    var w4 = s.BooleanEditor;
                     Q.initFormType(ProveedoresForm, [
                         'Nombre', w0,
                         'IdCategoria', w1,
                         'FechaAlta', w2,
                         'FechaBaja', w2,
-                        'Vigente', w3,
                         'Domicilio', w0,
                         'Telefonos', w0,
-                        'Email', w0,
+                        'Email', w3,
                         'Notas', w0,
-                        'UserInsert', w4,
-                        'DateInsert', w2,
-                        'UserUpdate', w4,
-                        'DateUpdate', w2
+                        'Vigente', w4
                     ]);
                 }
                 return _this;
@@ -964,7 +917,9 @@ var Barrios;
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'ListRatings',
+                'Rating'
             ].forEach(function (x) {
                 ProveedoresService[x] = function (r, s, o) {
                     return Q.serviceRequest(ProveedoresService.baseUrl + '/' + x, r, s, o);
@@ -1055,22 +1010,20 @@ var Barrios;
                 if (!ReservasForm.init) {
                     ReservasForm.init = true;
                     var s = Serenity;
-                    var w0 = s.IntegerEditor;
-                    var w1 = s.DateEditor;
-                    var w2 = s.StringEditor;
+                    var w0 = s.DateEditor;
+                    var w1 = s.LookupEditor;
+                    var w2 = s.IntegerEditor;
+                    var w3 = s.StringEditor;
                     Q.initFormType(ReservasForm, [
-                        'IdRecurso', w0,
-                        'IdResultado', w0,
-                        'Fecha', w1,
-                        'Inicio', w0,
-                        'Duracion', w0,
-                        'Observaciones', w2,
-                        'IdVecino2', w0,
-                        'IdTipo', w0,
-                        'FechaFin', w1,
-                        'IdVecino', w0,
-                        'DateInsert', w1,
-                        'UserInsert', w0
+                        'Fecha', w0,
+                        'IdVecino', w1,
+                        'IdRecurso', w1,
+                        'IdTipo', w1,
+                        'IdTurnosEspeciales', w1,
+                        'Inicio', w1,
+                        'Duracion', w2,
+                        'Observaciones', w3,
+                        'IdVecino2', w1
                     ]);
                 }
                 return _this;
@@ -1221,6 +1174,11 @@ var Barrios;
             ReservasTiposRow.idProperty = 'Id';
             ReservasTiposRow.nameProperty = 'Nombre';
             ReservasTiposRow.localTextPrefix = 'Default.ReservasTipos';
+            ReservasTiposRow.lookupKey = 'Reservas.ReservasTipos';
+            function getLookup() {
+                return Q.getLookup('Reservas.ReservasTipos');
+            }
+            ReservasTiposRow.getLookup = getLookup;
         })(ReservasTiposRow = Default.ReservasTiposRow || (Default.ReservasTiposRow = {}));
     })(Default = Barrios.Default || (Barrios.Default = {}));
 })(Barrios || (Barrios = {}));
@@ -1262,6 +1220,11 @@ var Barrios;
             ReservasTurnosEspecialesRow.idProperty = 'Id';
             ReservasTurnosEspecialesRow.nameProperty = 'Nombre';
             ReservasTurnosEspecialesRow.localTextPrefix = 'Default.ReservasTurnosEspeciales';
+            ReservasTurnosEspecialesRow.lookupKey = 'Reservas.ReservasTurnosEspeciales';
+            function getLookup() {
+                return Q.getLookup('Reservas.ReservasTurnosEspeciales');
+            }
+            ReservasTurnosEspecialesRow.getLookup = getLookup;
         })(ReservasTurnosEspecialesRow = Default.ReservasTurnosEspecialesRow || (Default.ReservasTurnosEspecialesRow = {}));
     })(Default = Barrios.Default || (Barrios.Default = {}));
 })(Barrios || (Barrios = {}));
@@ -1545,11 +1508,12 @@ var Barrios;
                     var s = Serenity;
                     var w0 = s.DateEditor;
                     var w1 = s.StringEditor;
+                    var w2 = Perfil.VecinosEventosConcurrentesGrid;
                     Q.initFormType(VecinosEventosForm, [
                         'Fecha', w0,
                         'Nombre', w1,
                         'Lugar', w1,
-                        'ConcurrentesList', w1
+                        'ConcurrentesList', w2
                     ]);
                 }
                 return _this;
@@ -1719,7 +1683,7 @@ var Barrios;
 (function (Barrios_1) {
     var Texts;
     (function (Texts) {
-        Barrios['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Barrios: { CantDiasReservables: 1, Direccion: 1, Id: 1, IsActive: 1, LargeDisplayName: 1, Logo: 1, Mail: 1, Nombre: 1, PasswordMail: 1, ShortDisplayName: 1, TelefonOs: 1, Url: 1 }, Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { ClientIdList: 1, DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, Unit: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 }, UsersBarrios: { BarrioId: 1, BarrioNombre: 1, UserId: 1, UserUsername: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Contenidos: { Avisos: { Caducidad: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, Id: 1, IdCategoria: 1, IdCategoriaNombre: 1, Imagen: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Categorias: { DateInsert: 1, DateUpdate: 1, Id: 1, Mostrar: 1, Nombre: 1, Type: 1, TypeName: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Comisiones: { BarrioId: 1, BarrioNombre: 1, Color: 1, DateInsert: 1, DateUpdate: 1, Habilitada: 1, Id: 1, Mails: 1, Nombre: 1, Sigla: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, ComisionesIntegrantes: { DateInsert: 1, DateUpdate: 1, Id: 1, IdComision: 1, IdComisionNombre: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, Encuestas: { DateInsert: 1, DateUpdate: 1, Descripcion: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, EncuestasValoraciones: { Comentario: 1, Fecha: 1, Id: 1, IdEncuesta: 1, IdEncuestaNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 }, LineaTiempo: { Anio: 1, Aprobado: 1, ArchivoBinarydata: 1, ArchivoContenttype: 1, ArchivoFilename: 1, ArchivoFilesize: 1, ContenidoTexto: 1, Id: 1, IdCategoria: 1, Mes: 1, Nombre: 1, Periodo: 1, PeriodoFecha: 1, Userid: 1, UseridUsername: 1 }, Proveedores: { DateInsert: 1, DateUpdate: 1, Domicilio: 1, Email: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Nombre: 1, Notas: 1, Telefonos: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, ProveedoresValoraciones: { Fecha: 1, Id: 1, IdProveedor: 1, IdProveedorNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 } }, Default: { RecursosBarrios: { BarrioId: 1, BarrioNombre: 1, RecursoId: 1 }, Reservas: { DateInsert: 1, Duracion: 1, Estado: 1, Estado_Turno: 1, Fecha: 1, FechaFin: 1, Finalizado: 1, Id: 1, IdRecurso: 1, IdRecursoApertura: 1, IdRecursoCierre: 1, IdRecursoNombre: 1, IdRecursoResolucion: 1, IdResultado: 1, IdTipo: 1, IdVecino: 1, IdVecino2: 1, IdVecinoDisplayName: 1, IdVecinoEmail: 1, IdVecinoInsertDate: 1, IdVecinoInsertUserId: 1, IdVecinoIsActive: 1, IdVecinoLastDirectoryUpdate: 1, IdVecinoLatestAccess: 1, IdVecinoNote: 1, IdVecinoPasswordHash: 1, IdVecinoPasswordSalt: 1, IdVecinoPhones: 1, IdVecinoSource: 1, IdVecinoUnidad: 1, IdVecinoUnidadExtra: 1, IdVecinoUpdateDate: 1, IdVecinoUpdateUserId: 1, IdVecinoUserImage: 1, IdVecinoUsername: 1, Inicio: 1, Observaciones: 1, Required_Vecino: 1, Reservable: 1, Tipo: 1, TipoReservaHecha: 1, Turno: 1, UserInsert: 1, Valido: 1 }, ReservasRecursos: { Apertura: 1, BarrioId: 1, Cierre: 1, ClientIdList: 1, Id: 1, Nombre: 1, Resolucion: 1, SpecialTurnList: 1, TypeList: 1 }, ReservasTipos: { Duracion: 1, Id: 1, IdRecurso: 1, Nombre: 1, RequiereVecino2: 1, Vigente: 1 }, ReservasTurnosEspeciales: { Dias: 1, Duracion: 1, Id: 1, IdRecurso: 1, Inicio: 1, Nombre: 1 } }, Modules: { Common: { Utils: { GenericComboBox: { Id: 1, Name: 1 } } } }, Perfil: { VecinosActividades: { Actividad: 1, ActividadDetalles: 1, Fecha: 1, Id: 1, Ip: 1, Userid: 1 }, VecinosEventos: { ConcurrentesList: 1, Fecha: 1, Id: 1, Lugar: 1, Nombre: 1, Userid: 1, UseridUsername: 1 }, VecinosEventosConcurrentes: { Id: 1, IdEvento: 1, Nombre: 1, Userid: 1 }, VecinosMascotas: { Foto: 1, Id: 1, IdTipo: 1, Nombre: 1, Raza: 1, Userid: 1, UseridUnit: 1, UseridUsername: 1 }, VecinosVisitantesFrecuentes: { Dni: 1, Id: 1, Nombre: 1, Tipo: 1, Userid: 1, Vehiculo: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
+        Barrios['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Barrios: { CantDiasReservables: 1, Direccion: 1, Id: 1, IsActive: 1, LargeDisplayName: 1, Logo: 1, Mail: 1, Nombre: 1, PasswordMail: 1, ShortDisplayName: 1, TelefonOs: 1, Url: 1 }, Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { BarrioId: 1, ClientIdList: 1, DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, Unit: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 }, UsersBarrios: { BarrioId: 1, BarrioNombre: 1, UserId: 1, UserUsername: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Contenidos: { Avisos: { BarrioId: 1, Caducidad: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, Id: 1, IdCategoria: 1, Imagen: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Categorias: { DateInsert: 1, DateUpdate: 1, Id: 1, Mostrar: 1, Nombre: 1, Type: 1, TypeName: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Comisiones: { BarrioId: 1, BarrioNombre: 1, DateInsert: 1, DateUpdate: 1, Habilitada: 1, Id: 1, Mails: 1, MembersList: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, ComisionesIntegrantes: { DateInsert: 1, DateUpdate: 1, Id: 1, IdComision: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, Encuestas: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Rating: 1, RatingCount: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, EncuestasValoraciones: { Comentario: 1, Fecha: 1, Id: 1, IdEncuesta: 1, IdEncuestaNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 }, LineaTiempo: { Aprobado: 1, ArchivoFilename: 1, BarrioId: 1, CategoryName: 1, ContenidoTexto: 1, Id: 1, IdCategoria: 1, Nombre: 1, PeriodoFecha: 1, Userid: 1, UseridUsername: 1 }, Proveedores: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Domicilio: 1, Email: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Notas: 1, Rating: 1, RatingCount: 1, Telefonos: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, ProveedoresValoraciones: { Fecha: 1, Id: 1, IdProveedor: 1, IdProveedorNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 } }, Default: { RecursosBarrios: { BarrioId: 1, BarrioNombre: 1, RecursoId: 1 }, Reservas: { DateInsert: 1, Duracion: 1, Estado: 1, Estado_Turno: 1, Fecha: 1, FechaFin: 1, Finalizado: 1, Id: 1, IdRecurso: 1, IdRecursoNombre: 1, IdResultado: 1, IdTipo: 1, IdTurnosEspeciales: 1, IdVecino: 1, IdVecino2: 1, IdVecinoUnidad: 1, IdVecinoUnidad2: 1, IdVecinoUnidadExtra: 1, IdVecinoUsername: 1, IdVecinoUsername2: 1, Inicio: 1, Observaciones: 1, Required_Vecino: 1, Reservable: 1, Tipo: 1, TipoReservaHecha: 1, Turno: 1, UserInsert: 1, Valido: 1 }, ReservasRecursos: { Apertura: 1, BarrioId: 1, Cierre: 1, ClientIdList: 1, Id: 1, Nombre: 1, Resolucion: 1, SpecialTurnList: 1, TypeList: 1 }, ReservasTipos: { Duracion: 1, Id: 1, IdRecurso: 1, Nombre: 1, RequiereVecino2: 1, Vigente: 1 }, ReservasTurnosEspeciales: { Dias: 1, Duracion: 1, Id: 1, IdRecurso: 1, Inicio: 1, Nombre: 1 } }, Modules: { Common: { Utils: { GenericComboBox: { Id: 1, Name: 1 } } } }, Perfil: { VecinosActividades: { Actividad: 1, ActividadDetalles: 1, Fecha: 1, Id: 1, Ip: 1, Userid: 1 }, VecinosEventos: { ConcurrentesList: 1, Fecha: 1, Id: 1, Lugar: 1, Nombre: 1, Userid: 1, UseridUsername: 1 }, VecinosEventosConcurrentes: { Id: 1, IdEvento: 1, Nombre: 1, Userid: 1 }, VecinosMascotas: { Foto: 1, Id: 1, IdTipo: 1, Nombre: 1, Raza: 1, Userid: 1, UseridUnit: 1, UseridUsername: 1 }, VecinosVisitantesFrecuentes: { Dni: 1, Id: 1, Nombre: 1, Tipo: 1, Userid: 1, Vehiculo: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
     })(Texts = Barrios_1.Texts || (Barrios_1.Texts = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -3034,6 +2998,117 @@ var Barrios;
         Common.BulkServiceAction = BulkServiceAction;
     })(Common = Barrios.Common || (Barrios.Common = {}));
 })(Barrios || (Barrios = {}));
+/// <reference path="../../../Modules/Common/Helpers/BulkServiceAction.ts"/>
+var Barrios;
+(function (Barrios) {
+    var Common;
+    (function (Common) {
+        var BulkactionInAnyGrid = /** @class */ (function (_super) {
+            __extends(BulkactionInAnyGrid, _super);
+            function BulkactionInAnyGrid() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.IsShared = false;
+                return _this;
+                /* protected executeForBatch(batch) {
+                     if (this.IsShared) {
+                         TaskService.BulkAction(
+                             {
+                                 IdList: batch.map(x => (x)),
+                                 TableName: this.TableName
+                             },
+                             response => {
+                                 this.set_successCount(this.get_successCount() + response.deleted),
+                                     this.set_errorCount(this.get_errorCount() + response.errorcount);
+                             },
+                             {
+                                 blockUI: false,
+                                 onError: response => this.set_errorCount(this.get_errorCount() + batch.length),
+                                 onCleanup: () => this.serviceCallCleanup()
+                             });
+                     } else {
+                         TaskService.BulkActioninClientDB(
+                             {
+                                 IdList: batch.map(x => (x)),
+                                 TableName: this.TableName
+                             },
+                             response => {
+                                 this.set_successCount(this.get_successCount() + response.deleted),
+                                     this.set_errorCount(this.get_errorCount() + response.errorcount);
+                             },
+                             {
+                                 blockUI: false,
+                                 onError: response => this.set_errorCount(this.get_errorCount() + batch.length),
+                                 onCleanup: () => this.serviceCallCleanup()
+                             });
+                     }
+                 }*/
+            }
+            BulkactionInAnyGrid.prototype.getParallelRequests = function () {
+                return 2;
+            };
+            BulkactionInAnyGrid.prototype.getBatchSize = function () {
+                return 100;
+            };
+            return BulkactionInAnyGrid;
+        }(Common.BulkServiceAction));
+        Common.BulkactionInAnyGrid = BulkactionInAnyGrid;
+    })(Common = Barrios.Common || (Barrios.Common = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var DetailGridBase = /** @class */ (function (_super) {
+        __extends(DetailGridBase, _super);
+        function DetailGridBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        DetailGridBase.prototype.onMasterIdChanged = function (masterItemID) { };
+        DetailGridBase.prototype.onMasterStringIdChanged = function (masterStringID) { };
+        Object.defineProperty(DetailGridBase.prototype, "masterItemID", {
+            get: function () {
+                return this._masterItemID;
+            },
+            set: function (value) {
+                console.log(value);
+                if (this._masterItemID !== value) {
+                    this._masterItemID = value;
+                    this.onMasterIdChanged(this._masterItemID);
+                    this.setEquality(this.getMasterFieldName(), value);
+                    this.refresh();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DetailGridBase.prototype, "masterStringID", {
+            get: function () {
+                return this._masterStringID;
+            },
+            set: function (value) {
+                if (this._masterStringID !== value) {
+                    this._masterStringID = value;
+                    this.onMasterStringIdChanged(this._masterStringID);
+                    this.setEquality(this.getMasterFieldName(), value);
+                    this.refresh();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        DetailGridBase.prototype.getMasterFieldName = function () {
+            return "";
+        };
+        //protected getSlickOptions(): Slick.GridOptions {
+        //    var opt = super.getSlickOptions();
+        //    opt.rowHeight = 28;
+        //    return opt;
+        //}
+        DetailGridBase.prototype.getGridCanLoad = function () {
+            return !isNaN(this.masterItemID) || this.masterStringID !== undefined;
+        };
+        return DetailGridBase;
+    }(Serenity.EntityGrid));
+    Barrios.DetailGridBase = DetailGridBase;
+})(Barrios || (Barrios = {}));
 var Barrios;
 (function (Barrios) {
     var DialogUtils;
@@ -3314,6 +3389,149 @@ var Barrios;
         }(Serenity.EntityDialog));
         Common.GridEditorDialog = GridEditorDialog;
     })(Common = Barrios.Common || (Barrios.Common = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var MasterGridBase = /** @class */ (function (_super) {
+        __extends(MasterGridBase, _super);
+        function MasterGridBase(container, options) {
+            var _this = _super.call(this, container, options ||
+                {
+                    selectionMode: 'single',
+                    enableRowSelection: true
+                }) || this;
+            _this.toolbar.element.attr('style', 'border-bottom: 1px solid #e7e7e7;margin-bottom: 4px;');
+            _this.element.find('.title-text').prepend($("<i class=\"" + _this.getGridIconClass() + "\"></i><span> </span>"));
+            return _this;
+        }
+        MasterGridBase.prototype.isMultiSelectEnabled = function () {
+            return (this.options.enableRowSelection && this.options.selectionMode === 'multiple');
+        };
+        MasterGridBase.prototype.getGridIconClass = function () {
+            return 'fa icon-screen-desktop';
+        };
+        MasterGridBase.prototype.createToolbarExtensions = function () {
+            _super.prototype.createToolbarExtensions.call(this);
+            if (this.isMultiSelectEnabled()) {
+                this.rowSelection = new Serenity.GridRowSelectionMixin(this);
+            }
+        };
+        MasterGridBase.prototype.getColumns = function () {
+            var _this = this;
+            var columns = _super.prototype.getColumns.call(this);
+            if (this.isMultiSelectEnabled()) {
+                columns.splice(0, 0, Serenity.GridRowSelectionMixin.createSelectColumn(function () { return _this.rowSelection; }));
+            }
+            return columns;
+        };
+        MasterGridBase.prototype.resetCheckedAndRefresh = function () {
+            if (this.isMultiSelectEnabled() && this.rowSelection != null) {
+                this.rowSelection.resetCheckedAndRefresh();
+            }
+        };
+        /*  protected getPersistanceFlags(): Serenity.GridPersistanceFlags {
+              return {
+                  columnVisibility: true,
+                  sortColumns: true,
+                  filterItems: false,
+                  quickFilters: false,
+                  quickFilterText: false,
+                  quickSearch: false,
+                  includeDeleted: true,
+                  columnWidths: false // dont persist column widths;
+              }
+          }*/
+        MasterGridBase.prototype.getSelectedKeys = function () {
+            if (this.isMultiSelectEnabled() && this.rowSelection != null) {
+                return this.rowSelection.getSelectedKeys();
+            }
+            return [];
+        };
+        MasterGridBase.prototype.getSelectedItems = function () {
+            var _this = this;
+            var selectedKeys = this.getSelectedKeys();
+            if (selectedKeys != null && selectedKeys.length > 0) {
+                return selectedKeys.map(function (x) { return _this.getView().getItemById(x); });
+            }
+            return [];
+        };
+        MasterGridBase.prototype.getSelectedItem = function () {
+            var items = this.getSelectedItems();
+            if (items != null && items.length > 0) {
+                return items[0];
+            }
+            return null;
+        };
+        MasterGridBase.prototype.getMasterGridRowType = function () {
+            return null;
+        };
+        MasterGridBase.prototype.getSlickOptions = function () {
+            var opt = _super.prototype.getSlickOptions.call(this);
+            opt.enableCellNavigation = true;
+            opt.enableTextSelectionOnCells = true;
+            opt.selectedCellCssClass = "slick-row-selected";
+            return opt;
+        };
+        MasterGridBase.prototype.createSlickGrid = function () {
+            var _this = this;
+            this.grid = _super.prototype.createSlickGrid.call(this);
+            if (this.options.enableRowSelection) {
+                this.grid.setSelectionModel(new Slick.RowSelectionModel());
+            }
+            this.grid.onSelectedRowsChanged.subscribe(function (p1, selecion) {
+                if (_this.options.enableRowSelection) {
+                    if (_this.isMultiSelectEnabled() && _this.rowSelection != null) {
+                        var selectedKeys = _this.getSelectedKeys();
+                        if (_this.onItemsSelected && selectedKeys != null && selectedKeys.length > 0) {
+                            _this.onItemsSelected(_this.getSelectedItems());
+                        }
+                    }
+                    else if (_this.onItemSelected && selecion.rows != null && selecion.rows.length > 0) {
+                        _this.onItemSelected(_this.getView().getItemById(selecion.rows[0]));
+                    }
+                }
+            });
+            return this.grid;
+        };
+        MasterGridBase.prototype.onClick = function (e, row, cell) {
+            _super.prototype.onClick.call(this, e, row, cell);
+            var item = this.itemAt(row);
+            if (this.options.enableRowSelection && this.onItemClicked) {
+                this.onItemClicked(item);
+            }
+        };
+        MasterGridBase.prototype.destroy = function () {
+            // clear to avoid memory holes
+            this.onItemClicked = null;
+            this.onItemSelected = null;
+            this.onItemsSelected = null;
+            _super.prototype.destroy.call(this);
+        };
+        MasterGridBase.prototype.getButtons = function () {
+            var _this = this;
+            var buttons = _super.prototype.getButtons.call(this);
+            buttons.push({
+                title: 'Delete',
+                cssClass: 'delete-button',
+                onClick: function () {
+                    if (!_this.onViewSubmit()) {
+                        return;
+                    }
+                    if (Barrios.Authorization.hasPermission(_this.options.bulkdeletePermissionKey)) {
+                        var action = new Barrios.Common.BulkactionInAnyGrid();
+                        action.TableName = _this.options.TableName;
+                        action.done = function () { return _this.rowSelection.resetCheckedAndRefresh(); };
+                        action.execute(_this.rowSelection.getSelectedKeys());
+                    }
+                    else
+                        Q.alert(Q.text('Site.ErrorMessage.AuthorizationFailure'));
+                }
+            });
+            return buttons;
+        };
+        return MasterGridBase;
+    }(Serenity.EntityGrid));
+    Barrios.MasterGridBase = MasterGridBase;
 })(Barrios || (Barrios = {}));
 var Barrios;
 (function (Barrios) {
@@ -3945,9 +4163,10 @@ var Barrios;
     (function (Contenidos) {
         var AvisosDialog = /** @class */ (function (_super) {
             __extends(AvisosDialog, _super);
-            function AvisosDialog() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
+            function AvisosDialog(container) {
+                var _this = _super.call(this, container) || this;
                 _this.form = new Contenidos.AvisosForm(_this.idPrefix);
+                Contenidos.CategoriasDialog.typeCategory = 0;
                 return _this;
             }
             AvisosDialog.prototype.getFormKey = function () { return Contenidos.AvisosForm.formKey; };
@@ -3991,17 +4210,32 @@ var Barrios;
     (function (Contenidos) {
         var CategoriasDialog = /** @class */ (function (_super) {
             __extends(CategoriasDialog, _super);
-            function CategoriasDialog() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
+            function CategoriasDialog(container) {
+                var _this = _super.call(this, container) || this;
                 _this.form = new Contenidos.CategoriasForm(_this.idPrefix);
+                console.log("Constructor Category");
+                console.log(CategoriasDialog_1.typeCategory);
                 return _this;
             }
+            CategoriasDialog_1 = CategoriasDialog;
             CategoriasDialog.prototype.getFormKey = function () { return Contenidos.CategoriasForm.formKey; };
             CategoriasDialog.prototype.getIdProperty = function () { return Contenidos.CategoriasRow.idProperty; };
             CategoriasDialog.prototype.getLocalTextPrefix = function () { return Contenidos.CategoriasRow.localTextPrefix; };
             CategoriasDialog.prototype.getNameProperty = function () { return Contenidos.CategoriasRow.nameProperty; };
             CategoriasDialog.prototype.getService = function () { return Contenidos.CategoriasService.baseUrl; };
-            CategoriasDialog = __decorate([
+            CategoriasDialog.prototype.beforeLoadEntity = function (entity) {
+                _super.prototype.beforeLoadEntity.call(this, entity);
+                if (CategoriasDialog_1.typeCategory != null)
+                    entity.Type = CategoriasDialog_1.typeCategory;
+            };
+            CategoriasDialog.prototype.afterLoadEntity = function () {
+                _super.prototype.afterLoadEntity.call(this);
+                if (CategoriasDialog_1.typeCategory != null) {
+                    this.form.Type.set_readOnly(true);
+                }
+            };
+            var CategoriasDialog_1;
+            CategoriasDialog = CategoriasDialog_1 = __decorate([
                 Serenity.Decorators.registerClass()
             ], CategoriasDialog);
             return CategoriasDialog;
@@ -4089,15 +4323,12 @@ var Barrios;
                 return _this;
             }
             ComisionesIntegrantesDialog.prototype.getFormKey = function () { return Contenidos.ComisionesIntegrantesForm.formKey; };
-            ComisionesIntegrantesDialog.prototype.getIdProperty = function () { return Contenidos.ComisionesIntegrantesRow.idProperty; };
             ComisionesIntegrantesDialog.prototype.getLocalTextPrefix = function () { return Contenidos.ComisionesIntegrantesRow.localTextPrefix; };
-            ComisionesIntegrantesDialog.prototype.getNameProperty = function () { return Contenidos.ComisionesIntegrantesRow.nameProperty; };
-            ComisionesIntegrantesDialog.prototype.getService = function () { return Contenidos.ComisionesIntegrantesService.baseUrl; };
             ComisionesIntegrantesDialog = __decorate([
                 Serenity.Decorators.registerClass()
             ], ComisionesIntegrantesDialog);
             return ComisionesIntegrantesDialog;
-        }(Serenity.EntityDialog));
+        }(Barrios.Common.GridEditorDialog));
         Contenidos.ComisionesIntegrantesDialog = ComisionesIntegrantesDialog;
     })(Contenidos = Barrios.Contenidos || (Barrios.Contenidos = {}));
 })(Barrios || (Barrios = {}));
@@ -4112,14 +4343,11 @@ var Barrios;
             }
             ComisionesIntegrantesGrid.prototype.getColumnsKey = function () { return 'Contenidos.ComisionesIntegrantes'; };
             ComisionesIntegrantesGrid.prototype.getDialogType = function () { return Contenidos.ComisionesIntegrantesDialog; };
-            ComisionesIntegrantesGrid.prototype.getIdProperty = function () { return Contenidos.ComisionesIntegrantesRow.idProperty; };
-            ComisionesIntegrantesGrid.prototype.getLocalTextPrefix = function () { return Contenidos.ComisionesIntegrantesRow.localTextPrefix; };
-            ComisionesIntegrantesGrid.prototype.getService = function () { return Contenidos.ComisionesIntegrantesService.baseUrl; };
             ComisionesIntegrantesGrid = __decorate([
                 Serenity.Decorators.registerClass()
             ], ComisionesIntegrantesGrid);
             return ComisionesIntegrantesGrid;
-        }(Serenity.EntityGrid));
+        }(Barrios.Common.GridEditorBase));
         Contenidos.ComisionesIntegrantesGrid = ComisionesIntegrantesGrid;
     })(Contenidos = Barrios.Contenidos || (Barrios.Contenidos = {}));
 })(Barrios || (Barrios = {}));
@@ -4129,9 +4357,10 @@ var Barrios;
     (function (Contenidos) {
         var EncuestasDialog = /** @class */ (function (_super) {
             __extends(EncuestasDialog, _super);
-            function EncuestasDialog() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
+            function EncuestasDialog(container) {
+                var _this = _super.call(this, container) || this;
                 _this.form = new Contenidos.EncuestasForm(_this.idPrefix);
+                Contenidos.CategoriasDialog.typeCategory = 1;
                 return _this;
             }
             EncuestasDialog.prototype.getFormKey = function () { return Contenidos.EncuestasForm.formKey; };
@@ -4153,8 +4382,18 @@ var Barrios;
     (function (Contenidos) {
         var EncuestasGrid = /** @class */ (function (_super) {
             __extends(EncuestasGrid, _super);
-            function EncuestasGrid(container) {
-                return _super.call(this, container) || this;
+            function EncuestasGrid(container, detailGrid) {
+                var _this = _super.call(this, container, {
+                    selectionMode: "single",
+                    enableRowSelection: true,
+                    // bulkdeletePermissionKey: Q.text('Site.Permission.SalesTemplateBulkDelete'),
+                    TableName: Q.text('Site.TableName.Encuestas')
+                }) || this;
+                _this.onItemClicked = function (item) {
+                    console.log(item);
+                    detailGrid.masterItemID = item.Id;
+                };
+                return _this;
             }
             EncuestasGrid.prototype.getColumnsKey = function () { return 'Contenidos.Encuestas'; };
             EncuestasGrid.prototype.getDialogType = function () { return Contenidos.EncuestasDialog; };
@@ -4165,7 +4404,7 @@ var Barrios;
                 Serenity.Decorators.registerClass()
             ], EncuestasGrid);
             return EncuestasGrid;
-        }(Serenity.EntityGrid));
+        }(Barrios.MasterGridBase));
         Contenidos.EncuestasGrid = EncuestasGrid;
     })(Contenidos = Barrios.Contenidos || (Barrios.Contenidos = {}));
 })(Barrios || (Barrios = {}));
@@ -4200,18 +4439,20 @@ var Barrios;
         var EncuestasValoracionesGrid = /** @class */ (function (_super) {
             __extends(EncuestasValoracionesGrid, _super);
             function EncuestasValoracionesGrid(container) {
-                return _super.call(this, container) || this;
+                var _this = _super.call(this, container) || this;
+                _this.setTitle("Valoraciones");
+                return _this;
             }
             EncuestasValoracionesGrid.prototype.getColumnsKey = function () { return 'Contenidos.EncuestasValoraciones'; };
             EncuestasValoracionesGrid.prototype.getDialogType = function () { return Contenidos.EncuestasValoracionesDialog; };
             EncuestasValoracionesGrid.prototype.getIdProperty = function () { return Contenidos.EncuestasValoracionesRow.idProperty; };
             EncuestasValoracionesGrid.prototype.getLocalTextPrefix = function () { return Contenidos.EncuestasValoracionesRow.localTextPrefix; };
             EncuestasValoracionesGrid.prototype.getService = function () { return Contenidos.EncuestasValoracionesService.baseUrl; };
-            EncuestasValoracionesGrid = __decorate([
-                Serenity.Decorators.registerClass()
-            ], EncuestasValoracionesGrid);
+            EncuestasValoracionesGrid.prototype.getMasterFieldName = function () {
+                return "ID_Encuesta";
+            };
             return EncuestasValoracionesGrid;
-        }(Serenity.EntityGrid));
+        }(Barrios.DetailGridBase));
         Contenidos.EncuestasValoracionesGrid = EncuestasValoracionesGrid;
     })(Contenidos = Barrios.Contenidos || (Barrios.Contenidos = {}));
 })(Barrios || (Barrios = {}));
@@ -4221,9 +4462,10 @@ var Barrios;
     (function (Contenidos) {
         var LineaTiempoDialog = /** @class */ (function (_super) {
             __extends(LineaTiempoDialog, _super);
-            function LineaTiempoDialog() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
+            function LineaTiempoDialog(container) {
+                var _this = _super.call(this, container) || this;
                 _this.form = new Contenidos.LineaTiempoForm(_this.idPrefix);
+                Contenidos.CategoriasDialog.typeCategory = 2;
                 return _this;
             }
             LineaTiempoDialog.prototype.getFormKey = function () { return Contenidos.LineaTiempoForm.formKey; };
@@ -4267,9 +4509,10 @@ var Barrios;
     (function (Contenidos) {
         var ProveedoresDialog = /** @class */ (function (_super) {
             __extends(ProveedoresDialog, _super);
-            function ProveedoresDialog() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
+            function ProveedoresDialog(container) {
+                var _this = _super.call(this, container) || this;
                 _this.form = new Contenidos.ProveedoresForm(_this.idPrefix);
+                Contenidos.CategoriasDialog.typeCategory = 3;
                 return _this;
             }
             ProveedoresDialog.prototype.getFormKey = function () { return Contenidos.ProveedoresForm.formKey; };
@@ -4291,8 +4534,18 @@ var Barrios;
     (function (Contenidos) {
         var ProveedoresGrid = /** @class */ (function (_super) {
             __extends(ProveedoresGrid, _super);
-            function ProveedoresGrid(container) {
-                return _super.call(this, container) || this;
+            function ProveedoresGrid(container, detailGrid) {
+                var _this = _super.call(this, container, {
+                    selectionMode: "single",
+                    enableRowSelection: true,
+                    // bulkdeletePermissionKey: Q.text('Site.Permission.SalesTemplateBulkDelete'),
+                    TableName: Q.text('Site.TableName.Encuestas')
+                }) || this;
+                _this.onItemClicked = function (item) {
+                    console.log(item);
+                    detailGrid.masterItemID = item.Id;
+                };
+                return _this;
             }
             ProveedoresGrid.prototype.getColumnsKey = function () { return 'Contenidos.Proveedores'; };
             ProveedoresGrid.prototype.getDialogType = function () { return Contenidos.ProveedoresDialog; };
@@ -4303,7 +4556,7 @@ var Barrios;
                 Serenity.Decorators.registerClass()
             ], ProveedoresGrid);
             return ProveedoresGrid;
-        }(Serenity.EntityGrid));
+        }(Barrios.MasterGridBase));
         Contenidos.ProveedoresGrid = ProveedoresGrid;
     })(Contenidos = Barrios.Contenidos || (Barrios.Contenidos = {}));
 })(Barrios || (Barrios = {}));
@@ -4337,18 +4590,34 @@ var Barrios;
         var ProveedoresValoracionesGrid = /** @class */ (function (_super) {
             __extends(ProveedoresValoracionesGrid, _super);
             function ProveedoresValoracionesGrid(container) {
-                return _super.call(this, container) || this;
+                var _this = _super.call(this, container) || this;
+                _this.setTitle("Valoraciones");
+                return _this;
             }
             ProveedoresValoracionesGrid.prototype.getColumnsKey = function () { return 'Contenidos.ProveedoresValoraciones'; };
             ProveedoresValoracionesGrid.prototype.getDialogType = function () { return Contenidos.ProveedoresValoracionesDialog; };
             ProveedoresValoracionesGrid.prototype.getIdProperty = function () { return Contenidos.ProveedoresValoracionesRow.idProperty; };
             ProveedoresValoracionesGrid.prototype.getLocalTextPrefix = function () { return Contenidos.ProveedoresValoracionesRow.localTextPrefix; };
             ProveedoresValoracionesGrid.prototype.getService = function () { return Contenidos.ProveedoresValoracionesService.baseUrl; };
+            ProveedoresValoracionesGrid.prototype.getMasterFieldName = function () {
+                return "ID_PROVEEDOR";
+            };
+            ProveedoresValoracionesGrid.prototype.createSlickGrid = function () {
+                var grid = _super.prototype.createSlickGrid.call(this);
+                // need to register this plugin for grouping or you'll have errors
+                grid.registerPlugin(new Slick.Data.GroupItemMetadataProvider());
+                this.view.setSummaryOptions({
+                    aggregators: [
+                        new Slick.Aggregators.Avg("Valoracion" /* Valoracion */)
+                    ]
+                });
+                return grid;
+            };
             ProveedoresValoracionesGrid = __decorate([
                 Serenity.Decorators.registerClass()
             ], ProveedoresValoracionesGrid);
             return ProveedoresValoracionesGrid;
-        }(Serenity.EntityGrid));
+        }(Barrios.DetailGridBase));
         Contenidos.ProveedoresValoracionesGrid = ProveedoresValoracionesGrid;
     })(Contenidos = Barrios.Contenidos || (Barrios.Contenidos = {}));
 })(Barrios || (Barrios = {}));
@@ -4358,9 +4627,37 @@ var Barrios;
     (function (Default) {
         var ReservasDialog = /** @class */ (function (_super) {
             __extends(ReservasDialog, _super);
-            function ReservasDialog() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
+            function ReservasDialog(container) {
+                var _this = _super.call(this, container) || this;
                 _this.form = new Default.ReservasForm(_this.idPrefix);
+                _this.form.IdRecurso.change(function (e) {
+                    if (_this.form.IdRecurso.selectedItem != null) {
+                        if (_this.form.IdRecurso.selectedItem.Resolucion == 0) {
+                            _this.form.IdTurnosEspeciales.getGridField().toggle(true);
+                            _this.form.IdTipo.getGridField().toggle(false);
+                            _this.form.IdVecino2.getGridField().toggle(false);
+                        }
+                        else {
+                            _this.form.IdTurnosEspeciales.getGridField().toggle(false);
+                            _this.form.IdTipo.getGridField().toggle(true);
+                        }
+                    }
+                });
+                _this.form.IdTurnosEspeciales.change(function (e) {
+                    if (_this.form.IdTurnosEspeciales.selectedItem != null) {
+                        _this.form.Inicio.value = _this.form.IdTurnosEspeciales.selectedItem.Inicio.toString();
+                        _this.form.Duracion.value = _this.form.IdTurnosEspeciales.selectedItem.Duracion;
+                    }
+                });
+                _this.form.IdTipo.change(function (e) {
+                    if (_this.form.IdTipo.selectedItem != null) {
+                        if (_this.form.IdTipo.selectedItem.RequiereVecino2)
+                            _this.form.IdVecino2.getGridField().toggle(true);
+                        else
+                            _this.form.IdVecino2.getGridField().toggle(false);
+                        _this.form.Duracion.value = _this.form.IdTipo.selectedItem.Duracion;
+                    }
+                });
                 return _this;
             }
             ReservasDialog.prototype.getFormKey = function () { return Default.ReservasForm.formKey; };
@@ -4682,7 +4979,8 @@ var Barrios;
                         request: {
                             DisplayName: _this.form.DisplayName.value,
                             Email: _this.form.Email.value,
-                            Password: _this.form.Password.value
+                            Password: _this.form.Password.value,
+                            Unit: _this.form.Unit.value
                         },
                         onSuccess: function (response) {
                             Q.information(Q.text('Forms.Membership.SignUp.Success'), function () {

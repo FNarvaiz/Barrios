@@ -1,9 +1,12 @@
 ﻿
 namespace Barrios.Contenidos.Endpoints
 {
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
+    using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Web.Mvc;
     using MyRepository = Repositories.ComisionesRepository;
@@ -16,12 +19,16 @@ namespace Barrios.Contenidos.Endpoints
         [HttpPost, AuthorizeCreate(typeof(MyRow))]
         public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
+            request.Entity.DateInsert = DateTime.Now;
+            request.Entity.BarrioId = CurrentNeigborhood.Get().Id;
             return new MyRepository().Create(uow, request);
         }
 
         [HttpPost, AuthorizeUpdate(typeof(MyRow))]
         public SaveResponse Update(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
+            request.Entity.DateUpdate = DateTime.Now;
+            request.Entity.UserUpdate = Convert.ToInt32(Authorization.UserId);
             return new MyRepository().Update(uow, request);
         }
  
@@ -40,7 +47,20 @@ namespace Barrios.Contenidos.Endpoints
         [HttpPost]
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
+            Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
         }
+        [HttpPost]
+        public string SendMail(IDbConnection connection, EmailRequest request)
+        {
+            Common.EmailHelper.Send("Consulta por página de comisiones de"+ Authorization.UserDefinition.Email, request.Message,request.Mails, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+
+            return "El mensaje se ha enviado correctamente, en breve le responderemos.";
+        }
+        public List<MyRow> ListView(IDbConnection connection)
+        {
+            return new MyRepository().ListView(connection, CurrentNeigborhood.Get().Id);
+        }
     }
+
 }

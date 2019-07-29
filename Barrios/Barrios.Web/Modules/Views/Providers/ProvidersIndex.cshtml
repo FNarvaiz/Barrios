@@ -1,0 +1,65 @@
+﻿@model System.Collections.Generic.List<Barrios.Contenidos.Entities.ProveedoresRow>
+@{
+    ViewData["Title"] = "Proveedores"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
+}
+<div class="box">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Calificar</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefonos</th>
+                <th scope="col">Valoración</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var aux in Model)
+            {
+                <tr>
+                    <th>
+                        <select class="selects" onchange="ratingChange(this,@aux.Id)">
+                            @for (var point = 0; point <= 10; point++)
+                            {
+                                if (point == aux.Liked)
+                                {
+                                    <option value="@point" selected>@point</option>
+                                }
+                                else
+                                {
+                                    <option value="@point">@point</option>
+                                }
+                            }
+                        </select>
+                    </th>
+                    <th>@aux.CategoryName</th>
+                    <td>@aux.Nombre</td>
+                    <td>@aux.Email</td>
+                    <td>@aux.Telefonos</td>
+                    <td>@aux.Rating promedio de (@aux.RatingCount calificaciones)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+    <script type="text/javascript">
+        jQuery(function () {
+
+        });
+        function ratingChange(control, id) {
+            try {
+                Barrios.Contenidos.ProveedoresService.Rating({
+                    ID: id,
+                    Rating: $(control).val()
+                }, (response) => {
+                    Q.notifySuccess(response, "Notificación", { timeOut: 5000 });
+                });
+            }
+            catch (err) {
+                alert(err);
+            }
+            return true;
+        };
+    </script>

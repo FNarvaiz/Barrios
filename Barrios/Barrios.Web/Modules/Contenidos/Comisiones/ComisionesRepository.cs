@@ -1,10 +1,12 @@
 ﻿
 namespace Barrios.Contenidos.Repositories
 {
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using MyRow = Entities.ComisionesRow;
 
@@ -36,7 +38,35 @@ namespace Barrios.Contenidos.Repositories
         {
             return new MyListHandler().Process(connection, request);
         }
-
+        
+        public List<MyRow> ListView(IDbConnection connection, int? idNeigborhood)
+        {
+            string query = "SELECT TOP (1000) C.[ID],C.[NOMBRE] as Commission,C.[MAILS], I.NOMBRE as Member " +
+                "FROM [COMISIONES] C " +
+                "LEFT JOIN [COMISIONES_INTEGRANTES] I " +
+                "ON C.ID= I.ID_COMISION " +
+                "WHERE C.HABILITADA=1 AND C.barrioId=" + idNeigborhood + " " +
+                "ORDER BY C.NOMBRE";
+            DataTable DT= Utils.GetRequestString(connection, query);
+            List<MyRow> list = new List<MyRow>();
+            MyRow last=null;
+            Int16 idLast=-1;
+            Int16 idCurrent;
+            foreach(DataRow aux in DT.Rows)
+            {
+                idCurrent = Convert.ToInt16(aux["ID"]);
+                if (idLast != idCurrent)
+                {
+                    last = new MyRow() { Id = idCurrent, Nombre = aux["Commission"].ToString(), Mails = aux["MAILS"].ToString() };
+                    idLast = idCurrent;
+                    last.MembersList = new List<Entities.ComisionesIntegrantesRow>();
+                    list.Add(last);
+                }
+                if (!aux["Member"].ToString().IsEmptyOrNull())
+                    last.MembersList.Add(new Entities.ComisionesIntegrantesRow() { Nombre = aux["Member"].ToString() });
+            }
+            return list;
+        }
         private class MySaveHandler : SaveRequestHandler<MyRow> { }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }

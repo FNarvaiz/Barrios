@@ -10,6 +10,5 @@ namespace Barrios.Contenidos {
         protected getService() { return ComisionesService.baseUrl; }
 
         protected form = new ComisionesForm(this.idPrefix);
-
     }
 }

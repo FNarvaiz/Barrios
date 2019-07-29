@@ -1,0 +1,87 @@
+﻿@model System.Collections.Generic.List<Barrios.Contenidos.Entities.EncuestasRow>
+@{
+    ViewData["Title"] = "Proveedores"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
+}
+<div class="box">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Calificar</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Valoración</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var aux in Model)
+            {
+            <tr>
+                <th>
+                    <div class="form-group">
+                        <select class="form-control selects" style="padding: 6px 4px;" onchange="ratingChange(this,@aux.Id)">
+                            @for (var point = 0; point <= 10; point++)
+                            {
+                                if (point == aux.Liked)
+                                {
+                                    <option value="@point" selected>@point</option>
+                                }
+                                else
+                                {
+                                    <option value="@point">@point</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </th>
+                <th>@aux.CategoryName</th>
+                <td>@aux.Nombre</td>
+                @if (!aux.Descripcion.IsEmptyOrNull() && aux.Descripcion.Length == 60)
+                {
+                    <td>@aux.Descripcion .. <button class="btn btn-info" onclick="SeeMore(@aux.Id)">Ver mas</button></td>
+                }
+                else
+                {
+                    <td>@aux.Descripcion</td>
+                }
+                <td>@aux.Rating promedio de (@aux.RatingCount calificaciones)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+    <script type="text/javascript">
+        jQuery(function () {
+
+        });
+        function ratingChange(control, id) {
+            console.log();
+            console.log(id);
+            try {
+                Barrios.Contenidos.EncuestasService.Rating({
+                    ID: id,
+                    Rating: $(control).val()
+                }, (response) => {
+                    Q.notifySuccess(response, "Notificación", { timeOut: 5000 });
+                });
+            }
+            catch (err) {
+                alert(err);
+            }
+            return true;
+        };
+        function SeeMore(id) {
+            try {
+                Barrios.Contenidos.EncuestasService.SeeMore({
+                    EntityId: id
+                }, (response) => {
+                    Q.information(response, () => { });
+                });
+            }
+            catch (err) {
+                alert(err);
+            }
+            return true;
+        };    
+    </script>

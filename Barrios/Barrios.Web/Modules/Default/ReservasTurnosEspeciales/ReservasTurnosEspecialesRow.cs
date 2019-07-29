@@ -13,9 +13,10 @@ namespace Barrios.Default.Entities
     [DisplayName("Reservas Turnos Especiales"), InstanceName("Reservas Turnos Especiales")]
     [ReadPermission("Administration:General")]
     [ModifyPermission("Administration:General")]
+    [LookupScript("Reservas.ReservasTurnosEspeciales", Expiration = 0)]
     public sealed class ReservasTurnosEspecialesRow : Row, IIdRow, INameRow
     {
-        [DisplayName("Id Recurso"), Column("ID_RECURSO"), PrimaryKey]
+        [DisplayName("Id Recurso"), LookupInclude, Column("ID_RECURSO")]
         public Int16? IdRecurso
         {
             get { return Fields.IdRecurso[this]; }
@@ -35,20 +36,20 @@ namespace Barrios.Default.Entities
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Inicio"), Required, LookupEditor("ReservasRecursos.HorariosLookup"), Column("INICIO")]
+        [DisplayName("Inicio"), Required, LookupInclude, LookupEditor("ReservasRecursos.HorariosLookup"), Column("INICIO")]
         public Int16? Inicio
         {
             get { return Fields.Inicio[this]; }
             set { Fields.Inicio[this] = value; }
         }
 
-        [DisplayName("Duración"), Required, TimeEditor(EndHour = 8), Column("DURACION"), NotNull]
+        [DisplayName("Duración"), Required, LookupInclude, TimeEditor(EndHour = 8), Column("DURACION"), NotNull]
         public Int16? Duracion
         {
             get { return Fields.Duracion[this]; }
             set { Fields.Duracion[this] = value; }
         }
-        [DisplayName("Días"), Required, Column("DIAS"), Size(8)]
+        [DisplayName("Días"), LookupInclude, Required, Column("DIAS"), Size(8)]
         public String Dias
         {
             get { return Fields.Dias[this]; }

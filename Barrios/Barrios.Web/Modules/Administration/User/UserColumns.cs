@@ -12,6 +12,8 @@ namespace Barrios.Administration.Columns
         public String UserId { get; set; }
         [EditLink, Width(150)]
         public String Username { get; set; }
+        [Width(70)]
+        public String Unit { get; set; }
         [Width(150)]
         public String DisplayName { get; set; }
         [Width(250)]

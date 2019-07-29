@@ -5,7 +5,9 @@ namespace Barrios.Contenidos.Repositories
     using Serenity.Data;
     using Serenity.Services;
     using System;
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using MyRow = Entities.EncuestasRow;
 
     public class EncuestasRepository
@@ -35,6 +37,23 @@ namespace Barrios.Contenidos.Repositories
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
             return new MyListHandler().Process(connection, request);
+        }
+        public List<MyRow> ListRatings(IDbConnection connection, Int16? idNeigborhood, string userID)
+        {
+            List<MyRow> list;
+            using (connection)
+            {
+                string query = "Select  P.ID_CATEGORIA,C.NOMBRE AS CategoryName,P.ID,P.NOMBRE,CONVERT(varchar(60),P.Descripcion) AS DESCRIPCION,AVG(V.valoracion) as Rating ," +
+                    "SUM(case when V.Userid = " + userID + " then V.valoracion else 0 end) as Liked," +
+                    "COUNT(V.ID) as RatingCount " +
+                    "from ENCUESTAS P " +
+                    "INNER JOIN CATEGORIAS C ON C.ID= P.ID_CATEGORIA " +
+                    "LEFT JOIN [ENCUESTAS_VALORACIONES] V ON P.ID= V.ID_ENCUESTA " +
+                    "where P.VIGENTE=1 AND  P.BarrioId=" + idNeigborhood + " " +
+                    "group by P.ID,P.NOMBRE,P.ID_CATEGORIA,C.NOMBRE,CONVERT(varchar(60),P.Descripcion)  ";
+                list = connection.Query<MyRow>(query).ToList();
+            }
+            return list;
         }
 
         private class MySaveHandler : SaveRequestHandler<MyRow> { }

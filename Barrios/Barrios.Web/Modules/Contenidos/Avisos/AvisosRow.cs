@@ -30,7 +30,8 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Id Categoria"), Column("ID_CATEGORIA"), NotNull, ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jIdCategoria"), TextualField("IdCategoriaNombre")]
+        [DisplayName("Id Categoria"), LookupEditor("Category.NoticesCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog"), Column("ID_CATEGORIA")
+            , NotNull, ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), TextualField("IdCategoriaNombre")]
         public Int16? IdCategoria
         {
             get { return Fields.IdCategoria[this]; }
@@ -42,6 +43,12 @@ namespace Barrios.Contenidos.Entities
         {
             get { return Fields.Caducidad[this]; }
             set { Fields.Caducidad[this] = value; }
+        }
+        [DisplayName("Categoria"), Expression("jCategory.[Nombre]")]
+        public String CategoryName
+        {
+            get { return Fields.CategoryName[this]; }
+            set { Fields.CategoryName[this] = value; }
         }
 
         [DisplayName("Vigente"), Column("VIGENTE"), NotNull]
@@ -81,14 +88,14 @@ namespace Barrios.Contenidos.Entities
             set { Fields.UserUpdate[this] = value; }
         }
 
-        [DisplayName("Date Update")]
+        [DisplayName("Actualizado")]
         public DateTime? DateUpdate
         {
             get { return Fields.DateUpdate[this]; }
             set { Fields.DateUpdate[this] = value; }
         }
 
-        [DisplayName("Date Insert"), NotNull]
+        [DisplayName("Ingresado"), NotNull]
         public DateTime? DateInsert
         {
             get { return Fields.DateInsert[this]; }
@@ -96,16 +103,9 @@ namespace Barrios.Contenidos.Entities
         }
 
 
+        
 
-        [DisplayName("Id Categoria Nombre"), Expression("jIdCategoria.[NOMBRE]")]
-        public String IdCategoriaNombre
-        {
-            get { return Fields.IdCategoriaNombre[this]; }
-            set { Fields.IdCategoriaNombre[this] = value; }
-        }
-
-
-        [DisplayName("User Insert Username"), Expression("jUserInsert.[Username]")]
+        [DisplayName("Ingresado por"), Expression("jUserInsert.[Username]")]
         public String UserInsertUsername
         {
             get { return Fields.UserInsertUsername[this]; }
@@ -113,14 +113,19 @@ namespace Barrios.Contenidos.Entities
         }
 
 
-        [DisplayName("User Update Username"), Expression("jUserUpdate.[Username]")]
+        [DisplayName("Actualizado por"), Expression("jUserUpdate.[Username]")]
         public String UserUpdateUsername
         {
             get { return Fields.UserUpdateUsername[this]; }
             set { Fields.UserUpdateUsername[this] = value; }
         }
 
-
+          [DisplayName("Barrio"), ForeignKey("[dbo].[Barrios]", "ID")]
+        public Int16? BarrioId
+        {
+            get { return Fields.BarrioId[this]; }
+            set { Fields.BarrioId[this] = value; }
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -164,8 +169,9 @@ namespace Barrios.Contenidos.Entities
             public DateTimeField DateInsert;
 
 
+            public Int16Field BarrioId;
 
-            public StringField IdCategoriaNombre;
+            public StringField CategoryName;
 
 
             public StringField UserInsertUsername;

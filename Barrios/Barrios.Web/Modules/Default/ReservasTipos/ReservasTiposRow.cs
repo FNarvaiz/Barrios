@@ -13,9 +13,10 @@ namespace Barrios.Default.Entities
     [DisplayName("Tipos de Reserva"), InstanceName("Reservas Tipos")]
     [ReadPermission("Administration:General")]
     [ModifyPermission("Administration:General")]
+    [LookupScript("Reservas.ReservasTipos", Expiration = 0)]
     public sealed class ReservasTiposRow : Row, IIdRow, INameRow
     {
-        [DisplayName("Id Recurso"), Column("ID_RECURSO")]
+        [DisplayName("Id Recurso"), LookupInclude, Column("ID_RECURSO")]
         public Int16? IdRecurso
         {
             get { return Fields.IdRecurso[this]; }
@@ -36,7 +37,7 @@ namespace Barrios.Default.Entities
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Duración"),Required,TimeEditor(EndHour =8), Column("Duracion") , NotNull]
+        [DisplayName("Duración"),Required, LookupInclude, TimeEditor(EndHour =8), Column("Duracion") , NotNull]
         public Int16? Duracion
         {
             get { return Fields.Duracion[this]; }
@@ -50,7 +51,7 @@ namespace Barrios.Default.Entities
             set { Fields.Vigente[this] = value; }
         }
 
-        [DisplayName("Requiere 2do vecino"), Column("Requiere_Vecino_2")]
+        [DisplayName("Requiere 2do vecino"),LookupInclude, Column("Requiere_Vecino_2")]
         public Boolean? RequiereVecino2
         {
             get { return Fields.RequiereVecino2[this]; }

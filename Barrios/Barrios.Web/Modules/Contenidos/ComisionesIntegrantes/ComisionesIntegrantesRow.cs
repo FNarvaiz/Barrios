@@ -16,14 +16,14 @@ namespace Barrios.Contenidos.Entities
     public sealed class ComisionesIntegrantesRow : Row, IIdRow, INameRow
     {
 
-        [DisplayName("Id Comision"), Column("ID_COMISION"), PrimaryKey, ForeignKey("[dbo].[COMISIONES]", "ID"), LeftJoin("jIdComision"), TextualField("IdComisionNombre")]
+        [DisplayName("Comision"), Column("ID_COMISION") ]
         public Int16? IdComision
         {
             get { return Fields.IdComision[this]; }
             set { Fields.IdComision[this] = value; }
         }
 
-        [DisplayName("Id"), Column("ID"), PrimaryKey]
+        [DisplayName("Id"), Column("ID"), Identity, PrimaryKey]
         public Int16? Id
         {
             get { return Fields.Id[this]; }
@@ -44,7 +44,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.UserInsert[this] = value; }
         }
 
-        [DisplayName("Date Insert")]
+        [DisplayName("Ingresado")]
         public DateTime? DateInsert
         {
             get { return Fields.DateInsert[this]; }
@@ -58,7 +58,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.UserUpdate[this] = value; }
         }
 
-        [DisplayName("Date Update")]
+        [DisplayName("Actualizado")]
         public DateTime? DateUpdate
         {
             get { return Fields.DateUpdate[this]; }
@@ -67,14 +67,8 @@ namespace Barrios.Contenidos.Entities
 
 
 
-        [DisplayName("Id Comision Nombre"), Expression("jIdComision.[NOMBRE]")]
-        public String IdComisionNombre
-        {
-            get { return Fields.IdComisionNombre[this]; }
-            set { Fields.IdComisionNombre[this] = value; }
-        }
 
-        [DisplayName("User Insert Username"), Expression("jUserInsert.[Username]")]
+        [DisplayName("Ingresado por"), Expression("jUserInsert.[Username]")]
         public String UserInsertUsername
         {
             get { return Fields.UserInsertUsername[this]; }
@@ -82,7 +76,7 @@ namespace Barrios.Contenidos.Entities
         }
 
 
-        [DisplayName("User Update Username"), Expression("jUserUpdate.[Username]")]
+        [DisplayName("Actualizado por"), Expression("jUserUpdate.[Username]")]
         public String UserUpdateUsername
         {
             get { return Fields.UserUpdateUsername[this]; }
@@ -92,7 +86,7 @@ namespace Barrios.Contenidos.Entities
 
         IIdField IIdRow.IdField
         {
-            get { return Fields.IdComision; }
+            get { return Fields.Id; }
         }
 
         StringField INameRow.NameField
@@ -126,7 +120,6 @@ namespace Barrios.Contenidos.Entities
 
 
 
-            public StringField IdComisionNombre;
             
             public StringField UserInsertUsername;
             

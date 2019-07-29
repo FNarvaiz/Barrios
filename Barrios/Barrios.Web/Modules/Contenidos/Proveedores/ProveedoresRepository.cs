@@ -1,11 +1,14 @@
 ﻿
 namespace Barrios.Contenidos.Repositories
 {
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
     using System;
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using MyRow = Entities.ProveedoresRow;
 
     public class ProveedoresRepository
@@ -34,8 +37,28 @@ namespace Barrios.Contenidos.Repositories
 
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
+            
             return new MyListHandler().Process(connection, request);
         }
+        public List<MyRow> ListRatings(IDbConnection connection, Int16? idNeigborhood, string userID)
+        {
+            List<MyRow> list;
+            using (connection)
+            {
+                string query = "Select  P.ID_CATEGORIA,C.NOMBRE AS CategoryName,P.ID,P.NOMBRE,P.EMAIL,P.TELEFONOS,P.DOMICILIO,AVG(V.valoracion) as Rating ," +
+                    "SUM(case when V.Userid = " + userID + " then V.valoracion else 0 end) as Liked," +
+                    "COUNT(V.ID) as RatingCount " +
+                    "from PROVEEDORES P " +
+                    "INNER JOIN CATEGORIAS C ON C.ID= P.ID_CATEGORIA " +
+                    "LEFT JOIN [PROVEEDORES_VALORACIONES] V ON P.ID= V.ID_PROVEEDOR " +
+                    "where P.VIGENTE=1 AND  P.BarrioId=" + idNeigborhood + " " +
+                    "group by P.ID,P.NOMBRE,P.EMAIL,P.TELEFONOS,P.DOMICILIO,P.ID_CATEGORIA,C.NOMBRE  ";
+                // DataTable DT= Utils.GetRequestString(connection, );
+               list= connection.Query<MyRow>(query).ToList();
+            }
+            return list;
+        }
+       
 
         private class MySaveHandler : SaveRequestHandler<MyRow> { }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }

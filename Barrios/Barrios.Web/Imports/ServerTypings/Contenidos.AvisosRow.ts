@@ -11,7 +11,8 @@
         UserUpdate?: number;
         DateUpdate?: string;
         DateInsert?: string;
-        IdCategoriaNombre?: string;
+        BarrioId?: number;
+        CategoryName?: string;
         UserInsertUsername?: string;
         UserUpdateUsername?: string;
     }
@@ -33,7 +34,8 @@
             UserUpdate = "UserUpdate",
             DateUpdate = "DateUpdate",
             DateInsert = "DateInsert",
-            IdCategoriaNombre = "IdCategoriaNombre",
+            BarrioId = "BarrioId",
+            CategoryName = "CategoryName",
             UserInsertUsername = "UserInsertUsername",
             UserUpdateUsername = "UserUpdateUsername"
         }

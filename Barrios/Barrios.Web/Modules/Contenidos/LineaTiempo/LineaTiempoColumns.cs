@@ -17,17 +17,10 @@ namespace Barrios.Contenidos.Columns
         public Int32 Id { get; set; }
         [EditLink]
         public String Nombre { get; set; }
-        public String ArchivoFilename { get; set; }
-        public Int32 ArchivoFilesize { get; set; }
-        public String ArchivoContenttype { get; set; }
-        public Stream ArchivoBinarydata { get; set; }
-        public Boolean Aprobado { get; set; }
-        public Int16 Mes { get; set; }
-        public Int16 Anio { get; set; }
-        public String Periodo { get; set; }
+        public String CategoryName { get; set; }
         public DateTime PeriodoFecha { get; set; }
         public String ContenidoTexto { get; set; }
-        public String UseridUsername { get; set; }
-        public Int16 IdCategoria { get; set; }
+        public String ArchivoFilename { get; set; }
+        public Boolean Aprobado { get; set; }
     }
 }

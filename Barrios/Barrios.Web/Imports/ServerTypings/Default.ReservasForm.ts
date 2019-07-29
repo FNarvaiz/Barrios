@@ -1,17 +1,14 @@
 ﻿namespace Barrios.Default {
     export interface ReservasForm {
-        IdRecurso: Serenity.IntegerEditor;
-        IdResultado: Serenity.IntegerEditor;
         Fecha: Serenity.DateEditor;
-        Inicio: Serenity.IntegerEditor;
+        IdVecino: Serenity.LookupEditor;
+        IdRecurso: Serenity.LookupEditor;
+        IdTipo: Serenity.LookupEditor;
+        IdTurnosEspeciales: Serenity.LookupEditor;
+        Inicio: Serenity.LookupEditor;
         Duracion: Serenity.IntegerEditor;
         Observaciones: Serenity.StringEditor;
-        IdVecino2: Serenity.IntegerEditor;
-        IdTipo: Serenity.IntegerEditor;
-        FechaFin: Serenity.DateEditor;
-        IdVecino: Serenity.IntegerEditor;
-        DateInsert: Serenity.DateEditor;
-        UserInsert: Serenity.IntegerEditor;
+        IdVecino2: Serenity.LookupEditor;
     }
 
     export class ReservasForm extends Serenity.PrefixedContext {
@@ -25,23 +22,21 @@
                 ReservasForm.init = true;
 
                 var s = Serenity;
-                var w0 = s.IntegerEditor;
-                var w1 = s.DateEditor;
-                var w2 = s.StringEditor;
+                var w0 = s.DateEditor;
+                var w1 = s.LookupEditor;
+                var w2 = s.IntegerEditor;
+                var w3 = s.StringEditor;
 
                 Q.initFormType(ReservasForm, [
-                    'IdRecurso', w0,
-                    'IdResultado', w0,
-                    'Fecha', w1,
-                    'Inicio', w0,
-                    'Duracion', w0,
-                    'Observaciones', w2,
-                    'IdVecino2', w0,
-                    'IdTipo', w0,
-                    'FechaFin', w1,
-                    'IdVecino', w0,
-                    'DateInsert', w1,
-                    'UserInsert', w0
+                    'Fecha', w0,
+                    'IdVecino', w1,
+                    'IdRecurso', w1,
+                    'IdTipo', w1,
+                    'IdTurnosEspeciales', w1,
+                    'Inicio', w1,
+                    'Duracion', w2,
+                    'Observaciones', w3,
+                    'IdVecino2', w1
                 ]);
             }
         }

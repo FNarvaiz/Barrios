@@ -6,6 +6,7 @@ namespace Barrios.Contenidos.Entities
     using Serenity.Data;
     using Serenity.Data.Mapping;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
 
@@ -13,10 +14,17 @@ namespace Barrios.Contenidos.Entities
     [DisplayName("Comisiones"), InstanceName("Comisiones")]
     [ReadPermission("User:Comisiones")]
     [ModifyPermission("User:Comisiones")]
+    [LeftJoin("jMembers", "[dbo].[Comisiones_Integrantes]", "jMembers.[ID_Comision] = t0.[ID] ")]
     public sealed class ComisionesRow : Row, IIdRow, INameRow
     {
 
-        [DisplayName("Id"), Column("ID"), PrimaryKey]
+        [DisplayName("Integrantes"), MasterDetailRelation("ID_Comision", IncludeColumns = "*"), NotMapped]
+        public List<ComisionesIntegrantesRow> MembersList
+        {
+            get => Fields.MembersList[this];
+            set => Fields.MembersList[this] = value;
+        }
+        [DisplayName("Id"), Column("ID"),Identity, PrimaryKey]
         public Int16? Id
         {
             get { return Fields.Id[this]; }
@@ -37,19 +45,6 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Habilitada[this] = value; }
         }
 
-        [DisplayName("Sigla"), Column("SIGLA"), Size(100), NotNull]
-        public String Sigla
-        {
-            get { return Fields.Sigla[this]; }
-            set { Fields.Sigla[this] = value; }
-        }
-
-        [DisplayName("Color"), Column("COLOR"), Size(100), NotNull]
-        public String Color
-        {
-            get { return Fields.Color[this]; }
-            set { Fields.Color[this] = value; }
-        }
 
         [DisplayName("Mails"), Column("MAILS"), Size(200)]
         public String Mails
@@ -65,7 +60,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.UserInsert[this] = value; }
         }
 
-        [DisplayName("Date Insert")]
+        [DisplayName("Ingresado")]
         public DateTime? DateInsert
         {
             get { return Fields.DateInsert[this]; }
@@ -79,7 +74,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.UserUpdate[this] = value; }
         }
 
-        [DisplayName("Date Update")]
+        [DisplayName("Actualizado")]
         public DateTime? DateUpdate
         {
             get { return Fields.DateUpdate[this]; }
@@ -95,7 +90,7 @@ namespace Barrios.Contenidos.Entities
 
 
 
-        [DisplayName("User Insert Username"), Expression("jUserInsert.[Username]")]
+        [DisplayName("Ingresado por"), Expression("jUserInsert.[Username]")]
         public String UserInsertUsername
         {
             get { return Fields.UserInsertUsername[this]; }
@@ -103,7 +98,7 @@ namespace Barrios.Contenidos.Entities
         }
 
 
-        [DisplayName("User Update Username"), Expression("jUserUpdate.[Username]")]
+        [DisplayName("Actualizado por"), Expression("jUserUpdate.[Username]")]
         public String UserUpdateUsername
         {
             get { return Fields.UserUpdateUsername[this]; }
@@ -146,10 +141,6 @@ namespace Barrios.Contenidos.Entities
 
             public BooleanField Habilitada;
 
-            public StringField Sigla;
-
-            public StringField Color;
-
             public StringField Mails;
 
             public Int32Field UserInsert;
@@ -173,8 +164,9 @@ namespace Barrios.Contenidos.Entities
 
 
             public StringField BarrioNombre;
-            
 
-		}
+            public ListField<ComisionesIntegrantesRow> MembersList;
+
+        }
     }
 }

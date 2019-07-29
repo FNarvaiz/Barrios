@@ -15,13 +15,18 @@ namespace Barrios.Administration.Entities
     [LookupScript(Permission = PermissionKeys.Security)]
     public sealed class UserRow : LoggingRow, IIdRow, INameRow, IIsActiveRow
     {
-        [DisplayName("User Id"), Identity]
+        [DisplayName("User Id"), Identity,ForeignKey("[dbo].[Users-barrios]", "UserId"), LeftJoin("jBarrio")]
         public Int32? UserId
         {
             get { return Fields.UserId[this]; }
             set { Fields.UserId[this] = value; }
         }
-
+        [DisplayName("Barrio Id"), Expression("jBarrio.BarrioId")]
+        public Int32? BarrioId
+        {
+            get { return Fields.BarrioId[this]; }
+            set { Fields.BarrioId[this] = value; }
+        }
         [DisplayName("Username"), Size(100), NotNull, QuickSearch, LookupInclude]
         public String Username
         {
@@ -138,6 +143,8 @@ namespace Barrios.Administration.Entities
         public class RowFields : LoggingRowFields
         {
             public Int32Field UserId;
+            public Int32Field BarrioId;
+            
             public StringField Username;
             public StringField Source;
             public StringField PasswordHash;

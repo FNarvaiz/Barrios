@@ -2400,22 +2400,16 @@ declare namespace Barrios.Contenidos {
     }
 }
 declare namespace Barrios.Contenidos {
-    class ComisionesIntegrantesDialog extends Serenity.EntityDialog<ComisionesIntegrantesRow, any> {
+    class ComisionesIntegrantesDialog extends Common.GridEditorDialog<ComisionesIntegrantesRow> {
         protected getFormKey(): string;
-        protected getIdProperty(): string;
         protected getLocalTextPrefix(): string;
-        protected getNameProperty(): string;
-        protected getService(): string;
         protected form: ComisionesIntegrantesForm;
     }
 }
 declare namespace Barrios.Contenidos {
-    class ComisionesIntegrantesGrid extends Serenity.EntityGrid<ComisionesIntegrantesRow, any> {
+    class ComisionesIntegrantesGrid extends Common.GridEditorBase<ComisionesIntegrantesRow> {
         protected getColumnsKey(): string;
         protected getDialogType(): typeof ComisionesIntegrantesDialog;
-        protected getIdProperty(): string;
-        protected getLocalTextPrefix(): string;
-        protected getService(): string;
         constructor(container: JQuery);
     }
 }

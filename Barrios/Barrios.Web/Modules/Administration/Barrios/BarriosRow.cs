@@ -18,7 +18,7 @@ namespace Barrios.Administration.Entities
     {
 
         [DisplayName("Id"), Column("ID"), Identity]
-        public Int32? Id
+        public Int16? Id
         {
             get { return Fields.Id[this]; }
             set { Fields.Id[this] = value; }
@@ -118,7 +118,7 @@ namespace Barrios.Administration.Entities
         public class RowFields : RowFieldsBase
         {
 
-            public Int32Field Id;
+            public Int16Field Id;
 
             public StringField Nombre;
             public StringField Mail;

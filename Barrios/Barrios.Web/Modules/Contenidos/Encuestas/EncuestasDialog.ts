@@ -8,8 +8,13 @@ namespace Barrios.Contenidos {
         protected getLocalTextPrefix() { return EncuestasRow.localTextPrefix; }
         protected getNameProperty() { return EncuestasRow.nameProperty; }
         protected getService() { return EncuestasService.baseUrl; }
-
+       
         protected form = new EncuestasForm(this.idPrefix);
+        constructor(container: JQuery) {
+            super(container);
+            CategoriasDialog.typeCategory = 1;
+        }
+       
 
     }
 }

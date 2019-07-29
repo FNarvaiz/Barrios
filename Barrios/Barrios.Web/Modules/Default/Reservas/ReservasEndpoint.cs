@@ -151,9 +151,9 @@ namespace Barrios.Default.Endpoints
                         if (turnAnterior != aux.Inicio)
                         {
                             if (!aux.IdVecinoUnidadExtra.IsEmptyOrNull())
-                                html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + ": " + aux.IdVecinoUnidad + " y " + aux.IdVecinoUnidadExtra + "</button>");
+                                html.Append("<button  type = 'button' class='btn btn-danger btn-flat'>" + aux.TipoReservaHecha + ": " + aux.IdVecinoUnidad + " y " + aux.IdVecinoUnidadExtra + "</button>");
                             else
-                                html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + ": " + aux.IdVecinoUnidad + "</button>");
+                                html.Append("<button  type = 'button' class='btn btn-danger btn-flat'>" + aux.TipoReservaHecha + ": " + aux.IdVecinoUnidad + "</button>");
                         }
                     }
                 }
