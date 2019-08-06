@@ -1,5 +1,4 @@
-﻿
-namespace Barrios.Default {
+﻿namespace Barrios.Default {
 
     @Serenity.Decorators.registerClass()
     export class ReservasGrid extends Serenity.EntityGrid<ReservasRow, any> {
@@ -10,8 +9,9 @@ namespace Barrios.Default {
         protected getService() { return ReservasService.baseUrl; }
 
         constructor(container: JQuery) {
-            
+
             super(container);
         }
+
     }
 }

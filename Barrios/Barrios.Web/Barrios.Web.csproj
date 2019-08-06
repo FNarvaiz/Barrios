@@ -847,10 +847,11 @@
     <Content Include="Modules\Contenidos\LineaTiempo\LineaTiempoIndex.cshtml" />
     <Content Include="Modules\Views\Providers\ProvidersIndex.cshtml" />
     <Content Include="Modules\Contenidos\Proveedores\ProveedoresIndex.cshtml" />
-    <Content Include="Modules\Common\Dashboard\Booking.cshtml" />
+    <Content Include="Modules\Views\Bookings\Booking.cshtml" />
     <Content Include="Modules\Views\TimeLine\TimeLineIndex.cshtml" />
     <Content Include="Modules\Views\Commissions\CommissionsIndex.cshtml" />
     <Content Include="Modules\Views\Surveys\SurveysIndex.cshtml" />
+    <Content Include="Modules\Common\Dashboard\DashboardIndex2.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1166,10 +1167,19 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.ProveedoresValoracionesService.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.BookingListRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Default.BookingTakeRequest.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.EspecialTurnForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Default.IdRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.MyBookingsColumns.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasColumns.ts">
@@ -1182,6 +1192,9 @@
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasTurnosEspecialesColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.TwoNeighborsForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Modules.Common.Utils.EmailRequest.ts">
@@ -1216,7 +1229,9 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosDialog.ts" />
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosGrid.ts" />
-    <TypeScriptCompile Include="Modules\Common\Dashboard\Reservas.ts" />
+    <TypeScriptCompile Include="Modules\Default\Reservas\TwoNeighbors\TwoNeighborsDialog.ts" />
+    <TypeScriptCompile Include="Modules\Default\Reservas\EspecialTurn\EspecialBookingDialog.ts" />
+    <TypeScriptCompile Include="Modules\Views\Bookings\Reservas.ts" />
     <TypeScriptCompile Include="Modules\Common\Helpers\BulkActionInAnyGrid.ts" />
     <TypeScriptCompile Include="Modules\Common\Helpers\DetailGridBase.ts" />
     <TypeScriptCompile Include="Modules\Common\Helpers\MasterGridBase.ts" />
@@ -1778,6 +1793,7 @@
     <TypeScriptCompile Include="Modules\Common\Helpers\ExcelExportHelper.ts" />
     <TypeScriptCompile Include="Modules\Common\Helpers\BasicProgressDialog.ts" />
     <TypeScriptCompile Include="Modules\Common\Helpers\BulkServiceAction.ts" />
+    <TypeScriptCompile Include="Modules\Views\Bookings\MyBookingsGrid.ts" />
     <TypeScriptCompile Include="Scripts\typings\serenity\Serenity.CoreLib.d.ts" />
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
@@ -1912,6 +1928,7 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190805_015500_CreateProcedureEspecialDates.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190724_162300_UpdateCommissions.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190722_172700_UpdateTimeLine.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190721_133400_UpdateCategory.cs" />
@@ -2064,9 +2081,17 @@
     <Compile Include="Modules\Contenidos\Proveedores\ProveedoresRepository.cs" />
     <Compile Include="Modules\Contenidos\Proveedores\ProveedoresRow.cs" />
     <Compile Include="Modules\Contenidos\Proveedores\ProviderCategoryLookup.cs" />
+    <Compile Include="Modules\Contenidos\ContenidosPermissionKeys.cs" />
+    <Compile Include="Modules\Default\ReservasPermissionKeys.cs" />
     <Compile Include="Modules\Default\ReservasRecursos\ResourceTypeLookup.cs" />
     <Compile Include="Modules\Default\ReservasRecursos\IntervalosLookup.cs" />
     <Compile Include="Modules\Default\ReservasRecursos\HorariosLookup.cs" />
+    <Compile Include="Modules\Default\Reservas\Render\RenderBooking.cs" />
+    <Compile Include="Modules\Default\Reservas\Render\RenderListToTable.cs" />
+    <Compile Include="Modules\Default\Reservas\TwoNeighbors\TwoNeighborsForm.cs" />
+    <Compile Include="Modules\Default\Reservas\EspecialTurn\EspecialTurnForm.cs" />
+    <Compile Include="Modules\Default\Reservas\EspecialTurn\ResourceEspecialLookup.cs" />
+    <Compile Include="Modules\Default\Reservas\Render\RenderBookingTable.cs" />
     <Compile Include="Modules\Default\Reservas\UsersLookup.cs" />
     <Compile Include="Modules\Default\Reservas\TypeLookup.cs" />
     <Compile Include="Modules\Default\Reservas\StartLookup.cs" />
@@ -2097,6 +2122,7 @@
     <Compile Include="Modules\Administration\User\Authentication\AuthenticationService.cs" />
     <Compile Include="Modules\Administration\User\Authentication\UserRetrieveService.cs" />
     <Compile Include="Modules\Membership\Account\LoginRequest.cs" />
+    <Compile Include="Modules\Views\Bookings\MyBookingsColumns.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\Administration\User\UserRow.cs" />
     <Compile Include="Modules\Administration\User\UserForm.cs" />

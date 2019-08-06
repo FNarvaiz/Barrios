@@ -51,7 +51,7 @@ namespace Barrios.Contenidos.Repositories
                     "from PROVEEDORES P " +
                     "INNER JOIN CATEGORIAS C ON C.ID= P.ID_CATEGORIA " +
                     "LEFT JOIN [PROVEEDORES_VALORACIONES] V ON P.ID= V.ID_PROVEEDOR " +
-                    "where P.VIGENTE=1 AND  P.BarrioId=" + idNeigborhood + " " +
+                    "where P.VIGENTE=1 "+
                     "group by P.ID,P.NOMBRE,P.EMAIL,P.TELEFONOS,P.DOMICILIO,P.ID_CATEGORIA,C.NOMBRE  ";
                 // DataTable DT= Utils.GetRequestString(connection, );
                list= connection.Query<MyRow>(query).ToList();

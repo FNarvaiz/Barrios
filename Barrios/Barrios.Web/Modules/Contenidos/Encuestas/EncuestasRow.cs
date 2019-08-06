@@ -30,7 +30,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Id Categoria"), ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), LookupEditor("Category.SurveysCategoryLookup",InplaceAdd =true, DialogType = "Contenidos.CategoriasDialog"), Column("ID_CATEGORIA"), NotNull]
+        [DisplayName("Id Categoria"), ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), LookupEditor("Category.SurveysCategoryLookup"), Column("ID_CATEGORIA"), NotNull]
         public Int16? IdCategoria
         {
             get { return Fields.IdCategoria[this]; }
@@ -194,6 +194,20 @@ namespace Barrios.Contenidos.Entities
             public Int32Field RatingCount;
 
             public Int32Field Liked;
+        }
+        public string ComboBoxTextValoration()
+        {
+            if (Liked != null)
+                return "Tu voto "+Liked.ToString();
+            else
+                return "Valorar del 1 al 10";
+        }
+        public string TotalRating()
+        {
+            if (RatingCount==0)
+                return " Sin Votos";
+            else
+                return " "+Rating+" de "+RatingCount+" votos";
         }
     }
 }

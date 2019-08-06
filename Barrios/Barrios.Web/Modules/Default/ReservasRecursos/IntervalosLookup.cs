@@ -22,7 +22,7 @@ namespace Barrios.Modules.Barrios.Barrio
         {
             List< GenericComboBoxRow> list=  new List<GenericComboBoxRow>();
             TimeSpan obj = new TimeSpan(0, 0, 0);
-            TimeSpan intervaloMinutos = new TimeSpan(0, 10, 0);
+            TimeSpan intervaloMinutos = new TimeSpan(0, 15, 0);
             addHorario(list,obj);
             while (obj.TotalMinutes <= 180)
             {

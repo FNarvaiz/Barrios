@@ -17,6 +17,13 @@ namespace Barrios.Common
         public List<ReservasRow> Bookings { get; set; }
         public int CustomerCount { get; set; }
         public int ProductCount { get; set; }
+        public bool ExistEspecialTurns()
+        {
+            foreach (var aux in Recursos)
+                if (aux.Resolucion == 0)
+                    return true;
+            return false;
+        }
     }
 
 }

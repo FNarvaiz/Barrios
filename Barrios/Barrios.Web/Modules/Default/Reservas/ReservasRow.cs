@@ -11,8 +11,12 @@ namespace Barrios.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS]")]
     [DisplayName("Reservas"), InstanceName("Reservas")]
-    [ReadPermission("Administration:General")]
+    [ReadPermission("User:Reservas")]
     [ModifyPermission("Administration:General")]
+
+    [InnerJoin("jIdRecurso", "[dbo].[RESERVAS_RECURSOS]", " jIdRecurso.[ID] = t0.[ID_RECURSO] ")]
+    [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", " jType.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jType.[ID_RECURSO] ")]
+    [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", " jTurns.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jTurns.[ID_RECURSO] ")]
     public sealed class ReservasRow : Row, IIdRow, INameRow
     {
         [DisplayName("Id"), Column("ID"), Identity]
@@ -22,7 +26,7 @@ namespace Barrios.Default.Entities
             set { Fields.Id[this] = value; }
         }
 
-        [DisplayName("Id Recurso"),QuickFilter,LookupEditor("Reservas.ResourceLookup"), Column("ID_RECURSO"), NotNull, ForeignKey("[dbo].[RESERVAS_RECURSOS]", "ID"), LeftJoin("jIdRecurso"), TextualField("IdRecursoNombre")]
+        [DisplayName("Recurso"),QuickFilter,LookupEditor("Reservas.ResourceLookup"), Column("ID_RECURSO"), NotNull]
         public Int16? IdRecurso
         {
             get { return Fields.IdRecurso[this]; }
@@ -57,7 +61,7 @@ namespace Barrios.Default.Entities
             set { Fields.Duracion[this] = value; }
         }
 
-        [DisplayName("Observaciones"), Column("OBSERVACIONES"), Size(200), QuickSearch]
+        [DisplayName("Observaciones"), Column("OBSERVACIONES"), Size(200),TextAreaEditor]
         public String Observaciones
         {
             get { return Fields.Observaciones[this]; }
@@ -88,6 +92,7 @@ namespace Barrios.Default.Entities
             get { return Fields.IdTurnosEspeciales[this]; }
             set { Fields.IdTurnosEspeciales[this] = value; }
         }
+       
 
 
         [DisplayName("Fecha Fin"), Column("FECHA_FIN")]
@@ -150,7 +155,13 @@ namespace Barrios.Default.Entities
             get { return Fields.Estado[this]; }
             set { Fields.Estado[this] = value; }
         }
-        [DisplayName("Tipo"), NotMapped]
+        [DisplayName("Hora"), Expression(" CONVERT(varchar(2), [T0].[INICIO]/60) +':' + case  WHEN ([T0].[INICIO]%60) > 9 then CONVERT(varchar(2),  [T0].[INICIO]%60) else '0'+CONVERT(varchar(2),  [T0].[INICIO]%60)   end   ")]
+        public String Hora
+        {
+            get { return Fields.Hora[this]; }
+            set { Fields.Hora[this] = value; }
+        }
+        [DisplayName("Tipo"), Expression("ISNULL(jType.NOMBRE , jTurns.NOMBRE ) ")]
         public String Tipo
         {
             get { return Fields.Tipo[this]; }
@@ -174,6 +185,12 @@ namespace Barrios.Default.Entities
         {
             get { return Fields.Estado_Turno[this]; }
             set { Fields.Estado_Turno[this] = value; }
+        }
+        [DisplayName("Dias"), NotMapped]
+        public String Dias
+        {
+            get { return Fields.Dias[this]; }
+            set { Fields.Dias[this] = value; }
         }
         [DisplayName("Finalizado"), NotMapped]
         public Boolean? Finalizado
@@ -209,6 +226,8 @@ namespace Barrios.Default.Entities
             get { return Fields.Observaciones; }
         }
 
+       
+
         public static readonly RowFields Fields = new RowFields().Init();
 
         public ReservasRow()
@@ -232,7 +251,8 @@ namespace Barrios.Default.Entities
             public DateTimeField DateInsert;
             public Int32Field UserInsert;
             public Int32Field IdTurnosEspeciales;
-
+            public StringField Hora;
+            
 
             public StringField Turno;
             public StringField Estado;
@@ -244,9 +264,10 @@ namespace Barrios.Default.Entities
             public BooleanField Valido;
             public BooleanField Required_Vecino;
             public StringField IdVecinoUnidadExtra;
+            public StringField Dias;
 
             public StringField IdRecursoNombre;
-
+            
             public StringField IdVecinoUsername;
             public StringField IdVecinoUnidad;
             public StringField IdVecinoUsername2;

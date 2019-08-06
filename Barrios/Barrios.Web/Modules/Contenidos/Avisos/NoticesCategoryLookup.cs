@@ -22,7 +22,7 @@ namespace Barrios.Modules.Contenidos.Categorias
         protected override void PrepareQuery(SqlQuery query)
         {
             base.PrepareQuery(query);
-            query.Where(new Criteria(CategoriasRow.Fields.Type) == "3" && new Criteria(CategoriasRow.Fields.Mostrar)=="1");
+            query.Where(new Criteria(CategoriasRow.Fields.Type) == "0" && new Criteria(CategoriasRow.Fields.Mostrar)=="1");
         }
         protected override void ApplyOrder(SqlQuery query)
         {

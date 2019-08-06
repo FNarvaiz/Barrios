@@ -23,7 +23,8 @@ namespace Barrios.Modules.Barrios.Barrio
             return new List<GenericComboBoxRow>()
             {new GenericComboBoxRow(1,"Automatica conciderando reservas de Tennis"),
             new GenericComboBoxRow(2,"Automatica conciderando reservas de Futboll"),
-            new GenericComboBoxRow(3,"A pedido por mail")
+            new GenericComboBoxRow(3,"A pedido por mail"),
+            new GenericComboBoxRow(4,"Automatica conciderando reservas de destape")
             };
         }
 

@@ -1,6 +1,7 @@
 ﻿namespace Barrios.Default {
     export interface ReservasRecursosForm {
         Nombre: Serenity.StringEditor;
+        Tipo: Serenity.LookupEditor;
         Apertura: Serenity.LookupEditor;
         Cierre: Serenity.LookupEditor;
         Resolucion: Serenity.LookupEditor;
@@ -28,6 +29,7 @@
 
                 Q.initFormType(ReservasRecursosForm, [
                     'Nombre', w0,
+                    'Tipo', w1,
                     'Apertura', w1,
                     'Cierre', w1,
                     'Resolucion', w1,

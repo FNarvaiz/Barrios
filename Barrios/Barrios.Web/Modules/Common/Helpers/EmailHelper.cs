@@ -12,7 +12,8 @@ namespace Barrios.Common
         {
             
             var message = new MailMessage();
-            message.To.Add(new MailAddress(address, ""));
+            foreach( var mail in address.Split(','))
+                message.To.Add(new MailAddress(mail, ""));
             message.Subject = subject;
             message.Body = body;
             message.IsBodyHtml = true;

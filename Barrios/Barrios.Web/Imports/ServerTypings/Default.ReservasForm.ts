@@ -7,7 +7,7 @@
         IdTurnosEspeciales: Serenity.LookupEditor;
         Inicio: Serenity.LookupEditor;
         Duracion: Serenity.IntegerEditor;
-        Observaciones: Serenity.StringEditor;
+        Observaciones: Serenity.TextAreaEditor;
         IdVecino2: Serenity.LookupEditor;
     }
 
@@ -25,7 +25,7 @@
                 var w0 = s.DateEditor;
                 var w1 = s.LookupEditor;
                 var w2 = s.IntegerEditor;
-                var w3 = s.StringEditor;
+                var w3 = s.TextAreaEditor;
 
                 Q.initFormType(ReservasForm, [
                     'Fecha', w0,

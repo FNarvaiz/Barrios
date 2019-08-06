@@ -1,67 +1,77 @@
 ﻿@model System.Collections.Generic.List<Barrios.Contenidos.Entities.EncuestasRow>
 @{
-    ViewData["Title"] = "Proveedores"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
+    var categorys = new List<string>();
+    ViewData["Title"] = "Encuestas"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
 }
-<div class="box">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Calificar</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Valoración</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var aux in Model)
-            {
-            <tr>
-                <th>
-                    <div class="form-group">
-                        <select class="form-control selects" style="padding: 6px 4px;" onchange="ratingChange(this,@aux.Id)">
-                            @for (var point = 0; point <= 10; point++)
-                            {
-                                if (point == aux.Liked)
-                                {
-                                    <option value="@point" selected>@point</option>
-                                }
-                                else
-                                {
-                                    <option value="@point">@point</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                </th>
-                <th>@aux.CategoryName</th>
-                <td>@aux.Nombre</td>
-                @if (!aux.Descripcion.IsEmptyOrNull() && aux.Descripcion.Length == 60)
+<div class="containerSurveys">
+    <h3 class="titleContainer">
+        Ideas y propuestas para mejorar el funcionamiento del barrio.
+    </h3>
+    <h4 class="subtitleContainer">
+        En esta sección proponemos encuestas para valorar diversas ideas y propuestas para la mejora y mantenimiento del barrio.<br />
+
+        Estas ideas podrán presentarse en la próxima reunión para debatirlas.<br />
+
+        Para participar indicá tu valoración en cada ítem. El resultado que aparece es el promedio alcanzado por cada propuesta.<br />
+
+        <div class="dropdown">
+            <button class="btn btn-secondary btn-info dropdown-toggle" type="button" id="CategoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filtrar por rubro
+            </button>
+            <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                @foreach (var aux in Model)
                 {
-                    <td>@aux.Descripcion .. <button class="btn btn-info" onclick="SeeMore(@aux.Id)">Ver mas</button></td>
+                    if (!categorys.Contains(aux.CategoryName))
+                    {
+                        categorys.Add(aux.CategoryName);
+                        <li><a class="CategoryItem" id="@aux.CategoryName.Replace(" ","_")" href="#">@aux.CategoryName</a></li>
+                    }
                 }
-                else
-                {
-                    <td>@aux.Descripcion</td>
-                }
-                <td>@aux.Rating promedio de (@aux.RatingCount calificaciones)</td>
-            </tr>
-            }
-        </tbody>
-    </table>
+                <li><a class="CategoryItem" id="todos" href="#">Todos</a></li>
+            </ul>
+        </div>
+    </h4>
+    @foreach (var aux in Model)
+    {
+        <article class="articleItem @aux.CategoryName">
+            <section class="title">
+                <h4>@aux.Nombre </h4> <h5> - @aux.CategoryName</h5> <h6 class="fa fa-star">@aux.TotalRating()</h6>
+            </section>
+            <p>@aux.Descripcion</p>
+            <div class="dropdown">
+                <button class="btn btn-secondary btn-success dropdown-toggle" type="button" id="dropdownRecurso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @aux.ComboBoxTextValoration()
+                </button>
+                <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                    @for (var point = 0; point <= 10; point++)
+                    {
+                        <li><a class="ItemRecurso" id="@aux.Id,@point" href="#">@point</a></li>
+                    }
+                </ul>
+            </div>
+        </article>
+    }
 
 </div>
     <script type="text/javascript">
         jQuery(function () {
-
+            $(".ItemRecurso").click((element) => { ratingChange(element.target) });
+            $(".CategoryItem").click((element) => {
+                if (element.target.id == "todos") {
+                    $(".articleItem").show();
+                }
+                else {
+                    $(".articleItem").hide();
+                    $("." + element.target.id).show();
+                }
+            });
         });
-        function ratingChange(control, id) {
-            console.log();
-            console.log(id);
+        function ratingChange(control) {
+            var ids = control.id.split(',', 2);
             try {
                 Barrios.Contenidos.EncuestasService.Rating({
-                    ID: id,
-                    Rating: $(control).val()
+                    ID: ids[0],
+                    Rating: ids[1]
                 }, (response) => {
                     Q.notifySuccess(response, "Notificación", { timeOut: 5000 });
                 });

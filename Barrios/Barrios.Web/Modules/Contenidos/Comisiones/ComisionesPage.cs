@@ -7,7 +7,7 @@ namespace Barrios.Contenidos.Pages
     using System.Collections.Generic;
     using System.Web.Mvc;
 
-    [RoutePrefix("Contenidos/Comisiones"), Route("{action=index}")]
+    [RoutePrefix("Comisiones"), Route("{action=index}")]
     [PageAuthorize(typeof(Entities.ComisionesRow))]
     public class ComisionesController : Controller
     {

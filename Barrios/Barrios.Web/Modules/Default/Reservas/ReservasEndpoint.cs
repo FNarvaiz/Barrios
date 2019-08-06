@@ -3,12 +3,14 @@ namespace Barrios.Default.Endpoints
 {
     using Barrios.Common;
     using Barrios.Modules.Common.Utils;
+    using Barrios.Modules.Default.Entities;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Globalization;
     using System.Text;
     using System.Web.Mvc;
     using MyRepository = Repositories.ReservasRepository;
@@ -45,131 +47,81 @@ namespace Barrios.Default.Endpoints
         [HttpPost]
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
-            return new MyRepository().List(connection, request);
+            var response =new MyRepository().List(connection, request);
+            /* foreach (var aux in response.Entities)
+             {
+                 aux
+             }*/
+            return response;
         }
-       
+
         [HttpPost]
-        public string renderBookingStatus(IDbConnection connection, IdRequest request)
+        public string renderBookingStatus(IDbConnection connection, BookingListRequest request)
         {
-            var idUser = Convert.ToInt32(Serenity.Authorization.UserDefinition.Id);
-            bool first = true;
-            var rowClass = "class";
-            var dateClass = "date";
-            var oddRow = false;
-            var firstTurn = true;
-            var fecha = DateTime.Now.AddDays(-20);
-            var turnAnterior = -2;
-            bool vacanteEscrita=false;
-            var indexDay = 0;
-            var pastDay = DateTime.Now.AddDays(-10);
-            StringBuilder html = new StringBuilder();
-            html.Append("<tbody><tr><th></th>");
             MyRepository repo = new MyRepository();
-            List<MyRow> list = repo.BookingList(connection, request.ID);
-            List<DateTime> days = repo.DaysList(list);
-            foreach (var aux in days)
-                html.Append("<th> " + aux.Day + "/" + aux.Month + " </th>");
-            html.Append("</tr>");
-            foreach (var aux in list)
+            RenderBooking table;
+            List<MyRow> list;
+            List<DateTime> days = null;
+            if (request.Resolution == 0)
             {
-                var date = aux.Fecha.Value;
-                if (turnAnterior != aux.Inicio) {
-                    if (!first) {
-                        html.Append("</tr>");
-
-                    }
-                    html.Append("<tr><td>" + aux.Turno + "</td>");
-                    fecha = aux.Fecha.Value;
-                    pastDay = aux.Fecha.Value;
-                    vacanteEscrita = false;
-                    first = false;
-                    firstTurn = true;
-                    indexDay = 0;
-                    turnAnterior = aux.Inicio.Value;
-                }
-                if (pastDay != date && !firstTurn) {
-                    html.Append("</td>");
-                    firstTurn = true;
-                }
-               /* while (days[indexDay] != date)
-                {
-                    html.Append("<td></td>");
-                    indexDay++;
-                    firstTurn = true;
-                }*/
-                if (firstTurn)
-                {
-                    html.Append("<td>");
-                    firstTurn = false;
-                }
-                if (aux.Finalizado.Value) {
-                    if (pastDay != date)
-                        pastDay = date;
-                }
-                else
-                {
-                    if (aux.Reservable.Value)
-                    {
-                        if (1 == 1)// Condicionales segun el barrio
-                        {
-                            if (aux.Estado == "Disponible" && aux.Valido.Value)
-                            {
-                                html.Append("<button onclick='Booking.bookingsTake(this," + request.ID + ", \"" + date.ToString("yyyyMMdd") + "\"," +
-                                    aux.Inicio + "," + aux.IdTipo + "," + aux.Required_Vecino.ToString().ToLower() + ")' " +
-                                    "type = 'button' class='btn btn-success btn-flat'>" + aux.Tipo + "</button>");
-                            }
-                        }
-                        else
-                        {
-                            html.Append("<button title = 'Bloqueado' type = 'button' class='btn btn-default btn-flat'><i class='fa fa-align-center'>No disponible</i></button>");
-                        }
-                    }
-                    else if (aux.Estado == "Vacante")
-                    {
-                        if (!vacanteEscrita)
-                        {
-                            html.Append("<button  type = 'button' class='btn btn-default btn-flat'>Vacante</button>");
-                            vacanteEscrita = true;
-                        }
-                    }
-                    else if (aux.IdVecino == idUser)
-                    {
-                        
-                            if (!aux.IdVecinoUnidadExtra.IsEmptyOrNull())
-                                html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + " con lote " + aux.IdVecinoUnidadExtra + "</button>");
-                            else
-                                html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + " (reserva propia)</button>");
-                        
-
-                    }
-                    else if (aux.IdVecino2 == idUser) {
-                        if (turnAnterior != aux.Inicio)
-                            html.Append("<button  type = 'button' class='btn btn-default btn-flat'>" + aux.TipoReservaHecha + " con lote " + aux.IdVecinoUnidad + "</button>");
-                    }
-                    else
-                    {
-                        if (turnAnterior != aux.Inicio)
-                        {
-                            if (!aux.IdVecinoUnidadExtra.IsEmptyOrNull())
-                                html.Append("<button  type = 'button' class='btn btn-danger btn-flat'>" + aux.TipoReservaHecha + ": " + aux.IdVecinoUnidad + " y " + aux.IdVecinoUnidadExtra + "</button>");
-                            else
-                                html.Append("<button  type = 'button' class='btn btn-danger btn-flat'>" + aux.TipoReservaHecha + ": " + aux.IdVecinoUnidad + "</button>");
-                        }
-                    }
-                }
-                pastDay = date;
-                turnAnterior = aux.Inicio.Value;
+                list = repo.BookingEspecialList(connection, request.ID);
+                table = new RenderListToTable(list);
             }
-            html.Append("</td></tr></tbody>");
+            else
+            {
+                list = repo.BookingList(connection, request.ID);
+                days = repo.DaysList(list);
+                table = new RenderBookingTable(list);
+            }
 
-            return html.ToString();
+            table.InitTBody();
+            table.renderHeader(days);
+            table.renderRows(request.ID);
+            table.EndTBody();
+            return table.getHTML();
+           
         }
         [HttpPost]
         public string bookingsTake(IDbConnection connection, BookingTakeRequest request)
         {
             new MyRepository().BookingTake(connection,request);
-            return renderBookingStatus(Utils.GetConnection(), new IdRequest() { ID = request.resourceId });
+            return renderBookingStatus(Utils.GetConnection(), new BookingListRequest() { ID = request.resourceId,Resolution=10 });
         }
+        [HttpPost]
+        public string SendRequest(IDbConnection connection, BookingTakeRequest request)
+        {
+            DateTime date = DateTime.ParseExact(request.bookingDate, "yyyyMMdd",
+                                  CultureInfo.InvariantCulture);
+            // new MyRepository().BookingTake(connection, request);
+            //return renderBookingStatus(Utils.GetConnection(), new IdRequest() { ID = request.resourceId });
+            bool ok = Convert.ToBoolean(Utils.GetRequestString(connection, "SELECT CAST(CASE WHEN DATEDIFF(D, (SELECT TOP 1 FECHA FROM HOY), " + date.ToSql() + ") <= 180 THEN 1 ELSE 0 END AS BIT)").Rows[0][0]);
+            if (ok) {
+                connection = Utils.GetConnection();
+                string status = Utils.GetRequestString(connection, "SELECT dbo.ESTADO_TURNO_RESERVA(" + request.resourceId + ", " + date.ToSql() + ", " + request.turnStart + ", " + request.turnDuration + ")").Rows[0][0].ToString();
+
+                if (status.ToUpper() == "DISPONIBLE") {
+
+                    string message = "<table border=1 cellpadding=5>" +
+                      "<tr><td>Unidad/Lote:</td><td>" + Authorization.UserDefinition.DisplayName + "</td></tr>" +
+                      "<tr><td>Familia:</td><td>" + Authorization.UserDefinition.DisplayName + "</td></tr>" +
+                      "<tr><td>Fecha del evento:</td><td>" + date.ToString("dd/mm/yyyy") + "</td></tr>" +
+                      "<tr><td>Espacio:</td><td>" + request.resourceName.ToUpper() + "</td></tr>" +
+                      "<tr><td>Turno:</td><td>" + request.turnName.ToUpper() + "</td></tr>" +
+                      "<tr><td>Observaciones:</td><td>" + request.comment + "</td></tr>" +
+                      "</table>" +
+                      "<p>La Administración se pondrá en contacto para confirmar la reserva.</p>";
+                    Common.EmailHelper.Send("Solicitud reserva " + request.resourceName + " Enviada", message, CurrentNeigborhood.Get().Mail + "," + Authorization.UserDefinition.Email, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+                }
+                else {
+                    throw new Exception("El turno indicado no se encuentra disponible.");
+                }
+            }
+            else {
+                throw new Exception("Las reservas del " + request.resourceName+ " deben solicitarse con una anticipación máxima de 6 meses.");
+            }
+            return "Se ha enviado la solicitud correctamente";
+        }
+        
     }
 
 
@@ -177,12 +129,21 @@ namespace Barrios.Default.Endpoints
     {
        public int ID { get; set; }
     }
+    public class BookingListRequest : ServiceRequest
+    {
+        public int ID { get; set; }
+        public int Resolution { get; set; }
+    }
     public class BookingTakeRequest : ServiceRequest
     {
         public Int16 resourceId { get; set; }
+        public string resourceName { get; set; }
         public string bookingDate { get; set; }
         public Int16 turnStart { get; set; }
+        public string turnName { get; set; }
+        public Int16 turnDuration { get; set; }
         public Int16 turnType { get; set; }
         public Int16 extraNeighborUnit { get; set; }
+        public string comment { get; set; }
     }
 }

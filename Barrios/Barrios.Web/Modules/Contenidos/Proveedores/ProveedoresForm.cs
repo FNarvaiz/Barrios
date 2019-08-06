@@ -14,6 +14,7 @@ namespace Barrios.Contenidos.Forms
     public class ProveedoresForm
     {
         public String Nombre { get; set; }
+        [LookupEditor("Category.ProviderCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog")]
         public Int16 IdCategoria { get; set; }
         public DateTime FechaAlta { get; set; }
         public DateTime FechaBaja { get; set; }

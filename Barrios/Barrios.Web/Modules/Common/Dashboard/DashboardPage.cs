@@ -2,8 +2,10 @@
 namespace Barrios.Common.Pages
 {
     using Barrios.Default.Repositories;
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
+    using Serenity.Services;
     using System;
     using System.Data.SqlClient;
     using System.Web.Mvc;
@@ -20,12 +22,15 @@ namespace Barrios.Common.Pages
         public ActionResult Booking()
         {
             System.Data.IDbConnection connection = new SqlConnection(SqlConnections.GetConnectionString("Default").ConnectionString);
-
+            ListRequest request = new ListRequest() { Sort = new SortBy[2] };
+            Utils.AddNeigborhoodFilter(request);
+            request.Sort[0] = new SortBy() { Field = "Resolucion", Descending = true };
+            request.Sort[1] = new SortBy() { Field = "Nombre", Descending = false };
             BookingModel obj = new BookingModel()
             {
-                Recursos = new ReservasRecursosRepository().List(connection, new Serenity.Services.ListRequest()).Entities
+                Recursos = new ReservasRecursosRepository().List(connection, request).Entities
             };
-            return View(MVC.Views.Common.Dashboard.Booking, obj);
+            return View(MVC.Views.Bookings.Booking, obj);
         }
     }
 }

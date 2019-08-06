@@ -14,6 +14,7 @@
         DateInsert?: string;
         UserInsert?: number;
         IdTurnosEspeciales?: number;
+        Hora?: string;
         Turno?: string;
         Estado?: string;
         Finalizado?: boolean;
@@ -24,11 +25,11 @@
         Valido?: boolean;
         Required_Vecino?: boolean;
         IdVecinoUnidadExtra?: string;
+        Dias?: string;
         IdRecursoNombre?: string;
         IdVecinoUsername?: string;
         IdVecinoUnidad?: string;
         IdVecinoUsername2?: string;
-        IdVecinoUnidad2?: string;
     }
 
     export namespace ReservasRow {
@@ -51,6 +52,7 @@
             DateInsert = "DateInsert",
             UserInsert = "UserInsert",
             IdTurnosEspeciales = "IdTurnosEspeciales",
+            Hora = "Hora",
             Turno = "Turno",
             Estado = "Estado",
             Finalizado = "Finalizado",
@@ -61,11 +63,11 @@
             Valido = "Valido",
             Required_Vecino = "Required_Vecino",
             IdVecinoUnidadExtra = "IdVecinoUnidadExtra",
+            Dias = "Dias",
             IdRecursoNombre = "IdRecursoNombre",
             IdVecinoUsername = "IdVecinoUsername",
             IdVecinoUnidad = "IdVecinoUnidad",
-            IdVecinoUsername2 = "IdVecinoUsername2",
-            IdVecinoUnidad2 = "IdVecinoUnidad2"
+            IdVecinoUsername2 = "IdVecinoUsername2"
         }
     }
 }

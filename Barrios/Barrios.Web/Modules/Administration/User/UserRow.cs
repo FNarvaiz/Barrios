@@ -12,7 +12,7 @@ namespace Barrios.Administration.Entities
     [DisplayName("Users"), InstanceName("User")]
     [ReadPermission(PermissionKeys.Security)]
     [ModifyPermission(PermissionKeys.Security)]
-    [LookupScript(Permission = PermissionKeys.Security)]
+    [LookupScript(Permission = "User:Reservas")]
     public sealed class UserRow : LoggingRow, IIdRow, INameRow, IIsActiveRow
     {
         [DisplayName("User Id"), Identity,ForeignKey("[dbo].[Users-barrios]", "UserId"), LeftJoin("jBarrio")]

@@ -32,6 +32,7 @@ namespace Barrios.Contenidos.Endpoints
         {
 
             request.Entity.DateUpdate = DateTime.Now;
+            request.Entity.BarrioId = CurrentNeigborhood.Get().Id.Value;
             request.Entity.UserUpdate = Convert.ToInt32(Authorization.UserId);
             return new MyRepository().Update(uow, request);
         }
@@ -51,7 +52,6 @@ namespace Barrios.Contenidos.Endpoints
         [HttpPost]
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
-            Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
         }
         public List<MyRow> ListRatings()

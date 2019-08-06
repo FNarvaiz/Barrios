@@ -5,7 +5,7 @@ namespace Barrios.Contenidos.Pages
     using Serenity.Web;
     using System.Web.Mvc;
 
-    [RoutePrefix("Contenidos/EncuestasValoraciones"), Route("{action=index}")]
+    [RoutePrefix("EncuestasValoraciones"), Route("{action=index}")]
     [PageAuthorize(typeof(Entities.EncuestasValoracionesRow))]
     public class EncuestasValoracionesController : Controller
     {

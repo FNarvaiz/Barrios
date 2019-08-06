@@ -11,8 +11,8 @@ namespace Barrios.Administration.Entities
 
     [ConnectionKey("Default"), Module("Administration"), TableName("[dbo].[BARRIOS]")]
     [DisplayName("Barrios"), InstanceName("Barrios")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("Administration:Barrios")]
+    [ModifyPermission("Administration:Barrios")]
     [LookupScript("Administration.Barrios", Permission = "?")]
     public sealed class BarriosRow : Row, IIdRow, INameRow
     {

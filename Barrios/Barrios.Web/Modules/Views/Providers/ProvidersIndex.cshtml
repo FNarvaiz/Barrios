@@ -1,65 +1,87 @@
 ﻿@model System.Collections.Generic.List<Barrios.Contenidos.Entities.ProveedoresRow>
 @{
+    var categorys=new List<string>();
     ViewData["Title"] = "Proveedores"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
 }
-<div class="box">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Calificar</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Email</th>
-                <th scope="col">Telefonos</th>
-                <th scope="col">Valoración</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var aux in Model)
-            {
-                <tr>
-                    <th>
-                        <select class="selects" onchange="ratingChange(this,@aux.Id)">
-                            @for (var point = 0; point <= 10; point++)
-                            {
-                                if (point == aux.Liked)
-                                {
-                                    <option value="@point" selected>@point</option>
-                                }
-                                else
-                                {
-                                    <option value="@point">@point</option>
-                                }
-                            }
-                        </select>
-                    </th>
-                    <th>@aux.CategoryName</th>
-                    <td>@aux.Nombre</td>
-                    <td>@aux.Email</td>
-                    <td>@aux.Telefonos</td>
-                    <td>@aux.Rating promedio de (@aux.RatingCount calificaciones)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="containerProviders">
+    <h3 class="titleContainer">
+        Directorio de proveedores.
+    </h3>
+    <h4 class="subtitleContainer">
+        Aquí podrás consultar listados de los proveedores que colaboran con nuestro barrio.<br />
+
+        Para cada uno de ellos podrás expresar tu valoración personal y consultar cómo son valorados dentro del barrio.<br />
+
+        En caso de querer incluir un proveedor envianos un e-mail a <a href="mailto:@CurrentNeigborhood.Get().LargeDisplayName <@CurrentNeigborhood.Get().Mail>">@CurrentNeigborhood.Get().Mail</a><br />
+        <div class="dropdown">
+            <button class="btn btn-secondary btn-info dropdown-toggle" type="button" id="CategoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filtrar por rubro
+            </button>
+            <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                @foreach (var aux in Model)
+                {
+                    if (!categorys.Contains(aux.CategoryName))
+                    {
+                        categorys.Add(aux.CategoryName);
+                        <li><a class="CategoryItem" id="@aux.CategoryName.Replace(" ","_")" href="#">@aux.CategoryName</a></li>
+                    }
+                }
+                <li><a class="CategoryItem" id="todos" href="#">Todos</a></li>
+            </ul>
+        </div>
+    </h4>
+    
+    @foreach (var aux in Model)
+    {
+        <article class="articleItem @aux.CategoryName.Replace(" ","_")">
+            <section class="title">
+                <h4>@aux.Nombre </h4> <h5> - @aux.CategoryName</h5> <h6 class="fa fa-star">@aux.TotalRating()</h6>
+            </section>
+            <p>@aux.Email</p>
+            <p>@aux.Telefonos</p>
+            <div class="dropdown">
+                <button class="btn btn-secondary btn-success dropdown-toggle" type="button" id="dropdownRecurso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @aux.ComboBoxTextValoration()
+                </button>
+                <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                    @for (var point = 0; point <= 10; point++)
+                    {
+                        <li><a class="ItemRecurso" id="@aux.Id,@point" href="#">@point</a></li>
+                    }
+                </ul>
+            </div>
+        </article>
+    }
+
 
 </div>
-    <script type="text/javascript">
-        jQuery(function () {
-
+<script type="text/javascript">
+    jQuery(function () {
+        
+        $(".ItemRecurso").click((element) => { ratingChange(element.target) });
+        $(".CategoryItem").click((element) => {
+            if (element.target.id == "todos") {
+                $(".articleItem").show();
+            }
+            else {
+                $(".articleItem").hide();
+                $("." + element.target.id).show();
+            }
         });
-        function ratingChange(control, id) {
-            try {
-                Barrios.Contenidos.ProveedoresService.Rating({
-                    ID: id,
-                    Rating: $(control).val()
-                }, (response) => {
-                    Q.notifySuccess(response, "Notificación", { timeOut: 5000 });
-                });
-            }
-            catch (err) {
-                alert(err);
-            }
-            return true;
-        };
-    </script>
+    });
+    function ratingChange(control) {
+        var ids = control.id.split(',', 2);
+        try {
+            Barrios.Contenidos.ProveedoresService.Rating({
+                ID: ids[0],
+                Rating: ids[1]
+            }, (response) => {
+                Q.notifySuccess(response, "Notificación", { timeOut: 5000 });
+            });
+        }
+        catch (err) {
+            alert(err);
+        }
+        return true;
+    };
+</script>

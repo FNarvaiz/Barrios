@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace Barrios.Modules.Barrios.Default
 {
-    [LookupScript("Reservas.UsersLookup")]
+    [LookupScript("Reservas.UsersLookup",Permission ="?")]
     public class UsersLookup : RowLookupScript<UserRow>
     {
         public UsersLookup()

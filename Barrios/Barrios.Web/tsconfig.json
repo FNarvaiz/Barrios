@@ -14,6 +14,6 @@
     ]
   },
   "exclude": [
-    "Scripts/site/MCTApplication.Web.d.ts"
+    "Scripts/site/Barrios.Web.d.ts"
   ]
 }

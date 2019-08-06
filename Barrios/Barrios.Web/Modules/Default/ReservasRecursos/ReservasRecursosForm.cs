@@ -16,6 +16,7 @@ namespace Barrios.Default.Forms
     {
         [Tab("Info")]
         public String Nombre { get; set; }
+        public Int16 Tipo { get; set; }
         public Int16 Apertura { get; set; }
         public Int16 Cierre { get; set; }
         public Int16 Resolucion { get; set; }

@@ -6,7 +6,7 @@ namespace Barrios.Contenidos.Pages
     using System.Collections.Generic;
     using System.Web.Mvc;
 
-    [RoutePrefix("Contenidos/Encuestas"), Route("{action=index}")]
+    [RoutePrefix("Encuestas"), Route("{action=index}")]
     [PageAuthorize(typeof(Entities.EncuestasRow))]
     public class EncuestasController : Controller
     {

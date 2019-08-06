@@ -1,0 +1,287 @@
+﻿@model Barrios.Common.BookingModel
+@{
+    ViewData["Title"] = "Booking";
+    
+    ViewData["PageId"] = "Booking";
+    }
+
+    @section ContentHeader {
+    <h1>
+        Tablero Principal <!--@LocalText.Get("Navigation.Dashboard")--><small>
+            Incio para novedades del barrio.
+            <!--@Html.Raw(Texts.Site.Dashboard.ContentDescription)-->
+        </small>
+    </h1>
+}
+<div class="row containerBooking">
+    <div class="col-xs-12 col-md-8" style="height:inherit">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">
+                    Estado de reservas de: <div class="dropdown">
+                        <button class="btn btn-secondary btn-info dropdown-toggle" type="button" id="dropdownRecurso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Recurso nombre
+                        </button>
+                        <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                            @foreach (var obj in Model.Recursos)
+                            {
+                                <li><a class="ItemRecurso" id="@obj.Id,@obj.Resolucion" href="#">@obj.Nombre</a></li>
+                            }
+                        </ul>
+                    </div>
+                </h3>
+            </div>
+            <div class="box-body table-responsive pad">
+
+                <table id="Bookingtable" class="table table-bordered"></table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-4" id="formBooking" style="height:inherit">
+        @if (Model.ExistEspecialTurns())
+        {
+            <section class="styleSerenity">
+                <h4>
+                    @foreach (var aux in Model.Recursos)
+                    {
+                        if (aux.Resolucion == 0)
+                        {
+                            <strong>/@aux.Nombre</strong>
+                        }
+                    }
+                </h4>
+                <p>
+
+                    Las reservas se solicitan por este medio. Para mas información tiene los reglamentos de estos mismos.<br />
+                    La Administración se pondrá en contacto para confirmar la reserva.<br />
+                    <strong>ADICIONALES</strong><br />
+
+                    Expendedora de café durante el evento $ 650.-<br />
+                    Chopera Consultar costo y encargar barril con una semana de anticipación mínimo.<br />
+
+                    <strong>ESPECIALES</strong><br />
+
+                    Corporativo (con aprobación previa) solicitar presupuesto<br />
+                    Publicidad (con aprobación previa) Evite multas al no declarar eventos publicitarios.
+
+                </p>
+                <button type="button" onclick="Booking.showEspecialTurnDialog();" class="btn btn-info">Solicitar Reserva</button>
+
+            </section>
+        }
+        <section class="styleSerenity myBooking">
+            <div id="GridDiv"></div>
+        </section>
+    </div>
+    
+
+            <!--
+            <tbody>
+            <tr>
+                <th>Button</th>
+                <th>Icons</th>
+                <th>Flat</th>
+                <th>Dropdown</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-default">Top</button>
+                        <button type="button" class="btn btn-default">Middle</button>
+                        <button type="button" class="btn btn-default">Bottom</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-default"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-default"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-default"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-default btn-flat"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-default btn-flat"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-default btn-flat"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-default">1</button>
+                        <button type="button" class="btn btn-default">2</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Dropdown link</a></li>
+                                <li><a href="#">Dropdown link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-info">Top</button>
+                        <button type="button" class="btn btn-info">Middle</button>
+                        <button type="button" class="btn btn-info">Bottom</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-info"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-info"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-info"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-info btn-flat"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-info btn-flat"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-info btn-flat"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-info">1</button>
+                        <button type="button" class="btn btn-info">2</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Dropdown link</a></li>
+                                <li><a href="#">Dropdown link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-danger">Top</button>
+                        <button type="button" class="btn btn-danger">Middle</button>
+                        <button type="button" class="btn btn-danger">Bottom</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-danger"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-danger btn-flat"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-danger btn-flat"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-danger btn-flat"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-danger">1</button>
+                        <button type="button" class="btn btn-danger">2</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Dropdown link</a></li>
+                                <li><a href="#">Dropdown link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-warning">Top</button>
+                        <button type="button" class="btn btn-warning">Middle</button>
+                        <button type="button" class="btn btn-warning">Bottom</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-warning"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-warning"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-warning"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-warning btn-flat"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-warning btn-flat"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-warning btn-flat"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-warning">1</button>
+                        <button type="button" class="btn btn-warning">2</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Dropdown link</a></li>
+                                <li><a href="#">Dropdown link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-success">Top</button>
+                        <button type="button" class="btn btn-success">Middle</button>
+                        <button type="button" class="btn btn-success">Bottom</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-success"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-success"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-success"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-success btn-flat"><i class="fa fa-align-left"></i></button>
+                        <button type="button" class="btn btn-success btn-flat"><i class="fa fa-align-center"></i></button>
+                        <button type="button" class="btn btn-success btn-flat"><i class="fa fa-align-right"></i></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-success">1</button>
+                        <button type="button" class="btn btn-success">2</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Dropdown link</a></li>
+                                <li><a href="#">Dropdown link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>-->
+        <!-- /.box-body -->
+</div>
+<script>
+    var Booking;
+    var grid;
+    jQuery(function () {
+        Booking = new Dashboard.Booking($("#dropdownRecurso"), $(".ItemRecurso"), $("#Bookingtable"));
+        grid=  new Barrios.Default.MyBookingsGrid($('#GridDiv'), {}).init();
+    });
+</script>

@@ -992,6 +992,38 @@ var Barrios;
 (function (Barrios) {
     var Default;
     (function (Default) {
+        var EspecialTurnForm = /** @class */ (function (_super) {
+            __extends(EspecialTurnForm, _super);
+            function EspecialTurnForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!EspecialTurnForm.init) {
+                    EspecialTurnForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.DateEditor;
+                    var w1 = s.LookupEditor;
+                    var w2 = s.IntegerEditor;
+                    var w3 = s.TextAreaEditor;
+                    Q.initFormType(EspecialTurnForm, [
+                        'Fecha', w0,
+                        'IdRecurso', w1,
+                        'IdTurnosEspeciales', w1,
+                        'Inicio', w1,
+                        'Duracion', w2,
+                        'Observaciones', w3
+                    ]);
+                }
+                return _this;
+            }
+            EspecialTurnForm.formKey = 'Default.EspecialTurn';
+            return EspecialTurnForm;
+        }(Serenity.PrefixedContext));
+        Default.EspecialTurnForm = EspecialTurnForm;
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
         var RecursosBarriosRow;
         (function (RecursosBarriosRow) {
             RecursosBarriosRow.idProperty = 'RecursoId';
@@ -1013,7 +1045,7 @@ var Barrios;
                     var w0 = s.DateEditor;
                     var w1 = s.LookupEditor;
                     var w2 = s.IntegerEditor;
-                    var w3 = s.StringEditor;
+                    var w3 = s.TextAreaEditor;
                     Q.initFormType(ReservasForm, [
                         'Fecha', w0,
                         'IdVecino', w1,
@@ -1052,6 +1084,7 @@ var Barrios;
                     var w4 = Default.ReservasTurnosEspecialesGrid;
                     Q.initFormType(ReservasRecursosForm, [
                         'Nombre', w0,
+                        'Tipo', w1,
                         'Apertura', w1,
                         'Cierre', w1,
                         'Resolucion', w1,
@@ -1127,7 +1160,8 @@ var Barrios;
                 'Retrieve',
                 'List',
                 'renderBookingStatus',
-                'bookingsTake'
+                'bookingsTake',
+                'SendRequest'
             ].forEach(function (x) {
                 ReservasService[x] = function (r, s, o) {
                     return Q.serviceRequest(ReservasService.baseUrl + '/' + x, r, s, o);
@@ -1226,6 +1260,30 @@ var Barrios;
             }
             ReservasTurnosEspecialesRow.getLookup = getLookup;
         })(ReservasTurnosEspecialesRow = Default.ReservasTurnosEspecialesRow || (Default.ReservasTurnosEspecialesRow = {}));
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
+        var TwoNeighborsForm = /** @class */ (function (_super) {
+            __extends(TwoNeighborsForm, _super);
+            function TwoNeighborsForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!TwoNeighborsForm.init) {
+                    TwoNeighborsForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.LookupEditor;
+                    Q.initFormType(TwoNeighborsForm, [
+                        'IdVecino2', w0
+                    ]);
+                }
+                return _this;
+            }
+            TwoNeighborsForm.formKey = 'Default.TwoNeighbors';
+            return TwoNeighborsForm;
+        }(Serenity.PrefixedContext));
+        Default.TwoNeighborsForm = TwoNeighborsForm;
     })(Default = Barrios.Default || (Barrios.Default = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -1683,7 +1741,7 @@ var Barrios;
 (function (Barrios_1) {
     var Texts;
     (function (Texts) {
-        Barrios['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Barrios: { CantDiasReservables: 1, Direccion: 1, Id: 1, IsActive: 1, LargeDisplayName: 1, Logo: 1, Mail: 1, Nombre: 1, PasswordMail: 1, ShortDisplayName: 1, TelefonOs: 1, Url: 1 }, Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { BarrioId: 1, ClientIdList: 1, DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, Unit: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 }, UsersBarrios: { BarrioId: 1, BarrioNombre: 1, UserId: 1, UserUsername: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Contenidos: { Avisos: { BarrioId: 1, Caducidad: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, Id: 1, IdCategoria: 1, Imagen: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Categorias: { DateInsert: 1, DateUpdate: 1, Id: 1, Mostrar: 1, Nombre: 1, Type: 1, TypeName: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Comisiones: { BarrioId: 1, BarrioNombre: 1, DateInsert: 1, DateUpdate: 1, Habilitada: 1, Id: 1, Mails: 1, MembersList: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, ComisionesIntegrantes: { DateInsert: 1, DateUpdate: 1, Id: 1, IdComision: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, Encuestas: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Rating: 1, RatingCount: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, EncuestasValoraciones: { Comentario: 1, Fecha: 1, Id: 1, IdEncuesta: 1, IdEncuestaNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 }, LineaTiempo: { Aprobado: 1, ArchivoFilename: 1, BarrioId: 1, CategoryName: 1, ContenidoTexto: 1, Id: 1, IdCategoria: 1, Nombre: 1, PeriodoFecha: 1, Userid: 1, UseridUsername: 1 }, Proveedores: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Domicilio: 1, Email: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Notas: 1, Rating: 1, RatingCount: 1, Telefonos: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, ProveedoresValoraciones: { Fecha: 1, Id: 1, IdProveedor: 1, IdProveedorNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 } }, Default: { RecursosBarrios: { BarrioId: 1, BarrioNombre: 1, RecursoId: 1 }, Reservas: { DateInsert: 1, Duracion: 1, Estado: 1, Estado_Turno: 1, Fecha: 1, FechaFin: 1, Finalizado: 1, Id: 1, IdRecurso: 1, IdRecursoNombre: 1, IdResultado: 1, IdTipo: 1, IdTurnosEspeciales: 1, IdVecino: 1, IdVecino2: 1, IdVecinoUnidad: 1, IdVecinoUnidad2: 1, IdVecinoUnidadExtra: 1, IdVecinoUsername: 1, IdVecinoUsername2: 1, Inicio: 1, Observaciones: 1, Required_Vecino: 1, Reservable: 1, Tipo: 1, TipoReservaHecha: 1, Turno: 1, UserInsert: 1, Valido: 1 }, ReservasRecursos: { Apertura: 1, BarrioId: 1, Cierre: 1, ClientIdList: 1, Id: 1, Nombre: 1, Resolucion: 1, SpecialTurnList: 1, TypeList: 1 }, ReservasTipos: { Duracion: 1, Id: 1, IdRecurso: 1, Nombre: 1, RequiereVecino2: 1, Vigente: 1 }, ReservasTurnosEspeciales: { Dias: 1, Duracion: 1, Id: 1, IdRecurso: 1, Inicio: 1, Nombre: 1 } }, Modules: { Common: { Utils: { GenericComboBox: { Id: 1, Name: 1 } } } }, Perfil: { VecinosActividades: { Actividad: 1, ActividadDetalles: 1, Fecha: 1, Id: 1, Ip: 1, Userid: 1 }, VecinosEventos: { ConcurrentesList: 1, Fecha: 1, Id: 1, Lugar: 1, Nombre: 1, Userid: 1, UseridUsername: 1 }, VecinosEventosConcurrentes: { Id: 1, IdEvento: 1, Nombre: 1, Userid: 1 }, VecinosMascotas: { Foto: 1, Id: 1, IdTipo: 1, Nombre: 1, Raza: 1, Userid: 1, UseridUnit: 1, UseridUsername: 1 }, VecinosVisitantesFrecuentes: { Dni: 1, Id: 1, Nombre: 1, Tipo: 1, Userid: 1, Vehiculo: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
+        Barrios['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Barrios: { CantDiasReservables: 1, Direccion: 1, Id: 1, IsActive: 1, LargeDisplayName: 1, Logo: 1, Mail: 1, Nombre: 1, PasswordMail: 1, ShortDisplayName: 1, TelefonOs: 1, Url: 1 }, Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { BarrioId: 1, ClientIdList: 1, DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, Unit: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 }, UsersBarrios: { BarrioId: 1, BarrioNombre: 1, UserId: 1, UserUsername: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Contenidos: { Avisos: { BarrioId: 1, Caducidad: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, Id: 1, IdCategoria: 1, Imagen: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Categorias: { DateInsert: 1, DateUpdate: 1, Id: 1, Mostrar: 1, Nombre: 1, Type: 1, TypeName: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Comisiones: { BarrioId: 1, BarrioNombre: 1, DateInsert: 1, DateUpdate: 1, Habilitada: 1, Id: 1, Mails: 1, MembersList: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, ComisionesIntegrantes: { DateInsert: 1, DateUpdate: 1, Id: 1, IdComision: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, Encuestas: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Rating: 1, RatingCount: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, EncuestasValoraciones: { Comentario: 1, Fecha: 1, Id: 1, IdEncuesta: 1, IdEncuestaNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 }, LineaTiempo: { Aprobado: 1, ArchivoFilename: 1, BarrioId: 1, CategoryName: 1, ContenidoTexto: 1, Id: 1, IdCategoria: 1, Nombre: 1, PeriodoFecha: 1, Userid: 1, UseridUsername: 1 }, Proveedores: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Domicilio: 1, Email: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Notas: 1, Rating: 1, RatingCount: 1, Telefonos: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, ProveedoresValoraciones: { Fecha: 1, Id: 1, IdProveedor: 1, IdProveedorNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 } }, Default: { RecursosBarrios: { BarrioId: 1, BarrioNombre: 1, RecursoId: 1 }, Reservas: { DateInsert: 1, Dias: 1, Duracion: 1, Estado: 1, Estado_Turno: 1, Fecha: 1, FechaFin: 1, Finalizado: 1, Hora: 1, Id: 1, IdRecurso: 1, IdRecursoNombre: 1, IdResultado: 1, IdTipo: 1, IdTurnosEspeciales: 1, IdVecino: 1, IdVecino2: 1, IdVecinoUnidad: 1, IdVecinoUnidadExtra: 1, IdVecinoUsername: 1, IdVecinoUsername2: 1, Inicio: 1, Observaciones: 1, Required_Vecino: 1, Reservable: 1, Tipo: 1, TipoReservaHecha: 1, Turno: 1, UserInsert: 1, Valido: 1 }, ReservasRecursos: { Apertura: 1, BarrioId: 1, Cierre: 1, ClientIdList: 1, Id: 1, Nombre: 1, Resolucion: 1, SpecialTurnList: 1, Tipo: 1, TypeList: 1 }, ReservasTipos: { Duracion: 1, Id: 1, IdRecurso: 1, Nombre: 1, RequiereVecino2: 1, Vigente: 1 }, ReservasTurnosEspeciales: { Dias: 1, Duracion: 1, Id: 1, IdRecurso: 1, Inicio: 1, Nombre: 1 } }, Modules: { Common: { Utils: { GenericComboBox: { Id: 1, Name: 1 } } } }, Perfil: { VecinosActividades: { Actividad: 1, ActividadDetalles: 1, Fecha: 1, Id: 1, Ip: 1, Userid: 1 }, VecinosEventos: { ConcurrentesList: 1, Fecha: 1, Id: 1, Lugar: 1, Nombre: 1, Userid: 1, UseridUsername: 1 }, VecinosEventosConcurrentes: { Id: 1, IdEvento: 1, Nombre: 1, Userid: 1 }, VecinosMascotas: { Foto: 1, Id: 1, IdTipo: 1, Nombre: 1, Raza: 1, Userid: 1, UseridUnit: 1, UseridUsername: 1 }, VecinosVisitantesFrecuentes: { Dni: 1, Id: 1, Nombre: 1, Tipo: 1, Userid: 1, Vehiculo: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
     })(Texts = Barrios_1.Texts || (Barrios_1.Texts = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -2723,45 +2781,6 @@ var Barrios;
         window.onerror = Q.ErrorHandling.runtimeErrorHandler;
     })(ScriptInitialization = Barrios.ScriptInitialization || (Barrios.ScriptInitialization = {}));
 })(Barrios || (Barrios = {}));
-/// <reference types="jqueryui" />
-/// <reference types="toastr" />
-/// <reference types="jquery" />
-/// <reference types="jquery.validation" />
-/// <reference path="../../../Imports/ServerTypings/Default.ReservasService.ts" />
-var Dashboard;
-(function (Dashboard) {
-    var Booking = /** @class */ (function () {
-        function Booking(resource, items, table) {
-            this._resource = resource;
-            var obj = this;
-            this._table = table;
-            items.click(function () { obj.selectItem($(this)); });
-        }
-        Booking.prototype.selectItem = function (item) {
-            var obj = this;
-            Barrios.Default.ReservasService.renderBookingStatus({ Id: item.attr("ID") }, function (response) {
-                obj._table.html($.parseHTML(response));
-            });
-            this._resource.text(item.text());
-        };
-        Booking.prototype.bookingsTake = function (element, resourceId, date, start, type, neighbour) {
-            var table = this._table;
-            //if (neighbour)
-            //Serenity.form
-            Barrios.Default.ReservasService.bookingsTake({
-                resourceId: resourceId,
-                bookingDate: date,
-                turnStart: start,
-                turnType: type,
-                extraNeighborUnit: null
-            }, function (response) {
-                table.html($.parseHTML(response));
-            });
-        };
-        return Booking;
-    }());
-    Dashboard.Booking = Booking;
-})(Dashboard || (Dashboard = {}));
 var Barrios;
 (function (Barrios) {
     var BasicProgressDialog = /** @class */ (function (_super) {
@@ -4632,6 +4651,8 @@ var Barrios;
                 _this.form = new Default.ReservasForm(_this.idPrefix);
                 _this.form.IdRecurso.change(function (e) {
                     if (_this.form.IdRecurso.selectedItem != null) {
+                        var obj = _this.form.IdRecurso.selectedItem;
+                        console.log(obj);
                         if (_this.form.IdRecurso.selectedItem.Resolucion == 0) {
                             _this.form.IdTurnosEspeciales.getGridField().toggle(true);
                             _this.form.IdTipo.getGridField().toggle(false);
@@ -4693,6 +4714,96 @@ var Barrios;
             return ReservasGrid;
         }(Serenity.EntityGrid));
         Default.ReservasGrid = ReservasGrid;
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
+        var EspecialBookingDialog = /** @class */ (function (_super) {
+            __extends(EspecialBookingDialog, _super);
+            function EspecialBookingDialog(container) {
+                var _this = _super.call(this, container) || this;
+                _this.send = false;
+                _this.turn = null;
+                _this.form = new Default.EspecialTurnForm(_this.idPrefix);
+                _this.set_dialogTitle("Solicitud de turno");
+                _this.form.IdRecurso.change(function (e) {
+                    if (_this.form.IdRecurso.selectedItem != null) {
+                    }
+                });
+                _this.form.IdTurnosEspeciales.change(function (e) {
+                    if (_this.form.IdTurnosEspeciales.selectedItem != null) {
+                        _this.form.Inicio.value = _this.form.IdTurnosEspeciales.selectedItem.Inicio.toString();
+                        _this.form.Duracion.value = _this.form.IdTurnosEspeciales.selectedItem.Duracion;
+                    }
+                });
+                return _this;
+            }
+            EspecialBookingDialog.prototype.getFormKey = function () { return Default.EspecialTurnForm.formKey; };
+            EspecialBookingDialog.prototype.getIdProperty = function () { return Default.ReservasRow.idProperty; };
+            EspecialBookingDialog.prototype.getLocalTextPrefix = function () { return Default.ReservasRow.localTextPrefix; };
+            EspecialBookingDialog.prototype.getNameProperty = function () { return Default.ReservasRow.nameProperty; };
+            EspecialBookingDialog.prototype.getService = function () { return Default.ReservasService.baseUrl; };
+            EspecialBookingDialog.prototype.getToolbarButtons = function () {
+                var _this = this;
+                return [{
+                        title: 'Enviar Solicitud',
+                        cssClass: 'add-button',
+                        onClick: function () {
+                            if (_this.validateForm()) {
+                                _this.send = true;
+                                _this.turn = _this.form.IdTurnosEspeciales.selectedItem;
+                                _this.dialogClose();
+                            }
+                        }
+                    }];
+            };
+            EspecialBookingDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], EspecialBookingDialog);
+            return EspecialBookingDialog;
+        }(Serenity.EntityDialog));
+        Default.EspecialBookingDialog = EspecialBookingDialog;
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
+        var TwoNeighborsDialog = /** @class */ (function (_super) {
+            __extends(TwoNeighborsDialog, _super);
+            function TwoNeighborsDialog(container) {
+                var _this = _super.call(this, container) || this;
+                _this.vecinoId = null;
+                _this.form = new Default.TwoNeighborsForm(_this.idPrefix);
+                _this.set_dialogTitle("Seleccione el vecino");
+                return _this;
+            }
+            TwoNeighborsDialog.prototype.getFormKey = function () { return Default.TwoNeighborsForm.formKey; };
+            TwoNeighborsDialog.prototype.getIdProperty = function () { return Default.ReservasRow.idProperty; };
+            TwoNeighborsDialog.prototype.getLocalTextPrefix = function () { return Default.ReservasRow.localTextPrefix; };
+            TwoNeighborsDialog.prototype.getNameProperty = function () { return Default.ReservasRow.nameProperty; };
+            TwoNeighborsDialog.prototype.getService = function () { return Default.ReservasService.baseUrl; };
+            TwoNeighborsDialog.prototype.getToolbarButtons = function () {
+                var _this = this;
+                return [{
+                        title: 'Selecctionar',
+                        cssClass: 'add-button',
+                        onClick: function () {
+                            if (_this.validateForm()) {
+                                _this.vecinoId = _this.form.IdVecino2.value;
+                                _this.dialogClose();
+                            }
+                        }
+                    }];
+            };
+            TwoNeighborsDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], TwoNeighborsDialog);
+            return TwoNeighborsDialog;
+        }(Serenity.EntityDialog));
+        Default.TwoNeighborsDialog = TwoNeighborsDialog;
     })(Default = Barrios.Default || (Barrios.Default = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -5224,4 +5335,156 @@ var Barrios;
         Perfil.VecinosVisitantesFrecuentesGrid = VecinosVisitantesFrecuentesGrid;
     })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
 })(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
+        var MyBookingsGrid = /** @class */ (function (_super) {
+            __extends(MyBookingsGrid, _super);
+            function MyBookingsGrid(container) {
+                var _this = _super.call(this, container) || this;
+                _this.showExpiredTerminated = true;
+                _this.setTitle("Mis reservas");
+                _this.element.find('.s-QuickSearchBar').remove();
+                var filterDate = _this.tryFindQuickFilter(Serenity.BooleanEditor, "Fecha" /* Fecha */);
+                if (filterDate)
+                    filterDate.value = true;
+                return _this;
+            }
+            MyBookingsGrid.prototype.getColumnsKey = function () { return 'Default.MyBookings'; };
+            MyBookingsGrid.prototype.getDialogType = function () { return Default.ReservasDialog; };
+            MyBookingsGrid.prototype.getIdProperty = function () { return Default.ReservasRow.idProperty; };
+            MyBookingsGrid.prototype.getLocalTextPrefix = function () { return Default.ReservasRow.localTextPrefix; };
+            MyBookingsGrid.prototype.getService = function () { return Default.ReservasService.baseUrl; };
+            MyBookingsGrid.prototype.getQuickFilters = function () {
+                var _this = this;
+                // get quick filter list from base class, e.g. columns
+                var filters = _super.prototype.getQuickFilters.call(this);
+                filters.push({
+                    field: "Fecha" /* Fecha */,
+                    type: Serenity.BooleanEditor,
+                    title: 'Ocultar terminadas',
+                    handler: function (h) {
+                        _this.showExpiredTerminated = !!h.value;
+                    }
+                });
+                return filters;
+            };
+            MyBookingsGrid.prototype.onViewSubmit = function () {
+                // only continue if base class returns true (didn't cancel request)
+                if (!_super.prototype.onViewSubmit.call(this)) {
+                    return false;
+                }
+                // view object is the data source for grid (SlickRemoteView)
+                // this is an EntityGrid so its Params object is a ListRequest
+                var request = this.view.params;
+                // list request has a Criteria parameter
+                // we AND criteria here to existing one because 
+                // otherwise we might clear filter set by 
+                // an edit filter dialog if any.
+                if (this.showExpiredTerminated) {
+                    var today = new Date();
+                    request.Criteria = Serenity.Criteria.and(request.Criteria, [['Fecha'], '>', today.toISOString().substring(0, 10).replace(/-/g, '')]);
+                }
+                return true;
+            };
+            MyBookingsGrid.prototype.getButtons = function () {
+                return [];
+            };
+            MyBookingsGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], MyBookingsGrid);
+            return MyBookingsGrid;
+        }(Serenity.EntityGrid));
+        Default.MyBookingsGrid = MyBookingsGrid;
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+/// <reference types="jqueryui" />
+/// <reference types="toastr" />
+/// <reference types="jquery" />
+/// <reference types="jquery.validation" />
+/// <reference path="../../../Imports/ServerTypings/Default.ReservasService.ts" />
+var Dashboard;
+(function (Dashboard) {
+    var Booking = /** @class */ (function () {
+        function Booking(resource, items, table) {
+            this._resource = resource;
+            var obj = this;
+            this._table = table;
+            items.click(function () { obj.selectItem($(this)); });
+            this.selectItem($(items[0]));
+        }
+        Booking.prototype.selectItem = function (item) {
+            var obj = this;
+            var parameters = item.attr("ID").split(",", 2);
+            Barrios.Default.ReservasService.renderBookingStatus({
+                ID: parseInt(parameters[0]),
+                Resolution: parseInt(parameters[1])
+            }, function (response) {
+                obj._table.html($.parseHTML(response));
+            });
+            this._resource.text(item.text());
+        };
+        Booking.prototype.bookingsTake = function (element, resourceId, date, start, type, neighbour) {
+            var _this = this;
+            if (neighbour) {
+                var dialog = new Barrios.Default.TwoNeighborsDialog(element);
+                dialog.element.on("dialogclose", function () {
+                    if (dialog.vecinoId != null)
+                        _this.sendBookingsTake(resourceId, date, start, type, dialog.vecinoId);
+                });
+                dialog.dialogOpen();
+            }
+            else {
+                this.sendBookingsTake(resourceId, date, start, type, null);
+            }
+        };
+        Booking.prototype.sendBookingsTake = function (resourceId, date, start, type, neighbour) {
+            var table = this._table;
+            Barrios.Default.ReservasService.bookingsTake({
+                resourceId: resourceId,
+                bookingDate: date,
+                turnStart: start,
+                turnType: type,
+                extraNeighborUnit: neighbour
+            }, function (response) {
+                table.html($.parseHTML(response));
+            });
+        };
+        Booking.prototype.showEspecialTurnDialog = function () {
+            var _this = this;
+            var dialog = new Barrios.Default.EspecialBookingDialog($(""));
+            dialog.element.on("dialogclose", function () {
+                if (dialog.send) {
+                    _this.SendBookinRequest(dialog.form.Fecha.value, dialog.form.IdRecurso.value, dialog.form.IdRecurso.text, dialog.turn.Nombre, dialog.turn.Duracion, dialog.turn.Inicio, dialog.turn.Id, dialog.form.Observaciones);
+                }
+            });
+            dialog.dialogOpen();
+        };
+        Booking.prototype.SendBookinRequest = function (date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId, comment) {
+            if (comment === void 0) { comment = ""; }
+            if (resourceName == "") {
+                resourceName = this._resource.text();
+            }
+            Barrios.Default.ReservasService.SendRequest({
+                bookingDate: date,
+                resourceId: resourceId,
+                resourceName: resourceName,
+                turnName: turnName,
+                turnDuration: turnDuration,
+                turnStart: turnStart,
+                turnType: turnTypeId,
+                comment: comment
+            }, function (response) {
+                Q.notifySuccess(response);
+            });
+        };
+        Booking.prototype.moveDisplay = function (HideColumn, ShowColumn) {
+            $('.' + HideColumn).hide();
+            $('.' + ShowColumn).show();
+        };
+        return Booking;
+    }());
+    Dashboard.Booking = Booking;
+})(Dashboard || (Dashboard = {}));
 //# sourceMappingURL=Barrios.Web.js.map

@@ -8,7 +8,7 @@ namespace Barrios.Contenidos.Pages
     using System.Collections.Generic;
     using System.Web.Mvc;
 
-    [RoutePrefix("Contenidos/LineaTiempo"), Route("{action=index}")]
+    [RoutePrefix("LineaTiempo"), Route("{action=index}")]
     [PageAuthorize(typeof(Entities.LineaTiempoRow))]
     public class LineaTiempoController : Controller
     {

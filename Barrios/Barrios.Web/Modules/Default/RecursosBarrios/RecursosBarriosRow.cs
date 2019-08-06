@@ -11,7 +11,7 @@ namespace Barrios.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[Recursos-Barrios]")]
     [DisplayName("Recursos Barrios"), InstanceName("Recursos Barrios")]
-    [ReadPermission("Administration:General")]
+    [ReadPermission("User:Reservas")]
     [ModifyPermission("Administration:General")]
     public sealed class RecursosBarriosRow : Row, IIdRow
     {

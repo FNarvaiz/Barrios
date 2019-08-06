@@ -11,19 +11,211 @@
 .table-custom {
     .thead-dark {
         background-color: #00c0ef;
-        color:white;
+        color: white;
     }
 
     th, td {
         vertical-align: middle !important;
-        border: solid 1px;
+    }
+
+    tr:nth-child(odd) {
+        background-color: rgba(92, 152, 220, 0.48);
+    }
+
+}
+
+    .styleSerenity {
+        padding: 10px;
+        border-radius: 3px;
+        background: #fff;
+        border-top: 3px solid #3c8dbc;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .containerBooking, .containerCommissions {
+        .myBooking {
+            margin-top: 20px;
+        }
+
+        @media (max-width : 1000px) {
+            .col-xs-6, .col-xs-12 {
+                width: 100%;
+                padding: 0px;
+            }
+        }
+    }
+
+    .containerTimeLine {
+        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+            td:nth-of-type(1):before {
+                content: "Periodo: ";
+            }
+
+            td:nth-of-type(2):before {
+                content: "Categoria: ";
+            }
+
+
+            td:nth-of-type(3):before {
+                content: "Texto: ";
+            }
+
+            td:nth-of-type(4):before {
+                content: "Archivo: ";
+            }
+        }
+    }
+
+    .containerTimeLine {
+        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+            /* Force table to not be like tables anymore */
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            /* Hide table headers (but not display: none;, for accessibility) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            .cellTitle {
+                text-align: center;
+            }
+
+            tr {
+                margin: 0 0 1rem 0;
+            }
+
+
+            td {
+                /* Behave  like a "row" */
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                /* Now like a table header */
+                //position: absolute;
+                /* Top/left values mimic padding */
+                //top: 0;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+            }
+            /*
+Label the data
+You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
+*/
+        }
+    }
+
+#Bookingtable {
+    .header-cell {
+        padding: 0px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    td {
+        vertical-align: middle !important;
+        padding: 4px;
+    }
+
+    tr:nth-child(odd) {
+        background-color: rgba(92, 152, 220, 0.21);
+    }
+
+    .btn-booking {
+        margin-bottom:2px;
+        margin-right: 5px;
+    }
+
+    .panelNoDisponible {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .btn-slide-left, .btn-slide-right {
+        display: none;
+        height: 100%;
+    }
+
+    @media (max-width : 600px) {
+        .column2, .column3, .column4, .column5, .column6, .column7, .column8 {
+            display: none;
+        }
+
+        .btn-slide-left, .btn-slide-right {
+            display: inline-block;
+        }
+    }
+
+    .btn-slide-right {
+        float: right;
+    }
+
+    .btn-slide-left {
+        float: left;
     }
 }
 
-.styleSerenity {
-    padding: 10px;
-    border-radius: 3px;
-    background: #fff;
-    border-top: 3px solid #3c8dbc;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
+
+    .containerSurveys, .containerProviders {
+        text-align: center;
+
+        .titleContainer {
+            margin-top: 0px;
+        }
+
+        .subtitleContainer, .titleContainer {
+            text-align: left;
+        }
+
+        .articleItem {
+            color: white;
+            background-color: rgb(0, 192, 239);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            padding: 0px;
+            width: 49%;
+            display: inline-block;
+
+            .dropdown {
+                padding: 5px;
+                text-align: left;
+            }
+
+            .title {
+                text-align: left;
+                padding: 5px;
+                background-color: rgba(11, 11, 0, 0.39);
+                border-radius: 6px 6px 0px 0px;
+
+                * {
+                    margin: 0px;
+                    display: inline-block;
+                }
+
+                .fa {
+                    float: right;
+                    padding: 5px;
+                }
+            }
+
+            p {
+                text-align: left;
+                padding: 5px;
+                margin: 0px;
+            }
+        }
+
+        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+            .articleItem {
+                width: 100%;
+            }
+        }
+    }

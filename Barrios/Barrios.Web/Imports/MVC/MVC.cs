@@ -32,6 +32,11 @@ namespace MVC
             }
         }
 
+        public static class Bookings
+        {
+            public const string Booking = "~/Modules/Views/Bookings/Booking.cshtml";
+        }
+
         public static class Commissions
         {
             public const string CommissionsIndex = "~/Modules/Views/Commissions/CommissionsIndex.cshtml";
@@ -41,8 +46,8 @@ namespace MVC
         {
             public static class Dashboard
             {
-                public const string Booking = "~/Modules/Common/Dashboard/Booking.cshtml";
                 public const string DashboardIndex = "~/Modules/Common/Dashboard/DashboardIndex.cshtml";
+                public const string DashboardIndex2 = "~/Modules/Common/Dashboard/DashboardIndex2.cshtml";
             }
 
             public static class Reporting

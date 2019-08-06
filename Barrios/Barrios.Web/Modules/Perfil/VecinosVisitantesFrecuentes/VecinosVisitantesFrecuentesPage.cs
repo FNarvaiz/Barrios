@@ -5,7 +5,7 @@ namespace Barrios.Perfil.Pages
     using Serenity.Web;
     using System.Web.Mvc;
 
-    [RoutePrefix("Perfil/VecinosVisitantesFrecuentes"), Route("{action=index}")]
+    [RoutePrefix("VecinosVisitantesFrecuentes"), Route("{action=index}")]
     [PageAuthorize(typeof(Entities.VecinosVisitantesFrecuentesRow))]
     public class VecinosVisitantesFrecuentesController : Controller
     {

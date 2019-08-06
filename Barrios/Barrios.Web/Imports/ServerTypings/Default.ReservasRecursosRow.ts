@@ -4,6 +4,7 @@
         Nombre?: string;
         Apertura?: number;
         Cierre?: number;
+        Tipo?: number;
         Resolucion?: number;
         ClientIdList?: number[];
         BarrioId?: number;
@@ -21,6 +22,7 @@
             Nombre = "Nombre",
             Apertura = "Apertura",
             Cierre = "Cierre",
+            Tipo = "Tipo",
             Resolucion = "Resolucion",
             ClientIdList = "ClientIdList",
             BarrioId = "BarrioId",

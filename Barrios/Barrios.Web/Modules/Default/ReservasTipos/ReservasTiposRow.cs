@@ -11,8 +11,8 @@ namespace Barrios.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS_TIPOS]")]
     [DisplayName("Tipos de Reserva"), InstanceName("Reservas Tipos")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("User:Reservas")]
+    [ModifyPermission("Reservas:TiposDeReservas")]
     [LookupScript("Reservas.ReservasTipos", Expiration = 0)]
     public sealed class ReservasTiposRow : Row, IIdRow, INameRow
     {

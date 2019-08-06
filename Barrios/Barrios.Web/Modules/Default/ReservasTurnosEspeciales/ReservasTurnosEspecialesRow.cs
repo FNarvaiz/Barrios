@@ -11,8 +11,8 @@ namespace Barrios.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS_TURNOS_ESPECIALES]")]
     [DisplayName("Reservas Turnos Especiales"), InstanceName("Reservas Turnos Especiales")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("User:Reservas")]
+    [ModifyPermission("Reservas:TurnosEspeciales")]
     [LookupScript("Reservas.ReservasTurnosEspeciales", Expiration = 0)]
     public sealed class ReservasTurnosEspecialesRow : Row, IIdRow, INameRow
     {

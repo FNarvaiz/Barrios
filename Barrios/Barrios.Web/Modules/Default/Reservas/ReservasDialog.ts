@@ -12,8 +12,10 @@ namespace Barrios.Default {
         protected form = new ReservasForm(this.idPrefix);
         constructor(container: JQuery) {
             super(container);
-            this.form.IdRecurso.change((e)=>{
-                if(this.form.IdRecurso.selectedItem !=null){
+            this.form.IdRecurso.change((e) => {
+                if (this.form.IdRecurso.selectedItem != null) {
+                    var obj = this.form.IdRecurso.selectedItem as ReservasRecursosRow;
+                    console.log(obj);
                     if(( this.form.IdRecurso.selectedItem as ReservasRecursosRow).Resolucion==0){
                         this.form.IdTurnosEspeciales.getGridField().toggle(true);
                         this.form.IdTipo.getGridField().toggle(false);

@@ -43,14 +43,14 @@ namespace Barrios.Contenidos.Repositories
             List<MyRow> list;
             using (connection)
             {
-                string query = "Select  P.ID_CATEGORIA,C.NOMBRE AS CategoryName,P.ID,P.NOMBRE,CONVERT(varchar(60),P.Descripcion) AS DESCRIPCION,AVG(V.valoracion) as Rating ," +
+                string query = "Select  P.ID_CATEGORIA,C.NOMBRE AS CategoryName,P.ID,P.NOMBRE,CONVERT(varchar(500),P.Descripcion) AS DESCRIPCION,AVG(V.valoracion) as Rating ," +
                     "SUM(case when V.Userid = " + userID + " then V.valoracion else 0 end) as Liked," +
                     "COUNT(V.ID) as RatingCount " +
                     "from ENCUESTAS P " +
                     "INNER JOIN CATEGORIAS C ON C.ID= P.ID_CATEGORIA " +
                     "LEFT JOIN [ENCUESTAS_VALORACIONES] V ON P.ID= V.ID_ENCUESTA " +
                     "where P.VIGENTE=1 AND  P.BarrioId=" + idNeigborhood + " " +
-                    "group by P.ID,P.NOMBRE,P.ID_CATEGORIA,C.NOMBRE,CONVERT(varchar(60),P.Descripcion)  ";
+                    "group by P.ID,P.NOMBRE,P.ID_CATEGORIA,C.NOMBRE,CONVERT(varchar(500),P.Descripcion)  ";
                 list = connection.Query<MyRow>(query).ToList();
             }
             return list;

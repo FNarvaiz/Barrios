@@ -7460,7 +7460,9 @@ section.content > .s-DataGrid {
 .table-custom th,
 .table-custom td {
   vertical-align: middle !important;
-  border: solid 1px;
+}
+.table-custom tr:nth-child(odd) {
+  background-color: rgba(92, 152, 220, 0.48);
 }
 .styleSerenity {
   padding: 10px;
@@ -7468,4 +7470,179 @@ section.content > .s-DataGrid {
   background: #fff;
   border-top: 3px solid #3c8dbc;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.containerBooking .myBooking,
+.containerCommissions .myBooking {
+  margin-top: 20px;
+}
+@media (max-width: 1000px) {
+  .containerBooking .col-xs-6,
+  .containerCommissions .col-xs-6,
+  .containerBooking .col-xs-12,
+  .containerCommissions .col-xs-12 {
+    width: 100%;
+    padding: 0px;
+  }
+}
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+  .containerTimeLine td:nth-of-type(1):before {
+    content: "Periodo: ";
+  }
+  .containerTimeLine td:nth-of-type(2):before {
+    content: "Categoria: ";
+  }
+  .containerTimeLine td:nth-of-type(3):before {
+    content: "Texto: ";
+  }
+  .containerTimeLine td:nth-of-type(4):before {
+    content: "Archivo: ";
+  }
+}
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+  .containerTimeLine {
+    /* Force table to not be like tables anymore */
+    /* Hide table headers (but not display: none;, for accessibility) */
+    /*
+Label the data
+You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
+*/
+  }
+  .containerTimeLine table,
+  .containerTimeLine thead,
+  .containerTimeLine tbody,
+  .containerTimeLine th,
+  .containerTimeLine td,
+  .containerTimeLine tr {
+    display: block;
+  }
+  .containerTimeLine thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .containerTimeLine .cellTitle {
+    text-align: center;
+  }
+  .containerTimeLine tr {
+    margin: 0 0 1rem 0;
+  }
+  .containerTimeLine td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
+  .containerTimeLine td:before {
+    /* Now like a table header */
+    /* Top/left values mimic padding */
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+}
+#Bookingtable .header-cell {
+  padding: 0px;
+  text-align: center;
+  vertical-align: middle;
+}
+#Bookingtable td {
+  vertical-align: middle !important;
+  padding: 4px;
+}
+#Bookingtable tr:nth-child(odd) {
+  background-color: rgba(92, 152, 220, 0.21);
+}
+#Bookingtable .btn-booking {
+  margin-bottom: 2px;
+  margin-right: 5px;
+}
+#Bookingtable .panelNoDisponible {
+  font-size: 12px;
+  text-align: center;
+}
+#Bookingtable .btn-slide-left,
+#Bookingtable .btn-slide-right {
+  display: none;
+  height: 100%;
+}
+@media (max-width: 600px) {
+  #Bookingtable .column2,
+  #Bookingtable .column3,
+  #Bookingtable .column4,
+  #Bookingtable .column5,
+  #Bookingtable .column6,
+  #Bookingtable .column7,
+  #Bookingtable .column8 {
+    display: none;
+  }
+  #Bookingtable .btn-slide-left,
+  #Bookingtable .btn-slide-right {
+    display: inline-block;
+  }
+}
+#Bookingtable .btn-slide-right {
+  float: right;
+}
+#Bookingtable .btn-slide-left {
+  float: left;
+}
+.containerSurveys,
+.containerProviders {
+  text-align: center;
+}
+.containerSurveys .titleContainer,
+.containerProviders .titleContainer {
+  margin-top: 0px;
+}
+.containerSurveys .subtitleContainer,
+.containerProviders .subtitleContainer,
+.containerSurveys .titleContainer,
+.containerProviders .titleContainer {
+  text-align: left;
+}
+.containerSurveys .articleItem,
+.containerProviders .articleItem {
+  color: white;
+  background-color: #00c0ef;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  padding: 0px;
+  width: 49%;
+  display: inline-block;
+}
+.containerSurveys .articleItem .dropdown,
+.containerProviders .articleItem .dropdown {
+  padding: 5px;
+  text-align: left;
+}
+.containerSurveys .articleItem .title,
+.containerProviders .articleItem .title {
+  text-align: left;
+  padding: 5px;
+  background-color: rgba(11, 11, 0, 0.39);
+  border-radius: 6px 6px 0px 0px;
+}
+.containerSurveys .articleItem .title *,
+.containerProviders .articleItem .title * {
+  margin: 0px;
+  display: inline-block;
+}
+.containerSurveys .articleItem .title .fa,
+.containerProviders .articleItem .title .fa {
+  float: right;
+  padding: 5px;
+}
+.containerSurveys .articleItem p,
+.containerProviders .articleItem p {
+  text-align: left;
+  padding: 5px;
+  margin: 0px;
+}
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+  .containerSurveys .articleItem,
+  .containerProviders .articleItem {
+    width: 100%;
+  }
 }

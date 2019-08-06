@@ -12,8 +12,8 @@ namespace Barrios.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS_RECURSOS]")]
     [DisplayName("Reservas Recursos"), InstanceName("Reservas Recursos")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("User:Reservas")]
+    [ModifyPermission("Reservas:Recursos")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", "jType.[ID_Recurso] = t0.[ID] ")]
     [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", "jTurns.[ID_Recurso] = t0.[ID] ")]
     public sealed class ReservasRecursosRow : Row, IIdRow, INameRow
@@ -62,6 +62,12 @@ namespace Barrios.Default.Entities
             get { return Fields.Cierre[this]; }
             set { Fields.Cierre[this] = value; }
         }
+        [DisplayName("Modo de reserva"), LookupEditor("ReservasRecursos.ResourceTypeLookup"), Column("Tipo")]
+        public Int16? Tipo
+        {
+            get { return Fields.Tipo[this]; }
+            set { Fields.Tipo[this] = value; }
+        }
 
         [DisplayName("Resolucion"),LookupInclude, LookupEditor("ReservasRecursos.IntervalosLookup"),  Required, Column("RESOLUCION")]
         public Int16? Resolucion
@@ -99,6 +105,7 @@ namespace Barrios.Default.Entities
             public StringField Nombre;
             public Int16Field Apertura;
             public Int16Field Cierre;
+            public Int16Field Tipo;
             public Int16Field Resolucion;
             public ListField<Int32> ClientIdList;
             public Int16Field BarrioId;

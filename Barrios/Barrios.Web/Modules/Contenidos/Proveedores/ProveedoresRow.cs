@@ -33,7 +33,7 @@ namespace Barrios.Contenidos.Entities
         }
 
         [DisplayName("Categoria"), QuickFilter, ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), Column("ID_CATEGORIA")
-            , LookupEditor("Category.ProviderCategoryLookup",  InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog"), NotNull]
+            , LookupEditor("Category.ProviderCategoryLookup"), NotNull]
         public Int16? IdCategoria
         {
             get { return Fields.IdCategoria[this]; }
@@ -229,5 +229,19 @@ namespace Barrios.Contenidos.Entities
 
 
 		}
+        public string ComboBoxTextValoration()
+        {
+            if (Liked != null)
+                return "Tu voto " + Liked.ToString();
+            else
+                return "Valorar del 1 al 10";
+        }
+        public string TotalRating()
+        {
+            if (RatingCount == 0)
+                return " Sin Votos";
+            else
+                return " " + Rating + " de " + RatingCount + " votos";
+        }
     }
 }

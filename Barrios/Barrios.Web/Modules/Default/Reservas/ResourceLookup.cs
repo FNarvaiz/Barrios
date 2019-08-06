@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Barrios.Modules.Barrios.Default
 {
-    [LookupScript("Reservas.ResourceLookup")]
+    [LookupScript("Reservas.ResourceLookup",Permission ="?")]
     public class ResourceLookup : RowLookupScript<ReservasRecursosRow>
     {
         public ResourceLookup()

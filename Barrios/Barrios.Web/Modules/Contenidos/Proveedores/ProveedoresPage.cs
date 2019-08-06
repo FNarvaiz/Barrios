@@ -7,7 +7,7 @@ namespace Barrios.Contenidos.Pages
     using System.Collections.Generic;
     using System.Web.Mvc;
 
-    [RoutePrefix("Contenidos/Proveedores"), Route("{action=index}")]
+    [RoutePrefix("Proveedores"), Route("{action=index}")]
     [PageAuthorize(typeof(Entities.ProveedoresRow))]
     public class ProveedoresController : Controller
     {
