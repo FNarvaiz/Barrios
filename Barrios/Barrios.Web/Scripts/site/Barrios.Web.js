@@ -848,7 +848,8 @@ var Barrios;
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'SendMails'
             ].forEach(function (x) {
                 LineaTiempoService[x] = function (r, s, o) {
                     return Q.serviceRequest(LineaTiempoService.baseUrl + '/' + x, r, s, o);
@@ -4514,6 +4515,50 @@ var Barrios;
             LineaTiempoGrid.prototype.getIdProperty = function () { return Contenidos.LineaTiempoRow.idProperty; };
             LineaTiempoGrid.prototype.getLocalTextPrefix = function () { return Contenidos.LineaTiempoRow.localTextPrefix; };
             LineaTiempoGrid.prototype.getService = function () { return Contenidos.LineaTiempoService.baseUrl; };
+            LineaTiempoGrid.prototype.onClick = function (e, row, cell) {
+                _super.prototype.onClick.call(this, e, row, cell);
+                if (e.isDefaultPrevented())
+                    return;
+                var target = $(e.target);
+                if (this.pastTarget != target) {
+                    if (this.pastTarget) {
+                        this.pastTarget.parent().removeClass('slickgrid-row-selected');
+                        if (this.odd)
+                            this.pastTarget.parent().addClass('odd');
+                    }
+                    if (target.parent().hasClass('odd')) {
+                        target.parent().removeClass('odd');
+                        this.odd = true;
+                    }
+                    else
+                        this.odd = false;
+                    target.parent().addClass('slickgrid-row-selected');
+                    this.pastTarget = target;
+                }
+                var item = this.itemAt(row);
+                this.objId = item.Id;
+                var target = $(e.target);
+                if (target.parent().hasClass('inline-action'))
+                    target = target.parent();
+            };
+            LineaTiempoGrid.prototype.getButtons = function () {
+                var _this = this;
+                var buttons = _super.prototype.getButtons.call(this);
+                buttons.push({
+                    title: 'Enviar mails',
+                    cssClass: 'send-button',
+                    onClick: function () {
+                        if (_this.objId != undefined) {
+                            Contenidos.LineaTiempoService.SendMails({ Id: _this.objId }, function (Response) {
+                                Q.notifySuccess(Response);
+                            });
+                        }
+                        else
+                            Q.notifyInfo("Seleccione una nota de la grilla");
+                    }
+                });
+                return buttons;
+            };
             LineaTiempoGrid = __decorate([
                 Serenity.Decorators.registerClass()
             ], LineaTiempoGrid);

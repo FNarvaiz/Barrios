@@ -5,12 +5,43 @@
 @import "site.default.less";
 @import "site.perfil.less";
 
+.btn-success {
+    background :#365D34;
+}
+.btn-info {
+    background: #1F2934;
+}
+.contentTitle {
+    background-color: #000000ab;
+    padding: 5px;
+    margin: 0px;
+    color: white;
+    border-radius: 6px;
+}
+.contentSubTitle {
+    color: antiquewhite;
+}
+.box.dark, .styleSerenity.dark {
+    border-top: 3px solid #3c8dbc;
 
+    .box-header {
+        color: white;
+        display: inline-flex;
 
+        .box-title {
+            padding-top: 8px;
+            padding-right: 4px;
+        }
+    }
+
+    color: white;
+    border-radius: 3px;
+    background: #1e1717ad;
+}
 
 .table-custom {
     .thead-dark {
-        background-color: #00c0ef;
+        background-color: #00126e;
         color: white;
     }
 
@@ -21,7 +52,6 @@
     tr:nth-child(odd) {
         background-color: rgba(92, 152, 220, 0.48);
     }
-
 }
 
     .styleSerenity {
@@ -162,60 +192,66 @@ You could also use a data-* attribute and content for this. That way "bloats" th
         float: left;
     }
 }
+.slickgrid-row-selected {
+    background-color: #cfd0d0;
+}
 
+.containerSurveys, .containerProviders {
+    background-color: #0000005c;
+    padding: 7px;
+    border-radius: 6px;
+    text-align: center;
 
-    .containerSurveys, .containerProviders {
-        text-align: center;
+    .titleContainer {
+        margin-top: 0px;
+    }
 
-        .titleContainer {
-            margin-top: 0px;
-        }
+    .subtitleContainer, .titleContainer {
+        text-align: left;
+        color: white;
+    }
 
-        .subtitleContainer, .titleContainer {
+    .articleItem {
+        color: white;
+        background-color: #606f75d1;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        padding: 0px;
+        width: 49%;
+        display: inline-block;
+
+        .dropdown {
+            padding: 5px;
             text-align: left;
         }
 
-        .articleItem {
-            color: white;
-            background-color: rgb(0, 192, 239);
-            border-radius: 6px;
-            margin-bottom: 10px;
-            padding: 0px;
-            width: 49%;
-            display: inline-block;
+        .title {
+            text-align: left;
+            padding: 5px;
+            background-color: #222F5B;
+            border-radius: 6px 6px 0px 0px;
 
-            .dropdown {
-                padding: 5px;
-                text-align: left;
-            }
-
-            .title {
-                text-align: left;
-                padding: 5px;
-                background-color: rgba(11, 11, 0, 0.39);
-                border-radius: 6px 6px 0px 0px;
-
-                * {
-                    margin: 0px;
-                    display: inline-block;
-                }
-
-                .fa {
-                    float: right;
-                    padding: 5px;
-                }
-            }
-
-            p {
-                text-align: left;
-                padding: 5px;
+            * {
                 margin: 0px;
+                display: inline-block;
+            }
+
+            .fa {
+                float: right;
+                padding: 5px;
             }
         }
 
-        @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-            .articleItem {
-                width: 100%;
-            }
+        p {
+            text-align: left;
+            padding: 5px;
+            margin: 0px;
         }
     }
+
+    @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        .articleItem {
+            width: 100%;
+        }
+    }
+}

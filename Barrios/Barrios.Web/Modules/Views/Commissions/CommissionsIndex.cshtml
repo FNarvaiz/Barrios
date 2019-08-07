@@ -2,36 +2,38 @@
 @{
     ViewData["Title"] = "Comisiones"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
 }
-<h2>Comisiones <small>Integraciòn de las comisiones de nuestro barrio.</small></h2>
+<h2 class="contentTitle"> Comisiones <small class="contentSubTitle">Integraciòn de las comisiones de nuestro barrio.</small></h2>
 <div class="row containerCommissions">
         <div class="col-xs-12 col-md-8" style="height:inherit">
-            <table class="table table-custom table-responsive">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Emails</th>
-                        <th scope="col">Integrantes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var aux in Model)
-                    {
+            <div class="box dark">
+                <table class="table table-custom table-responsive">
+                    <thead class="thead-dark">
                         <tr>
-                            <th scope="row">@aux.Nombre</th>
-                            <td>@aux.Mails</td>
-
-                            <td>
-                                @foreach (var member in aux.MembersList)
-                                {
-                                    @member.Nombre <br>
-                                }
-                            </td>
-
-
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Emails</th>
+                            <th scope="col">Integrantes</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var aux in Model)
+                        {
+                            <tr>
+                                <th scope="row">@aux.Nombre</th>
+                                <td>@aux.Mails</td>
+
+                                <td>
+                                    @foreach (var member in aux.MembersList)
+                                    {
+                                        @member.Nombre <br>
+                                    }
+                                </td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     <div class="col-xs-6 col-md-4" id="formCommission" style="height:inherit">
         <section class="styleSerenity">

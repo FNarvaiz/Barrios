@@ -102,14 +102,14 @@ else
         </section>
     </aside>
 
-    <div class="content-wrapper">
+    <div class="content-wrapper" >
 @if (IsSectionDefined("ContentHeader"))
 {
         <section class="content-header">
             @RenderSection("ContentHeader")
         </section>
 }
-        <section class="content">
+        <section class="content" >
             @RenderBody()
         </section>
     </div>
@@ -168,3 +168,12 @@ else
 }
 </body>
 </html>
+<style>
+    .content-wrapper{
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: black;
+        background-image: url(../Content/@CurrentNeigborhood.Get().ShortDisplayName/slides/slide1.jpg);
+        
+    }
+</style>

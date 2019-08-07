@@ -3,17 +3,25 @@ using System.IO;
 using System.Net.Mail;
 using System.Net;
 using System;
+using System.Collections.Generic;
+using Serenity;
 
 namespace Barrios.Common
 {
     public class EmailHelper
     {
-        public static void Send(string subject, string body, string address, string displayName = "", string from = "group_email@domain.com")
+        public static void Send(string subject, string body, string addressString, string displayName = "", string from = "group_email@domain.com", List<MailAddress> address =null, string file="")
         {
             
             var message = new MailMessage();
-            foreach( var mail in address.Split(','))
-                message.To.Add(new MailAddress(mail, ""));
+            if (!file.IsNullOrEmpty())
+                message.Attachments.Add(new Attachment(HostingEnvironment.MapPath("~/App_Data")+"/Upload/" +file));
+            if (address == null)
+                foreach (var mail in addressString.Split(','))
+                    message.To.Add(new MailAddress(mail, ""));
+            else
+                foreach (var mail in address)
+                    message.To.Add(mail);
             message.Subject = subject;
             message.Body = body;
             message.IsBodyHtml = true;

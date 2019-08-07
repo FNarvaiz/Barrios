@@ -974,12 +974,14 @@ declare namespace Barrios.Contenidos {
         function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<LineaTiempoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<LineaTiempoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function SendMails(request: Modules.Common.Utils.IdRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         const enum Methods {
             Create = "Contenidos/LineaTiempo/Create",
             Update = "Contenidos/LineaTiempo/Update",
             Delete = "Contenidos/LineaTiempo/Delete",
             Retrieve = "Contenidos/LineaTiempo/Retrieve",
-            List = "Contenidos/LineaTiempo/List"
+            List = "Contenidos/LineaTiempo/List",
+            SendMails = "Contenidos/LineaTiempo/SendMails"
         }
     }
 }
@@ -2529,7 +2531,12 @@ declare namespace Barrios.Contenidos {
         protected getIdProperty(): string;
         protected getLocalTextPrefix(): string;
         protected getService(): string;
+        objId: any;
+        protected pastTarget: any;
+        protected odd: any;
         constructor(container: JQuery);
+        protected onClick(e: JQueryEventObject, row: number, cell: number): void;
+        protected getButtons(): Serenity.ToolButton[];
     }
 }
 declare namespace Barrios.Contenidos {

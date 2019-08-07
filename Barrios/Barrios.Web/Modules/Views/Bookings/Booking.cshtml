@@ -6,8 +6,8 @@
     }
 
     @section ContentHeader {
-    <h1>
-        Tablero Principal <!--@LocalText.Get("Navigation.Dashboard")--><small>
+    <h1 class="contentTitle">
+        Tablero Principal <!--@LocalText.Get("Navigation.Dashboard")--><small class="contentSubTitle">
             Incio para novedades del barrio.
             <!--@Html.Raw(Texts.Site.Dashboard.ContentDescription)-->
         </small>
@@ -15,21 +15,23 @@
 }
 <div class="row containerBooking">
     <div class="col-xs-12 col-md-8" style="height:inherit">
-        <div class="box">
+        <div class="box dark">
             <div class="box-header">
                 <h3 class="box-title">
-                    Estado de reservas de: <div class="dropdown">
-                        <button class="btn btn-secondary btn-info dropdown-toggle" type="button" id="dropdownRecurso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Recurso nombre
-                        </button>
-                        <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
-                            @foreach (var obj in Model.Recursos)
-                            {
-                                <li><a class="ItemRecurso" id="@obj.Id,@obj.Resolucion" href="#">@obj.Nombre</a></li>
-                            }
-                        </ul>
-                    </div>
+                    Estado de reservas de: 
                 </h3>
+                <div class="dropdown">
+                    <button class="btn btn-secondary btn-info dropdown-toggle" type="button" id="dropdownRecurso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Recurso nombre
+                    </button>
+                    <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                        @foreach (var obj in Model.Recursos)
+                        {
+                            <li><a class="ItemRecurso" id="@obj.Id,@obj.Resolucion" href="#">@obj.Nombre</a></li>
+                        }
+                    </ul>
+                </div>
+               
             </div>
             <div class="box-body table-responsive pad">
 
@@ -40,7 +42,7 @@
     <div class="col-xs-6 col-md-4" id="formBooking" style="height:inherit">
         @if (Model.ExistEspecialTurns())
         {
-            <section class="styleSerenity">
+            <section class="styleSerenity dark">
                 <h4>
                     @foreach (var aux in Model.Recursos)
                     {

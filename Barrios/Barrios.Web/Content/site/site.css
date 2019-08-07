@@ -7453,8 +7453,41 @@ section.content > .s-DataGrid {
 .s-Perfil-VecinosVisitantesFrecuentesDialog .caption {
   width: 150px;
 }
+.btn-success {
+  background: #365D34;
+}
+.btn-info {
+  background: #1F2934;
+}
+.contentTitle {
+  background-color: #000000ab;
+  padding: 5px;
+  margin: 0px;
+  color: white;
+  border-radius: 6px;
+}
+.contentSubTitle {
+  color: antiquewhite;
+}
+.box.dark,
+.styleSerenity.dark {
+  border-top: 3px solid #3c8dbc;
+  color: white;
+  border-radius: 3px;
+  background: #1e1717ad;
+}
+.box.dark .box-header,
+.styleSerenity.dark .box-header {
+  color: white;
+  display: inline-flex;
+}
+.box.dark .box-header .box-title,
+.styleSerenity.dark .box-header .box-title {
+  padding-top: 8px;
+  padding-right: 4px;
+}
 .table-custom .thead-dark {
-  background-color: #00c0ef;
+  background-color: #00126e;
   color: white;
 }
 .table-custom th,
@@ -7588,8 +7621,14 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 #Bookingtable .btn-slide-left {
   float: left;
 }
+.slickgrid-row-selected {
+  background-color: #cfd0d0;
+}
 .containerSurveys,
 .containerProviders {
+  background-color: #0000005c;
+  padding: 7px;
+  border-radius: 6px;
   text-align: center;
 }
 .containerSurveys .titleContainer,
@@ -7601,11 +7640,12 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 .containerSurveys .titleContainer,
 .containerProviders .titleContainer {
   text-align: left;
+  color: white;
 }
 .containerSurveys .articleItem,
 .containerProviders .articleItem {
   color: white;
-  background-color: #00c0ef;
+  background-color: #606f75d1;
   border-radius: 6px;
   margin-bottom: 10px;
   padding: 0px;
@@ -7621,7 +7661,7 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 .containerProviders .articleItem .title {
   text-align: left;
   padding: 5px;
-  background-color: rgba(11, 11, 0, 0.39);
+  background-color: #222F5B;
   border-radius: 6px 6px 0px 0px;
 }
 .containerSurveys .articleItem .title *,

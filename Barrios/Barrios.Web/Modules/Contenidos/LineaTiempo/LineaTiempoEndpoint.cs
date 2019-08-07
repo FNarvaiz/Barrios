@@ -1,12 +1,16 @@
 ﻿
 namespace Barrios.Contenidos.Endpoints
 {
+    using Barrios.Administration.Entities;
+    using Barrios.Administration.Repositories;
     using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
     using System;
+    using System.Collections.Generic;
     using System.Data;
+    using System.Net.Mail;
     using System.Web.Mvc;
     using MyRepository = Repositories.LineaTiempoRepository;
     using MyRow = Entities.LineaTiempoRow;
@@ -47,6 +51,27 @@ namespace Barrios.Contenidos.Endpoints
         {
             Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
+        }
+        [HttpPost]
+        public string SendMails(IDbConnection connection, IdRequest request)
+        {
+            connection = Utils.GetConnection();
+            MyRow timeLineObj = Retrieve(connection, new RetrieveRequest() { EntityId = request.Id }).Entity;
+            if (timeLineObj.Aprobado.Value)
+            {
+                ListRequest userRequest = new ListRequest() { EqualityFilter = new Dictionary<string, object>() };
+                userRequest.EqualityFilter["BarrioId"] = CurrentNeigborhood.Get().Id;
+                List<UserRow> users = new UserRepository().List(connection, userRequest).Entities;
+                List<MailAddress> mails = new List<MailAddress>();
+                foreach (var aux in users)
+                    mails.Add(new MailAddress(aux.Email, aux.DisplayName));
+                Common.EmailHelper.Send(timeLineObj.Nombre, timeLineObj.ContenidoTexto, "", 
+                    CurrentNeigborhood.Get().LargeDisplayName, 
+                    CurrentNeigborhood.Get().Mail, mails,timeLineObj.ArchivoFilename);
+                return "Se han enviado a los " + users.Count;
+            }
+            else
+                throw new Exception("Se necesita aprobar antes de poder enviar el mail");
         }
     }
 }
