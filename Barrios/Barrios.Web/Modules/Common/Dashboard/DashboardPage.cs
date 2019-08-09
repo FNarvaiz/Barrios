@@ -21,16 +21,23 @@ namespace Barrios.Common.Pages
         [Authorize, HttpGet, Route("~/")]
         public ActionResult Booking()
         {
-            System.Data.IDbConnection connection = new SqlConnection(SqlConnections.GetConnectionString("Default").ConnectionString);
-            ListRequest request = new ListRequest() { Sort = new SortBy[2] };
-            Utils.AddNeigborhoodFilter(request);
-            request.Sort[0] = new SortBy() { Field = "Resolucion", Descending = true };
-            request.Sort[1] = new SortBy() { Field = "Nombre", Descending = false };
-            BookingModel obj = new BookingModel()
+            try
             {
-                Recursos = new ReservasRecursosRepository().List(connection, request).Entities
-            };
-            return View(MVC.Views.Bookings.Booking, obj);
+                System.Data.IDbConnection connection = new SqlConnection(SqlConnections.GetConnectionString("Default").ConnectionString);
+                ListRequest request = new ListRequest() { Sort = new SortBy[2] };
+                Utils.AddNeigborhoodFilter(request);
+                request.Sort[0] = new SortBy() { Field = "Resolucion", Descending = true };
+                request.Sort[1] = new SortBy() { Field = "Nombre", Descending = false };
+                BookingModel obj = new BookingModel()
+                {
+                    Recursos = new ReservasRecursosRepository().List(connection, request).Entities
+                };
+                return View(MVC.Views.Bookings.Booking, obj);
+            }
+            catch
+            {
+                return View(MVC.Views.Errors.AccessDenied);
+            }
         }
     }
 }

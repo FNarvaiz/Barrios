@@ -68,7 +68,7 @@ namespace Barrios
 
                 public static class SignUp
                 {
-                    public static LocalText ActivateEmailSubject = "Activate Your Barrios Account";
+                    public static LocalText ActivateEmailSubject = "Activa tu cuenta";
                     public static LocalText ActivationCompleteMessage = "Your account is now activated. " + 
                         "Use the e-mail and password you used while signing up to login.";
                     public static LocalText FormInfo = "Enter your details to create a free account.";
@@ -99,8 +99,9 @@ namespace Barrios
         {
             public static class AccessDenied
             {
-                public static LocalText PageTitle = "Unauthorized Access";
-                public static LocalText LackPermissions = "You don't have required permissions to access this page!";
+                public static LocalText PageTitle = "Acceso denegado";
+                public static LocalText LackPermissions = "Usted ya tiene activa su cuenta pero aun no tiene los permisos para acceder.\n" +
+                    "Comunice con el administrador de su barrio para autenticar su identidad y le otorguen los permisos.";
                 public static LocalText NotLoggedIn = "You need to be logged in to access this page!";
                 public static LocalText ClickToChangeUser = "click here to login with another user...";
                 public static LocalText ClickToLogin = "clik here to return to login page...";

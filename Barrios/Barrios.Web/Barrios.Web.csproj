@@ -852,6 +852,7 @@
     <Content Include="Modules\Views\Commissions\CommissionsIndex.cshtml" />
     <Content Include="Modules\Views\Surveys\SurveysIndex.cshtml" />
     <Content Include="Modules\Common\Dashboard\DashboardIndex2.cshtml" />
+    <Content Include="Modules\Membership\Account\SignUp\NewUserActivatedEmail.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1928,6 +1929,7 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190809_145800_SubBarrios.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190805_015500_CreateProcedureEspecialDates.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190724_162300_UpdateCommissions.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190722_172700_UpdateTimeLine.cs" />

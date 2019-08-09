@@ -28,7 +28,7 @@
                     <td>
                         @if (!aux.ArchivoFilename.IsEmptyOrNull())
                         {
-                            <a class="btn btn-info" href="~/Upload/@aux.ArchivoFilename" target="_blank">Adjunto .@aux.Extension()</a>
+                            <a class="fa @aux.ClassForExtension() btn btn-info " href="~/Upload/@aux.ArchivoFilename" target="_blank"></a>
                         }
                     </td>
 

@@ -20,12 +20,12 @@
                     <h3>@(Serenity.Authorization.IsLoggedIn ? Texts.Site.AccessDenied.LackPermissions : Texts.Site.AccessDenied.NotLoggedIn)</h3>
                     @if (Model != null)
                     {
-                        <a class="redirect" href="/Account/Login?returnURL=@Model">@(Serenity.Authorization.IsLoggedIn ? 
-                            Texts.Site.AccessDenied.ClickToChangeUser : Texts.Site.AccessDenied.ClickToLogin)</a>
+                       <!-- <a class="redirect" href="/Account/Login?returnURL=@Model">@(Serenity.Authorization.IsLoggedIn ? 
+                            Texts.Site.AccessDenied.ClickToChangeUser : Texts.Site.AccessDenied.ClickToLogin)</a>-->
                     }
                     else
                     {
-                        <a class="redirect" href="/Account/Login">@Texts.Site.AccessDenied.ClickToLogin</a>
+                        <!--<a class="redirect" href="/Account/Login">@Texts.Site.AccessDenied.ClickToLogin</a>-->
                     }
                     <div class="date-time">
                         @(!Serenity.Authorization.IsLoggedIn ? "" : (Serenity.Authorization.Username + " - "))@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")

@@ -144,6 +144,7 @@ namespace MVC
                     public const string AccountActivateEmail = "~/Modules/Membership/Account/SignUp/AccountActivateEmail.cshtml";
                     public const string AccountSignUp = "~/Modules/Membership/Account/SignUp/AccountSignUp.cshtml";
                     public const string AccountSignUp_AdminLTE = "~/Modules/Membership/Account/SignUp/AccountSignUp.AdminLTE.cshtml";
+                    public const string NewUserActivatedEmail = "~/Modules/Membership/Account/SignUp/NewUserActivatedEmail.cshtml";
                 }
             }
 

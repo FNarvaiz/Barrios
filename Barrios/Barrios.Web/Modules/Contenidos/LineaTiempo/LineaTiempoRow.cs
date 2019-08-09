@@ -137,10 +137,27 @@ namespace Barrios.Contenidos.Entities
             public StringField UseridUsername;
 
 		}
-        public String Extension()
+        public String ClassForExtension()
         {
             var array = ArchivoFilename.Split('.');
-            return array[array.Length - 1];
+            switch (array[array.Length - 1])
+            {
+                case "pdf":
+                    return "fa-file-pdf-o";
+                case "doc":
+                    return "fa-file-word-o";
+                case "docx":
+                    return "fa-file-word-o";
+                case "jpg":
+                    return "fa-file-image-o";
+                case "png":
+                    return "fa-file-image-o";
+                case "zip":
+                    return "fa-file-zip-o";
+                case "rar":
+                    return "fa-file-zip-o";
+            }
+            return "fa-file";
         }
 
     }

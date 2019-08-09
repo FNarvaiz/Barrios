@@ -1,6 +1,8 @@
 ﻿
 namespace Barrios.Administration.Repositories
 {
+    using Barrios.Administration.Entities;
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
@@ -12,6 +14,7 @@ namespace Barrios.Administration.Repositories
     using System.Data;
     using System.Web.Security;
     using MyRow = Entities.UserRow;
+    using System.Linq;
     using UserPreferenceRow = Common.Entities.UserPreferenceRow;
 
     public partial class UserRepository
@@ -242,7 +245,12 @@ namespace Barrios.Administration.Repositories
             salt = salt ?? Membership.GeneratePassword(5, 1);
             return CalculateHash(password, salt);
         }
+        public static UserRow GetNewUser(int id)
+        {
+            DataRow DR = Utils.GetRequestString(Utils.GetConnection(), "select email,unit,DisplayName from users where userid=" + id).Rows[0];
+            return new MyRow { UserId = id, Email = DR[0].ToString(), Unit = DR[1].ToString(), DisplayName = DR[2].ToString() };
 
+        }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow>
         {
             protected override void ValidateRequest()

@@ -96,13 +96,13 @@ namespace Barrios.Membership.Pages
                     emailModel.DisplayName = displayName;
                     emailModel.ActivateLink = activateLink;
 
-                    var emailSubject = Texts.Forms.Membership.SignUp.ActivateEmailSubject.ToString();
+                    
                     var emailBody = TemplateHelper.RenderTemplate(
                         MVC.Views.Membership.Account.SignUp.AccountActivateEmail, emailModel);
 
 
 
-                    Common.EmailHelper.Send(emailSubject, emailBody, email, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+                    Common.EmailHelper.Send("Activa tu cuenta", emailBody, email, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
 
                     uow.Commit();
                     UserRetrieveService.RemoveCachedUser(userId, username);
@@ -166,6 +166,10 @@ namespace Barrios.Membership.Pages
 
                 BatchGenerationUpdater.OnCommit(uow, UserRow.Fields.GenerationKey);
                 uow.Commit();
+                user= UserRepository.GetNewUser(userId);
+                var emailBody = TemplateHelper.RenderTemplate(
+                       MVC.Views.Membership.Account.SignUp.NewUserActivatedEmail, user);
+                Common.EmailHelper.Send("Nuevo usuario activado", emailBody, CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
 
                 return new RedirectResult("~/Account/Login?activated=" + Uri.EscapeDataString(user.Email));
             }
