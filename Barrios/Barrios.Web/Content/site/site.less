@@ -4,6 +4,7 @@
 @import "site.membership.less";
 @import "site.default.less";
 @import "site.perfil.less";
+@import "site.settings.less";
 
 .btn-success {
     background :#365D34;
@@ -54,26 +55,26 @@
     }
 }
 
-    .styleSerenity {
-        padding: 10px;
-        border-radius: 3px;
-        background: #fff;
-        border-top: 3px solid #3c8dbc;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+.styleSerenity {
+    padding: 10px;
+    border-radius: 3px;
+    background: #fff;
+    border-top: 3px solid #3c8dbc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.containerBooking, .containerCommissions {
+    .turnSpecial {
+        margin-bottom: 20px;
     }
 
-    .containerBooking, .containerCommissions {
-        .myBooking {
-            margin-top: 20px;
-        }
-
-        @media (max-width : 1000px) {
-            .col-xs-6, .col-xs-12 {
-                width: 100%;
-                padding: 0px;
-            }
+    @media (max-width : 1000px) {
+        .col-xs-6, .col-xs-12 {
+            width: 100%;
+            padding: 0px;
         }
     }
+}
 
     .containerTimeLine {
         @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {

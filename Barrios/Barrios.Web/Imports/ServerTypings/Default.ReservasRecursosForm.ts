@@ -6,8 +6,8 @@
         Cierre: Serenity.LookupEditor;
         Resolucion: Serenity.LookupEditor;
         TypeList: ReservasTiposGrid;
-        ClientIdList: Serenity.CheckLookupEditor;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
+        NeigborhoodList: Serenity.CheckLookupEditor;
     }
 
     export class ReservasRecursosForm extends Serenity.PrefixedContext {
@@ -24,8 +24,8 @@
                 var w0 = s.StringEditor;
                 var w1 = s.LookupEditor;
                 var w2 = ReservasTiposGrid;
-                var w3 = s.CheckLookupEditor;
-                var w4 = ReservasTurnosEspecialesGrid;
+                var w3 = ReservasTurnosEspecialesGrid;
+                var w4 = s.CheckLookupEditor;
 
                 Q.initFormType(ReservasRecursosForm, [
                     'Nombre', w0,
@@ -34,8 +34,8 @@
                     'Cierre', w1,
                     'Resolucion', w1,
                     'TypeList', w2,
-                    'ClientIdList', w3,
-                    'SpecialTurnList', w4
+                    'SpecialTurnList', w3,
+                    'NeigborhoodList', w4
                 ]);
             }
         }

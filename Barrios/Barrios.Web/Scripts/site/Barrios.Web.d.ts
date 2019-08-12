@@ -260,6 +260,7 @@ declare namespace Barrios.Administration {
         Username: Serenity.StringEditor;
         DisplayName: Serenity.StringEditor;
         Unit: Serenity.IntegerEditor;
+        subBarrioId: Serenity.LookupEditor;
         Email: Serenity.EmailEditor;
         UserImage: Serenity.ImageUploadEditor;
         Password: Serenity.PasswordEditor;
@@ -385,6 +386,7 @@ declare namespace Barrios.Administration {
         UserImage?: string;
         LastDirectoryUpdate?: string;
         IsActive?: number;
+        subBarrioId?: number;
         Password?: string;
         PasswordConfirm?: string;
         ClientIdList?: number[];
@@ -413,6 +415,7 @@ declare namespace Barrios.Administration {
             UserImage = "UserImage",
             LastDirectoryUpdate = "LastDirectoryUpdate",
             IsActive = "IsActive",
+            subBarrioId = "subBarrioId",
             Password = "Password",
             PasswordConfirm = "PasswordConfirm",
             ClientIdList = "ClientIdList",
@@ -975,14 +978,22 @@ declare namespace Barrios.Contenidos {
         function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<LineaTiempoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<LineaTiempoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function SendMails(request: Modules.Common.Utils.IdRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function SendMailsForSubNeigborhoob(request: MailsRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         const enum Methods {
             Create = "Contenidos/LineaTiempo/Create",
             Update = "Contenidos/LineaTiempo/Update",
             Delete = "Contenidos/LineaTiempo/Delete",
             Retrieve = "Contenidos/LineaTiempo/Retrieve",
             List = "Contenidos/LineaTiempo/List",
-            SendMails = "Contenidos/LineaTiempo/SendMails"
+            SendMails = "Contenidos/LineaTiempo/SendMails",
+            SendMailsForSubNeigborhoob = "Contenidos/LineaTiempo/SendMailsForSubNeigborhoob"
         }
+    }
+}
+declare namespace Barrios.Contenidos {
+    interface MailsRequest extends Serenity.ServiceRequest {
+        LineTimeId?: number;
+        SubNeigborhoob?: string[];
     }
 }
 declare namespace Barrios.Contenidos {
@@ -1222,8 +1233,8 @@ declare namespace Barrios.Default {
         Cierre: Serenity.LookupEditor;
         Resolucion: Serenity.LookupEditor;
         TypeList: ReservasTiposGrid;
-        ClientIdList: Serenity.CheckLookupEditor;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
+        NeigborhoodList: Serenity.CheckLookupEditor;
     }
     class ReservasRecursosForm extends Serenity.PrefixedContext {
         static formKey: string;
@@ -1240,6 +1251,7 @@ declare namespace Barrios.Default {
         Tipo?: number;
         Resolucion?: number;
         ClientIdList?: number[];
+        NeigborhoodList?: number[];
         BarrioId?: number;
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
@@ -1256,6 +1268,7 @@ declare namespace Barrios.Default {
             Tipo = "Tipo",
             Resolucion = "Resolucion",
             ClientIdList = "ClientIdList",
+            NeigborhoodList = "NeigborhoodList",
             BarrioId = "BarrioId",
             TypeList = "TypeList",
             SpecialTurnList = "SpecialTurnList"
@@ -1270,12 +1283,14 @@ declare namespace Barrios.Default {
         function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<ReservasRecursosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<ReservasRecursosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function ListOfAllowedResources(request: Serenity.ServiceRequest, onSuccess?: (response: System.Collections.Generic.List<ReservasRecursosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         const enum Methods {
             Create = "Default/ReservasRecursos/Create",
             Update = "Default/ReservasRecursos/Update",
             Delete = "Default/ReservasRecursos/Delete",
             Retrieve = "Default/ReservasRecursos/Retrieve",
-            List = "Default/ReservasRecursos/List"
+            List = "Default/ReservasRecursos/List",
+            ListOfAllowedResources = "Default/ReservasRecursos/ListOfAllowedResources"
         }
     }
 }
@@ -1450,6 +1465,70 @@ declare namespace Barrios.Default {
             Duracion = "Duracion",
             Nombre = "Nombre",
             Dias = "Dias"
+        }
+    }
+}
+declare namespace Barrios.Default {
+    class SubbarriosForm extends Serenity.PrefixedContext {
+        static formKey: string;
+    }
+    interface SubbarriosForm {
+        Nombre: Serenity.StringEditor;
+        BarrioId: Serenity.IntegerEditor;
+    }
+}
+declare namespace Barrios.Default {
+    interface SubbarriosRecursosRow {
+        SubBarrioId?: number;
+        RecursoId?: number;
+        SubBarrioNombre?: string;
+    }
+    namespace SubbarriosRecursosRow {
+        const idProperty = "SubBarrioId";
+        const localTextPrefix = "Default.SubbarriosRecursos";
+        const enum Fields {
+            SubBarrioId = "SubBarrioId",
+            RecursoId = "RecursoId",
+            SubBarrioNombre = "SubBarrioNombre"
+        }
+    }
+}
+declare namespace Barrios.Default {
+    interface SubbarriosRow {
+        Id?: number;
+        Nombre?: string;
+        BarrioId?: number;
+        BarrioNombre?: string;
+        BarrioLogo?: string;
+        BarrioUrl?: string;
+        BarrioTelefonOs?: string;
+        BarrioDireccion?: string;
+        BarrioIsActive?: boolean;
+        BarrioLargeDisplayName?: string;
+        BarrioShortDisplayName?: string;
+        BarrioMail?: string;
+        BarrioPasswordMail?: string;
+        BarrioCantDiasReservables?: number;
+    }
+    namespace SubbarriosRow {
+        const idProperty = "Id";
+        const nameProperty = "Nombre";
+        const localTextPrefix = "Default.Subbarrios";
+        namespace Fields {
+            const Id: any;
+            const Nombre: any;
+            const BarrioId: any;
+            const BarrioNombre: any;
+            const BarrioLogo: any;
+            const BarrioUrl: any;
+            const BarrioTelefonOs: any;
+            const BarrioDireccion: any;
+            const BarrioIsActive: any;
+            const BarrioLargeDisplayName: any;
+            const BarrioShortDisplayName: any;
+            const BarrioMail: any;
+            const BarrioPasswordMail: any;
+            const BarrioCantDiasReservables: any;
         }
     }
 }
@@ -1896,6 +1975,54 @@ declare namespace Barrios {
         Permissions?: {
             [key: string]: boolean;
         };
+    }
+}
+declare namespace Barrios.Settings {
+}
+declare namespace Barrios.Settings {
+    interface SubbarriosForm {
+        Nombre: Serenity.StringEditor;
+    }
+    class SubbarriosForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Settings {
+    interface SubbarriosRow {
+        Id?: number;
+        Nombre?: string;
+        BarrioId?: number;
+    }
+    namespace SubbarriosRow {
+        const idProperty = "Id";
+        const nameProperty = "Nombre";
+        const localTextPrefix = "Settings.Subbarrios";
+        const lookupKey = "Settings.Subbarrios";
+        function getLookup(): Q.Lookup<SubbarriosRow>;
+        const enum Fields {
+            Id = "Id",
+            Nombre = "Nombre",
+            BarrioId = "BarrioId"
+        }
+    }
+}
+declare namespace Barrios.Settings {
+    namespace SubbarriosService {
+        const baseUrl = "Settings/Subbarrios";
+        function Create(request: Serenity.SaveRequest<SubbarriosRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<SubbarriosRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<SubbarriosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<SubbarriosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Settings/Subbarrios/Create",
+            Update = "Settings/Subbarrios/Update",
+            Delete = "Settings/Subbarrios/Delete",
+            Retrieve = "Settings/Subbarrios/Retrieve",
+            List = "Settings/Subbarrios/List"
+        }
     }
 }
 declare namespace Barrios.Texts {
@@ -2805,6 +2932,61 @@ declare namespace Barrios.Perfil {
         protected getLocalTextPrefix(): string;
         protected getService(): string;
         constructor(container: JQuery);
+    }
+}
+declare namespace Barrios.Settings {
+    class SubbarriosDialog extends Serenity.EntityDialog<SubbarriosRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected form: SubbarriosForm;
+    }
+}
+declare namespace Barrios.Settings {
+    class SubbarriosGrid extends Serenity.EntityGrid<SubbarriosRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof SubbarriosDialog;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
+    }
+}
+declare namespace Barrios.Settings {
+    class SubbarriosSelectDialog extends Serenity.TemplatedDialog<any> {
+        GetSave(): boolean;
+        GetKeys(): string[];
+        grid: SubbarriosSelectGrid;
+        protected ncpdpHdId: any;
+        constructor(container: JQuery);
+        protected onDialogOpen(): void;
+        protected arrange(): void;
+        protected getTemplate(): string;
+    }
+}
+declare namespace Barrios.Settings {
+    class SubbarriosSelectGrid extends Serenity.EntityGrid<SubbarriosRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof SubbarriosDialog;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        protected showExpiredTerminated: any;
+        rowSelection: Serenity.GridRowSelectionMixin;
+        private closeVar;
+        save: boolean;
+        constructor(container: JQuery, close: any);
+        protected getButtons(): {
+            title: string;
+            cssClass: string;
+            onClick: (e: any) => void;
+            separator: boolean;
+        }[];
+        protected createToolbarExtensions(): void;
+        protected getColumns(): Slick.Column[];
+        protected usePager(): boolean;
     }
 }
 declare namespace Barrios.Default {

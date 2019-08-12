@@ -178,6 +178,14 @@ namespace MVC
             public const string ProvidersIndex = "~/Modules/Views/Providers/ProvidersIndex.cshtml";
         }
 
+        public static class Settings
+        {
+            public static class Subbarrios
+            {
+                public const string SubbarriosIndex = "~/Modules/Settings/Subbarrios/SubbarriosIndex.cshtml";
+            }
+        }
+
         public static class Shared
         {
             public const string _Layout = "~/Views/Shared/_Layout.cshtml";

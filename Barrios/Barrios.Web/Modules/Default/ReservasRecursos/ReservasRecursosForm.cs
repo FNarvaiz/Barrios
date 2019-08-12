@@ -22,9 +22,9 @@ namespace Barrios.Default.Forms
         public Int16 Resolucion { get; set; }
         [Tab("Tipos Reservas"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTiposGrid]
         public List<ReservasTiposRow> TypeList { get; set; }
-        [CheckLookupEditor("Administration.Barrios", ShowSelectAll = true, CheckedOnTop = true),Hidden, DisplayName("Barrios incluidos")]
-        public List<Int32> ClientIdList { get; set; }
         [Tab("Turnos Especiales"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTurnosEspecialesGrid]
         public List<ReservasTurnosEspecialesRow> SpecialTurnList { get; set; }
+        [Tab("Sub Barrios"), DisplayName(""), LabelWidth(0, UntilNext = true),CheckLookupEditor("Settings.Subbarrios",HideSearch =true, ShowSelectAll = true, CheckedOnTop = true)]
+        public List<Int32> NeigborhoodList { get; set; }
     }
 }

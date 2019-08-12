@@ -40,7 +40,7 @@ namespace Barrios.Default.Entities
             set { Fields.IdResultado[this] = value; }
         }
 
-        [DisplayName("Fecha"), Column("FECHA"), NotNull]
+        [DisplayName("Fecha"),SortOrder(1,true), Column("FECHA"), NotNull]
         public DateTime? Fecha
         {
             get { return Fields.Fecha[this]; }
@@ -123,21 +123,21 @@ namespace Barrios.Default.Entities
             set { Fields.UserInsert[this] = value; }
         }
 
-        [DisplayName("Id Recurso Nombre"), Expression("jIdRecurso.[NOMBRE]")]
+        [DisplayName("Recurso"), Expression("jIdRecurso.[NOMBRE]")]
         public String IdRecursoNombre
         {
             get { return Fields.IdRecursoNombre[this]; }
             set { Fields.IdRecursoNombre[this] = value; }
         }
         
-        [DisplayName("Id Vecino Username"), Expression("jIdVecino.[Username]")]
+        [DisplayName("Vecino"), Expression("jIdVecino.[Username]")]
         public String IdVecinoUsername
         {
             get { return Fields.IdVecinoUsername[this]; }
             set { Fields.IdVecinoUsername[this] = value; }
         }
         
-        [DisplayName("Id Vecino Unidad"),NotMapped]
+        [DisplayName("Unidad"),NotMapped]
         public String IdVecinoUnidad
         {
             get { return Fields.IdVecinoUnidad[this]; }
@@ -173,7 +173,7 @@ namespace Barrios.Default.Entities
             get { return Fields.TipoReservaHecha[this]; }
             set { Fields.TipoReservaHecha[this] = value; }
         }
-        [DisplayName("Vecino Unidad Extra"), NotMapped]
+        [DisplayName("Vecino 2"), NotMapped]
         public String IdVecinoUnidadExtra
         {
             get { return Fields.IdVecinoUnidadExtra[this]; }

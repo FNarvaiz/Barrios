@@ -7453,6 +7453,12 @@ section.content > .s-DataGrid {
 .s-Perfil-VecinosVisitantesFrecuentesDialog .caption {
   width: 150px;
 }
+.s-Settings-SubbarriosDialog > .size {
+  width: 650px;
+}
+.s-Settings-SubbarriosDialog .caption {
+  width: 150px;
+}
 .btn-success {
   background: #365D34;
 }
@@ -7504,9 +7510,9 @@ section.content > .s-DataGrid {
   border-top: 3px solid #3c8dbc;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
-.containerBooking .myBooking,
-.containerCommissions .myBooking {
-  margin-top: 20px;
+.containerBooking .turnSpecial,
+.containerCommissions .turnSpecial {
+  margin-bottom: 20px;
 }
 @media (max-width: 1000px) {
   .containerBooking .col-xs-6,

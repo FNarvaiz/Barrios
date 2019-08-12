@@ -14,7 +14,6 @@ namespace Barrios.Default.Columns
     public class ReservasTurnosEspecialesColumns
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
-        public Int16 IdRecurso { get; set; }
         public Int16 Id { get; set; }
         public Int16 Inicio { get; set; }
         public Int16 Duracion { get; set; }

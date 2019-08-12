@@ -13,17 +13,18 @@ namespace Barrios.Default.Columns
     [BasedOnRow(typeof(Entities.ReservasRow), CheckNames = true)]
     public class MyBookingsColumns
     {
-        [DisplayName("Db.Shared.RecordId"), AlignRight]
+        [DisplayName("ID"), Width(40), AlignRight]
         public Int32 Id { get; set; }
+        [Width(80)]
         public DateTime Fecha { get; set; }
-        [Width(150)]
+        [Width(70)]
         public String IdRecursoNombre { get; set; }
-        [Width(150)]
+        [Width(40)]
         public String Hora { get; set; }
-        [Width(150)]
+        [Width(80)]
         public String  Tipo { get; set; }
         public String Observaciones { get; set; }
-        [Width(150)]
+        [Width(70)]
         public String IdVecinoUsername2 { get; set; }
         public DateTime DateInsert { get; set; }
         [Hidden]

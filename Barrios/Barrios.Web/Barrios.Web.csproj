@@ -1144,6 +1144,9 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.LineaTiempoService.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.MailsRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.ProveedoresColumns.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
@@ -1225,6 +1228,9 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Perfil.VecinosVisitantesFrecuentesColumns.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Settings.SubbarriosColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Texts.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
@@ -1232,6 +1238,8 @@
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosGrid.ts" />
     <TypeScriptCompile Include="Modules\Default\Reservas\TwoNeighbors\TwoNeighborsDialog.ts" />
     <TypeScriptCompile Include="Modules\Default\Reservas\EspecialTurn\EspecialBookingDialog.ts" />
+    <TypeScriptCompile Include="Modules\Settings\Subbarrios\SubbarriosSelect\SubbarriosSelectGrid.ts" />
+    <TypeScriptCompile Include="Modules\Settings\Subbarrios\SubbarriosSelect\SubbarriosSelectDialog.ts" />
     <TypeScriptCompile Include="Modules\Views\Bookings\Reservas.ts" />
     <TypeScriptCompile Include="Modules\Common\Helpers\BulkActionInAnyGrid.ts" />
     <TypeScriptCompile Include="Modules\Common\Helpers\DetailGridBase.ts" />
@@ -1900,6 +1908,22 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Perfil.VecinosVisitantesFrecuentesForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Settings.SubbarriosRow.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Settings.SubbarriosService.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <Content Include="Modules\Settings\Subbarrios\SubbarriosIndex.cshtml" />
+    <TypeScriptCompile Include="Modules\Settings\Subbarrios\SubbarriosDialog.ts" />
+    <TypeScriptCompile Include="Modules\Settings\Subbarrios\SubbarriosGrid.ts" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Settings.SubbarriosForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <Content Include="Content\site\site.settings.less" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.SubbarriosRecursosRow.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -2115,6 +2139,7 @@
     <Compile Include="Modules\Common\Helpers\GetNextNumberHelper.cs" />
     <Compile Include="Modules\Common\Helpers\GetNextNumberRequest.cs" />
     <Compile Include="Modules\Perfil\VecinosMascotas\PetTypeLookup.cs" />
+    <Compile Include="Modules\Settings\Subbarrios\SubBarriosLookup.cs" />
     <Compile Include="Modules\Texts.cs" />
     <Compile Include="Modules\Membership\Account\AccountPage.cs" />
     <Compile Include="Modules\Administration\User\Authentication\AuthorizationService.cs" />
@@ -2206,6 +2231,14 @@
     <Compile Include="Modules\Perfil\VecinosVisitantesFrecuentes\VecinosVisitantesFrecuentesPage.cs" />
     <Compile Include="Modules\Perfil\VecinosVisitantesFrecuentes\VecinosVisitantesFrecuentesColumns.cs" />
     <Compile Include="Modules\Perfil\VecinosVisitantesFrecuentes\VecinosVisitantesFrecuentesForm.cs" />
+    <Compile Include="Modules\Settings\Subbarrios\SubbarriosRow.cs" />
+    <Compile Include="Modules\Settings\Subbarrios\SubbarriosRepository.cs" />
+    <Compile Include="Modules\Settings\Subbarrios\SubbarriosEndpoint.cs" />
+    <Compile Include="Modules\Settings\Subbarrios\SubbarriosPage.cs" />
+    <Compile Include="Modules\Settings\Subbarrios\SubbarriosColumns.cs" />
+    <Compile Include="Modules\Settings\Subbarrios\SubbarriosForm.cs" />
+    <Compile Include="Modules\Settings\SettingsNavigation.cs" />
+    <Compile Include="Modules\Default\SubbarriosRecursos\SubbarriosRecursosRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

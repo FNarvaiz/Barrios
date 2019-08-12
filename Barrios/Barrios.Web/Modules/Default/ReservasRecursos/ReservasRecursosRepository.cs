@@ -1,12 +1,14 @@
 ﻿
 namespace Barrios.Default.Repositories
 {
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
-    using System;
+    using System.Linq;
     using System.Data;
     using MyRow = Entities.ReservasRecursosRow;
+    using System.Collections.Generic;
 
     public class ReservasRecursosRepository
     {
@@ -35,6 +37,24 @@ namespace Barrios.Default.Repositories
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
             return new MyListHandler().Process(connection, request);
+        }
+        public List<MyRow> ListOfAllowedResources(IDbConnection connection)
+        {
+            return connection.Query<MyRow>("SELECT TOP (1000) RR.[NOMBRE] " +
+                  " ,[APERTURA] " +
+                  " ,[CIERRE] " +
+                  " ,[RESOLUCION] " +
+                  " , RR.[ID] " +
+                  " ,[TIPO] " +
+                  "  FROM [RESERVAS_RECURSOS] RR " +
+                  " INNER JOIN [Recursos-Barrios] RB " +
+                  " ON RB.RecursoId= RR.ID " +
+                  " LEFT JOIN SUBBARRIOS_RECURSOS SBR " +
+                  " ON SBR.recursoId= RR.ID " +
+                  " LEFT JOIN Users U " +
+                  " ON SBR.subbarrioId= U.subBarrioId " +
+                  " where (U.UserId is null OR U.UserId="+Authorization.UserId+") AND RB.BarrioId="+CurrentNeigborhood.Get().Id+" " +
+                  " ORDER BY RESOLUCION desc ,NOMBRE asc ").ToList<MyRow>();
         }
 
         private class MySaveHandler : SaveRequestHandler<MyRow> { }

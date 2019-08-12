@@ -58,6 +58,25 @@ namespace Barrios.Contenidos {
                         Q.notifyInfo("Seleccione una nota de la grilla");
                 }
             });
+            buttons.push({
+                title: 'Enviar por subBarrio',
+                cssClass: 'send-button',
+                onClick: () => {
+                    if (this.objId != undefined) {
+                        var dialog = new Barrios.Settings.SubbarriosSelectDialog(this.element);
+                        dialog.element.on("dialogclose", () => {
+                            if (dialog.GetSave()) {
+                                LineaTiempoService.SendMailsForSubNeigborhoob({ LineTimeId: this.objId, SubNeigborhoob: dialog.GetKeys() }, (Response) => {
+                                    Q.notifySuccess(Response);
+                                });
+                            }
+                        });
+                        dialog.dialogOpen();
+                    }
+                    else
+                        Q.notifyInfo("Seleccione una nota de la grilla");
+                }
+            });
             return buttons;
         }
     }

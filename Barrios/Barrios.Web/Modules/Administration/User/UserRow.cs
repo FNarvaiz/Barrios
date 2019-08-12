@@ -103,6 +103,12 @@ namespace Barrios.Administration.Entities
             get { return Fields.Unit[this]; }
             set { Fields.Unit[this] = value; }
         }
+        [DisplayName("Sub Barrio"),Column("subBarrioId"), Size(50),LookupEditor("Settings.Subbarrios")]
+        public short? subBarrioId
+        {
+            get { return Fields.subBarrioId[this]; }
+            set { Fields.subBarrioId[this] = value; }
+        }
         [DisplayName("Lista de barrios"), NotMapped]
         //[LookupEditor(typeof(ClientRow), Multiple = true)]
         [LinkingSetRelation(typeof(UsersBarriosRow), "UserID", "BarrioID")]
@@ -154,10 +160,12 @@ namespace Barrios.Administration.Entities
             public StringField UserImage;
             public DateTimeField LastDirectoryUpdate;
             public Int16Field IsActive;
+            public Int16Field subBarrioId;
             public StringField Password;
             public StringField PasswordConfirm;
             public ListField<Int32> ClientIdList;
             public StringField Unit;
+
         }
     }
 }

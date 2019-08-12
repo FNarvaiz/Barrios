@@ -5,6 +5,7 @@ namespace Barrios.Default.Endpoints
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
+    using System.Collections.Generic;
     using System.Data;
     using System.Web.Mvc;
     using MyRepository = Repositories.ReservasRecursosRepository;
@@ -47,5 +48,10 @@ namespace Barrios.Default.Endpoints
             Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
         }
+        public List<MyRow> ListOfAllowedResources(IDbConnection connection)
+        {
+            return new MyRepository().ListOfAllowedResources(connection);
+        }
+        
     }
 }

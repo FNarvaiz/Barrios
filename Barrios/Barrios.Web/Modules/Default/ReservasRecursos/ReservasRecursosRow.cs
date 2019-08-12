@@ -16,7 +16,7 @@ namespace Barrios.Default.Entities
     [ModifyPermission("Reservas:Recursos")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", "jType.[ID_Recurso] = t0.[ID] ")]
     [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", "jTurns.[ID_Recurso] = t0.[ID] ")]
-    public sealed class ReservasRecursosRow : Row, IIdRow, INameRow
+     public sealed class ReservasRecursosRow : Row, IIdRow, INameRow
     {
         [DisplayName("Tipos de reserva"), MasterDetailRelation("ID_recurso", IncludeColumns = "*"), NotMapped]
         public List<ReservasTiposRow> TypeList
@@ -42,6 +42,7 @@ namespace Barrios.Default.Entities
             get { return Fields.BarrioId[this]; }
             set { Fields.BarrioId[this] = value; }
         }
+      
         [DisplayName("Nombre"), Column("NOMBRE"), Size(30), QuickSearch]
         public String Nombre
         {
@@ -82,6 +83,14 @@ namespace Barrios.Default.Entities
             get => Fields.ClientIdList[this];
             set => Fields.ClientIdList[this] = value;
         }
+
+        [DisplayName("Reservar solo para"), NotMapped]
+        [LinkingSetRelation(typeof(SubbarriosRecursosRow), "RecursoId", "SubBarrioId")]
+        public List<Int16> NeigborhoodList
+        {
+            get => Fields.NeigborhoodList[this];
+            set => Fields.NeigborhoodList[this] = value;
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -108,6 +117,7 @@ namespace Barrios.Default.Entities
             public Int16Field Tipo;
             public Int16Field Resolucion;
             public ListField<Int32> ClientIdList;
+            public ListField<Int16> NeigborhoodList;
             public Int16Field BarrioId;
             public ListField<ReservasTiposRow> TypeList;
             public ListField<ReservasTurnosEspecialesRow> SpecialTurnList;

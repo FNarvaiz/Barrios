@@ -11,6 +11,7 @@
         UserImage?: string;
         LastDirectoryUpdate?: string;
         IsActive?: number;
+        subBarrioId?: number;
         Password?: string;
         PasswordConfirm?: string;
         ClientIdList?: number[];
@@ -44,6 +45,7 @@
             UserImage = "UserImage",
             LastDirectoryUpdate = "LastDirectoryUpdate",
             IsActive = "IsActive",
+            subBarrioId = "subBarrioId",
             Password = "Password",
             PasswordConfirm = "PasswordConfirm",
             ClientIdList = "ClientIdList",

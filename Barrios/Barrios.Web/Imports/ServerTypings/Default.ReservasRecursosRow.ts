@@ -7,6 +7,7 @@
         Tipo?: number;
         Resolucion?: number;
         ClientIdList?: number[];
+        NeigborhoodList?: number[];
         BarrioId?: number;
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
@@ -25,6 +26,7 @@
             Tipo = "Tipo",
             Resolucion = "Resolucion",
             ClientIdList = "ClientIdList",
+            NeigborhoodList = "NeigborhoodList",
             BarrioId = "BarrioId",
             TypeList = "TypeList",
             SpecialTurnList = "SpecialTurnList"
