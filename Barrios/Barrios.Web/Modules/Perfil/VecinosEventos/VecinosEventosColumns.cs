@@ -17,8 +17,11 @@ namespace Barrios.Perfil.Columns
         public Int32 Id { get; set; }
         [EditLink]
         public String Nombre { get; set; }
+        public String UseridUsername { get; set; }
         public DateTime Fecha { get; set; }
         public String Lugar { get; set; }
-       // public String UseridUsername { get; set; }
+        [Hidden]
+        public Int32 Userid { get; set; }
+        // public String UseridUsername { get; set; }
     }
 }

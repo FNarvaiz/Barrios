@@ -1,6 +1,7 @@
 ﻿
 namespace Barrios.Contenidos.Repositories
 {
+    using Barrios.Contenidos.Entities;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
@@ -45,6 +46,7 @@ namespace Barrios.Contenidos.Repositories
             {
                 string query = "Select  P.ID_CATEGORIA,C.NOMBRE AS CategoryName,P.ID,P.NOMBRE,CONVERT(varchar(500),P.Descripcion) AS DESCRIPCION,AVG(V.valoracion) as Rating ," +
                     "SUM(case when V.Userid = " + userID + " then V.valoracion else 0 end) as Liked," +
+                    "SUM(case when V.Userid = 1 then V.ID else 0 end) as ValoracionId," +
                     "COUNT(V.ID) as RatingCount " +
                     "from ENCUESTAS P " +
                     "INNER JOIN CATEGORIAS C ON C.ID= P.ID_CATEGORIA " +
@@ -57,7 +59,17 @@ namespace Barrios.Contenidos.Repositories
         }
 
         private class MySaveHandler : SaveRequestHandler<MyRow> { }
-        private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
+        private class MyDeleteHandler : DeleteRequestHandler<MyRow>
+        {
+            protected override void OnBeforeDelete()
+            {
+                base.OnBeforeDelete();
+                new SqlDelete(EncuestasValoracionesRow.Fields.TableName)
+                   .Where(EncuestasValoracionesRow.Fields.IdEncuesta == Row.Id.Value)
+                   .Execute(Connection, ExpectedRows.Ignore);
+
+            }
+        }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
         private class MyListHandler : ListRequestHandler<MyRow> { }
     }

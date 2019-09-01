@@ -11,9 +11,10 @@ namespace Barrios.Contenidos {
         public objId;
         protected pastTarget;
         protected odd;
-        constructor(container: JQuery) {
+        protected UseSubBarrios;
+        constructor(container: JQuery, UseSubBarrios: boolean) {
             super(container);
-
+            this.UseSubBarrios = UseSubBarrios;
         }
         protected onClick(e: JQueryEventObject, row: number, cell: number) {
             super.onClick(e, row, cell);
@@ -58,25 +59,27 @@ namespace Barrios.Contenidos {
                         Q.notifyInfo("Seleccione una nota de la grilla");
                 }
             });
-            buttons.push({
-                title: 'Enviar por subBarrio',
-                cssClass: 'send-button',
-                onClick: () => {
-                    if (this.objId != undefined) {
-                        var dialog = new Barrios.Settings.SubbarriosSelectDialog(this.element);
-                        dialog.element.on("dialogclose", () => {
-                            if (dialog.GetSave()) {
-                                LineaTiempoService.SendMailsForSubNeigborhoob({ LineTimeId: this.objId, SubNeigborhoob: dialog.GetKeys() }, (Response) => {
-                                    Q.notifySuccess(Response);
-                                });
-                            }
-                        });
-                        dialog.dialogOpen();
+            if (this.UseSubBarrios) {
+                buttons.push({
+                    title: 'Enviar por subBarrio',
+                    cssClass: 'send-button',
+                    onClick: () => {
+                        if (this.objId != undefined) {
+                            var dialog = new Barrios.Settings.SubbarriosSelectDialog(this.element);
+                            dialog.element.on("dialogclose", () => {
+                                if (dialog.GetSave()) {
+                                    LineaTiempoService.SendMailsForSubNeigborhoob({ LineTimeId: this.objId, SubNeigborhoob: dialog.GetKeys() }, (Response) => {
+                                        Q.notifySuccess(Response);
+                                    });
+                                }
+                            });
+                            dialog.dialogOpen();
+                        }
+                        else
+                            Q.notifyInfo("Seleccione una nota de la grilla");
                     }
-                    else
-                        Q.notifyInfo("Seleccione una nota de la grilla");
-                }
-            });
+                });
+            }
             return buttons;
         }
     }

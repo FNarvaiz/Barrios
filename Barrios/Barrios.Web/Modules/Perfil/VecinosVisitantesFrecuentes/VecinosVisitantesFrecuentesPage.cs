@@ -13,5 +13,10 @@ namespace Barrios.Perfil.Pages
         {
             return View("~/Modules/Perfil/VecinosVisitantesFrecuentes/VecinosVisitantesFrecuentesIndex.cshtml");
         }
+        public ActionResult VisitantesFrecuentes()
+        {
+            return View("~/Modules/Views/Perfil/VisitantesFrecuentes.cshtml");
+        }
+        
     }
 }

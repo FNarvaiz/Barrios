@@ -1,6 +1,7 @@
 ﻿
 namespace Barrios.Membership.Pages
 {
+    using Barrios.Administration.Repositories;
     using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Services;
@@ -8,11 +9,16 @@ namespace Barrios.Membership.Pages
     using System.Web.Mvc;
     using System.Web.Security;
 
-    [RoutePrefix("Account"), Route("{action=index}")]
+    [RoutePrefix("Account"), Route("{action=Login}")]
     public partial class AccountController : Controller
     {
         public static bool UseAdminLTELoginBox = false;
 
+        [HttpGet]
+        public ActionResult Index(string activated)
+        {
+            return new RedirectResult("~/Account/Login");
+        }
         [HttpGet]
         public ActionResult Login(string activated)
         {
@@ -43,9 +49,14 @@ namespace Barrios.Membership.Pages
                     throw new ArgumentNullException("username");
 
                 var username = request.Username;
+                if (new UserRepository().isThisNeigborhood(username, CurrentNeigborhood.Get().Id))
+                {
+                    if (WebSecurityHelper.Authenticate(ref username, request.Password, false))
+                        return new ServiceResponse();
+                }
+                else
+                    throw new ValidationError("AuthenticationError", "Este usuario esta registrado en otro barrio.");
                 
-                if (WebSecurityHelper.Authenticate(ref username, request.Password, false))
-                    return new ServiceResponse();
 
                 throw new ValidationError("AuthenticationError", Texts.Validation.AuthenticationError);
             });

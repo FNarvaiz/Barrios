@@ -10,9 +10,11 @@ namespace Barrios.Perfil.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Perfil"), TableName("[dbo].[VECINOS_MASCOTAS]")]
-    [DisplayName("Mascotas"), InstanceName("Mascotas")]
+    [DisplayName("Mascotas"), InstanceName("Mascota")]
     [ReadPermission("Administration:Perfil")]
     [ModifyPermission("Administration:Perfil")]
+
+    [LeftJoin("jBarrio", "[dbo].[Users-barrios]", "jBarrio.[UserId] = t0.[UserId] ")]
     public sealed class VecinosMascotasRow : Row, IIdRow, INameRow
     {
         [DisplayName("Id"), Column("ID"), Identity]
@@ -42,13 +44,18 @@ namespace Barrios.Perfil.Entities
             get { return Fields.Raza[this]; }
             set { Fields.Raza[this] = value; }
         }
-        [DisplayName("Foto Binarydata"), ImageUploadEditor(FilenameFormat = "UserImage/~", CopyToHistory = true), Column("FOTO")]
+        [DisplayName("Foto"), ImageUploadEditor(FilenameFormat = "UserImage/Mascotas/Perfil/~", CopyToHistory = true), Column("FOTO")]
         public String Foto
         {
             get { return Fields.Foto[this]; }
             set { Fields.Foto[this] = value; }
         }
-
+        [DisplayName("Carnet"), ImageUploadEditor(FilenameFormat = "UserImage/Mascotas/Vacunas/~", CopyToHistory = true), Column("Vacunas")]
+        public String Vacunas
+        {
+            get { return Fields.Vacunas[this]; }
+            set { Fields.Vacunas[this] = value; }
+        }
         [DisplayName("Userid"), NotNull, ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jUserid"), TextualField("UseridUsername")]
         public Int32? Userid
         {
@@ -63,7 +70,13 @@ namespace Barrios.Perfil.Entities
             set { Fields.UseridUsername[this] = value; }
         }
 
-       
+        [DisplayName("Barrio Id"), Expression("jBarrio.BarrioId")]
+        public Int32? BarrioId
+        {
+            get { return Fields.BarrioId[this]; }
+            set { Fields.BarrioId[this] = value; }
+        }
+
 
         [DisplayName("Userid Unit"), Expression("jUserid.[Unit]")]
         public String UseridUnit
@@ -98,7 +111,9 @@ namespace Barrios.Perfil.Entities
             public StringField Raza;
             public StringField Foto;
             public Int32Field Userid;
-
+            public Int32Field BarrioId;
+            
+            public StringField Vacunas; 
             public StringField UseridUsername;
             public StringField UseridUnit;
         }

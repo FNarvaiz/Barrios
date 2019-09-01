@@ -8,6 +8,7 @@
         UserImage: Serenity.ImageUploadEditor;
         Password: Serenity.PasswordEditor;
         PasswordConfirm: Serenity.PasswordEditor;
+        Email_Others: Serenity.TextAreaEditor;
         Source: Serenity.StringEditor;
         ClientIdList: Serenity.CheckLookupEditor;
     }
@@ -29,7 +30,8 @@
                 var w3 = s.EmailEditor;
                 var w4 = s.ImageUploadEditor;
                 var w5 = s.PasswordEditor;
-                var w6 = s.CheckLookupEditor;
+                var w6 = s.TextAreaEditor;
+                var w7 = s.CheckLookupEditor;
 
                 Q.initFormType(UserForm, [
                     'Username', w0,
@@ -40,8 +42,9 @@
                     'UserImage', w4,
                     'Password', w5,
                     'PasswordConfirm', w5,
+                    'Email_Others', w6,
                     'Source', w0,
-                    'ClientIdList', w6
+                    'ClientIdList', w7
                 ]);
             }
         }

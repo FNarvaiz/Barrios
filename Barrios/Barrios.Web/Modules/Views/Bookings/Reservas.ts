@@ -8,24 +8,33 @@ namespace Dashboard {
 
          _resource: JQuery;
          _table;
-         constructor(resource: JQuery, items: JQuery, table: JQuery) {
+         _grid: Barrios.Default.MyBookingsGrid
+         _itemForRefresh: JQuery;
+         constructor(resource: JQuery, items: JQuery, table: JQuery, grid: Barrios.Default.MyBookingsGrid) {
              this._resource = resource;
              var obj = this;
              this._table = table;
+             this._grid = grid;
              items.click(function () { obj.selectItem($(this)) });
              this.selectItem($(items[0]));
          }
          public selectItem(item: JQuery) {
+             this._itemForRefresh = item;
              var obj = this;
-             var parameters=item.attr("ID").split(",", 2);
-             Barrios.Default.ReservasService.renderBookingStatus({
-                 ID: parseInt(parameters[0]),
-                 Resolution: parseInt(parameters[1])
+             if (item != undefined) {
+                 var parameters = item.attr("ID").split(",", 2);
+                 Barrios.Default.ReservasService.renderBookingStatus({
+                     ID: parseInt(parameters[0]),
+                     Resolution: parseInt(parameters[1])
+                 }
+                     , (response) => {
+                         obj._table.html($.parseHTML(response));
+                     });
+                 this._resource.text(item.text());
              }
-                 , (response) => {
-                 obj._table.html($.parseHTML(response));
-             });
-             this._resource.text(item.text());
+         }
+         public refresh() {
+             this.selectItem(this._itemForRefresh);
          }
          public bookingsTake(element, resourceId: number, date: string, start: number, type: number, neighbour: boolean) {
              
@@ -36,6 +45,8 @@ namespace Dashboard {
                          this.sendBookingsTake(resourceId, date, start, type, dialog.vecinoId);
                  });
                  dialog.dialogOpen();
+
+
              }
              else {
                  this.sendBookingsTake(resourceId, date, start, type, null);
@@ -51,6 +62,7 @@ namespace Dashboard {
                  extraNeighborUnit: neighbour
              }, (response) => {
                  table.html($.parseHTML(response));
+                 this._grid.refresh();
              });
          }
          public  showEspecialTurnDialog() {
@@ -65,7 +77,7 @@ namespace Dashboard {
                          dialog.turn.Duracion,
                          dialog.turn.Inicio,
                          dialog.turn.Id,
-                         dialog.form.Observaciones
+                         dialog.form.Observaciones.value
                      );
                  }
              });

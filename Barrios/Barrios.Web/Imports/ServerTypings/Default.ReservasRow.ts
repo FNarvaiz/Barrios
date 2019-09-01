@@ -13,6 +13,7 @@
         IdVecino?: number;
         DateInsert?: string;
         UserInsert?: number;
+        BarrioId?: number;
         IdTurnosEspeciales?: number;
         Hora?: string;
         Turno?: string;
@@ -51,6 +52,7 @@
             IdVecino = "IdVecino",
             DateInsert = "DateInsert",
             UserInsert = "UserInsert",
+            BarrioId = "BarrioId",
             IdTurnosEspeciales = "IdTurnosEspeciales",
             Hora = "Hora",
             Turno = "Turno",

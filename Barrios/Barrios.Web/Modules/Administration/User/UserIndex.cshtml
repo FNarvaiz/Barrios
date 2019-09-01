@@ -7,8 +7,7 @@
 
 <script type="text/javascript">
     jQuery(function () {
-        new Barrios.Administration.UserGrid($('#GridDiv'), {
-        });
+        new Barrios.Administration.UserGrid($('#GridDiv'), @CurrentNeigborhood.Get().Id);
 
         Q.initFullHeightGridPage($('#GridDiv'));
     });

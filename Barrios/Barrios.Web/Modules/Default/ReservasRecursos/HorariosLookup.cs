@@ -7,7 +7,7 @@ using Serenity.Web;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-
+using Barrios.Modules.Default.Reservas;
 namespace Barrios.Modules.Barrios.Barrio
 {
     [LookupScript("ReservasRecursos.HorariosLookup")]
@@ -34,7 +34,7 @@ namespace Barrios.Modules.Barrios.Barrio
         }
         private void addHorario(List<GenericComboBoxRow> list, TimeSpan obj)
         {
-            list.Add(new GenericComboBoxRow(Convert.ToInt32(obj.TotalMinutes), obj.ToString(@"hh\:mm")));
+            list.Add(new GenericComboBoxRow(Convert.ToInt32(obj.TotalMinutes), obj.MinutesToString()));
         }
 
         protected override List<GenericComboBoxRow> GetItems()

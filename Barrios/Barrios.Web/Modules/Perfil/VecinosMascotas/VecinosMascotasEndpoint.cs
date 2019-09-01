@@ -1,6 +1,7 @@
 ﻿
 namespace Barrios.Perfil.Endpoints
 {
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
@@ -42,9 +43,7 @@ namespace Barrios.Perfil.Endpoints
         [HttpPost]
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
-            if (request.EqualityFilter == null)
-                request.EqualityFilter = new System.Collections.Generic.Dictionary<string, object>();
-            request.EqualityFilter.Add("UserId",Authorization.UserId);
+            Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
         }
     }

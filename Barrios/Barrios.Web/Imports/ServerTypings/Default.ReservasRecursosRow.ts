@@ -2,6 +2,7 @@
     export interface ReservasRecursosRow {
         Id?: number;
         Nombre?: string;
+        Emails?: string;
         Apertura?: number;
         Cierre?: number;
         Tipo?: number;
@@ -21,6 +22,7 @@
         export declare const enum Fields {
             Id = "Id",
             Nombre = "Nombre",
+            Emails = "Emails",
             Apertura = "Apertura",
             Cierre = "Cierre",
             Tipo = "Tipo",

@@ -8,6 +8,7 @@
         PasswordSalt?: string;
         DisplayName?: string;
         Email?: string;
+        Email_Others?: string;
         UserImage?: string;
         LastDirectoryUpdate?: string;
         IsActive?: number;
@@ -42,6 +43,7 @@
             PasswordSalt = "PasswordSalt",
             DisplayName = "DisplayName",
             Email = "Email",
+            Email_Others = "Email_Others",
             UserImage = "UserImage",
             LastDirectoryUpdate = "LastDirectoryUpdate",
             IsActive = "IsActive",

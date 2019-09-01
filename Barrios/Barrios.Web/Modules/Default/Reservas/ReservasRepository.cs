@@ -58,7 +58,7 @@ namespace Barrios.Default.Repositories
                 "left join Users v2 on v2.userid = E.ID_VECINO_2 " +
                 " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, v1.Unit, v2.Unit " +
               "ORDER BY E.INICIO, E.FECHA, T.ID");
-            DataTable dt=  Utils.GetRequestString(connection, sql.ToString());
+            DataTable dt=  Utils.GetRequestString( sql.ToString());
             int count = 0;
             foreach(DataRow DR in dt.Rows)
             {
@@ -95,7 +95,7 @@ namespace Barrios.Default.Repositories
                 "dbo.ESTADO_TURNO_RESERVA(" + resourceId + ", F.FECHA, T.INICIO, T.DURACION)as ESTADO " +
                 "FROM dbo.LISTA_FECHAS_ESPECIALES(7,90) AS F " +
                 "CROSS JOIN RESERVAS_TURNOS_ESPECIALES T where T.ID_RECURSO= " + resourceId + " order by F.Fecha ASC, ESTADO DESC ,INICIO asc");
-            DataTable dt = Utils.GetRequestString(connection, sql.ToString());
+            DataTable dt = Utils.GetRequestString( sql.ToString());
             int count = 0;
             foreach (DataRow DR in dt.Rows)
             {
@@ -125,7 +125,10 @@ namespace Barrios.Default.Repositories
             parameters.Add("date", request.bookingDate.ToString());
             parameters.Add("UserId", Authorization.UserDefinition.Id.ToString());
             parameters.Add("extraNeighborId", request.extraNeighborUnit.ToString());
-            Utils.ExecuteNonQueryWithParam(connection, "YachtBookingTake", parameters);
+            string storeProcedureName = "YachtBookingTake";
+            if (CurrentNeigborhood.Get().Url.Contains("localhost"))
+                storeProcedureName = "vecinosTodos." + storeProcedureName;
+            Utils.ExecuteNonQueryWithParam(connection, storeProcedureName, parameters);
         }
         public List<DateTime> DaysList(List<MyRow> list)
         {

@@ -6,6 +6,8 @@
         Raza?: string;
         Foto?: string;
         Userid?: number;
+        BarrioId?: number;
+        Vacunas?: string;
         UseridUsername?: string;
         UseridUnit?: string;
     }
@@ -22,6 +24,8 @@
             Raza = "Raza",
             Foto = "Foto",
             Userid = "Userid",
+            BarrioId = "BarrioId",
+            Vacunas = "Vacunas",
             UseridUsername = "UseridUsername",
             UseridUnit = "UseridUnit"
         }

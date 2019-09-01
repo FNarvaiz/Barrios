@@ -60,7 +60,15 @@ namespace Barrios.Contenidos.Endpoints
                 {
                     List<MailAddress> mails = new List<MailAddress>();
                     foreach (var aux in users)
+                    {
                         mails.Add(new MailAddress(aux.Email, aux.DisplayName));
+                        if (!aux.Email_Others.IsEmptyOrNull())
+                        {
+                            foreach (var mailOther in aux.Email_Others.Split('\n'))
+                                if(!mailOther.Trim().IsEmptyOrNull())
+                                    mails.Add(new MailAddress(mailOther.Trim(), aux.DisplayName));
+                        }
+                    }
                     Common.EmailHelper.Send(timeLineObj.Nombre, timeLineObj.ContenidoTexto, "",
                         CurrentNeigborhood.Get().LargeDisplayName,
                         CurrentNeigborhood.Get().Mail, mails, timeLineObj.ArchivoFilename);

@@ -1,6 +1,7 @@
 ﻿
 namespace Barrios.Contenidos.Repositories
 {
+    using Barrios.Contenidos.Entities;
     using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
@@ -47,7 +48,7 @@ namespace Barrios.Contenidos.Repositories
                 "ON C.ID= I.ID_COMISION " +
                 "WHERE C.HABILITADA=1 AND C.barrioId=" + idNeigborhood + " " +
                 "ORDER BY C.NOMBRE";
-            DataTable DT= Utils.GetRequestString(connection, query);
+            DataTable DT= Utils.GetRequestString(query);
             List<MyRow> list = new List<MyRow>();
             MyRow last=null;
             Int16 idLast=-1;
@@ -68,7 +69,17 @@ namespace Barrios.Contenidos.Repositories
             return list;
         }
         private class MySaveHandler : SaveRequestHandler<MyRow> { }
-        private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
+        private class MyDeleteHandler : DeleteRequestHandler<MyRow>
+        {
+            protected override void OnBeforeDelete()
+            {
+                base.OnBeforeDelete();
+                new SqlDelete(ComisionesIntegrantesRow.Fields.TableName)
+                   .Where(ComisionesIntegrantesRow.Fields.IdComision == Row.Id.Value)
+                   .Execute(Connection, ExpectedRows.Ignore);
+
+            }
+        }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
         private class MyListHandler : ListRequestHandler<MyRow> { }
     }

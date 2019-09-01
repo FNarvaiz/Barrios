@@ -6,6 +6,8 @@
         Vehiculo?: string;
         Tipo?: string;
         Userid?: number;
+        BarrioId?: number;
+        UseridUsername?: string;
     }
 
     export namespace VecinosVisitantesFrecuentesRow {
@@ -19,7 +21,9 @@
             Dni = "Dni",
             Vehiculo = "Vehiculo",
             Tipo = "Tipo",
-            Userid = "Userid"
+            Userid = "Userid",
+            BarrioId = "BarrioId",
+            UseridUsername = "UseridUsername"
         }
     }
 }

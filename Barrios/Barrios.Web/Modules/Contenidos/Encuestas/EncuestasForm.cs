@@ -16,7 +16,7 @@ namespace Barrios.Contenidos.Forms
         public String Nombre { get; set; }
         public DateTime FechaAlta { get; set; }
         public DateTime FechaBaja { get; set; }
-        [LookupEditor("Category.ProviderCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog")]
+        [LookupEditor("Category.SurveysCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog")]
         public Int16 IdCategoria { get; set; }
         public String Descripcion { get; set; }
         public Boolean Vigente { get; set; }

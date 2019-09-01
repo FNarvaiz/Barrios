@@ -21,9 +21,12 @@
         public String Password { get; set; }
         [PasswordEditor, OneWay, Required(true)]
         public String PasswordConfirm { get; set; }
+        public String Email_Others { get; set; }
+        
         [OneWay]
         public string Source { get; set; }
-        [CheckLookupEditor("Administration.Barrios", ShowSelectAll = true, CheckedOnTop = true), DisplayName("Barrios")]
+        [Hidden,CheckLookupEditor("Administration.Barrios", ShowSelectAll = true, CheckedOnTop = true)
+          , DisplayName("Barrios")]
         public List<Int32> ClientIdList { get; set; }
         
     }

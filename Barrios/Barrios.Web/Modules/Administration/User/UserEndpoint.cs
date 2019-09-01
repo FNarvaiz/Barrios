@@ -23,6 +23,9 @@ namespace Barrios.Administration.Endpoints
         [HttpPost, AuthorizeCreate(typeof(MyRow))]
         public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
+            if (request.Entity.ClientIdList == null)
+                request.Entity.ClientIdList = new List<int>();
+            request.Entity.ClientIdList.Add(CurrentNeigborhood.Get().Id.Value);
             return new MyRepository().Create(uow, request);
         }
 

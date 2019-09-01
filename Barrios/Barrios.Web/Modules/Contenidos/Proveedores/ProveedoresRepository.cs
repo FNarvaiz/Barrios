@@ -1,6 +1,7 @@
 ﻿
 namespace Barrios.Contenidos.Repositories
 {
+    using Barrios.Contenidos.Entities;
     using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
@@ -61,7 +62,17 @@ namespace Barrios.Contenidos.Repositories
        
 
         private class MySaveHandler : SaveRequestHandler<MyRow> { }
-        private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
+        private class MyDeleteHandler : DeleteRequestHandler<MyRow>
+        {
+            protected override void OnBeforeDelete()
+            {
+                base.OnBeforeDelete();
+                new SqlDelete(ProveedoresValoracionesRow.Fields.TableName)
+                   .Where(ProveedoresValoracionesRow.Fields.IdProveedor == Row.Id.Value)
+                   .Execute(Connection, ExpectedRows.Ignore);
+
+            }
+        }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
         private class MyListHandler : ListRequestHandler<MyRow> { }
     }

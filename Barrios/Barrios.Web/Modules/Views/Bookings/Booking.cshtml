@@ -82,7 +82,8 @@
     var Booking;
     var grid;
     jQuery(function () {
-        Booking = new Dashboard.Booking($("#dropdownRecurso"), $(".ItemRecurso"), $("#Bookingtable"));
-        grid=  new Barrios.Default.MyBookingsGrid($('#GridDiv'), {}).init();
+        grid = new Barrios.Default.MyBookingsGrid($('#GridDiv'), @Serenity.Authorization.UserId).init();
+        Booking = new Dashboard.Booking($("#dropdownRecurso"), $(".ItemRecurso"), $("#Bookingtable"), grid);
+        grid.refreshTable = () => { Booking.refresh(); };
     });
 </script>

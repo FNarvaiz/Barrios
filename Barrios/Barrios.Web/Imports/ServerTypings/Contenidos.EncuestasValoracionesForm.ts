@@ -1,10 +1,8 @@
 ﻿namespace Barrios.Contenidos {
     export interface EncuestasValoracionesForm {
         IdEncuesta: Serenity.IntegerEditor;
-        Fecha: Serenity.DateEditor;
-        Valoracion: Serenity.IntegerEditor;
-        Comentario: Serenity.StringEditor;
-        Userid: Serenity.IntegerEditor;
+        Valoracion: Serenity.LookupEditor;
+        Comentario: Serenity.TextAreaEditor;
     }
 
     export class EncuestasValoracionesForm extends Serenity.PrefixedContext {
@@ -19,15 +17,13 @@
 
                 var s = Serenity;
                 var w0 = s.IntegerEditor;
-                var w1 = s.DateEditor;
-                var w2 = s.StringEditor;
+                var w1 = s.LookupEditor;
+                var w2 = s.TextAreaEditor;
 
                 Q.initFormType(EncuestasValoracionesForm, [
                     'IdEncuesta', w0,
-                    'Fecha', w1,
-                    'Valoracion', w0,
-                    'Comentario', w2,
-                    'Userid', w0
+                    'Valoracion', w1,
+                    'Comentario', w2
                 ]);
             }
         }

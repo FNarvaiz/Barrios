@@ -8,6 +8,9 @@ namespace Barrios.Administration
     [DisplayName("Administration")]
     public class PermissionKeys
     {
+        [Description("Administrador de la pagina")]
+        public const string AdminPage = "Administration:Page";
+
         [Description("User, Role Management and Permissions")]
         public const string Security = "Administration:Security";
 

@@ -10,6 +10,7 @@
         export declare function renderBookingStatus(request: BookingListRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function bookingsTake(request: BookingTakeRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function SendRequest(request: BookingTakeRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function bookingCancel(request: IdRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
         export declare const enum Methods {
             Create = "Default/Reservas/Create",
@@ -19,7 +20,8 @@
             List = "Default/Reservas/List",
             renderBookingStatus = "Default/Reservas/renderBookingStatus",
             bookingsTake = "Default/Reservas/bookingsTake",
-            SendRequest = "Default/Reservas/SendRequest"
+            SendRequest = "Default/Reservas/SendRequest",
+            bookingCancel = "Default/Reservas/bookingCancel"
         }
 
         [
@@ -30,7 +32,8 @@
             'List', 
             'renderBookingStatus', 
             'bookingsTake', 
-            'SendRequest'
+            'SendRequest', 
+            'bookingCancel'
         ].forEach(x => {
             (<any>ReservasService)[x] = function (r, s, o) {
                 return Q.serviceRequest(baseUrl + '/' + x, r, s, o);

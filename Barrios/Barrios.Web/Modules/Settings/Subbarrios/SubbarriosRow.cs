@@ -10,8 +10,8 @@ namespace Barrios.Settings.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Settings"), TableName("[dbo].[SUBBARRIOS]")]
-    [DisplayName("Subbarrios"), InstanceName("Subbarrios")]
-    [ReadPermission("Administration:General")]
+    [DisplayName("Subbarrios"), InstanceName("Subbarrio")]
+    [ReadPermission("User:Reservas")]
     [ModifyPermission("Administration:General")]
     
     public sealed class SubbarriosRow : Row, IIdRow, INameRow

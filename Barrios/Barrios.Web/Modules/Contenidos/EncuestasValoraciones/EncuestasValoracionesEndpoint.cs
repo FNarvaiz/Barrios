@@ -4,6 +4,7 @@ namespace Barrios.Contenidos.Endpoints
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
+    using System;
     using System.Data;
     using System.Web.Mvc;
     using MyRepository = Repositories.EncuestasValoracionesRepository;
@@ -16,6 +17,7 @@ namespace Barrios.Contenidos.Endpoints
         [HttpPost, AuthorizeCreate(typeof(MyRow))]
         public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
+            request.Entity.Userid =Convert.ToInt32( Authorization.UserId);
             return new MyRepository().Create(uow, request);
         }
 

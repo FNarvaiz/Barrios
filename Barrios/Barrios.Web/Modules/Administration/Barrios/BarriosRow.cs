@@ -90,6 +90,12 @@ namespace Barrios.Administration.Entities
             get { return Fields.IsActive[this]; }
             set { Fields.IsActive[this] = value; }
         }
+        [DisplayName("Usa sub Barrios"), NotNull]
+        public Boolean? UseSubBarrios
+        {
+            get { return Fields.UseSubBarrios[this]; }
+            set { Fields.UseSubBarrios[this] = value; }
+        }
         [DisplayName("Cant dias reservables"), NotNull]
         public Int16? CantDiasReservables
         {
@@ -134,9 +140,9 @@ namespace Barrios.Administration.Entities
             public StringField PasswordMail;
             public Int16Field CantDiasReservables;
 
-            public BooleanField IsActive;
+            public BooleanField IsActive; 
+            public BooleanField UseSubBarrios;
 
-
-		}
+        }
     }
 }

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = Serenity.LocalText.Get("Db.Perfil.VecinosEventos.EntityPlural");
+}
+<div id="EncuestasPage">
+    <div class="row rowstyle" style="height: inherit">
+        <div class="col-lg-6 col-md-6 col-sm-12" style="height:inherit">
+            <div class="box box-solid" style="border-top: 3px solid #3c8dbc; height: inherit">
+                <div class="box-body" style="height:inherit">
+                    <div id="EventGridDiv"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12" style="height:inherit">
+            <div class="box box-solid" style="border-top: 3px solid #3c8dbc; height:inherit; ">
+                <div class="box-body" style="height:inherit">
+                    <div id="PetGridDiv"></div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="row rowstyle" style="height: inherit">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="height:inherit">
+            <div class="box box-solid" style="border-top: 3px solid #3c8dbc; height: inherit">
+                <div class="box-body" style="height:inherit">
+                    <div id="FrecuentGridDiv"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript">
+    jQuery(function () {
+        new Barrios.Perfil.VecinosEventosGrid($('#EventGridDiv'), @Serenity.Authorization.UserId).init();
+
+        new Barrios.Perfil.VecinosMascotasGrid($('#PetGridDiv'), @Serenity.Authorization.UserId).init();
+        new Barrios.Perfil.VecinosVisitantesFrecuentesGrid($('#FrecuentGridDiv'),  @Serenity.Authorization.UserId).init();
+        Q.initFullHeightGridPage($('#FrecuentGridDiv'));
+    });
+    </script>

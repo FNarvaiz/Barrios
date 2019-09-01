@@ -90,13 +90,13 @@ namespace Barrios.Modules.Default.Entities
                     pastDay = aux.Fecha.Value;
                     vacanteEscrita = false;
                     first = false;
-                    printButton = true;
                     firstTurn = true;
                     turnAnterior = aux.Inicio.Value;
                 }
                 if (pastDay != date && !firstTurn)
                 {
                     builder.Append("</td>");
+                    printButton = true;
                     firstTurn = true;
                 }
                 /* while (days[indexDay] != date)

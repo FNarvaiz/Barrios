@@ -23,6 +23,8 @@
                 if (this.form.Password.value != this.form.PasswordConfirm.value)
                     return "The passwords entered doesn't match!";
             });
+            this.form.ClientIdList.getGridField().toggle(Authorization.hasPermission('Administration:Page'));
+           
         }
 
         protected getToolbarButtons()
@@ -60,14 +62,12 @@
 
         protected updateInterface() {
             super.updateInterface();
-
             this.toolbar.findButton('edit-roles-button').toggleClass('disabled', this.isNewOrDeleted());
             this.toolbar.findButton("edit-permissions-button").toggleClass("disabled", this.isNewOrDeleted());
         }
 
         protected afterLoadEntity() {
             super.afterLoadEntity();
-
             // these fields are only required in new record mode
             this.form.Password.element.toggleClass('required', this.isNew())
                 .closest('.field').find('sup').toggle(this.isNew());

@@ -264,7 +264,8 @@ var Barrios;
                     var w3 = s.EmailEditor;
                     var w4 = s.ImageUploadEditor;
                     var w5 = s.PasswordEditor;
-                    var w6 = s.CheckLookupEditor;
+                    var w6 = s.TextAreaEditor;
+                    var w7 = s.CheckLookupEditor;
                     Q.initFormType(UserForm, [
                         'Username', w0,
                         'DisplayName', w0,
@@ -274,8 +275,9 @@ var Barrios;
                         'UserImage', w4,
                         'Password', w5,
                         'PasswordConfirm', w5,
+                        'Email_Others', w6,
                         'Source', w0,
-                        'ClientIdList', w6
+                        'ClientIdList', w7
                     ]);
                 }
                 return _this;
@@ -742,14 +744,12 @@ var Barrios;
                     EncuestasValoracionesForm.init = true;
                     var s = Serenity;
                     var w0 = s.IntegerEditor;
-                    var w1 = s.DateEditor;
-                    var w2 = s.StringEditor;
+                    var w1 = s.LookupEditor;
+                    var w2 = s.TextAreaEditor;
                     Q.initFormType(EncuestasValoracionesForm, [
                         'IdEncuesta', w0,
-                        'Fecha', w1,
-                        'Valoracion', w0,
-                        'Comentario', w2,
-                        'Userid', w0
+                        'Valoracion', w1,
+                        'Comentario', w2
                     ]);
                 }
                 return _this;
@@ -767,7 +767,7 @@ var Barrios;
         var EncuestasValoracionesRow;
         (function (EncuestasValoracionesRow) {
             EncuestasValoracionesRow.idProperty = 'Id';
-            EncuestasValoracionesRow.nameProperty = 'Comentario';
+            EncuestasValoracionesRow.nameProperty = 'IdEncuestaNombre';
             EncuestasValoracionesRow.localTextPrefix = 'Contenidos.EncuestasValoraciones';
         })(EncuestasValoracionesRow = Contenidos.EncuestasValoracionesRow || (Contenidos.EncuestasValoracionesRow = {}));
     })(Contenidos = Barrios.Contenidos || (Barrios.Contenidos = {}));
@@ -1028,6 +1028,68 @@ var Barrios;
 (function (Barrios) {
     var Default;
     (function (Default) {
+        var HolidaysForm = /** @class */ (function (_super) {
+            __extends(HolidaysForm, _super);
+            function HolidaysForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!HolidaysForm.init) {
+                    HolidaysForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.StringEditor;
+                    var w1 = s.RadioButtonEditor;
+                    var w2 = s.DateEditor;
+                    Q.initFormType(HolidaysForm, [
+                        'Reason', w0,
+                        'Type', w1,
+                        'Day', w2
+                    ]);
+                }
+                return _this;
+            }
+            HolidaysForm.formKey = 'Default.Holidays';
+            return HolidaysForm;
+        }(Serenity.PrefixedContext));
+        Default.HolidaysForm = HolidaysForm;
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
+        var HolidaysRow;
+        (function (HolidaysRow) {
+            HolidaysRow.idProperty = 'Id';
+            HolidaysRow.nameProperty = 'Reason';
+            HolidaysRow.localTextPrefix = 'Default.Holidays';
+        })(HolidaysRow = Default.HolidaysRow || (Default.HolidaysRow = {}));
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
+        var HolidaysService;
+        (function (HolidaysService) {
+            HolidaysService.baseUrl = 'Default/Holidays';
+            [
+                'Create',
+                'Update',
+                'Delete',
+                'Retrieve',
+                'List',
+                'UpdateFromAPI'
+            ].forEach(function (x) {
+                HolidaysService[x] = function (r, s, o) {
+                    return Q.serviceRequest(HolidaysService.baseUrl + '/' + x, r, s, o);
+                };
+            });
+        })(HolidaysService = Default.HolidaysService || (Default.HolidaysService = {}));
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
         var RecursosBarriosRow;
         (function (RecursosBarriosRow) {
             RecursosBarriosRow.idProperty = 'RecursoId';
@@ -1083,18 +1145,20 @@ var Barrios;
                     var s = Serenity;
                     var w0 = s.StringEditor;
                     var w1 = s.LookupEditor;
-                    var w2 = Default.ReservasTiposGrid;
-                    var w3 = Default.ReservasTurnosEspecialesGrid;
-                    var w4 = s.CheckLookupEditor;
+                    var w2 = s.TextAreaEditor;
+                    var w3 = Default.ReservasTiposGrid;
+                    var w4 = Default.ReservasTurnosEspecialesGrid;
+                    var w5 = s.CheckLookupEditor;
                     Q.initFormType(ReservasRecursosForm, [
                         'Nombre', w0,
                         'Tipo', w1,
                         'Apertura', w1,
                         'Cierre', w1,
                         'Resolucion', w1,
-                        'TypeList', w2,
-                        'SpecialTurnList', w3,
-                        'NeigborhoodList', w4
+                        'Emails', w2,
+                        'TypeList', w3,
+                        'SpecialTurnList', w4,
+                        'NeigborhoodList', w5
                     ]);
                 }
                 return _this;
@@ -1166,7 +1230,8 @@ var Barrios;
                 'List',
                 'renderBookingStatus',
                 'bookingsTake',
-                'SendRequest'
+                'SendRequest',
+                'bookingCancel'
             ].forEach(function (x) {
                 ReservasService[x] = function (r, s, o) {
                     return Q.serviceRequest(ReservasService.baseUrl + '/' + x, r, s, o);
@@ -1356,6 +1421,19 @@ var Barrios;
             return TwoNeighborsForm;
         }(Serenity.PrefixedContext));
         Default.TwoNeighborsForm = TwoNeighborsForm;
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
+        var TypeHolidays;
+        (function (TypeHolidays) {
+            TypeHolidays[TypeHolidays["inamovible"] = 0] = "inamovible";
+            TypeHolidays[TypeHolidays["puente"] = 1] = "puente";
+            TypeHolidays[TypeHolidays["trasladable"] = 2] = "trasladable";
+        })(TypeHolidays = Default.TypeHolidays || (Default.TypeHolidays = {}));
+        Serenity.Decorators.registerEnumType(TypeHolidays, 'Barrios.Default.TypeHolidays', 'Booking.TypeHolidays');
     })(Default = Barrios.Default || (Barrios.Default = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -1636,7 +1714,7 @@ var Barrios;
                 if (!VecinosEventosForm.init) {
                     VecinosEventosForm.init = true;
                     var s = Serenity;
-                    var w0 = s.DateEditor;
+                    var w0 = s.DateTimeEditor;
                     var w1 = s.StringEditor;
                     var w2 = Perfil.VecinosEventosConcurrentesGrid;
                     Q.initFormType(VecinosEventosForm, [
@@ -1705,7 +1783,8 @@ var Barrios;
                         'Nombre', w0,
                         'IdTipo', w1,
                         'Raza', w0,
-                        'Foto', w2
+                        'Foto', w2,
+                        'Vacunas', w2
                     ]);
                 }
                 return _this;
@@ -1875,7 +1954,7 @@ var Barrios;
 (function (Barrios_1) {
     var Texts;
     (function (Texts) {
-        Barrios['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Barrios: { CantDiasReservables: 1, Direccion: 1, Id: 1, IsActive: 1, LargeDisplayName: 1, Logo: 1, Mail: 1, Nombre: 1, PasswordMail: 1, ShortDisplayName: 1, TelefonOs: 1, Url: 1 }, Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { BarrioId: 1, ClientIdList: 1, DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, Unit: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1, subBarrioId: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 }, UsersBarrios: { BarrioId: 1, BarrioNombre: 1, UserId: 1, UserUsername: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Contenidos: { Avisos: { BarrioId: 1, Caducidad: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, Id: 1, IdCategoria: 1, Imagen: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Categorias: { DateInsert: 1, DateUpdate: 1, Id: 1, Mostrar: 1, Nombre: 1, Type: 1, TypeName: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Comisiones: { BarrioId: 1, BarrioNombre: 1, DateInsert: 1, DateUpdate: 1, Habilitada: 1, Id: 1, Mails: 1, MembersList: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, ComisionesIntegrantes: { DateInsert: 1, DateUpdate: 1, Id: 1, IdComision: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, Encuestas: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Rating: 1, RatingCount: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, EncuestasValoraciones: { Comentario: 1, Fecha: 1, Id: 1, IdEncuesta: 1, IdEncuestaNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 }, LineaTiempo: { Aprobado: 1, ArchivoFilename: 1, BarrioId: 1, CategoryName: 1, ContenidoTexto: 1, Id: 1, IdCategoria: 1, Nombre: 1, PeriodoFecha: 1, Userid: 1, UseridUsername: 1 }, Proveedores: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Domicilio: 1, Email: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Notas: 1, Rating: 1, RatingCount: 1, Telefonos: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, ProveedoresValoraciones: { Fecha: 1, Id: 1, IdProveedor: 1, IdProveedorNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 } }, Default: { RecursosBarrios: { BarrioId: 1, BarrioNombre: 1, RecursoId: 1 }, Reservas: { DateInsert: 1, Dias: 1, Duracion: 1, Estado: 1, Estado_Turno: 1, Fecha: 1, FechaFin: 1, Finalizado: 1, Hora: 1, Id: 1, IdRecurso: 1, IdRecursoNombre: 1, IdResultado: 1, IdTipo: 1, IdTurnosEspeciales: 1, IdVecino: 1, IdVecino2: 1, IdVecinoUnidad: 1, IdVecinoUnidadExtra: 1, IdVecinoUsername: 1, IdVecinoUsername2: 1, Inicio: 1, Observaciones: 1, Required_Vecino: 1, Reservable: 1, Tipo: 1, TipoReservaHecha: 1, Turno: 1, UserInsert: 1, Valido: 1 }, ReservasRecursos: { Apertura: 1, BarrioId: 1, Cierre: 1, ClientIdList: 1, Id: 1, NeigborhoodList: 1, Nombre: 1, Resolucion: 1, SpecialTurnList: 1, Tipo: 1, TypeList: 1 }, ReservasTipos: { Duracion: 1, Id: 1, IdRecurso: 1, Nombre: 1, RequiereVecino2: 1, Vigente: 1 }, ReservasTurnosEspeciales: { Dias: 1, Duracion: 1, Id: 1, IdRecurso: 1, Inicio: 1, Nombre: 1 }, SubbarriosRecursos: { RecursoId: 1, SubBarrioId: 1, SubBarrioNombre: 1 } }, Modules: { Common: { Utils: { GenericComboBox: { Id: 1, Name: 1 } } } }, Perfil: { VecinosActividades: { Actividad: 1, ActividadDetalles: 1, Fecha: 1, Id: 1, Ip: 1, Userid: 1 }, VecinosEventos: { ConcurrentesList: 1, Fecha: 1, Id: 1, Lugar: 1, Nombre: 1, Userid: 1, UseridUsername: 1 }, VecinosEventosConcurrentes: { Id: 1, IdEvento: 1, Nombre: 1, Userid: 1 }, VecinosMascotas: { Foto: 1, Id: 1, IdTipo: 1, Nombre: 1, Raza: 1, Userid: 1, UseridUnit: 1, UseridUsername: 1 }, VecinosVisitantesFrecuentes: { Dni: 1, Id: 1, Nombre: 1, Tipo: 1, Userid: 1, Vehiculo: 1 } }, Settings: { Subbarrios: { BarrioId: 1, Id: 1, Nombre: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
+        Barrios['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Barrios: { CantDiasReservables: 1, Direccion: 1, Id: 1, IsActive: 1, LargeDisplayName: 1, Logo: 1, Mail: 1, Nombre: 1, PasswordMail: 1, ShortDisplayName: 1, TelefonOs: 1, Url: 1, UseSubBarrios: 1 }, Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { BarrioId: 1, ClientIdList: 1, DisplayName: 1, Email: 1, Email_Others: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, Unit: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1, subBarrioId: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 }, UsersBarrios: { BarrioId: 1, BarrioNombre: 1, UserId: 1, UserUsername: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Contenidos: { Avisos: { BarrioId: 1, Caducidad: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, Id: 1, IdCategoria: 1, Imagen: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Categorias: { DateInsert: 1, DateUpdate: 1, Id: 1, Mostrar: 1, Nombre: 1, Type: 1, TypeName: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, Comisiones: { BarrioId: 1, BarrioNombre: 1, DateInsert: 1, DateUpdate: 1, Habilitada: 1, Id: 1, Mails: 1, MembersList: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, ComisionesIntegrantes: { DateInsert: 1, DateUpdate: 1, Id: 1, IdComision: 1, Nombre: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1 }, Encuestas: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Descripcion: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Rating: 1, RatingCount: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, ValoracionId: 1, Vigente: 1 }, EncuestasValoraciones: { Comentario: 1, Fecha: 1, Id: 1, IdEncuesta: 1, IdEncuestaNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 }, LineaTiempo: { Aprobado: 1, ArchivoFilename: 1, BarrioId: 1, CategoryName: 1, ContenidoTexto: 1, Id: 1, IdCategoria: 1, Nombre: 1, PeriodoFecha: 1, Userid: 1, UseridUsername: 1 }, Proveedores: { BarrioId: 1, CategoryName: 1, DateInsert: 1, DateUpdate: 1, Domicilio: 1, Email: 1, FechaAlta: 1, FechaBaja: 1, Id: 1, IdCategoria: 1, Liked: 1, Nombre: 1, Notas: 1, Rating: 1, RatingCount: 1, Telefonos: 1, UserInsert: 1, UserInsertUsername: 1, UserUpdate: 1, UserUpdateUsername: 1, Vigente: 1 }, ProveedoresValoraciones: { Fecha: 1, Id: 1, IdProveedor: 1, IdProveedorNombre: 1, Userid: 1, UseridUsername: 1, Valoracion: 1 } }, Default: { Holidays: { ApiId: 1, Day: 1, Id: 1, Reason: 1, Type: 1 }, RecursosBarrios: { BarrioId: 1, BarrioNombre: 1, RecursoId: 1 }, Reservas: { BarrioId: 1, DateInsert: 1, Dias: 1, Duracion: 1, Estado: 1, Estado_Turno: 1, Fecha: 1, FechaFin: 1, Finalizado: 1, Hora: 1, Id: 1, IdRecurso: 1, IdRecursoNombre: 1, IdResultado: 1, IdTipo: 1, IdTurnosEspeciales: 1, IdVecino: 1, IdVecino2: 1, IdVecinoUnidad: 1, IdVecinoUnidadExtra: 1, IdVecinoUsername: 1, IdVecinoUsername2: 1, Inicio: 1, Observaciones: 1, Required_Vecino: 1, Reservable: 1, Tipo: 1, TipoReservaHecha: 1, Turno: 1, UserInsert: 1, Valido: 1 }, ReservasRecursos: { Apertura: 1, BarrioId: 1, Cierre: 1, ClientIdList: 1, Emails: 1, Id: 1, NeigborhoodList: 1, Nombre: 1, Resolucion: 1, SpecialTurnList: 1, Tipo: 1, TypeList: 1 }, ReservasTipos: { Duracion: 1, Id: 1, IdRecurso: 1, Nombre: 1, RequiereVecino2: 1, Vigente: 1 }, ReservasTurnosEspeciales: { Dias: 1, Duracion: 1, Id: 1, IdRecurso: 1, Inicio: 1, Nombre: 1 }, SubbarriosRecursos: { RecursoId: 1, SubBarrioId: 1, SubBarrioNombre: 1 } }, Modules: { Common: { Utils: { GenericComboBox: { Id: 1, Name: 1 } } } }, Perfil: { VecinosActividades: { Actividad: 1, ActividadDetalles: 1, Fecha: 1, Id: 1, Ip: 1, Userid: 1 }, VecinosEventos: { BarrioId: 1, ConcurrentesList: 1, Fecha: 1, Id: 1, Lugar: 1, Nombre: 1, Userid: 1, UseridUsername: 1 }, VecinosEventosConcurrentes: { Id: 1, IdEvento: 1, Nombre: 1, Userid: 1 }, VecinosMascotas: { BarrioId: 1, Foto: 1, Id: 1, IdTipo: 1, Nombre: 1, Raza: 1, Userid: 1, UseridUnit: 1, UseridUsername: 1, Vacunas: 1 }, VecinosVisitantesFrecuentes: { BarrioId: 1, Dni: 1, Id: 1, Nombre: 1, Tipo: 1, Userid: 1, UseridUsername: 1, Vehiculo: 1 } }, Settings: { Subbarrios: { BarrioId: 1, Id: 1, Nombre: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
     })(Texts = Barrios_1.Texts || (Barrios_1.Texts = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -1904,6 +1983,145 @@ var Barrios;
 })(Barrios || (Barrios = {}));
 var Barrios;
 (function (Barrios) {
+    var Common;
+    (function (Common) {
+        var GridEditorBase = /** @class */ (function (_super) {
+            __extends(GridEditorBase, _super);
+            function GridEditorBase(container) {
+                var _this = _super.call(this, container) || this;
+                _this.nextId = 1;
+                return _this;
+            }
+            GridEditorBase.prototype.getIdProperty = function () { return "__id"; };
+            GridEditorBase.prototype.id = function (entity) {
+                return entity[this.getIdProperty()];
+            };
+            GridEditorBase.prototype.getNextId = function () {
+                return "`" + this.nextId++;
+            };
+            GridEditorBase.prototype.setNewId = function (entity) {
+                entity[this.getIdProperty()] = this.getNextId();
+            };
+            GridEditorBase.prototype.save = function (opt, callback) {
+                var _this = this;
+                var request = opt.request;
+                var row = Q.deepClone(request.Entity);
+                var id = this.id(row);
+                if (id == null) {
+                    row[this.getIdProperty()] = this.getNextId();
+                }
+                if (!this.validateEntity(row, id)) {
+                    return;
+                }
+                var items = this.view.getItems().slice();
+                if (id == null) {
+                    items.push(row);
+                }
+                else {
+                    var index = Q.indexOf(items, function (x) { return _this.id(x) === id; });
+                    items[index] = Q.deepClone({}, items[index], row);
+                }
+                this.setEntities(items);
+                callback({});
+            };
+            GridEditorBase.prototype.deleteEntity = function (id) {
+                this.view.deleteItem(id);
+                return true;
+            };
+            GridEditorBase.prototype.validateEntity = function (row, id) {
+                return true;
+            };
+            GridEditorBase.prototype.setEntities = function (items) {
+                this.view.setItems(items, true);
+            };
+            GridEditorBase.prototype.getNewEntity = function () {
+                return {};
+            };
+            GridEditorBase.prototype.getButtons = function () {
+                var _this = this;
+                return [{
+                        title: this.getAddButtonCaption(),
+                        cssClass: 'add-button',
+                        onClick: function () {
+                            _this.createEntityDialog(_this.getItemType(), function (dlg) {
+                                var dialog = dlg;
+                                dialog.onSave = function (opt, callback) { return _this.save(opt, callback); };
+                                dialog.loadEntityAndOpenDialog(_this.getNewEntity());
+                            });
+                        }
+                    }];
+            };
+            GridEditorBase.prototype.editItem = function (entityOrId) {
+                var _this = this;
+                var id = entityOrId;
+                var item = this.view.getItemById(id);
+                this.createEntityDialog(this.getItemType(), function (dlg) {
+                    var dialog = dlg;
+                    dialog.onDelete = function (opt, callback) {
+                        if (!_this.deleteEntity(id)) {
+                            return;
+                        }
+                        callback({});
+                    };
+                    dialog.onSave = function (opt, callback) { return _this.save(opt, callback); };
+                    dialog.loadEntityAndOpenDialog(item);
+                });
+                ;
+            };
+            GridEditorBase.prototype.getEditValue = function (property, target) {
+                target[property.name] = this.value;
+            };
+            GridEditorBase.prototype.setEditValue = function (source, property) {
+                this.value = source[property.name];
+            };
+            Object.defineProperty(GridEditorBase.prototype, "value", {
+                get: function () {
+                    var p = this.getIdProperty();
+                    return this.view.getItems().map(function (x) {
+                        var y = Q.deepClone(x);
+                        var id = y[p];
+                        if (id && id.toString().charAt(0) == '`')
+                            delete y[p];
+                        return y;
+                    });
+                },
+                set: function (value) {
+                    var _this = this;
+                    var p = this.getIdProperty();
+                    this.view.setItems((value || []).map(function (x) {
+                        var y = Q.deepClone(x);
+                        if (y[p] == null)
+                            y[p] = "`" + _this.getNextId();
+                        return y;
+                    }), true);
+                },
+                enumerable: true,
+                configurable: true
+            });
+            GridEditorBase.prototype.getGridCanLoad = function () {
+                return false;
+            };
+            GridEditorBase.prototype.usePager = function () {
+                return false;
+            };
+            GridEditorBase.prototype.getInitialTitle = function () {
+                return null;
+            };
+            GridEditorBase.prototype.createQuickSearchInput = function () {
+            };
+            GridEditorBase = __decorate([
+                Serenity.Decorators.registerClass([Serenity.IGetEditValue, Serenity.ISetEditValue]),
+                Serenity.Decorators.editor(),
+                Serenity.Decorators.element("<div/>")
+            ], GridEditorBase);
+            return GridEditorBase;
+        }(Serenity.EntityGrid));
+        Common.GridEditorBase = GridEditorBase;
+    })(Common = Barrios.Common || (Barrios.Common = {}));
+})(Barrios || (Barrios = {}));
+/// <reference path="../../Common/Helpers/GridEditorBase.ts" />
+var Barrios;
+(function (Barrios) {
     var Administration;
     (function (Administration) {
         var BarriosGrid = /** @class */ (function (_super) {
@@ -1913,17 +2131,30 @@ var Barrios;
             }
             BarriosGrid.prototype.getColumnsKey = function () { return 'Administration.Barrios'; };
             BarriosGrid.prototype.getDialogType = function () { return Administration.BarriosDialog; };
-            BarriosGrid.prototype.getIdProperty = function () { return Administration.BarriosRow.idProperty; };
             BarriosGrid.prototype.getLocalTextPrefix = function () { return Administration.BarriosRow.localTextPrefix; };
-            BarriosGrid.prototype.getService = function () { return Administration.BarriosService.baseUrl; };
             BarriosGrid = __decorate([
                 Serenity.Decorators.registerClass()
             ], BarriosGrid);
             return BarriosGrid;
-        }(Serenity.EntityGrid));
+        }(Barrios.Common.GridEditorBase));
         Administration.BarriosGrid = BarriosGrid;
     })(Administration = Barrios.Administration || (Barrios.Administration = {}));
 })(Barrios || (Barrios = {}));
+/*namespace Barrios.Administration {
+
+    @Serenity.Decorators.registerClass()
+    export class BarriosGrid extends Serenity.EntityGrid<BarriosRow, any> {
+        protected getColumnsKey() { return 'Administration.Barrios'; }
+        protected getDialogType() { return BarriosDialog; }
+        protected getIdProperty() { return BarriosRow.idProperty; }
+        protected getLocalTextPrefix() { return BarriosRow.localTextPrefix; }
+        protected getService() { return BarriosService.baseUrl; }
+
+        constructor(container: JQuery) {
+            super(container);
+        }
+    }
+}*/ 
 var Barrios;
 (function (Barrios) {
     var Administration;
@@ -2313,6 +2544,7 @@ var Barrios;
                     if (_this.form.Password.value != _this.form.PasswordConfirm.value)
                         return "The passwords entered doesn't match!";
                 });
+                _this.form.ClientIdList.getGridField().toggle(Barrios.Authorization.hasPermission('Administration:Page'));
                 return _this;
             }
             UserDialog.prototype.getFormKey = function () { return Administration.UserForm.formKey; };
@@ -2375,8 +2607,11 @@ var Barrios;
     (function (Administration) {
         var UserGrid = /** @class */ (function (_super) {
             __extends(UserGrid, _super);
-            function UserGrid(container) {
-                return _super.call(this, container) || this;
+            function UserGrid(container, neighbordhoobId) {
+                var _this = _super.call(this, container) || this;
+                _this.neighbordhoobId = null;
+                _this.neighbordhoobId = neighbordhoobId;
+                return _this;
             }
             UserGrid.prototype.getColumnsKey = function () { return "Administration.User"; };
             UserGrid.prototype.getDialogType = function () { return Administration.UserDialog; };
@@ -2386,6 +2621,16 @@ var Barrios;
             UserGrid.prototype.getService = function () { return Administration.UserService.baseUrl; };
             UserGrid.prototype.getDefaultSortBy = function () {
                 return ["Username" /* Username */];
+            };
+            UserGrid.prototype.onViewSubmit = function () {
+                if (!_super.prototype.onViewSubmit.call(this)) {
+                    return false;
+                }
+                var request = this.view.params;
+                if (this.neighbordhoobId != null) {
+                    request.Criteria = Serenity.Criteria.and(request.Criteria, [["BarrioId" /* BarrioId */], '=', this.neighbordhoobId]);
+                }
+                return true;
             };
             UserGrid = __decorate([
                 Serenity.Decorators.registerClass()
@@ -3367,144 +3612,6 @@ var Barrios;
             }
             ExcelExportHelper.createToolButton = createToolButton;
         })(ExcelExportHelper = Common.ExcelExportHelper || (Common.ExcelExportHelper = {}));
-    })(Common = Barrios.Common || (Barrios.Common = {}));
-})(Barrios || (Barrios = {}));
-var Barrios;
-(function (Barrios) {
-    var Common;
-    (function (Common) {
-        var GridEditorBase = /** @class */ (function (_super) {
-            __extends(GridEditorBase, _super);
-            function GridEditorBase(container) {
-                var _this = _super.call(this, container) || this;
-                _this.nextId = 1;
-                return _this;
-            }
-            GridEditorBase.prototype.getIdProperty = function () { return "__id"; };
-            GridEditorBase.prototype.id = function (entity) {
-                return entity[this.getIdProperty()];
-            };
-            GridEditorBase.prototype.getNextId = function () {
-                return "`" + this.nextId++;
-            };
-            GridEditorBase.prototype.setNewId = function (entity) {
-                entity[this.getIdProperty()] = this.getNextId();
-            };
-            GridEditorBase.prototype.save = function (opt, callback) {
-                var _this = this;
-                var request = opt.request;
-                var row = Q.deepClone(request.Entity);
-                var id = this.id(row);
-                if (id == null) {
-                    row[this.getIdProperty()] = this.getNextId();
-                }
-                if (!this.validateEntity(row, id)) {
-                    return;
-                }
-                var items = this.view.getItems().slice();
-                if (id == null) {
-                    items.push(row);
-                }
-                else {
-                    var index = Q.indexOf(items, function (x) { return _this.id(x) === id; });
-                    items[index] = Q.deepClone({}, items[index], row);
-                }
-                this.setEntities(items);
-                callback({});
-            };
-            GridEditorBase.prototype.deleteEntity = function (id) {
-                this.view.deleteItem(id);
-                return true;
-            };
-            GridEditorBase.prototype.validateEntity = function (row, id) {
-                return true;
-            };
-            GridEditorBase.prototype.setEntities = function (items) {
-                this.view.setItems(items, true);
-            };
-            GridEditorBase.prototype.getNewEntity = function () {
-                return {};
-            };
-            GridEditorBase.prototype.getButtons = function () {
-                var _this = this;
-                return [{
-                        title: this.getAddButtonCaption(),
-                        cssClass: 'add-button',
-                        onClick: function () {
-                            _this.createEntityDialog(_this.getItemType(), function (dlg) {
-                                var dialog = dlg;
-                                dialog.onSave = function (opt, callback) { return _this.save(opt, callback); };
-                                dialog.loadEntityAndOpenDialog(_this.getNewEntity());
-                            });
-                        }
-                    }];
-            };
-            GridEditorBase.prototype.editItem = function (entityOrId) {
-                var _this = this;
-                var id = entityOrId;
-                var item = this.view.getItemById(id);
-                this.createEntityDialog(this.getItemType(), function (dlg) {
-                    var dialog = dlg;
-                    dialog.onDelete = function (opt, callback) {
-                        if (!_this.deleteEntity(id)) {
-                            return;
-                        }
-                        callback({});
-                    };
-                    dialog.onSave = function (opt, callback) { return _this.save(opt, callback); };
-                    dialog.loadEntityAndOpenDialog(item);
-                });
-                ;
-            };
-            GridEditorBase.prototype.getEditValue = function (property, target) {
-                target[property.name] = this.value;
-            };
-            GridEditorBase.prototype.setEditValue = function (source, property) {
-                this.value = source[property.name];
-            };
-            Object.defineProperty(GridEditorBase.prototype, "value", {
-                get: function () {
-                    var p = this.getIdProperty();
-                    return this.view.getItems().map(function (x) {
-                        var y = Q.deepClone(x);
-                        var id = y[p];
-                        if (id && id.toString().charAt(0) == '`')
-                            delete y[p];
-                        return y;
-                    });
-                },
-                set: function (value) {
-                    var _this = this;
-                    var p = this.getIdProperty();
-                    this.view.setItems((value || []).map(function (x) {
-                        var y = Q.deepClone(x);
-                        if (y[p] == null)
-                            y[p] = "`" + _this.getNextId();
-                        return y;
-                    }), true);
-                },
-                enumerable: true,
-                configurable: true
-            });
-            GridEditorBase.prototype.getGridCanLoad = function () {
-                return false;
-            };
-            GridEditorBase.prototype.usePager = function () {
-                return false;
-            };
-            GridEditorBase.prototype.getInitialTitle = function () {
-                return null;
-            };
-            GridEditorBase.prototype.createQuickSearchInput = function () {
-            };
-            GridEditorBase = __decorate([
-                Serenity.Decorators.registerClass([Serenity.IGetEditValue, Serenity.ISetEditValue]),
-                Serenity.Decorators.editor(),
-                Serenity.Decorators.element("<div/>")
-            ], GridEditorBase);
-            return GridEditorBase;
-        }(Serenity.EntityGrid));
-        Common.GridEditorBase = GridEditorBase;
     })(Common = Barrios.Common || (Barrios.Common = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -4568,8 +4675,10 @@ var Barrios;
         var EncuestasValoracionesDialog = /** @class */ (function (_super) {
             __extends(EncuestasValoracionesDialog, _super);
             function EncuestasValoracionesDialog() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
+                var _this = _super.call(this) || this;
                 _this.form = new Contenidos.EncuestasValoracionesForm(_this.idPrefix);
+                _this.applyChangesButton.remove();
+                _this.deleteButton.remove();
                 return _this;
             }
             EncuestasValoracionesDialog.prototype.getFormKey = function () { return Contenidos.EncuestasValoracionesForm.formKey; };
@@ -4577,6 +4686,19 @@ var Barrios;
             EncuestasValoracionesDialog.prototype.getLocalTextPrefix = function () { return Contenidos.EncuestasValoracionesRow.localTextPrefix; };
             EncuestasValoracionesDialog.prototype.getNameProperty = function () { return Contenidos.EncuestasValoracionesRow.nameProperty; };
             EncuestasValoracionesDialog.prototype.getService = function () { return Contenidos.EncuestasValoracionesService.baseUrl; };
+            EncuestasValoracionesDialog.prototype.SetSurveyId = function (id) {
+                console.log(id);
+                this.form.IdEncuesta.value = id;
+            };
+            EncuestasValoracionesDialog.prototype.getDialogOptions = function () {
+                var options = _super.prototype.getDialogOptions.call(this);
+                options.width = "400px";
+                return options;
+            };
+            EncuestasValoracionesDialog.prototype.onSaveSuccess = function (response) {
+                _super.prototype.onSaveSuccess.call(this, response);
+                this.saveSucces();
+            };
             EncuestasValoracionesDialog = __decorate([
                 Serenity.Decorators.registerClass()
             ], EncuestasValoracionesDialog);
@@ -4640,8 +4762,10 @@ var Barrios;
     (function (Contenidos) {
         var LineaTiempoGrid = /** @class */ (function (_super) {
             __extends(LineaTiempoGrid, _super);
-            function LineaTiempoGrid(container) {
-                return _super.call(this, container) || this;
+            function LineaTiempoGrid(container, UseSubBarrios) {
+                var _this = _super.call(this, container) || this;
+                _this.UseSubBarrios = UseSubBarrios;
+                return _this;
             }
             LineaTiempoGrid.prototype.getColumnsKey = function () { return 'Contenidos.LineaTiempo'; };
             LineaTiempoGrid.prototype.getDialogType = function () { return Contenidos.LineaTiempoDialog; };
@@ -4690,25 +4814,27 @@ var Barrios;
                             Q.notifyInfo("Seleccione una nota de la grilla");
                     }
                 });
-                buttons.push({
-                    title: 'Enviar por subBarrio',
-                    cssClass: 'send-button',
-                    onClick: function () {
-                        if (_this.objId != undefined) {
-                            var dialog = new Barrios.Settings.SubbarriosSelectDialog(_this.element);
-                            dialog.element.on("dialogclose", function () {
-                                if (dialog.GetSave()) {
-                                    Contenidos.LineaTiempoService.SendMailsForSubNeigborhoob({ LineTimeId: _this.objId, SubNeigborhoob: dialog.GetKeys() }, function (Response) {
-                                        Q.notifySuccess(Response);
-                                    });
-                                }
-                            });
-                            dialog.dialogOpen();
+                if (this.UseSubBarrios) {
+                    buttons.push({
+                        title: 'Enviar por subBarrio',
+                        cssClass: 'send-button',
+                        onClick: function () {
+                            if (_this.objId != undefined) {
+                                var dialog = new Barrios.Settings.SubbarriosSelectDialog(_this.element);
+                                dialog.element.on("dialogclose", function () {
+                                    if (dialog.GetSave()) {
+                                        Contenidos.LineaTiempoService.SendMailsForSubNeigborhoob({ LineTimeId: _this.objId, SubNeigborhoob: dialog.GetKeys() }, function (Response) {
+                                            Q.notifySuccess(Response);
+                                        });
+                                    }
+                                });
+                                dialog.dialogOpen();
+                            }
+                            else
+                                Q.notifyInfo("Seleccione una nota de la grilla");
                         }
-                        else
-                            Q.notifyInfo("Seleccione una nota de la grilla");
-                    }
-                });
+                    });
+                }
                 return buttons;
             };
             LineaTiempoGrid = __decorate([
@@ -4841,6 +4967,67 @@ var Barrios;
 (function (Barrios) {
     var Default;
     (function (Default) {
+        var HolidaysDialog = /** @class */ (function (_super) {
+            __extends(HolidaysDialog, _super);
+            function HolidaysDialog() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.form = new Default.HolidaysForm(_this.idPrefix);
+                return _this;
+            }
+            HolidaysDialog.prototype.getFormKey = function () { return Default.HolidaysForm.formKey; };
+            HolidaysDialog.prototype.getIdProperty = function () { return Default.HolidaysRow.idProperty; };
+            HolidaysDialog.prototype.getLocalTextPrefix = function () { return Default.HolidaysRow.localTextPrefix; };
+            HolidaysDialog.prototype.getNameProperty = function () { return Default.HolidaysRow.nameProperty; };
+            HolidaysDialog.prototype.getService = function () { return Default.HolidaysService.baseUrl; };
+            HolidaysDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], HolidaysDialog);
+            return HolidaysDialog;
+        }(Serenity.EntityDialog));
+        Default.HolidaysDialog = HolidaysDialog;
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
+        var HolidaysGrid = /** @class */ (function (_super) {
+            __extends(HolidaysGrid, _super);
+            function HolidaysGrid(container) {
+                return _super.call(this, container) || this;
+            }
+            HolidaysGrid.prototype.getColumnsKey = function () { return 'Default.Holidays'; };
+            HolidaysGrid.prototype.getDialogType = function () { return Default.HolidaysDialog; };
+            HolidaysGrid.prototype.getIdProperty = function () { return Default.HolidaysRow.idProperty; };
+            HolidaysGrid.prototype.getLocalTextPrefix = function () { return Default.HolidaysRow.localTextPrefix; };
+            HolidaysGrid.prototype.getService = function () { return Default.HolidaysService.baseUrl; };
+            HolidaysGrid.prototype.getButtons = function () {
+                var _this = this;
+                var buttons = _super.prototype.getButtons.call(this);
+                buttons.push({
+                    title: 'Actualizar desde la web',
+                    cssClass: 'send-button',
+                    onClick: function () {
+                        Default.HolidaysService.UpdateFromAPI({}, function (Response) {
+                            Q.notifySuccess(Response);
+                            _this.refresh();
+                        });
+                    }
+                });
+                return buttons;
+            };
+            HolidaysGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], HolidaysGrid);
+            return HolidaysGrid;
+        }(Serenity.EntityGrid));
+        Default.HolidaysGrid = HolidaysGrid;
+    })(Default = Barrios.Default || (Barrios.Default = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Default;
+    (function (Default) {
         var ReservasDialog = /** @class */ (function (_super) {
             __extends(ReservasDialog, _super);
             function ReservasDialog(container) {
@@ -4905,6 +5092,44 @@ var Barrios;
             ReservasGrid.prototype.getIdProperty = function () { return Default.ReservasRow.idProperty; };
             ReservasGrid.prototype.getLocalTextPrefix = function () { return Default.ReservasRow.localTextPrefix; };
             ReservasGrid.prototype.getService = function () { return Default.ReservasService.baseUrl; };
+            ReservasGrid.prototype.getQuickFilters = function () {
+                // get quick filter list from base class, e.g. columns
+                var filters = _super.prototype.getQuickFilters.call(this);
+                Q.first(filters, function (x) { return x.field == "Fecha" /* Fecha */; }).init = function (w) {
+                    var start = new Date();
+                    w.valueAsDate = start;
+                    var endDate = w.element.nextAll(".s-DateEditor").getWidget(Serenity.DateEditor);
+                    endDate.valueAsDate = new Date(start.getFullYear() + 1, start.getMonth(), start.getDate());
+                };
+                return filters;
+            };
+            ReservasGrid.prototype.getButtons = function () {
+                var _this = this;
+                var buttons = _super.prototype.getButtons.call(this);
+                buttons.push({
+                    title: 'Reporte',
+                    cssClass: 'export-pdf-button',
+                    onClick: function () {
+                        if (_this.getItems().length > 0) {
+                            Q.postToUrl({
+                                url: "~/Report/Render",
+                                params: {
+                                    key: "Booking.Report",
+                                    ext: "pdf",
+                                    print: 0,
+                                    opt: $.toJSON({
+                                        request: _this.view.params
+                                    })
+                                },
+                                target: "_blank"
+                            });
+                        }
+                        else
+                            Q.notifyInfo("No se encuentran registros");
+                    }
+                });
+                return buttons;
+            };
             ReservasGrid = __decorate([
                 Serenity.Decorators.registerClass()
             ], ReservasGrid);
@@ -5384,14 +5609,57 @@ var Barrios;
     (function (Perfil) {
         var VecinosEventosGrid = /** @class */ (function (_super) {
             __extends(VecinosEventosGrid, _super);
-            function VecinosEventosGrid(container) {
-                return _super.call(this, container) || this;
+            function VecinosEventosGrid(container, userId) {
+                if (userId === void 0) { userId = null; }
+                var _this = this;
+                _this.showExpiredTerminated = true;
+                _this.userId = userId;
+                _this = _super.call(this, container) || this;
+                if (_this.userId != null)
+                    _this.findQuickFilter(Serenity.LookupEditor, "Userid" /* Userid */).element.parent().remove();
+                return _this;
             }
             VecinosEventosGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosEventos'; };
             VecinosEventosGrid.prototype.getDialogType = function () { return Perfil.VecinosEventosDialog; };
             VecinosEventosGrid.prototype.getIdProperty = function () { return Perfil.VecinosEventosRow.idProperty; };
             VecinosEventosGrid.prototype.getLocalTextPrefix = function () { return Perfil.VecinosEventosRow.localTextPrefix; };
             VecinosEventosGrid.prototype.getService = function () { return Perfil.VecinosEventosService.baseUrl; };
+            VecinosEventosGrid.prototype.getQuickFilters = function () {
+                var _this = this;
+                // get quick filter list from base class, e.g. columns
+                var filters = _super.prototype.getQuickFilters.call(this);
+                filters.push({
+                    field: "Fecha" /* Fecha */,
+                    type: Serenity.BooleanEditor,
+                    title: 'Ocultar terminadas',
+                    handler: function (h) {
+                        _this.showExpiredTerminated = !!h.value;
+                    }
+                });
+                return filters;
+            };
+            VecinosEventosGrid.prototype.createSlickGrid = function () {
+                var grid = _super.prototype.createSlickGrid.call(this);
+                if (this.userId != null)
+                    grid.setColumns(grid.getColumns().filter(function (column) {
+                        return (column.field != "UseridUsername" /* UseridUsername */ && column.visible === true);
+                    }));
+                return grid;
+            };
+            VecinosEventosGrid.prototype.onViewSubmit = function () {
+                if (!_super.prototype.onViewSubmit.call(this)) {
+                    return false;
+                }
+                var request = this.view.params;
+                if (this.userId != null) {
+                    request.Criteria = Serenity.Criteria.and(request.Criteria, [["Userid" /* Userid */], '=', this.userId]);
+                }
+                if (this.showExpiredTerminated) {
+                    var today = new Date();
+                    request.Criteria = Serenity.Criteria.and(request.Criteria, [["Fecha" /* Fecha */], '>', today.toISOString().substring(0, 10).replace(/-/g, '')]);
+                }
+                return true;
+            };
             VecinosEventosGrid = __decorate([
                 Serenity.Decorators.registerClass()
             ], VecinosEventosGrid);
@@ -5432,6 +5700,39 @@ var Barrios;
             }
             VecinosEventosConcurrentesGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosEventosConcurrentes'; };
             VecinosEventosConcurrentesGrid.prototype.getDialogType = function () { return Perfil.VecinosEventosConcurrentesDialog; };
+            VecinosEventosConcurrentesGrid.prototype.getButtons = function () {
+                var _this = this;
+                var buttons = _super.prototype.getButtons.call(this);
+                buttons.push({
+                    title: 'Agregar desde frecuentes',
+                    cssClass: 'send-button',
+                    onClick: function () {
+                        var items = [];
+                        var grid = _this;
+                        var dialog = new Barrios.Perfil.FrequentVisitorsSelectDialog(_this.element);
+                        dialog.element.on("dialogclose", function () {
+                            console.log(grid.getItems());
+                            if (dialog.GetSave()) {
+                                var count = grid.getItems().length + 1;
+                                var obj;
+                                dialog.GetNames().forEach(function (value, index) {
+                                    obj = { Nombre: value };
+                                    obj.__id = "`" + count;
+                                    items.push(obj);
+                                    count++;
+                                });
+                                grid.getItems().forEach(function (value) {
+                                    items.push(value);
+                                });
+                                console.log(items);
+                                grid.setItems(items);
+                            }
+                        });
+                        dialog.dialogOpen();
+                    }
+                });
+                return buttons;
+            };
             VecinosEventosConcurrentesGrid = __decorate([
                 Serenity.Decorators.registerClass()
             ], VecinosEventosConcurrentesGrid);
@@ -5470,14 +5771,29 @@ var Barrios;
     (function (Perfil) {
         var VecinosMascotasGrid = /** @class */ (function (_super) {
             __extends(VecinosMascotasGrid, _super);
-            function VecinosMascotasGrid(container) {
-                return _super.call(this, container) || this;
+            function VecinosMascotasGrid(container, userId) {
+                if (userId === void 0) { userId = null; }
+                var _this = _super.call(this, container) || this;
+                _this.userId = userId;
+                if (_this.userId != null)
+                    _this.element.find(".quick-filters-bar").remove();
+                return _this;
             }
             VecinosMascotasGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosMascotas'; };
             VecinosMascotasGrid.prototype.getDialogType = function () { return Perfil.VecinosMascotasDialog; };
             VecinosMascotasGrid.prototype.getIdProperty = function () { return Perfil.VecinosMascotasRow.idProperty; };
             VecinosMascotasGrid.prototype.getLocalTextPrefix = function () { return Perfil.VecinosMascotasRow.localTextPrefix; };
             VecinosMascotasGrid.prototype.getService = function () { return Perfil.VecinosMascotasService.baseUrl; };
+            VecinosMascotasGrid.prototype.onViewSubmit = function () {
+                if (!_super.prototype.onViewSubmit.call(this)) {
+                    return false;
+                }
+                var request = this.view.params;
+                if (this.userId != null) {
+                    request.Criteria = Serenity.Criteria.and(request.Criteria, [["Userid" /* Userid */], '=', this.userId]);
+                }
+                return true;
+            };
             VecinosMascotasGrid = __decorate([
                 Serenity.Decorators.registerClass()
             ], VecinosMascotasGrid);
@@ -5516,20 +5832,145 @@ var Barrios;
     (function (Perfil) {
         var VecinosVisitantesFrecuentesGrid = /** @class */ (function (_super) {
             __extends(VecinosVisitantesFrecuentesGrid, _super);
-            function VecinosVisitantesFrecuentesGrid(container) {
-                return _super.call(this, container) || this;
+            function VecinosVisitantesFrecuentesGrid(container, userId) {
+                if (userId === void 0) { userId = null; }
+                var _this = this;
+                _this.userId = userId;
+                _this = _super.call(this, container) || this;
+                if (_this.userId != null)
+                    _this.element.find(".quick-filters-bar").remove();
+                return _this;
             }
             VecinosVisitantesFrecuentesGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosVisitantesFrecuentes'; };
             VecinosVisitantesFrecuentesGrid.prototype.getDialogType = function () { return Perfil.VecinosVisitantesFrecuentesDialog; };
             VecinosVisitantesFrecuentesGrid.prototype.getIdProperty = function () { return Perfil.VecinosVisitantesFrecuentesRow.idProperty; };
             VecinosVisitantesFrecuentesGrid.prototype.getLocalTextPrefix = function () { return Perfil.VecinosVisitantesFrecuentesRow.localTextPrefix; };
             VecinosVisitantesFrecuentesGrid.prototype.getService = function () { return Perfil.VecinosVisitantesFrecuentesService.baseUrl; };
+            VecinosVisitantesFrecuentesGrid.prototype.createSlickGrid = function () {
+                var grid = _super.prototype.createSlickGrid.call(this);
+                if (this.userId != null)
+                    grid.setColumns(grid.getColumns().filter(function (column) {
+                        return (column.field != "UseridUsername" /* UseridUsername */ && column.visible === true);
+                    }));
+                return grid;
+            };
+            VecinosVisitantesFrecuentesGrid.prototype.onViewSubmit = function () {
+                if (!_super.prototype.onViewSubmit.call(this)) {
+                    return false;
+                }
+                var request = this.view.params;
+                if (this.userId != null) {
+                    request.Criteria = Serenity.Criteria.and(request.Criteria, [["Userid" /* Userid */], '=', this.userId]);
+                }
+                return true;
+            };
             VecinosVisitantesFrecuentesGrid = __decorate([
                 Serenity.Decorators.registerClass()
             ], VecinosVisitantesFrecuentesGrid);
             return VecinosVisitantesFrecuentesGrid;
         }(Serenity.EntityGrid));
         Perfil.VecinosVisitantesFrecuentesGrid = VecinosVisitantesFrecuentesGrid;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var FrequentVisitorsSelectDialog = /** @class */ (function (_super) {
+            __extends(FrequentVisitorsSelectDialog, _super);
+            function FrequentVisitorsSelectDialog(container) {
+                var _this = _super.call(this, container) || this;
+                _this.dialogTitle = "Seleccione las personas";
+                return _this;
+            }
+            FrequentVisitorsSelectDialog.prototype.GetSave = function () {
+                return this.grid.save;
+            };
+            FrequentVisitorsSelectDialog.prototype.GetNames = function () {
+                var names = [];
+                var keys = this.grid.rowSelection.getSelectedKeys();
+                for (var x = 0; x < keys.length; x++)
+                    names.push(this.grid.getItems()[parseInt(keys[x]) - 1].Nombre);
+                return names;
+            };
+            FrequentVisitorsSelectDialog.prototype.getDialogOptions = function () {
+                var options = _super.prototype.getDialogOptions.call(this);
+                options.width = "300px";
+                return options;
+            };
+            FrequentVisitorsSelectDialog.prototype.onDialogOpen = function () {
+                var _this = this;
+                _super.prototype.onDialogOpen.call(this);
+                this.grid = new Perfil.FrequentVisitorsSelectGrid($("#FVG"), function () { _this.dialogClose(); });
+                this.grid.init();
+                this.grid.view.refresh();
+            };
+            FrequentVisitorsSelectDialog.prototype.arrange = function () {
+                _super.prototype.arrange.call(this);
+            };
+            FrequentVisitorsSelectDialog.prototype.getTemplate = function () {
+                // you could also put this in a xxxDialog.Template.html file. it's here for simplicity.
+                return "<div id='FVG' style='height: inherit;padding: 10px; '></div>";
+            };
+            return FrequentVisitorsSelectDialog;
+        }(Serenity.TemplatedDialog));
+        Perfil.FrequentVisitorsSelectDialog = FrequentVisitorsSelectDialog;
+    })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
+    var Perfil;
+    (function (Perfil) {
+        var FrequentVisitorsSelectGrid = /** @class */ (function (_super) {
+            __extends(FrequentVisitorsSelectGrid, _super);
+            function FrequentVisitorsSelectGrid(container, close) {
+                var _this = _super.call(this, container) || this;
+                _this.save = false;
+                _this.titleDiv.remove();
+                _this.closeVar = close;
+                return _this;
+            }
+            FrequentVisitorsSelectGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosVisitantesFrecuentes'; };
+            FrequentVisitorsSelectGrid.prototype.getDialogType = function () { return Perfil.VecinosVisitantesFrecuentesDialog; };
+            FrequentVisitorsSelectGrid.prototype.getIdProperty = function () { return Perfil.VecinosVisitantesFrecuentesRow.idProperty; };
+            FrequentVisitorsSelectGrid.prototype.getLocalTextPrefix = function () { return Perfil.VecinosVisitantesFrecuentesRow.localTextPrefix; };
+            FrequentVisitorsSelectGrid.prototype.getService = function () { return Perfil.VecinosVisitantesFrecuentesService.baseUrl; };
+            FrequentVisitorsSelectGrid.prototype.getButtons = function () {
+                var _this = this;
+                return [{
+                        title: 'Seleccionar',
+                        cssClass: 'approve-button',
+                        onClick: function (e) {
+                            if (_this.rowSelection.getSelectedKeys().length > 0) {
+                                _this.save = true;
+                                _this.closeVar();
+                            }
+                            else {
+                                Q.notifyError("Seleccione alguno para agregar al evento.");
+                            }
+                        },
+                        separator: true
+                    }];
+            };
+            FrequentVisitorsSelectGrid.prototype.createToolbarExtensions = function () {
+                _super.prototype.createToolbarExtensions.call(this);
+                this.rowSelection = new Serenity.GridRowSelectionMixin(this);
+            };
+            FrequentVisitorsSelectGrid.prototype.getColumns = function () {
+                var _this = this;
+                var columns = _super.prototype.getColumns.call(this);
+                columns.splice(0, 0, Serenity.GridRowSelectionMixin.createSelectColumn(function () { return _this.rowSelection; }));
+                return columns;
+            };
+            FrequentVisitorsSelectGrid.prototype.usePager = function () {
+                return false;
+            };
+            FrequentVisitorsSelectGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], FrequentVisitorsSelectGrid);
+            return FrequentVisitorsSelectGrid;
+        }(Serenity.EntityGrid));
+        Perfil.FrequentVisitorsSelectGrid = FrequentVisitorsSelectGrid;
     })(Perfil = Barrios.Perfil || (Barrios.Perfil = {}));
 })(Barrios || (Barrios = {}));
 var Barrios;
@@ -5595,6 +6036,11 @@ var Barrios;
             SubbarriosSelectDialog.prototype.GetKeys = function () {
                 return this.grid.rowSelection.getSelectedKeys();
             };
+            SubbarriosSelectDialog.prototype.getDialogOptions = function () {
+                var options = _super.prototype.getDialogOptions.call(this);
+                options.width = "300px";
+                return options;
+            };
             SubbarriosSelectDialog.prototype.onDialogOpen = function () {
                 var _this = this;
                 _super.prototype.onDialogOpen.call(this);
@@ -5640,8 +6086,8 @@ var Barrios;
             SubbarriosSelectGrid.prototype.getButtons = function () {
                 var _this = this;
                 return [{
-                        title: 'Send mails',
-                        cssClass: 'apply-changes-button',
+                        title: 'Enviar mails',
+                        cssClass: 'approve-button',
                         onClick: function (e) {
                             if (_this.rowSelection.getSelectedKeys().length > 0) {
                                 _this.save = true;
@@ -5677,16 +6123,54 @@ var Barrios;
 })(Barrios || (Barrios = {}));
 var Barrios;
 (function (Barrios) {
+    var Settings;
+    (function (Settings) {
+        var TestDialog = /** @class */ (function (_super) {
+            __extends(TestDialog, _super);
+            function TestDialog(container) {
+                var _this = _super.call(this, container) || this;
+                _this.dialogTitle = "Seleccione los sub Barrios a enviar";
+                return _this;
+            }
+            TestDialog.prototype.getDialogOptions = function () {
+                var options = _super.prototype.getDialogOptions.call(this);
+                options.width = "300px";
+                return options;
+            };
+            TestDialog.prototype.onDialogOpen = function () {
+                _super.prototype.onDialogOpen.call(this);
+            };
+            TestDialog.prototype.arrange = function () {
+                _super.prototype.arrange.call(this);
+            };
+            TestDialog.prototype.getTemplate = function () {
+                // you could also put this in a xxxDialog.Template.html file. it's here for simplicity.
+                return "<div id='SG' style='height: inherit;padding: 10px;'></div>";
+            };
+            TestDialog = __decorate([
+                Serenity.Decorators.registerClass(),
+                Serenity.Decorators.resizable(),
+                Serenity.Decorators.maximizable()
+            ], TestDialog);
+            return TestDialog;
+        }(Serenity.TemplatedDialog));
+        Settings.TestDialog = TestDialog;
+    })(Settings = Barrios.Settings || (Barrios.Settings = {}));
+})(Barrios || (Barrios = {}));
+var Barrios;
+(function (Barrios) {
     var Default;
     (function (Default) {
         var MyBookingsGrid = /** @class */ (function (_super) {
             __extends(MyBookingsGrid, _super);
-            function MyBookingsGrid(container) {
+            function MyBookingsGrid(container, id) {
                 var _this = _super.call(this, container) || this;
                 _this.showExpiredTerminated = true;
+                _this.userId = id;
                 _this.setTitle("Mis reservas");
                 _this.element.find('.s-QuickSearchBar').remove();
                 var filterDate = _this.tryFindQuickFilter(Serenity.BooleanEditor, "Fecha" /* Fecha */);
+                _this.element.find(".select2-search").remove();
                 if (filterDate)
                     filterDate.value = true;
                 return _this;
@@ -5696,6 +6180,9 @@ var Barrios;
             MyBookingsGrid.prototype.getIdProperty = function () { return Default.ReservasRow.idProperty; };
             MyBookingsGrid.prototype.getLocalTextPrefix = function () { return Default.ReservasRow.localTextPrefix; };
             MyBookingsGrid.prototype.getService = function () { return Default.ReservasService.baseUrl; };
+            MyBookingsGrid.prototype.getButtons = function () {
+                return [];
+            };
             MyBookingsGrid.prototype.getQuickFilters = function () {
                 var _this = this;
                 // get quick filter list from base class, e.g. columns
@@ -5710,26 +6197,58 @@ var Barrios;
                 });
                 return filters;
             };
+            MyBookingsGrid.prototype.getColumns = function () {
+                var columns = _super.prototype.getColumns.call(this);
+                // Canequita delete column 
+                columns.splice(1, 0, {
+                    field: "DeleteRow",
+                    name: "",
+                    format: function (ctx) {
+                        return "<a class='inline-action delete-row' title='delete'><i class='fa fa-trash-o text-red'></i></a>";
+                    },
+                    width: 54,
+                    minWidth: 24,
+                    maxWidth: 24,
+                    visible: true
+                });
+                return columns;
+            };
             MyBookingsGrid.prototype.onViewSubmit = function () {
-                // only continue if base class returns true (didn't cancel request)
                 if (!_super.prototype.onViewSubmit.call(this)) {
                     return false;
                 }
-                // view object is the data source for grid (SlickRemoteView)
-                // this is an EntityGrid so its Params object is a ListRequest
                 var request = this.view.params;
-                // list request has a Criteria parameter
-                // we AND criteria here to existing one because 
-                // otherwise we might clear filter set by 
-                // an edit filter dialog if any.
+                request.Criteria = Serenity.Criteria.or([['Id_Vecino'], '=', this.userId], [['Id_Vecino_2'], '=', this.userId]);
                 if (this.showExpiredTerminated) {
                     var today = new Date();
                     request.Criteria = Serenity.Criteria.and(request.Criteria, [['Fecha'], '>', today.toISOString().substring(0, 10).replace(/-/g, '')]);
                 }
                 return true;
             };
-            MyBookingsGrid.prototype.getButtons = function () {
-                return [];
+            MyBookingsGrid.prototype.onClick = function (e, row, cell) {
+                _super.prototype.onClick.call(this, e, row, cell);
+                if (e.isDefaultPrevented())
+                    return;
+                var target = $(e.target);
+                if (target.parent().hasClass('inline-action')) {
+                    target = target.parent();
+                }
+                var o = this;
+                var item = this.itemAt(row);
+                // Canequita delete function 
+                console.log(target);
+                console.log(item);
+                if (target.hasClass('delete-row')) {
+                    console.log("entro");
+                    e.preventDefault();
+                    Q.confirm('¿Quiere cancelar la reserva?', function () {
+                        Default.ReservasService.bookingCancel({ ID: item.Id }, function (response) {
+                            Q.notifySuccess(response);
+                            o.refresh();
+                            o.refreshTable();
+                        });
+                    });
+                }
             };
             MyBookingsGrid = __decorate([
                 Serenity.Decorators.registerClass()
@@ -5747,23 +6266,30 @@ var Barrios;
 var Dashboard;
 (function (Dashboard) {
     var Booking = /** @class */ (function () {
-        function Booking(resource, items, table) {
+        function Booking(resource, items, table, grid) {
             this._resource = resource;
             var obj = this;
             this._table = table;
+            this._grid = grid;
             items.click(function () { obj.selectItem($(this)); });
             this.selectItem($(items[0]));
         }
         Booking.prototype.selectItem = function (item) {
+            this._itemForRefresh = item;
             var obj = this;
-            var parameters = item.attr("ID").split(",", 2);
-            Barrios.Default.ReservasService.renderBookingStatus({
-                ID: parseInt(parameters[0]),
-                Resolution: parseInt(parameters[1])
-            }, function (response) {
-                obj._table.html($.parseHTML(response));
-            });
-            this._resource.text(item.text());
+            if (item != undefined) {
+                var parameters = item.attr("ID").split(",", 2);
+                Barrios.Default.ReservasService.renderBookingStatus({
+                    ID: parseInt(parameters[0]),
+                    Resolution: parseInt(parameters[1])
+                }, function (response) {
+                    obj._table.html($.parseHTML(response));
+                });
+                this._resource.text(item.text());
+            }
+        };
+        Booking.prototype.refresh = function () {
+            this.selectItem(this._itemForRefresh);
         };
         Booking.prototype.bookingsTake = function (element, resourceId, date, start, type, neighbour) {
             var _this = this;
@@ -5780,6 +6306,7 @@ var Dashboard;
             }
         };
         Booking.prototype.sendBookingsTake = function (resourceId, date, start, type, neighbour) {
+            var _this = this;
             var table = this._table;
             Barrios.Default.ReservasService.bookingsTake({
                 resourceId: resourceId,
@@ -5789,6 +6316,7 @@ var Dashboard;
                 extraNeighborUnit: neighbour
             }, function (response) {
                 table.html($.parseHTML(response));
+                _this._grid.refresh();
             });
         };
         Booking.prototype.showEspecialTurnDialog = function () {
@@ -5796,7 +6324,7 @@ var Dashboard;
             var dialog = new Barrios.Default.EspecialBookingDialog($(""));
             dialog.element.on("dialogclose", function () {
                 if (dialog.send) {
-                    _this.SendBookinRequest(dialog.form.Fecha.value, dialog.form.IdRecurso.value, dialog.form.IdRecurso.text, dialog.turn.Nombre, dialog.turn.Duracion, dialog.turn.Inicio, dialog.turn.Id, dialog.form.Observaciones);
+                    _this.SendBookinRequest(dialog.form.Fecha.value, dialog.form.IdRecurso.value, dialog.form.IdRecurso.text, dialog.turn.Nombre, dialog.turn.Duracion, dialog.turn.Inicio, dialog.turn.Id, dialog.form.Observaciones.value);
                 }
             });
             dialog.dialogOpen();

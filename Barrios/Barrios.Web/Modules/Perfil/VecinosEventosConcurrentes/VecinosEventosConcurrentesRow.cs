@@ -10,9 +10,10 @@ namespace Barrios.Perfil.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Perfil"), TableName("[dbo].[VECINOS_EVENTOS_CONCURRENTES]")]
-    [DisplayName("Vecinos Eventos Concurrentes"), InstanceName("Vecinos Eventos Concurrentes")]
+    [DisplayName("Concurrentes"), InstanceName("Concurrente")]
     [ReadPermission("Administration:Perfil")]
     [ModifyPermission("Administration:Perfil")]
+  
     public sealed class VecinosEventosConcurrentesRow : Row, IIdRow, INameRow
     {
         [DisplayName("Id"), Column("ID"), Identity]
@@ -42,8 +43,6 @@ namespace Barrios.Perfil.Entities
             get { return Fields.Userid[this]; }
             set { Fields.Userid[this] = value; }
         }
-
-
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -67,7 +66,7 @@ namespace Barrios.Perfil.Entities
             public Int32Field IdEvento;
             public StringField Nombre;
             public Int32Field Userid;
-            
+           
         }
     }
 }

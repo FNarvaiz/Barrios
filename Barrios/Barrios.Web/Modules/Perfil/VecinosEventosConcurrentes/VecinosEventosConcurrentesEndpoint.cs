@@ -1,6 +1,7 @@
 ﻿
 namespace Barrios.Perfil.Endpoints
 {
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;

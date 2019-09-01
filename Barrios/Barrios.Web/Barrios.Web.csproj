@@ -853,6 +853,12 @@
     <Content Include="Modules\Views\Surveys\SurveysIndex.cshtml" />
     <Content Include="Modules\Common\Dashboard\DashboardIndex2.cshtml" />
     <Content Include="Modules\Membership\Account\SignUp\NewUserActivatedEmail.cshtml" />
+    <Content Include="Modules\Default\Reservas\BookingRequestEmail.cshtml" />
+    <Content Include="Modules\Views\TimeLine\Regulations.cshtml" />
+    <Content Include="Modules\Views\Perfil\PersonalEventos.cshtml" />
+    <Content Include="Modules\Views\Perfil\VisitantesFrecuentes.cshtml" />
+    <Content Include="Modules\Default\Reservas\Reports\BookingReport.cshtml" />
+    <Content Include="Modules\Default\Reservas\BookingTakeEmail.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1180,6 +1186,9 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Default.EspecialTurnForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.HolidaysColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Default.IdRequest.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
@@ -1199,6 +1208,9 @@
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Default.TwoNeighborsForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.TypeHolidays.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Modules.Common.Utils.EmailRequest.ts">
@@ -1238,6 +1250,9 @@
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosGrid.ts" />
     <TypeScriptCompile Include="Modules\Default\Reservas\TwoNeighbors\TwoNeighborsDialog.ts" />
     <TypeScriptCompile Include="Modules\Default\Reservas\EspecialTurn\EspecialBookingDialog.ts" />
+    <TypeScriptCompile Include="Modules\Perfil\VecinosVisitantesFrecuentes\FrequentVisitorsSelect\FrequentVisitorsSelectDialog.ts" />
+    <TypeScriptCompile Include="Modules\Perfil\VecinosVisitantesFrecuentes\FrequentVisitorsSelect\FrequentVisitorsSelectGrid.ts" />
+    <TypeScriptCompile Include="Modules\Settings\Subbarrios\SubbarriosSelect\TestDialog.ts" />
     <TypeScriptCompile Include="Modules\Settings\Subbarrios\SubbarriosSelect\SubbarriosSelectGrid.ts" />
     <TypeScriptCompile Include="Modules\Settings\Subbarrios\SubbarriosSelect\SubbarriosSelectDialog.ts" />
     <TypeScriptCompile Include="Modules\Views\Bookings\Reservas.ts" />
@@ -1924,6 +1939,18 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Default.SubbarriosRecursosRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.HolidaysRow.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.HolidaysService.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <Content Include="Modules\Default\Holidays\HolidaysIndex.cshtml" />
+    <TypeScriptCompile Include="Modules\Default\Holidays\HolidaysDialog.ts" />
+    <TypeScriptCompile Include="Modules\Default\Holidays\HolidaysGrid.ts" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.HolidaysForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -1941,6 +1968,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ClientTypes\Administration.BarriosGridAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
     <Compile Include="Imports\ClientTypes\Contenidos.ComisionesIntegrantesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
@@ -1953,6 +1983,11 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190827_225000_UpdateTables.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190821_231800_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190820_131700_HolidaysTable.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190813_005500_AddBarrioIdInBooking.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190812_200500_AddBoolSubBarrios.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190809_145800_SubBarrios.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190805_015500_CreateProcedureEspecialDates.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190724_162300_UpdateCommissions.cs" />
@@ -2034,6 +2069,7 @@
     </Compile>
     <Compile Include="Modules\Common\Navigation\NavigationItems.cs" />
     <Compile Include="Modules\Common\Navigation\NavigationModel.cs" />
+    <Compile Include="Modules\Default\Holidays\NoLaboralesAPI.cs" />
     <Compile Include="Modules\Common\Reporting\DynamicDataReport.cs" />
     <Compile Include="Modules\Common\Reporting\ExcelReportGenerator.cs" />
     <Content Include="Modules\Common\Reporting\ReportPage.cshtml" />
@@ -2080,6 +2116,7 @@
     <Compile Include="Modules\Contenidos\EncuestasValoraciones\EncuestasValoracionesPage.cs" />
     <Compile Include="Modules\Contenidos\EncuestasValoraciones\EncuestasValoracionesRepository.cs" />
     <Compile Include="Modules\Contenidos\EncuestasValoraciones\EncuestasValoracionesRow.cs" />
+    <Compile Include="Modules\Contenidos\EncuestasValoraciones\PointsLookup.cs" />
     <Compile Include="Modules\Contenidos\Encuestas\SurveysCategoryLookup.cs" />
     <Compile Include="Modules\Contenidos\Encuestas\EncuestasColumns.cs" />
     <Compile Include="Modules\Contenidos\Encuestas\EncuestasEndpoint.cs" />
@@ -2108,12 +2145,16 @@
     <Compile Include="Modules\Contenidos\Proveedores\ProveedoresRow.cs" />
     <Compile Include="Modules\Contenidos\Proveedores\ProviderCategoryLookup.cs" />
     <Compile Include="Modules\Contenidos\ContenidosPermissionKeys.cs" />
+    <Compile Include="Modules\Default\Holidays\EnumTypeHolidays.cs" />
+    <Compile Include="Modules\Default\Holidays\HolidayAPIObj.cs" />
     <Compile Include="Modules\Default\ReservasPermissionKeys.cs" />
     <Compile Include="Modules\Default\ReservasRecursos\ResourceTypeLookup.cs" />
     <Compile Include="Modules\Default\ReservasRecursos\IntervalosLookup.cs" />
     <Compile Include="Modules\Default\ReservasRecursos\HorariosLookup.cs" />
+    <Compile Include="Modules\Default\Reservas\EspecialConverters.cs" />
     <Compile Include="Modules\Default\Reservas\Render\RenderBooking.cs" />
     <Compile Include="Modules\Default\Reservas\Render\RenderListToTable.cs" />
+    <Compile Include="Modules\Default\Reservas\Reports\BookingReport.cs" />
     <Compile Include="Modules\Default\Reservas\TwoNeighbors\TwoNeighborsForm.cs" />
     <Compile Include="Modules\Default\Reservas\EspecialTurn\EspecialTurnForm.cs" />
     <Compile Include="Modules\Default\Reservas\EspecialTurn\ResourceEspecialLookup.cs" />
@@ -2139,6 +2180,7 @@
     <Compile Include="Modules\Common\Helpers\GetNextNumberHelper.cs" />
     <Compile Include="Modules\Common\Helpers\GetNextNumberRequest.cs" />
     <Compile Include="Modules\Perfil\VecinosMascotas\PetTypeLookup.cs" />
+    <Compile Include="Modules\Settings\SettingsPermissionKeys.cs" />
     <Compile Include="Modules\Settings\Subbarrios\SubBarriosLookup.cs" />
     <Compile Include="Modules\Texts.cs" />
     <Compile Include="Modules\Membership\Account\AccountPage.cs" />
@@ -2239,6 +2281,12 @@
     <Compile Include="Modules\Settings\Subbarrios\SubbarriosForm.cs" />
     <Compile Include="Modules\Settings\SettingsNavigation.cs" />
     <Compile Include="Modules\Default\SubbarriosRecursos\SubbarriosRecursosRow.cs" />
+    <Compile Include="Modules\Default\Holidays\HolidaysRow.cs" />
+    <Compile Include="Modules\Default\Holidays\HolidaysRepository.cs" />
+    <Compile Include="Modules\Default\Holidays\HolidaysEndpoint.cs" />
+    <Compile Include="Modules\Default\Holidays\HolidaysPage.cs" />
+    <Compile Include="Modules\Default\Holidays\HolidaysColumns.cs" />
+    <Compile Include="Modules\Default\Holidays\HolidaysForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

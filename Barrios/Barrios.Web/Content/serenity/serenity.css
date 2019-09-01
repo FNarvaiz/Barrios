@@ -3547,6 +3547,9 @@ a.quick-search-field {
 .send-button span.button-inner {
   background-image: url(images/arrow-step-over.png);
 }
+.pdf-button span.button-inner {
+    background-image: url(images/pdf.png);
+}
 .lock-button span.button-inner {
   background-image: url(images/lock.png);
 }

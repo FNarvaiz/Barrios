@@ -15,8 +15,8 @@ namespace Barrios.Contenidos.Columns
     {
         [DisplayName("Usuario")]
         public String UseridUsername { get; set; }
-        public DateTime Fecha { get; set; }
         public Int16 Valoracion { get; set; }
         public String Comentario { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }

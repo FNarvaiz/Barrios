@@ -4,6 +4,7 @@
         IdTipo: Serenity.LookupEditor;
         Raza: Serenity.StringEditor;
         Foto: Serenity.ImageUploadEditor;
+        Vacunas: Serenity.ImageUploadEditor;
     }
 
     export class VecinosMascotasForm extends Serenity.PrefixedContext {
@@ -25,7 +26,8 @@
                     'Nombre', w0,
                     'IdTipo', w1,
                     'Raza', w0,
-                    'Foto', w2
+                    'Foto', w2,
+                    'Vacunas', w2
                 ]);
             }
         }

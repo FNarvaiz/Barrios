@@ -5,11 +5,22 @@ using System.Net;
 using System;
 using System.Collections.Generic;
 using Serenity;
+using Barrios.Modules.Common.Utils;
+using System.Data;
 
 namespace Barrios.Common
 {
     public class EmailHelper
     {
+        public static string GetRenderMails(string emails, int resourceId,string userMail)
+        {
+            if (emails.IsEmptyOrNull())
+                emails = CurrentNeigborhood.Get().Mail;
+            else
+                emails = emails.Replace("\n", ",");
+            emails = emails + "," + userMail;
+            return emails;
+        }
         public static void Send(string subject, string body, string addressString, string displayName = "", string from = "group_email@domain.com", List<MailAddress> address =null, string file="")
         {
             
@@ -18,7 +29,7 @@ namespace Barrios.Common
                 message.Attachments.Add(new Attachment(HostingEnvironment.MapPath("~/App_Data")+"/Upload/" +file));
             if (address == null)
                 foreach (var mail in addressString.Split(','))
-                    message.To.Add(new MailAddress(mail, ""));
+                    message.To.Add(new MailAddress(mail.Trim(), ""));
             else
                 foreach (var mail in address)
                     message.To.Add(mail);

@@ -39,23 +39,19 @@
             </section>
             <p>@aux.Descripcion</p>
             <div class="dropdown">
-                <button class="btn btn-secondary btn-success dropdown-toggle" type="button" id="dropdownRecurso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary btn-success dropdown-toggle ItemRecurso" type="button" id="@aux.Id,@aux.ValoracionId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @aux.ComboBoxTextValoration()
                 </button>
-                <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
-                    @for (var point = 0; point <= 10; point++)
-                    {
-                        <li><a class="ItemRecurso" id="@aux.Id,@point" href="#">@point</a></li>
-                    }
-                </ul>
+                
             </div>
         </article>
     }
 
 </div>
     <script type="text/javascript">
+        
         jQuery(function () {
-            $(".ItemRecurso").click((element) => { ratingChange(element.target) });
+            $(".ItemRecurso").click((element) => { ShowCommentDialog(element.target) });
             $(".CategoryItem").click((element) => {
                 if (element.target.id == "todos") {
                     $(".articleItem").show();
@@ -66,20 +62,24 @@
                 }
             });
         });
-        function ratingChange(control) {
-            var ids = control.id.split(',', 2);
+        function ShowCommentDialog(control) {
             try {
-                Barrios.Contenidos.EncuestasService.Rating({
-                    ID: ids[0],
-                    Rating: ids[1]
-                }, (response) => {
-                    Q.notifySuccess(response, "Notificación", { timeOut: 5000 });
-                });
+                var ids = control.id.split(',', 2);
+                var dialog = new Barrios.Contenidos.EncuestasValoracionesDialog();
+                dialog.saveSucces = () => {
+                    location.reload();
+                };
+                if (ids[1] == 0) {
+
+                    dialog.loadNewAndOpenDialog();
+                    dialog.SetSurveyId(ids[0]);
+                }
+                else
+                    dialog.loadByIdAndOpenDialog(ids[1]);
             }
             catch (err) {
                 alert(err);
             }
-            return true;
         };
         function SeeMore(id) {
             try {

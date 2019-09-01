@@ -68,6 +68,12 @@ namespace Barrios.Administration.Entities
             get { return Fields.Email[this]; }
             set { Fields.Email[this] = value; }
         }
+        [DisplayName("Otros emails"), Size(200),Placeholder("Ingrese lo mails,1 por linea."),TextAreaEditor()]
+        public String Email_Others
+        {
+            get { return Fields.Email_Others[this]; }
+            set { Fields.Email_Others[this] = value; }
+        }
 
         [DisplayName("User Image"), Size(100)]
         [ImageUploadEditor(FilenameFormat = "UserImage/~", CopyToHistory = true)]
@@ -157,6 +163,8 @@ namespace Barrios.Administration.Entities
             public StringField PasswordSalt;
             public StringField DisplayName;
             public StringField Email;
+            public StringField Email_Others;
+            
             public StringField UserImage;
             public DateTimeField LastDirectoryUpdate;
             public Int16Field IsActive;

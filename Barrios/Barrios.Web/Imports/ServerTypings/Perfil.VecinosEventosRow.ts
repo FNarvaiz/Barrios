@@ -5,6 +5,7 @@
         Fecha?: string;
         Lugar?: string;
         Userid?: number;
+        BarrioId?: number;
         UseridUsername?: string;
         ConcurrentesList?: VecinosEventosConcurrentesRow[];
     }
@@ -20,6 +21,7 @@
             Fecha = "Fecha",
             Lugar = "Lugar",
             Userid = "Userid",
+            BarrioId = "BarrioId",
             UseridUsername = "UseridUsername",
             ConcurrentesList = "ConcurrentesList"
         }

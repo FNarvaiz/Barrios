@@ -17,7 +17,7 @@
     "Db.Administration.Translation.TargetLanguage": "Idioma de destino",
     "Db.Administration.Translation.TargetText": "Traducción efectiva en el idioma de destino",
     "Db.Administration.User.PasswordHash": "Hash de la Contraseña",
-    "Forms.Membership.ChangePassword.FormTitle": "Cambiar la contraseña",
+    "Forms.Membership.ChangePassword.FormTitle": "Contraseña",
     "Forms.Membership.ChangePassword.SubmitButton": "Cambiar contraseña",
     "Forms.Membership.ChangePassword.Success": "Su contraseña ha cambiado.",
     "Forms.Membership.ForgotPassword.FormInfo": "Por favor, introduzca el email que utilizó para registrarse.",

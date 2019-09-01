@@ -6,7 +6,7 @@
 
 <script type="text/javascript">
     jQuery(function () {
-        new Barrios.Contenidos.LineaTiempoGrid($('#GridDiv'), {}).init();
+        new Barrios.Contenidos.LineaTiempoGrid($('#GridDiv'), @Convert.ToInt16(CurrentNeigborhood.Get().UseSubBarrios.Value) ).init();
 
         Q.initFullHeightGridPage($('#GridDiv'));
     });

@@ -13,11 +13,9 @@ namespace Barrios.Contenidos.Columns
     [BasedOnRow(typeof(Entities.ProveedoresValoracionesRow), CheckNames = true)]
     public class ProveedoresValoracionesColumns
     {
-        [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
-        public Int32 Id { get; set; }
-        public String IdProveedorNombre { get; set; }
-        public DateTime Fecha { get; set; }
-        public Int16 Valoracion { get; set; }
+        [DisplayName("Usuario")]
         public String UseridUsername { get; set; }
+        public Int16 Valoracion { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }

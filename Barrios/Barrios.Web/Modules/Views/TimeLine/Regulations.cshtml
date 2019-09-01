@@ -1,0 +1,44 @@
+﻿@model System.Collections.Generic.List<Barrios.Contenidos.Entities.LineaTiempoRow>
+@{
+    ViewData["Title"] = "Reglamentos"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
+}
+<h2 class="contentTitle">Reglamentos <small class="contentSubTitle">Aquí se ubican los reglamentos que debe conocer. </small></h2>
+<div class="box dark containerTimeLine">
+    
+    <table class="table table-custom">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Actualizado</th>
+                <th scope="col">Texto</th>
+                <th scope="col">Archivo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var aux in Model)
+            {
+            <tr>
+
+                <th class="cellTitle">@aux.Nombre</th>
+                <td>@aux.PeriodoFecha.Value.ToString("dd/MM/yyyy")</td>
+                <td>@aux.ContenidoTexto</td>
+
+                <td>
+                    @if (!aux.ArchivoFilename.IsEmptyOrNull())
+                    {
+                        <a class="fa @aux.ClassForExtension() btn btn-info " href="~/Upload/@aux.ArchivoFilename" target="_blank"></a>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+        
+</div>
+        <script type="text/javascript">
+            jQuery(function () {
+                // new Barrios.Views.ProveedoresViewGrid($('#GridDiv'), {}).init();
+
+                // Q.initFullHeightGridPage($('#GridDiv'));
+            });
+        </script>

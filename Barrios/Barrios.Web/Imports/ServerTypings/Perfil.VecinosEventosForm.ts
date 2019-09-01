@@ -1,6 +1,6 @@
 ﻿namespace Barrios.Perfil {
     export interface VecinosEventosForm {
-        Fecha: Serenity.DateEditor;
+        Fecha: Serenity.DateTimeEditor;
         Nombre: Serenity.StringEditor;
         Lugar: Serenity.StringEditor;
         ConcurrentesList: VecinosEventosConcurrentesGrid;
@@ -17,7 +17,7 @@
                 VecinosEventosForm.init = true;
 
                 var s = Serenity;
-                var w0 = s.DateEditor;
+                var w0 = s.DateTimeEditor;
                 var w1 = s.StringEditor;
                 var w2 = VecinosEventosConcurrentesGrid;
 

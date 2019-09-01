@@ -13,10 +13,9 @@ namespace Barrios.Contenidos.Forms
     [BasedOnRow(typeof(Entities.EncuestasValoracionesRow), CheckNames = true)]
     public class EncuestasValoracionesForm
     {
+        [Hidden]
         public Int32 IdEncuesta { get; set; }
-        public DateTime Fecha { get; set; }
         public Int16 Valoracion { get; set; }
         public String Comentario { get; set; }
-        public Int32 Userid { get; set; }
     }
 }

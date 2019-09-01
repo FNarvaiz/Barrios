@@ -10,7 +10,7 @@ namespace Barrios.Contenidos.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Contenidos"), TableName("[dbo].[ENCUESTAS_VALORACIONES]")]
-    [DisplayName("Encuestas Valoraciones"), InstanceName("Encuestas Valoraciones")]
+    [DisplayName("Valoraciones"), InstanceName("Valoración")]
     [ReadPermission("User:Encuestas")]
     [ModifyPermission("User:Encuestas")]
     public sealed class EncuestasValoracionesRow : Row, IIdRow, INameRow
@@ -37,14 +37,14 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Fecha[this] = value; }
         }
 
-        [DisplayName("Valoracion"), Column("VALORACION"), NotNull]
+        [DisplayName("Valoracion"), Column("VALORACION"),LookupEditor("SurveysAndProviders.PointsLookup"), NotNull]
         public Int16? Valoracion
         {
             get { return Fields.Valoracion[this]; }
             set { Fields.Valoracion[this] = value; }
         }
 
-        [DisplayName("Comentario"), Column("COMENTARIO"), Size(140), QuickSearch]
+        [DisplayName("Comentario"), Column("COMENTARIO"),TextAreaEditor(), Size(140)]
         public String Comentario
         {
             get { return Fields.Comentario[this]; }
@@ -84,7 +84,7 @@ namespace Barrios.Contenidos.Entities
 
         StringField INameRow.NameField
         {
-            get { return Fields.Comentario; }
+            get { return Fields.IdEncuestaNombre; }
         }
 
         public static readonly RowFields Fields = new RowFields().Init();

@@ -11,7 +11,7 @@ namespace Barrios.Default.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS_RECURSOS]")]
-    [DisplayName("Reservas Recursos"), InstanceName("Reservas Recursos")]
+    [DisplayName("Recursos"), InstanceName("Recurso")]
     [ReadPermission("User:Reservas")]
     [ModifyPermission("Reservas:Recursos")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", "jType.[ID_Recurso] = t0.[ID] ")]
@@ -63,18 +63,24 @@ namespace Barrios.Default.Entities
             get { return Fields.Cierre[this]; }
             set { Fields.Cierre[this] = value; }
         }
-        [DisplayName("Modo de reserva"), LookupEditor("ReservasRecursos.ResourceTypeLookup"), Column("Tipo")]
+        [DisplayName("Modo de reserva"),Required, LookupEditor("ReservasRecursos.ResourceTypeLookup"), Column("Tipo")]
         public Int16? Tipo
         {
             get { return Fields.Tipo[this]; }
             set { Fields.Tipo[this] = value; }
         }
 
-        [DisplayName("Resolucion"),LookupInclude, LookupEditor("ReservasRecursos.IntervalosLookup"),  Required, Column("RESOLUCION")]
+        [DisplayName("Resolucion"),LookupInclude, LookupEditor("ReservasRecursos.IntervalosLookup"),NotNull,  Required, Column("RESOLUCION")]
         public Int16? Resolucion
         {
             get { return Fields.Resolucion[this]; }
             set { Fields.Resolucion[this] = value; }
+        }
+        [DisplayName("Emails"), Size(200), Placeholder("Ingrese los mails a donde se tiene que enviar la solicitud o reserva,(1 por linea)"), TextAreaEditor()]
+        public String Emails
+        {
+            get { return Fields.Emails[this]; }
+            set { Fields.Emails[this] = value; }
         }
         [DisplayName("Lista de barrios"), NotMapped]
         [LinkingSetRelation(typeof(RecursosBarriosRow), "RecursoId", "BarrioID")]
@@ -112,6 +118,7 @@ namespace Barrios.Default.Entities
         {
             public Int16Field Id;
             public StringField Nombre;
+            public StringField Emails;
             public Int16Field Apertura;
             public Int16Field Cierre;
             public Int16Field Tipo;
@@ -122,5 +129,5 @@ namespace Barrios.Default.Entities
             public ListField<ReservasTiposRow> TypeList;
             public ListField<ReservasTurnosEspecialesRow> SpecialTurnList;
         }
-    }
+     }
 }

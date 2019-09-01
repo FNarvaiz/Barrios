@@ -10,10 +10,9 @@ namespace Barrios.Default.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS]")]
-    [DisplayName("Reservas"), InstanceName("Reservas")]
+    [DisplayName("Reservas"), InstanceName("Reserva")]
     [ReadPermission("User:Reservas")]
     [ModifyPermission("Administration:General")]
-
     [InnerJoin("jIdRecurso", "[dbo].[RESERVAS_RECURSOS]", " jIdRecurso.[ID] = t0.[ID_RECURSO] ")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", " jType.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jType.[ID_RECURSO] ")]
     [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", " jTurns.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jTurns.[ID_RECURSO] ")]
@@ -40,14 +39,14 @@ namespace Barrios.Default.Entities
             set { Fields.IdResultado[this] = value; }
         }
 
-        [DisplayName("Fecha"),SortOrder(1,true), Column("FECHA"), NotNull]
+        [DisplayName("Fecha"),SortOrder(1,false), Column("FECHA"), NotNull]
         public DateTime? Fecha
         {
             get { return Fields.Fecha[this]; }
             set { Fields.Fecha[this] = value; }
         }
 
-        [DisplayName("Inicio") , LookupEditor("ReservasRecursos.HorariosLookup"), Column("INICIO"), NotNull]
+        [DisplayName("Inicio"), LookupEditor("ReservasRecursos.HorariosLookup"), Column("INICIO"), NotNull]
         public Int16? Inicio
         {
             get { return Fields.Inicio[this]; }
@@ -67,8 +66,13 @@ namespace Barrios.Default.Entities
             get { return Fields.Observaciones[this]; }
             set { Fields.Observaciones[this] = value; }
         }
-
-        [DisplayName("Id Vecino 2"), LookupEditor("Reservas.UsersLookup"), Column("ID_VECINO_2"), ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jIdVecino2"), TextualField("IdVecinoUsername")]
+        [DisplayName("Barrio Id"), Column("BarrioId"), ForeignKey("[dbo].[Barrios]", "Id"), LeftJoin("jBarrio"), TextualField("Nombre")]
+        public Int32? BarrioId
+        {
+            get { return Fields.BarrioId[this]; }
+            set { Fields.BarrioId[this] = value; }
+        }
+        [DisplayName("Vecino extra"), LookupEditor("Reservas.UsersLookup"), Column("ID_VECINO_2"), ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jIdVecino2"), TextualField("IdVecinoUsername")]
         public Int32? IdVecino2
         {
             get { return Fields.IdVecino2[this]; }
@@ -101,7 +105,7 @@ namespace Barrios.Default.Entities
             get { return Fields.FechaFin[this]; }
             set { Fields.FechaFin[this] = value; }
         }
-        [DisplayName("Id Vecino"), LookupEditor("Reservas.UsersLookup"), Column("ID_VECINO"), NotNull, ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jIdVecino"), TextualField("IdVecinoUsername")]
+        [DisplayName("Vecino"), LookupEditor("Reservas.UsersLookup"), Column("ID_VECINO"), NotNull, ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jIdVecino"), TextualField("IdVecinoUsername")]
         public Int32? IdVecino
         {
             get { return Fields.IdVecino[this]; }
@@ -155,7 +159,7 @@ namespace Barrios.Default.Entities
             get { return Fields.Estado[this]; }
             set { Fields.Estado[this] = value; }
         }
-        [DisplayName("Hora"), Expression(" CONVERT(varchar(2), [T0].[INICIO]/60) +':' + case  WHEN ([T0].[INICIO]%60) > 9 then CONVERT(varchar(2),  [T0].[INICIO]%60) else '0'+CONVERT(varchar(2),  [T0].[INICIO]%60)   end   ")]
+        [DisplayName("Hora"), SortOrder(2, false), Expression(" CONVERT(varchar(2), [T0].[INICIO]/60) +':' + case  WHEN ([T0].[INICIO]%60) > 9 then CONVERT(varchar(2),  [T0].[INICIO]%60) else '0'+CONVERT(varchar(2),  [T0].[INICIO]%60)   end   ")]
         public String Hora
         {
             get { return Fields.Hora[this]; }
@@ -250,6 +254,7 @@ namespace Barrios.Default.Entities
             public Int32Field IdVecino;
             public DateTimeField DateInsert;
             public Int32Field UserInsert;
+            public Int32Field BarrioId; 
             public Int32Field IdTurnosEspeciales;
             public StringField Hora;
             

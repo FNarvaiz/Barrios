@@ -30,7 +30,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Id Categoria"), ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), LookupEditor("Category.SurveysCategoryLookup"), Column("ID_CATEGORIA"), NotNull]
+        [DisplayName("Categoria"), ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), LookupEditor("Category.SurveysCategoryLookup"), Column("ID_CATEGORIA"), NotNull]
         public Int16? IdCategoria
         {
             get { return Fields.IdCategoria[this]; }
@@ -60,6 +60,13 @@ namespace Barrios.Contenidos.Entities
             get { return Fields.RatingCount[this]; }
             set { Fields.RatingCount[this] = value; }
         }
+        [DisplayName("Valoracion Id"), NotMapped]
+        public int? ValoracionId
+        {
+            get { return Fields.ValoracionId[this]; }
+            set { Fields.ValoracionId[this] = value; }
+        }
+        
 
         [DisplayName("Descripción"), Column("DESCRIPCION"),TextAreaEditor, Size(1073741823)]
         public String Descripcion
@@ -192,6 +199,7 @@ namespace Barrios.Contenidos.Entities
 
             public DecimalField Rating;
             public Int32Field RatingCount;
+            public Int32Field ValoracionId;
 
             public Int32Field Liked;
         }

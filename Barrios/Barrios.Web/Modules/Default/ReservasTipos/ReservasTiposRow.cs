@@ -10,7 +10,7 @@ namespace Barrios.Default.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS_TIPOS]")]
-    [DisplayName("Tipos de Reserva"), InstanceName("Reservas Tipos")]
+    [DisplayName("Tipos de Reserva"), InstanceName("Tipo")]
     [ReadPermission("User:Reservas")]
     [ModifyPermission("Reservas:TiposDeReservas")]
     [LookupScript("Reservas.ReservasTipos", Expiration = 0)]

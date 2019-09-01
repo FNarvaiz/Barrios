@@ -98,8 +98,19 @@ namespace MVC
 
         public static class Default
         {
+            public static class Holidays
+            {
+                public const string HolidaysIndex = "~/Modules/Default/Holidays/HolidaysIndex.cshtml";
+            }
+
             public static class Reservas
             {
+                public const string BookingRequestEmail = "~/Modules/Default/Reservas/BookingRequestEmail.cshtml";
+                public const string BookingTakeEmail = "~/Modules/Default/Reservas/BookingTakeEmail.cshtml";
+                public static class Reports
+                {
+                    public const string BookingReport = "~/Modules/Default/Reservas/Reports/BookingReport.cshtml";
+                }
                 public const string ReservasIndex = "~/Modules/Default/Reservas/ReservasIndex.cshtml";
             }
 
@@ -147,11 +158,11 @@ namespace MVC
                     public const string NewUserActivatedEmail = "~/Modules/Membership/Account/SignUp/NewUserActivatedEmail.cshtml";
                 }
             }
-
         }
 
         public static class Perfil
         {
+            public const string PersonalEventos = "~/Modules/Views/Perfil/PersonalEventos.cshtml";
             public static class VecinosActividades
             {
                 public const string VecinosActividadesIndex = "~/Modules/Perfil/VecinosActividades/VecinosActividadesIndex.cshtml";
@@ -171,6 +182,7 @@ namespace MVC
             {
                 public const string VecinosVisitantesFrecuentesIndex = "~/Modules/Perfil/VecinosVisitantesFrecuentes/VecinosVisitantesFrecuentesIndex.cshtml";
             }
+            public const string VisitantesFrecuentes = "~/Modules/Views/Perfil/VisitantesFrecuentes.cshtml";
         }
 
         public static class Providers
@@ -204,6 +216,7 @@ namespace MVC
 
         public static class TimeLine
         {
+            public const string Regulations = "~/Modules/Views/TimeLine/Regulations.cshtml";
             public const string TimeLineIndex = "~/Modules/Views/TimeLine/TimeLineIndex.cshtml";
         }
     }

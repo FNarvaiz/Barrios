@@ -45,5 +45,6 @@ namespace Barrios.Settings.Endpoints
             Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
         }
+        
     }
 }

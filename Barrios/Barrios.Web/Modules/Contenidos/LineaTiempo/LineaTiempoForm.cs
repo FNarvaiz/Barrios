@@ -14,7 +14,7 @@ namespace Barrios.Contenidos.Forms
     public class LineaTiempoForm
     {
         public String Nombre { get; set; }
-        [LookupEditor("Category.ProviderCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog")]
+        [LookupEditor("Category.TimeLineCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog")]
         public Int16 IdCategoria { get; set; }
         public DateTime PeriodoFecha { get; set; }
         public String ContenidoTexto { get; set; }

@@ -10,7 +10,7 @@ namespace Barrios.Default.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS_TURNOS_ESPECIALES]")]
-    [DisplayName("Reservas Turnos Especiales"), InstanceName("Reservas Turnos Especiales")]
+    [DisplayName("Turnos Especiales"), InstanceName("Turno Especial")]
     [ReadPermission("User:Reservas")]
     [ModifyPermission("Reservas:TurnosEspeciales")]
     [LookupScript("Reservas.ReservasTurnosEspeciales", Expiration = 0)]

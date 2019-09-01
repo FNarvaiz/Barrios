@@ -20,8 +20,8 @@ namespace Barrios.Settings {
 
         protected getButtons() {
             return [{
-                title: 'Send mails',
-                cssClass: 'apply-changes-button',
+                title: 'Enviar mails',
+                cssClass: 'approve-button',
                 onClick: e => {
                     if (this.rowSelection.getSelectedKeys().length > 0) {
                         this.save = true;

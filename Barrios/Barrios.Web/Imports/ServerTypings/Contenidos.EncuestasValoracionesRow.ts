@@ -12,7 +12,7 @@
 
     export namespace EncuestasValoracionesRow {
         export const idProperty = 'Id';
-        export const nameProperty = 'Comentario';
+        export const nameProperty = 'IdEncuestaNombre';
         export const localTextPrefix = 'Contenidos.EncuestasValoraciones';
 
         export declare const enum Fields {

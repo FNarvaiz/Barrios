@@ -13,5 +13,9 @@ namespace Barrios.Perfil.Pages
         {
             return View("~/Modules/Perfil/VecinosMascotas/VecinosMascotasIndex.cshtml");
         }
+        public ActionResult VisitantesMascotas()
+        {
+            return View("~/Modules/Views/Perfil/VisitantesMascotas.cshtml");
+        }
     }
 }

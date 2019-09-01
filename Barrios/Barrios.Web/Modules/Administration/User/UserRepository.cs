@@ -45,7 +45,21 @@ namespace Barrios.Administration.Repositories
 
         public DeleteResponse Delete(IUnitOfWork uow, DeleteRequest request)
         {
+          /*  new SqlDelete(UsersBarriosRow.Fields.TableName)
+                  .Where(UsersBarriosRow.Fields.UserId == Convert.ToInt32(request.EntityId))
+                  .Execute(uow.Connection, ExpectedRows.Ignore);
+            return new DeleteResponse();*/
             return new MyDeleteHandler().Process(uow, request);
+        }
+
+        internal bool isThisNeigborhood(string username, short? id)
+        {
+            DataTable DT = Utils.GetRequestString( " SELECT  U.UserId " +
+              "  FROM [Users] U " +
+              "  inner join [Users-Barrios] UB " +
+              "  on UB.UserId = U.UserId " +
+              "   where UB.BarrioId = "+id +" and (Username = '"+ username + "' or Email = '" + username + "')");
+            return Convert.ToBoolean(DT.Rows.Count);
         }
 
         public UndeleteResponse Undelete(IUnitOfWork uow, UndeleteRequest request)
@@ -182,7 +196,6 @@ namespace Barrios.Administration.Repositories
 
                 return username;
             }
-
             protected override void ValidateRequest()
             {
                 base.ValidateRequest();
@@ -226,7 +239,14 @@ namespace Barrios.Administration.Repositories
                     Row.PasswordSalt = salt;
                 }
             }
-
+            protected override void BeforeSave()
+            {
+                base.BeforeSave();
+                if(IsUpdate)
+                    new SqlDelete(UsersBarriosRow.Fields.TableName)
+                        .Where(UsersBarriosRow.Fields.UserId == Row.UserId.Value)
+                        .Execute(Connection, ExpectedRows.Ignore);
+            }
             protected override void AfterSave()
             {
                 base.AfterSave();
@@ -247,7 +267,7 @@ namespace Barrios.Administration.Repositories
         }
         public static UserRow GetNewUser(int id)
         {
-            DataRow DR = Utils.GetRequestString(Utils.GetConnection(), "select email,unit,DisplayName from users where userid=" + id).Rows[0];
+            DataRow DR = Utils.GetRequestString( "select email,unit,DisplayName from users where userid=" + id).Rows[0];
             return new MyRow { UserId = id, Email = DR[0].ToString(), Unit = DR[1].ToString(), DisplayName = DR[2].ToString() };
 
         }
@@ -263,6 +283,9 @@ namespace Barrios.Administration.Repositories
             protected override void OnBeforeDelete()
             {
                 base.OnBeforeDelete();
+                new SqlDelete(UsersBarriosRow.Fields.TableName)
+                   .Where(UsersBarriosRow.Fields.UserId == Row.UserId.Value)
+                   .Execute(Connection, ExpectedRows.Ignore);
 
                 new SqlDelete(UserPreferenceRow.Fields.TableName)
                     .Where(UserPreferenceRow.Fields.UserId == Row.UserId.Value)

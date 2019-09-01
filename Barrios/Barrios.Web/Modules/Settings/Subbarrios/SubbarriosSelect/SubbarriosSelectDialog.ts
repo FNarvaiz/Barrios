@@ -9,6 +9,11 @@
         public GetKeys() {
             return this.grid.rowSelection.getSelectedKeys();
         }
+        protected getDialogOptions() {
+            var options = super.getDialogOptions();
+            options.width = "300px";
+            return options;
+        }
         public grid: SubbarriosSelectGrid;
         protected ncpdpHdId;
         constructor(container: JQuery) {

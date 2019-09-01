@@ -66,7 +66,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Userid[this] = value; }
         }
 
-        [DisplayName("Id Categoria"), ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), LookupEditor("Category.TimeLineCategoryLookup"), Column("id_categoria"), NotNull]
+        [DisplayName("Categoria"), ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), LookupEditor("Category.TimeLineCategoryLookup"), Column("id_categoria"), NotNull]
         public Int16? IdCategoria
         {
             get { return Fields.IdCategoria[this]; }

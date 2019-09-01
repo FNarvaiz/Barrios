@@ -10,7 +10,7 @@ namespace Barrios.Perfil.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Perfil"), TableName("[dbo].[VECINOS_ACTIVIDADES]")]
-    [DisplayName("Vecinos Actividades"), InstanceName("Vecinos Actividades")]
+    [DisplayName("Actividades"), InstanceName("Actividad")]
     [ReadPermission("Administration:Perfil")]
     [ModifyPermission("Administration:Perfil")]
     public sealed class VecinosActividadesRow : Row, IIdRow, INameRow

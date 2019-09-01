@@ -30,7 +30,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.Nombre[this] = value; }
         }
 
-        [DisplayName("Id Categoria"), LookupEditor("Category.NoticesCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog"), Column("ID_CATEGORIA")
+        [DisplayName("Categoria"), LookupEditor("Category.NoticesCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog"), Column("ID_CATEGORIA")
             , NotNull, ForeignKey("[dbo].[CATEGORIAS]", "ID"), LeftJoin("jCategory"), TextualField("IdCategoriaNombre")]
         public Int16? IdCategoria
         {

@@ -9,6 +9,7 @@ namespace Barrios.Default.Repositories
     using System.Data;
     using MyRow = Entities.ReservasRecursosRow;
     using System.Collections.Generic;
+    using Barrios.Default.Entities;
 
     public class ReservasRecursosRepository
     {
@@ -40,25 +41,61 @@ namespace Barrios.Default.Repositories
         }
         public List<MyRow> ListOfAllowedResources(IDbConnection connection)
         {
-            return connection.Query<MyRow>("SELECT TOP (1000) RR.[NOMBRE] " +
+            string query = "SELECT TOP (1000) RR.[NOMBRE] " +
                   " ,[APERTURA] " +
                   " ,[CIERRE] " +
                   " ,[RESOLUCION] " +
-                  " , RR.[ID] " +
+                  " ,RR.[ID] " +
                   " ,[TIPO] " +
-                  "  FROM [RESERVAS_RECURSOS] RR " +
+                  " FROM [RESERVAS_RECURSOS] RR " +
                   " INNER JOIN [Recursos-Barrios] RB " +
                   " ON RB.RecursoId= RR.ID " +
                   " LEFT JOIN SUBBARRIOS_RECURSOS SBR " +
                   " ON SBR.recursoId= RR.ID " +
                   " LEFT JOIN Users U " +
                   " ON SBR.subbarrioId= U.subBarrioId " +
-                  " where (U.UserId is null OR U.UserId="+Authorization.UserId+") AND RB.BarrioId="+CurrentNeigborhood.Get().Id+" " +
-                  " ORDER BY RESOLUCION desc ,NOMBRE asc ").ToList<MyRow>();
+                  " where (SBR.recursoId is null OR U.UserId=" + Authorization.UserId + ") AND RB.BarrioId=" + CurrentNeigborhood.Get().Id + " " +
+                  " ORDER BY RESOLUCION desc ,NOMBRE asc ";
+            return connection.Query<MyRow>(query).ToList<MyRow>();
         }
+        private class MySaveHandler : SaveRequestHandler<MyRow>
+        {
+            protected override void BeforeSave()
+            {
+                base.BeforeSave();
+                if (IsUpdate)
+                    new SqlDelete(SubbarriosRecursosRow.Fields.TableName)
+                        .Where(SubbarriosRecursosRow.Fields.RecursoId == Row.Id.Value)
+                        .Execute(Connection, ExpectedRows.Ignore);
+            }
+        }
+        private class MyDeleteHandler : DeleteRequestHandler<MyRow>
+        {
+            protected override void OnBeforeDelete()
+            {
+                base.OnBeforeDelete();
+                new SqlDelete(SubbarriosRecursosRow.Fields.TableName)
+                   .Where(SubbarriosRecursosRow.Fields.RecursoId == Row.Id.Value)
+                   .Execute(Connection, ExpectedRows.Ignore);
 
-        private class MySaveHandler : SaveRequestHandler<MyRow> { }
-        private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
+                new SqlDelete(ReservasRow.Fields.TableName)
+                  .Where(ReservasRow.Fields.IdRecurso == Row.Id.Value)
+                  .Execute(Connection, ExpectedRows.Ignore);
+
+                new SqlDelete(ReservasTiposRow.Fields.TableName)
+                  .Where(ReservasTiposRow.Fields.IdRecurso == Row.Id.Value)
+                  .Execute(Connection, ExpectedRows.Ignore);
+
+                new SqlDelete(RecursosBarriosRow.Fields.TableName)
+                  .Where(RecursosBarriosRow.Fields.RecursoId == Row.Id.Value)
+                  .Execute(Connection, ExpectedRows.Ignore);
+
+                new SqlDelete(ReservasTurnosEspecialesRow.Fields.TableName)
+                  .Where(ReservasTurnosEspecialesRow.Fields.IdRecurso == Row.Id.Value)
+                  .Execute(Connection, ExpectedRows.Ignore);
+
+            }
+        }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
         private class MyListHandler : ListRequestHandler<MyRow> { }
     }

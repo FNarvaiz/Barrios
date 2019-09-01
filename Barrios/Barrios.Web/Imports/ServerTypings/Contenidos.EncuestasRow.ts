@@ -17,6 +17,7 @@
         UserUpdateUsername?: string;
         Rating?: number;
         RatingCount?: number;
+        ValoracionId?: number;
         Liked?: number;
     }
 
@@ -43,6 +44,7 @@
             UserUpdateUsername = "UserUpdateUsername",
             Rating = "Rating",
             RatingCount = "RatingCount",
+            ValoracionId = "ValoracionId",
             Liked = "Liked"
         }
     }

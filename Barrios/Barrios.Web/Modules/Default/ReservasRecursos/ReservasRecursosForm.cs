@@ -20,6 +20,7 @@ namespace Barrios.Default.Forms
         public Int16 Apertura { get; set; }
         public Int16 Cierre { get; set; }
         public Int16 Resolucion { get; set; }
+        public String Emails { get; set; }
         [Tab("Tipos Reservas"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTiposGrid]
         public List<ReservasTiposRow> TypeList { get; set; }
         [Tab("Turnos Especiales"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTurnosEspecialesGrid]

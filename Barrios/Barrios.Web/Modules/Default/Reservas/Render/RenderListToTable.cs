@@ -87,7 +87,7 @@ namespace Barrios.Modules.Default.Entities
                         d = aux.Fecha.Value;
                         disponible = true;
                         builder.Append("<tr>" +
-                       "<th>" + aux.Fecha.Value.ToString("dd/mm") + "</th>" +
+                       "<th>" + aux.Fecha.Value.ToString("dd/MM") + "</th>" +
                        "<th>");
                         RenderButtonUnique(aux, resourceId, d);
                         firstRow = false;

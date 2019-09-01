@@ -17,20 +17,23 @@ namespace Barrios.Modules.Common.Utils
 
     static public class Utils
     {
-        public static DataTable GetRequestString(IDbConnection connection, string cmdText)
+        public static DataTable GetRequestString( string cmdText)
         {
-            using (IDbCommand cmd = connection.CreateCommand())
+            using (IDbConnection connection = Utils.GetConnection())
             {
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = cmdText;
-                cmd.CommandTimeout = 0;
-                connection.EnsureOpen();
-                using (var reader = cmd.ExecuteReader())
+                using (IDbCommand cmd = connection.CreateCommand())
                 {
-                    var DT = new DataTable();
-                    DT.Load(reader);
-                    connection.Close();
-                    return DT;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = cmdText;
+                    cmd.CommandTimeout = 0;
+                    connection.EnsureOpen();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        var DT = new DataTable();
+                        DT.Load(reader);
+                        connection.Close();
+                        return DT;
+                    }
                 }
             }
         }

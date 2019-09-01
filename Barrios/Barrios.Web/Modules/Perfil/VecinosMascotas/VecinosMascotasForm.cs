@@ -17,5 +17,7 @@ namespace Barrios.Perfil.Forms
         public Int16 IdTipo { get; set; }
         public String Raza { get; set; }
         public String Foto { get; set; }
+        public String Vacunas { get; set; }
+        
     }
 }

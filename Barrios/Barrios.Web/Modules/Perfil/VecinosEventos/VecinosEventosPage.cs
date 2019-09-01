@@ -13,5 +13,9 @@ namespace Barrios.Perfil.Pages
         {
             return View("~/Modules/Perfil/VecinosEventos/VecinosEventosIndex.cshtml");
         }
+        public ActionResult Personal()
+        {
+            return View("~/Modules/Views/Perfil/PersonalEventos.cshtml");
+        }
     }
 }

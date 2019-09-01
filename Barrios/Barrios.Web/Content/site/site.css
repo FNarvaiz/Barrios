@@ -7423,6 +7423,12 @@ section.content > .s-DataGrid {
 .s-Default-ReservasTurnosEspecialesDialog .caption {
   width: 150px;
 }
+.s-Default-HolidaysDialog > .size {
+  width: 650px;
+}
+.s-Default-HolidaysDialog .caption {
+  width: 150px;
+}
 .s-Perfil-VecinosActividadesDialog > .size {
   width: 650px;
 }
@@ -7587,6 +7593,7 @@ You could also use a data-* attribute and content for this. That way "bloats" th
   vertical-align: middle;
 }
 #Bookingtable td {
+  text-align: center;
   vertical-align: middle !important;
   padding: 4px;
 }

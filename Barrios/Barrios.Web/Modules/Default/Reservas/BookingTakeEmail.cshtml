@@ -1,0 +1,18 @@
+﻿@model Barrios.Default.Entities.ReservasRow
+
+<html>
+    <head>
+        <title>Reserva realizada</title>
+    </head>
+    <body>
+        <table border=1 cellpadding=5>
+            <tr><td>Unidad/Lote:</td><td>@Serenity.Authorization.UserDefinition.DisplayName </td></tr>
+            <tr><td>Familia:</td><td>@Serenity.Authorization.UserDefinition.DisplayName</td></tr>
+            <tr><td>Fecha del evento:</td><td>@Model.Fecha.Value.ToString("dd/mm/yyyy")</td></tr>
+            <tr><td>Espacio:</td><td>>@Model.IdRecursoNombre.ToUpper() </td></tr>
+            <tr><td>Turno:</td><td>@Model.Turno.ToUpper()</td></tr>
+            <tr><td>Observaciones:</td><td>@Model.Observaciones</td></tr>
+        </table>
+        
+    </body>
+</html>

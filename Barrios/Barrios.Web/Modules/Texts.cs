@@ -162,7 +162,7 @@ namespace Barrios
             public static class Layout
             {
                 public static LocalText FooterCopyright = "Copyright (c) 2019.";
-                public static LocalText FooterInfo = "Serenity Platform";
+                public static LocalText FooterInfo = "FNarvaiz Developer";
                 public static LocalText FooterRights = "All rights reserved.";
                 public static LocalText GeneralSettings = "General Settings";
                 public static LocalText Language = "Language";

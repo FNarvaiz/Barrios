@@ -10,9 +10,11 @@ namespace Barrios.Perfil.Entities
     using System.IO;
 
     [ConnectionKey("Default"), Module("Perfil"), TableName("[dbo].[VECINOS_VISITANTES_FRECUENTES]")]
-    [DisplayName("Visitantes Frecuentes"), InstanceName("Visitantes Frecuentes")]
+    [DisplayName("Visitantes Frecuentes"), InstanceName("Visitante Frecuente")]
     [ReadPermission("Administration:Perfil")]
     [ModifyPermission("Administration:Perfil")]
+    [LeftJoin("jBarrio", "[dbo].[Users-barrios]", "jBarrio.[UserId] = t0.[UserId] ")]
+
     public sealed class VecinosVisitantesFrecuentesRow : Row, IIdRow, INameRow
     {
         [DisplayName("Id"), Column("ID"), Identity]
@@ -50,14 +52,25 @@ namespace Barrios.Perfil.Entities
             set { Fields.Tipo[this] = value; }
         }
 
-        [DisplayName("Userid"), NotNull, ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jUserid"), TextualField("UseridUsername")]
+        [DisplayName("Userid"),QuickFilter, LookupEditor("Reservas.UsersLookup"), NotNull, ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jUserid"), TextualField("UseridUsername")]
         public Int32? Userid
         {
             get { return Fields.Userid[this]; }
             set { Fields.Userid[this] = value; }
         }
 
-        
+        [DisplayName("Vecino"), Expression("jUserid.[Username]")]
+        public String UseridUsername
+        {
+            get { return Fields.UseridUsername[this]; }
+            set { Fields.UseridUsername[this] = value; }
+        }
+        [DisplayName("Barrio Id"), Expression("jBarrio.BarrioId")]
+        public Int32? BarrioId
+        {
+            get { return Fields.BarrioId[this]; }
+            set { Fields.BarrioId[this] = value; }
+        }
 
         IIdField IIdRow.IdField
         {
@@ -84,7 +97,9 @@ namespace Barrios.Perfil.Entities
             public StringField Vehiculo;
             public StringField Tipo;
             public Int32Field Userid;
-            
+            public Int32Field BarrioId;
+
+            public StringField UseridUsername;
         }
     }
 }
