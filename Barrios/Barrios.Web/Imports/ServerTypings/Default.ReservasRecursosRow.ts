@@ -2,7 +2,9 @@
     export interface ReservasRecursosRow {
         Id?: number;
         Nombre?: string;
+        Regulation?: string;
         Emails?: string;
+        MailBody?: string;
         Apertura?: number;
         Cierre?: number;
         Tipo?: number;
@@ -22,7 +24,9 @@
         export declare const enum Fields {
             Id = "Id",
             Nombre = "Nombre",
+            Regulation = "Regulation",
             Emails = "Emails",
+            MailBody = "MailBody",
             Apertura = "Apertura",
             Cierre = "Cierre",
             Tipo = "Tipo",

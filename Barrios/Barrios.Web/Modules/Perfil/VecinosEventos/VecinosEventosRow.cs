@@ -12,8 +12,8 @@ namespace Barrios.Perfil.Entities
 
     [ConnectionKey("Default"), Module("Perfil"), TableName("[dbo].[VECINOS_EVENTOS]")]
     [DisplayName("Eventos"), InstanceName("Evento")]
-    [ReadPermission("Administration:Perfil")]
-    [ModifyPermission("Administration:Perfil")]
+    [ReadPermission("User:Perfil")]
+    [ModifyPermission("User:Perfil")]
     [LeftJoin("jTurns", "[dbo].[VECINOS_EVENTOS_CONCURRENTES]", "jTurns.[ID_Recurso] = t0.[ID] ")]
     [LeftJoin("jBarrio", "[dbo].[Users-barrios]", "jBarrio.[UserId] = t0.[UserId] ")]
     public sealed class VecinosEventosRow : Row, IIdRow, INameRow

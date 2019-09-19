@@ -12,7 +12,7 @@ namespace Barrios.Common
 {
     public class EmailHelper
     {
-        public static string GetRenderMails(string emails, int resourceId,string userMail)
+        public static string GetRenderMails(string emails,string userMail)
         {
             if (emails.IsEmptyOrNull())
                 emails = CurrentNeigborhood.Get().Mail;
@@ -25,14 +25,17 @@ namespace Barrios.Common
         {
             
             var message = new MailMessage();
-            if (!file.IsNullOrEmpty())
-                message.Attachments.Add(new Attachment(HostingEnvironment.MapPath("~/App_Data")+"/Upload/" +file));
+            if (!file.IsNullOrEmpty()) {
+                Attachment data = new Attachment(HostingEnvironment.MapPath("~/App_Data") + "/Upload/" + file);
+                data.Name = "ArchivoAdjunto";
+                message.Attachments.Add(data);
+            }
             if (address == null)
                 foreach (var mail in addressString.Split(','))
                     message.To.Add(new MailAddress(mail.Trim(), ""));
             else
                 foreach (var mail in address)
-                    message.To.Add(mail);
+                    message.Bcc.Add(mail);
             message.Subject = subject;
             message.Body = body;
             message.IsBodyHtml = true;

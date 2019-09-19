@@ -11,7 +11,7 @@ namespace Barrios.Administration.Forms
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
         public Int32 RoleId { get; set; }
-        [EditLink, Width(300)]
+        [EditLink, Width(250)]
         public String RoleName { get; set; }
     }
 }

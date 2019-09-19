@@ -12,8 +12,9 @@ namespace Barrios.Perfil {
 
         private userId;
         constructor(container: JQuery, userId = null) {
-            super(container);
+
             this.userId = userId;
+            super(container);
             if (this.userId != null)
                 this.element.find(".quick-filters-bar").remove();
 
@@ -31,6 +32,30 @@ namespace Barrios.Perfil {
                 );
             }
             return true;
+        }
+        protected getButtons() {
+            var buttons = super.getButtons();
+            if (this.userId == null) {
+                buttons.push({
+                    title: 'Reporte',
+                    cssClass: 'export-pdf-button',
+                    onClick: () => {
+                        if (this.getItems().length > 0) {
+                            Q.postToUrl({
+                                url: "~/VecinosMascotas/PetReport",
+                                params: {
+                                    requestString: $.toJSON( this.view.params)
+                                },
+                                target: "_blank"
+                            });
+                        }
+                        else
+                            Q.notifyInfo("No se encuentran registros");
+                    }
+                });
+            }
+
+            return buttons;
         }
     }
 }

@@ -7344,6 +7344,7 @@ section.content > .s-DataGrid {
   float: right;
 }
 #s-AccessDeniedPage div.message,
+#s-BloquedPage div.message,
 #s-ApplicationErrorPage div.message,
 #s-NotFoundPage div.message,
 #s-GenericErrorPage div.message {
@@ -7358,12 +7359,14 @@ section.content > .s-DataGrid {
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 #s-AccessDeniedPage div.message table,
+#s-BloquedPage div.message table,
 #s-ApplicationErrorPage div.message table,
 #s-NotFoundPage div.message table,
 #s-GenericErrorPage div.message table {
   width: 100%;
 }
 #s-AccessDeniedPage div.message h1,
+#s-BloquedPage div.message h1,
 #s-ApplicationErrorPage div.message h1,
 #s-NotFoundPage div.message h1,
 #s-GenericErrorPage div.message h1 {
@@ -7371,6 +7374,7 @@ section.content > .s-DataGrid {
   font-size: 30px;
 }
 #s-AccessDeniedPage div.message h3,
+#s-BloquedPage div.message h3,
 #s-ApplicationErrorPage div.message h3,
 #s-NotFoundPage div.message h3,
 #s-GenericErrorPage div.message h3 {
@@ -7380,6 +7384,7 @@ section.content > .s-DataGrid {
   line-height: 26px;
 }
 #s-AccessDeniedPage div.message a.redirect,
+#s-BloquedPage div.message a.redirect,
 #s-ApplicationErrorPage div.message a.redirect,
 #s-NotFoundPage div.message a.redirect,
 #s-GenericErrorPage div.message a.redirect {
@@ -7390,6 +7395,7 @@ section.content > .s-DataGrid {
   font-weight: bold;
 }
 #s-AccessDeniedPage div.message div.date-time,
+#s-BloquedPage div.message div.date-time,
 #s-ApplicationErrorPage div.message div.date-time,
 #s-NotFoundPage div.message div.date-time,
 #s-GenericErrorPage div.message div.date-time {
@@ -7487,6 +7493,18 @@ section.content > .s-DataGrid {
   color: white;
   border-radius: 3px;
   background: #1e1717ad;
+}
+.box.dark .tab-content,
+.styleSerenity.dark .tab-content {
+  background-color: transparent;
+}
+.box.dark .tabs a,
+.styleSerenity.dark .tabs a {
+  color: #f6f6f6;
+}
+.box.dark .tabs.active a,
+.styleSerenity.dark .tabs.active a {
+  color: #444;
 }
 .box.dark .box-header,
 .styleSerenity.dark .box-header {
@@ -7698,4 +7716,32 @@ You could also use a data-* attribute and content for this. That way "bloats" th
   .containerProviders .articleItem {
     width: 100%;
   }
+}
+.statusRed {
+  background-color: #faa !important;
+}
+.statusBlue {
+  background-color: lightblue !important;
+}
+.statusGreen {
+  background-color: lightgreen !important;
+}
+.s-UserGrid .description * {
+  display: inline;
+}
+.s-UserGrid .description {
+  margin-top: 5px;
+}
+.s-UserGrid .description .statusBlue,
+.s-UserGrid .description .statusGreen,
+.s-UserGrid .description .statusRed {
+  font-size: 13px;
+  border-radius: 5px;
+  padding: 5px;
+  color: black;
+  margin-right: 10px;
+  font-weight: 200;
+}
+.clock-cell {
+  margin-right: 2px;
 }

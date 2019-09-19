@@ -24,21 +24,30 @@ namespace Barrios.Common.Pages
         {
             try
             {
-                System.Data.IDbConnection connection = new SqlConnection(SqlConnections.GetConnectionString("Default").ConnectionString);
-                // ListRequest request = new ListRequest() { Sort = new SortBy[2] };
-                // Utils.AddNeigborhoodFilter(request);
-                // request.Criteria = (new Criteria(ReservasRecursosRow.Fields.SubBarrioID).IsNull() || new Criteria(ReservasRecursosRow.Fields.SubBarrioID).In("1"));
-                // request.Sort[0] = new SortBy() { Field = "Resolucion", Descending = true };
-                // request.Sort[1] = new SortBy() { Field = "Nombre", Descending = false };
-                BookingModel obj = new BookingModel()
+                if (Authorization.HasPermission("User:Reservas"))
                 {
-                    Recursos = new ReservasRecursosRepository().ListOfAllowedResources(connection)
-                };
-                return View(MVC.Views.Bookings.Booking, obj);
+                    System.Data.IDbConnection connection = new SqlConnection(SqlConnections.GetConnectionString("Default").ConnectionString);
+
+                    // ListRequest request = new ListRequest() { Sort = new SortBy[2] };
+                    // Utils.AddNeigborhoodFilter(request);
+                    // request.Criteria = (new Criteria(ReservasRecursosRow.Fields.SubBarrioID).IsNull() || new Criteria(ReservasRecursosRow.Fields.SubBarrioID).In("1"));
+                    // request.Sort[0] = new SortBy() { Field = "Resolucion", Descending = true };
+                    // request.Sort[1] = new SortBy() { Field = "Nombre", Descending = false };
+                    BookingModel obj = new BookingModel()
+                    {
+                        Recursos = new ReservasRecursosRepository().ListOfAllowedResources(connection)
+                    };
+                    return View(MVC.Views.Bookings.Booking, obj);
+                }
+                else
+                    throw new Exception();
             }
-            catch (Exception ex)
+            catch 
             {
-                return View(MVC.Views.Errors.AccessDenied);
+                if (Authorization.HasPermission("User:Comisiones"))
+                    return View(MVC.Views.Errors.Locked);
+                else
+                    return View(MVC.Views.Errors.AccessDenied);
             }
         }
     }

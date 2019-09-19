@@ -16,5 +16,9 @@ namespace Barrios.Administration
 
         [Description("Languages and Translations")]
         public const string Translation = "Administration:Translation";
+
+        [Description("Información de vecinos")]
+        public const string Information = "Administration:Perfil";
+        
     }
 }

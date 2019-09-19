@@ -23,6 +23,8 @@ namespace Barrios.Administration.Forms
         public String TelefonOs { get; set; }
         public Int16 CantDiasReservables { get; set; }
         public String Direccion { get; set; }
+        public Boolean UseSubBarrios { get; set; }
+        public String Emails { get; set; }
         public Boolean IsActive { get; set; }
     }
 }

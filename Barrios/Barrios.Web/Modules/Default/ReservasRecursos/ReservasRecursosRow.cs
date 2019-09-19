@@ -82,6 +82,24 @@ namespace Barrios.Default.Entities
             get { return Fields.Emails[this]; }
             set { Fields.Emails[this] = value; }
         }
+        [DisplayName("Cuerpo del mensaje"), Size(1000), Placeholder("Texto que se enviará por mail al reservar. (Max 1000 caracteres)"), TextAreaEditor()]
+        public String MailBody
+        {
+            get { return Fields.MailBody[this]; }
+            set { Fields.MailBody[this] = value; }
+        }
+        [DisplayName("Descripción"), Size(1000), Placeholder("Texto que se muestra en la página de reservas. (Max 1000 caracteres)"), TextAreaEditor()]
+        public String Description
+        {
+            get { return Fields.Description[this]; }
+            set { Fields.Description[this] = value; }
+        }
+        [DisplayName("Reglamento"),FileUploadEditor(FilenameFormat = "Barrios/Reglamento/~", CopyToHistory = true), Column("Regulation")]
+        public String Regulation
+        {
+            get { return Fields.Regulation[this]; }
+            set { Fields.Regulation[this] = value; }
+        }
         [DisplayName("Lista de barrios"), NotMapped]
         [LinkingSetRelation(typeof(RecursosBarriosRow), "RecursoId", "BarrioID")]
         public List<Int32> ClientIdList
@@ -117,8 +135,11 @@ namespace Barrios.Default.Entities
         public class RowFields : RowFieldsBase
         {
             public Int16Field Id;
-            public StringField Nombre;
+            public StringField Nombre; 
+            public StringField Regulation;
             public StringField Emails;
+            public StringField MailBody;
+            public StringField Description;
             public Int16Field Apertura;
             public Int16Field Cierre;
             public Int16Field Tipo;

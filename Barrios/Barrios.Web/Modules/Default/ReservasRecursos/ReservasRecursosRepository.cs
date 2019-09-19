@@ -47,6 +47,7 @@ namespace Barrios.Default.Repositories
                   " ,[RESOLUCION] " +
                   " ,RR.[ID] " +
                   " ,[TIPO] " +
+                   " ,[DESCRIPTION] " +
                   " FROM [RESERVAS_RECURSOS] RR " +
                   " INNER JOIN [Recursos-Barrios] RB " +
                   " ON RB.RecursoId= RR.ID " +

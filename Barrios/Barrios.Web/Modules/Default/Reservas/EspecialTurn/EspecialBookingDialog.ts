@@ -25,6 +25,8 @@ namespace Barrios.Default {
                     this.form.Duracion.value=( this.form.IdTurnosEspeciales.selectedItem as ReservasTurnosEspecialesRow).Duracion;
                 }
             });
+            this.form.Fecha.set_minDate(new Date());
+            this.form.Fecha.set_maxDate(new Date(new Date().getTime() + (90 * 24 * 60 * 60 * 1000)));
         }
         protected getToolbarButtons() {
             return [{

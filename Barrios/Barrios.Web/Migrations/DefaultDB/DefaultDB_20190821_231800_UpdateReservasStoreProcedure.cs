@@ -37,7 +37,7 @@ namespace Barrios.Migrations.DefaultDB
                           " inner join[RESERVAS_RECURSOS] RR  " +
                           " ON R.ID_RECURSO = RR.Id AND RR.TIPO = @resourceType " +
                           " WHERE FECHA_FIN > GETDATE() AND((ID_VECINO = @UserId OR ID_VECINO_2 = @UserId) OR(ID_VECINO = @extraNeighborId OR ID_VECINO_2 = @extraNeighborId)) " +
-                      " If @count = 0 " +
+                      " If @count < 2 " +
                       " BEGIN " +
                         " SELECT @OK = CAST(CASE WHEN GETDATE() <= dbo.FECHA_INICIO_TURNO(@date, @turnStart) THEN 1 ELSE 0 END AS BIT) " +
                         " If @OK = 1 " +
@@ -59,7 +59,7 @@ namespace Barrios.Migrations.DefaultDB
                           " THROW 50000,'El turno  ya no se puede reservar porque ha pasado el horario de comienzo.', 1 " +
                       " END " +
                       " else " +
-                        " THROW 50000,'Ya hay una reserva a utilizar. Una vez que la utilices podrás realizar otra.', 1 " +
+                        " THROW 50000,'Ya hay dos reservas a utilizar. Una vez que la utilices podrás realizar otra.', 1 " +
                     " END " +
                 " END ");
         }

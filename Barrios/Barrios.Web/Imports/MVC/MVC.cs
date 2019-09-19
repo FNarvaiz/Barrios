@@ -105,8 +105,11 @@ namespace MVC
 
             public static class Reservas
             {
-                public const string BookingRequestEmail = "~/Modules/Default/Reservas/BookingRequestEmail.cshtml";
-                public const string BookingTakeEmail = "~/Modules/Default/Reservas/BookingTakeEmail.cshtml";
+                public static class Mail
+                {
+                    public const string BookingEmail = "~/Modules/Default/Reservas/Mail/BookingEmail.cshtml";
+                }
+
                 public static class Reports
                 {
                     public const string BookingReport = "~/Modules/Default/Reservas/Reports/BookingReport.cshtml";
@@ -123,6 +126,7 @@ namespace MVC
         public static class Errors
         {
             public const string AccessDenied = "~/Views/Errors/AccessDenied.cshtml";
+            public const string Locked = "~/Views/Errors/Locked.cshtml";
             public const string ValidationError = "~/Views/Errors/ValidationError.cshtml";
         }
 
@@ -175,6 +179,10 @@ namespace MVC
 
             public static class VecinosMascotas
             {
+                public static class Reports
+                {
+                    public const string PetReport = "~/Modules/Perfil/VecinosMascotas/Reports/PetReport.cshtml";
+                }
                 public const string VecinosMascotasIndex = "~/Modules/Perfil/VecinosMascotas/VecinosMascotasIndex.cshtml";
             }
 

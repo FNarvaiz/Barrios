@@ -66,7 +66,7 @@ namespace Barrios.Default {
             if (this.showExpiredTerminated) {
                 var today = new Date();
                 request.Criteria = Serenity.Criteria.and(request.Criteria,
-                    [['Fecha'], '>', today.toISOString().substring(0, 10).replace(/-/g, '')]
+                    [['Fecha'], '>=', today.toISOString().substring(0, 10).replace(/-/g, '')]
                 );
             }
             return true;

@@ -3,6 +3,7 @@ namespace Barrios.Administration.Columns
 {
     using Serenity.ComponentModel;
     using System;
+    using System.ComponentModel;
 
     [ColumnsScript("Administration.User")]
     [BasedOnRow(typeof(Entities.UserRow), CheckNames = true)]
@@ -20,5 +21,8 @@ namespace Barrios.Administration.Columns
         public String Email { get; set; }
         [Width(100)]
         public String Source { get; set; }
+        [DisplayName("Registrado")]
+        public DateTime InsertDate { get; set; }
+        public short HavePermisions { get; set; }
     }
 }

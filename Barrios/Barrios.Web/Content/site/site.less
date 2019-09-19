@@ -25,6 +25,23 @@
 .box.dark, .styleSerenity.dark {
     border-top: 3px solid #3c8dbc;
 
+    .tab-content {
+        background-color: transparent;
+    }
+
+    .tabs {
+        a {
+            color: #f6f6f6;
+        }
+    }
+
+    .tabs.active {
+        a {
+            color: #444;
+        }
+
+    }
+
     .box-header {
         color: white;
         display: inline-flex;
@@ -256,4 +273,36 @@ You could also use a data-* attribute and content for this. That way "bloats" th
             width: 100%;
         }
     }
+}
+
+.statusRed {
+    background-color: #faa !important;
+}
+.statusBlue {
+    background-color: lightblue !important;
+}
+.statusGreen {
+    background-color: lightgreen !important;
+}
+
+.s-UserGrid {
+
+    .description * {
+        display: inline;
+    }
+
+    .description {
+        margin-top:5px;
+        .statusBlue, .statusGreen, .statusRed {
+            font-size: 13px;
+            border-radius: 5px;
+            padding: 5px;
+            color: black;
+            margin-right:10px;
+            font-weight: 200;
+        }
+    }
+}
+.clock-cell{
+    margin-right:2px;
 }

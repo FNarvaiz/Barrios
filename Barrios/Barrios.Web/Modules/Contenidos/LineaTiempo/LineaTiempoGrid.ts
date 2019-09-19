@@ -13,8 +13,9 @@ namespace Barrios.Contenidos {
         protected odd;
         protected UseSubBarrios;
         constructor(container: JQuery, UseSubBarrios: boolean) {
-            super(container);
+
             this.UseSubBarrios = UseSubBarrios;
+            super(container);
         }
         protected onClick(e: JQueryEventObject, row: number, cell: number) {
             super.onClick(e, row, cell);
@@ -59,6 +60,7 @@ namespace Barrios.Contenidos {
                         Q.notifyInfo("Seleccione una nota de la grilla");
                 }
             });
+
             if (this.UseSubBarrios) {
                 buttons.push({
                     title: 'Enviar por subBarrio',

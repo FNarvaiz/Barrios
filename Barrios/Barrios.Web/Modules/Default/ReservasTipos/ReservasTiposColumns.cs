@@ -8,6 +8,7 @@ namespace Barrios.Default.Columns
     using System.ComponentModel;
     using System.Collections.Generic;
     using System.IO;
+    using Barrios.Modules.Default;
 
     [ColumnsScript("Default.ReservasTipos")]
     [BasedOnRow(typeof(Entities.ReservasTiposRow), CheckNames = true)]
@@ -17,6 +18,7 @@ namespace Barrios.Default.Columns
         public Int16 Id { get; set; }
         [EditLink]
         public String Nombre { get; set; }
+        [HorariosFormatter]
         public Int16 Duracion { get; set; }
         public Boolean Vigente { get; set; }
         public Boolean RequiereVecino2 { get; set; }

@@ -6,6 +6,7 @@
         LargeDisplayName?: string;
         ShortDisplayName?: string;
         Logo?: string;
+        Emails?: string;
         Url?: string;
         TelefonOs?: string;
         Direccion?: string;
@@ -32,6 +33,7 @@
             LargeDisplayName = "LargeDisplayName",
             ShortDisplayName = "ShortDisplayName",
             Logo = "Logo",
+            Emails = "Emails",
             Url = "Url",
             TelefonOs = "TelefonOs",
             Direccion = "Direccion",

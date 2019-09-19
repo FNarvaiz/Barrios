@@ -169,7 +169,8 @@ namespace Barrios.Membership.Pages
                 user= UserRepository.GetNewUser(userId);
                 var emailBody = TemplateHelper.RenderTemplate(
                        MVC.Views.Membership.Account.SignUp.NewUserActivatedEmail, user);
-                Common.EmailHelper.Send("Nuevo usuario activado", emailBody, CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+                string emails = Common.EmailHelper.GetRenderMails(CurrentNeigborhood.Get().Emails, Authorization.UserDefinition.Email);
+                Common.EmailHelper.Send("Nuevo usuario activado", emailBody, emails, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
 
                 return new RedirectResult("~/Account/Login?activated=" + Uri.EscapeDataString(user.Email));
             }

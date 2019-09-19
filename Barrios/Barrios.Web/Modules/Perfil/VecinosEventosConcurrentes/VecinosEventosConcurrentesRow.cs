@@ -11,8 +11,8 @@ namespace Barrios.Perfil.Entities
 
     [ConnectionKey("Default"), Module("Perfil"), TableName("[dbo].[VECINOS_EVENTOS_CONCURRENTES]")]
     [DisplayName("Concurrentes"), InstanceName("Concurrente")]
-    [ReadPermission("Administration:Perfil")]
-    [ModifyPermission("Administration:Perfil")]
+    [ReadPermission("User:Perfil")]
+    [ModifyPermission("User:Perfil")]
   
     public sealed class VecinosEventosConcurrentesRow : Row, IIdRow, INameRow
     {

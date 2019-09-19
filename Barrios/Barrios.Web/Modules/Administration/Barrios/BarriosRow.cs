@@ -102,7 +102,12 @@ namespace Barrios.Administration.Entities
             get { return Fields.CantDiasReservables[this]; }
             set { Fields.CantDiasReservables[this] = value; }
         }
-
+        [DisplayName("Emails"), Size(200), Placeholder("Ingrese los mails a donde se tiene que enviar la solicitud o reserva,(1 por linea)"), TextAreaEditor()]
+        public String Emails
+        {
+            get { return Fields.Emails[this]; }
+            set { Fields.Emails[this] = value; }
+        }
 
         IIdField IIdRow.IdField
         {
@@ -131,7 +136,7 @@ namespace Barrios.Administration.Entities
             public StringField LargeDisplayName;
             public StringField ShortDisplayName;
             public StringField Logo;
-
+            public StringField Emails;
             public StringField Url;
 
             public StringField TelefonOs;

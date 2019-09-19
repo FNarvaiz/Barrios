@@ -14,6 +14,8 @@ declare namespace Barrios.Administration {
         TelefonOs: Serenity.StringEditor;
         CantDiasReservables: Serenity.IntegerEditor;
         Direccion: Serenity.StringEditor;
+        UseSubBarrios: Serenity.BooleanEditor;
+        Emails: Serenity.TextAreaEditor;
         IsActive: Serenity.BooleanEditor;
     }
     class BarriosForm extends Serenity.PrefixedContext {
@@ -30,6 +32,7 @@ declare namespace Barrios.Administration {
         LargeDisplayName?: string;
         ShortDisplayName?: string;
         Logo?: string;
+        Emails?: string;
         Url?: string;
         TelefonOs?: string;
         Direccion?: string;
@@ -51,6 +54,7 @@ declare namespace Barrios.Administration {
             LargeDisplayName = "LargeDisplayName",
             ShortDisplayName = "ShortDisplayName",
             Logo = "Logo",
+            Emails = "Emails",
             Url = "Url",
             TelefonOs = "TelefonOs",
             Direccion = "Direccion",
@@ -395,6 +399,7 @@ declare namespace Barrios.Administration {
         PasswordConfirm?: string;
         ClientIdList?: number[];
         Unit?: string;
+        HavePermisions?: number;
         InsertUserId?: number;
         InsertDate?: string;
         UpdateUserId?: number;
@@ -425,6 +430,7 @@ declare namespace Barrios.Administration {
             PasswordConfirm = "PasswordConfirm",
             ClientIdList = "ClientIdList",
             Unit = "Unit",
+            HavePermisions = "HavePermisions",
             InsertUserId = "InsertUserId",
             InsertDate = "InsertDate",
             UpdateUserId = "UpdateUserId",
@@ -1292,9 +1298,11 @@ declare namespace Barrios.Default {
         Cierre: Serenity.LookupEditor;
         Resolucion: Serenity.LookupEditor;
         Emails: Serenity.TextAreaEditor;
+        MailBody: Serenity.TextAreaEditor;
         TypeList: ReservasTiposGrid;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
         NeigborhoodList: Serenity.CheckLookupEditor;
+        Regulation: Serenity.ImageUploadEditor;
     }
     class ReservasRecursosForm extends Serenity.PrefixedContext {
         static formKey: string;
@@ -1306,7 +1314,9 @@ declare namespace Barrios.Default {
     interface ReservasRecursosRow {
         Id?: number;
         Nombre?: string;
+        Regulation?: string;
         Emails?: string;
+        MailBody?: string;
         Apertura?: number;
         Cierre?: number;
         Tipo?: number;
@@ -1324,7 +1334,9 @@ declare namespace Barrios.Default {
         const enum Fields {
             Id = "Id",
             Nombre = "Nombre",
+            Regulation = "Regulation",
             Emails = "Emails",
+            MailBody = "MailBody",
             Apertura = "Apertura",
             Cierre = "Cierre",
             Tipo = "Tipo",
@@ -2146,10 +2158,12 @@ declare namespace Barrios.Common {
     }
 }
 declare namespace Barrios.Administration {
-    class BarriosGrid extends Common.GridEditorBase<BarriosRow> {
+    class BarriosGrid extends Serenity.EntityGrid<BarriosRow, any> {
         protected getColumnsKey(): string;
         protected getDialogType(): typeof BarriosDialog;
+        protected getIdProperty(): string;
         protected getLocalTextPrefix(): string;
+        protected getService(): string;
         constructor(container: JQuery);
     }
 }
@@ -2258,6 +2272,7 @@ declare namespace Barrios.Administration {
         private neighbordhoobId;
         constructor(container: JQuery, neighbordhoobId: any);
         protected getDefaultSortBy(): fld[];
+        protected getItemCssClass(item: UserRow, index: number): string;
         protected onViewSubmit(): boolean;
     }
 }
@@ -2879,6 +2894,12 @@ declare namespace Barrios.Default {
         }[];
     }
 }
+declare namespace Barrios.Modules.Default {
+    class HorariosFormatter implements Slick.Formatter {
+        format(ctx: Slick.FormatterContext): string;
+        checkTime(i: any): any;
+    }
+}
 declare namespace Barrios.Default {
     class ReservasRecursosDialog extends Serenity.EntityDialog<ReservasRecursosRow, any> {
         protected getFormKey(): string;
@@ -3035,6 +3056,7 @@ declare namespace Barrios.Perfil {
         private userId;
         constructor(container: JQuery, userId?: any);
         protected onViewSubmit(): boolean;
+        protected getButtons(): Serenity.ToolButton[];
     }
 }
 declare namespace Barrios.Perfil {

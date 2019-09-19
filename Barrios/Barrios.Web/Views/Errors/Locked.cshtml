@@ -1,0 +1,31 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = Texts.Site.Locked.PageTitle;
+    ViewData["PageId"] = "Bloqued";
+    Layout = Serenity.Authorization.IsLoggedIn ?
+        "~/Views/Shared/_Layout.cshtml" :
+        "~/Views/Shared/_LayoutNoNavigation.cshtml";
+}
+
+<div class="page-content">
+    <div class="message">
+        <table>
+            <tr>
+                <td style="width: 200px;">
+                    <i class="fa fa-times-circle text-red" style="font-size: 180px;"></i>
+                </td>
+                <td>
+                    <h1>@Texts.Site.Locked.PageTitle</h1>
+                    <h3>@Texts.Site.Locked.LackPermissions </h3>
+                   
+                    <div class="date-time">
+                        @(!Serenity.Authorization.IsLoggedIn ? "" : (Serenity.Authorization.Username + " - "))@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    </div>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+</div>

@@ -70,7 +70,7 @@ namespace Dashboard {
              dialog.element.on("dialogclose", () => {
                  if (dialog.send) {
                      this.SendBookinRequest(
-                         dialog.form.Fecha.value,
+                         dialog.form.Fecha.value.replace("-", "").replace("-", ""),
                          dialog.form.IdRecurso.value,
                          dialog.form.IdRecurso.text,
                          dialog.turn.Nombre,

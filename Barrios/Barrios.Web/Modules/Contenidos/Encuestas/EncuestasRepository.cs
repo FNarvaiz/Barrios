@@ -46,7 +46,7 @@ namespace Barrios.Contenidos.Repositories
             {
                 string query = "Select  P.ID_CATEGORIA,C.NOMBRE AS CategoryName,P.ID,P.NOMBRE,CONVERT(varchar(500),P.Descripcion) AS DESCRIPCION,AVG(V.valoracion) as Rating ," +
                     "SUM(case when V.Userid = " + userID + " then V.valoracion else 0 end) as Liked," +
-                    "SUM(case when V.Userid = 1 then V.ID else 0 end) as ValoracionId," +
+                    "SUM(case when V.Userid = " + userID + " then V.ID else 0 end) as ValoracionId," +
                     "COUNT(V.ID) as RatingCount " +
                     "from ENCUESTAS P " +
                     "INNER JOIN CATEGORIAS C ON C.ID= P.ID_CATEGORIA " +

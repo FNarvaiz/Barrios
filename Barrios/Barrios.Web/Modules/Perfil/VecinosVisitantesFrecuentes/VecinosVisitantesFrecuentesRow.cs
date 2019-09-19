@@ -11,8 +11,8 @@ namespace Barrios.Perfil.Entities
 
     [ConnectionKey("Default"), Module("Perfil"), TableName("[dbo].[VECINOS_VISITANTES_FRECUENTES]")]
     [DisplayName("Visitantes Frecuentes"), InstanceName("Visitante Frecuente")]
-    [ReadPermission("Administration:Perfil")]
-    [ModifyPermission("Administration:Perfil")]
+    [ReadPermission("User:Perfil")]
+    [ModifyPermission("User:Perfil")]
     [LeftJoin("jBarrio", "[dbo].[Users-barrios]", "jBarrio.[UserId] = t0.[UserId] ")]
 
     public sealed class VecinosVisitantesFrecuentesRow : Row, IIdRow, INameRow

@@ -11,8 +11,8 @@ namespace Barrios.Perfil.Entities
 
     [ConnectionKey("Default"), Module("Perfil"), TableName("[dbo].[VECINOS_ACTIVIDADES]")]
     [DisplayName("Actividades"), InstanceName("Actividad")]
-    [ReadPermission("Administration:Perfil")]
-    [ModifyPermission("Administration:Perfil")]
+    [ReadPermission("User:Perfil")]
+    [ModifyPermission("User:Perfil")]
     public sealed class VecinosActividadesRow : Row, IIdRow, INameRow
     {
         [DisplayName("Id"), Column("ID"), Identity]

@@ -6,9 +6,11 @@
         Cierre: Serenity.LookupEditor;
         Resolucion: Serenity.LookupEditor;
         Emails: Serenity.TextAreaEditor;
+        MailBody: Serenity.TextAreaEditor;
         TypeList: ReservasTiposGrid;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
         NeigborhoodList: Serenity.CheckLookupEditor;
+        Regulation: Serenity.ImageUploadEditor;
     }
 
     export class ReservasRecursosForm extends Serenity.PrefixedContext {
@@ -28,6 +30,7 @@
                 var w3 = ReservasTiposGrid;
                 var w4 = ReservasTurnosEspecialesGrid;
                 var w5 = s.CheckLookupEditor;
+                var w6 = s.ImageUploadEditor;
 
                 Q.initFormType(ReservasRecursosForm, [
                     'Nombre', w0,
@@ -36,9 +39,11 @@
                     'Cierre', w1,
                     'Resolucion', w1,
                     'Emails', w2,
+                    'MailBody', w2,
                     'TypeList', w3,
                     'SpecialTurnList', w4,
-                    'NeigborhoodList', w5
+                    'NeigborhoodList', w5,
+                    'Regulation', w6
                 ]);
             }
         }

@@ -1,0 +1,26 @@
+﻿@model Barrios.Default.Entities.MailBody
+
+<html>
+    <head>
+        <title>@Model.Title</title>
+    </head>
+    <body>
+        @if (!Model.BeforeTable.IsEmptyOrNull())
+        {
+            <p>Model.BeforeTable</p>
+        }
+        <table border=1 cellpadding=5>
+            <tr><td>Unidad/Lote:</td><td>@Serenity.Authorization.UserDefinition.DisplayName </td></tr>
+            <tr><td>Familia:</td><td>@Serenity.Authorization.UserDefinition.DisplayName</td></tr>
+            <tr><td>Fecha del evento:</td><td>@Model.Reserva.Fecha.Value.ToString("dd/MM/yyyy")</td></tr>
+            <tr><td>Espacio:</td><td>>@Model.Reserva.IdRecursoNombre.ToUpper() </td></tr>
+            <tr><td>Turno:</td><td>@Model.Reserva.Turno.ToUpper()</td></tr>
+            <tr><td>Observaciones:</td><td>@Model.Reserva.Observaciones</td></tr>
+        </table>
+        @if (!Model.Body.IsEmptyOrNull())
+        {
+            <p>Model.Body</p>
+        }
+    </body>
+    
+</html>

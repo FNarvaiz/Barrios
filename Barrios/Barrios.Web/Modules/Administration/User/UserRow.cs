@@ -12,6 +12,7 @@ namespace Barrios.Administration.Entities
     [DisplayName("Users"), InstanceName("User")]
     [ReadPermission(PermissionKeys.Security)]
     [ModifyPermission(PermissionKeys.Security)]
+
     [LookupScript(Permission = "User:Reservas")]
     public sealed class UserRow : LoggingRow, IIdRow, INameRow, IIsActiveRow
     {
@@ -27,13 +28,20 @@ namespace Barrios.Administration.Entities
             get { return Fields.BarrioId[this]; }
             set { Fields.BarrioId[this] = value; }
         }
+
         [DisplayName("Username"), Size(100), NotNull, QuickSearch, LookupInclude]
         public String Username
         {
             get { return Fields.Username[this]; }
             set { Fields.Username[this] = value; }
         }
-
+        [DisplayName("IDRole"), Expression("(SELECT ISNULL(sum([RoleId]),0) FROM[Barrios].[dbo].[UserRoles]  where userid = T0.userid)")]
+        public short? HavePermisions
+        {
+            get { return Fields.HavePermisions[this]; }
+            set { Fields.HavePermisions[this] = value; }
+        }
+       
         [DisplayName("Source"), Size(4), NotNull, Insertable(false), Updatable(false), DefaultValue("site")]
         public String Source
         {
@@ -103,7 +111,7 @@ namespace Barrios.Administration.Entities
             get { return Fields.PasswordConfirm[this]; }
             set { Fields.PasswordConfirm[this] = value; }
         }
-        [DisplayName("Unidad"), Size(50), IntegerEditor]
+        [DisplayName("Unidad"),Required, Size(50), IntegerEditor]
         public String Unit
         {
             get { return Fields.Unit[this]; }
@@ -129,7 +137,7 @@ namespace Barrios.Administration.Entities
             get { return Fields.LastDirectoryUpdate[this]; }
             set { Fields.LastDirectoryUpdate[this] = value; }
         }
-
+       
         IIdField IIdRow.IdField
         {
             get { return Fields.UserId; }
@@ -173,7 +181,7 @@ namespace Barrios.Administration.Entities
             public StringField PasswordConfirm;
             public ListField<Int32> ClientIdList;
             public StringField Unit;
-
+            public Int16Field HavePermisions;
         }
     }
 }

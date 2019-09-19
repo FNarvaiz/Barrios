@@ -17,6 +17,7 @@
         PasswordConfirm?: string;
         ClientIdList?: number[];
         Unit?: string;
+        HavePermisions?: number;
         InsertUserId?: number;
         InsertDate?: string;
         UpdateUserId?: number;
@@ -52,6 +53,7 @@
             PasswordConfirm = "PasswordConfirm",
             ClientIdList = "ClientIdList",
             Unit = "Unit",
+            HavePermisions = "HavePermisions",
             InsertUserId = "InsertUserId",
             InsertDate = "InsertDate",
             UpdateUserId = "UpdateUserId",

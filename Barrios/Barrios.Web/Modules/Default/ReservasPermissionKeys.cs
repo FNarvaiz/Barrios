@@ -8,7 +8,7 @@ namespace Barrios.Default
     [DisplayName("Reservas")]
     public class ReservasPermissionKeys
     {
-        [Description("Reservas, recursos, tipos de reservas y turnos especiales")]
+        [Description("Reservas")]
         public const string Reservas = "Reservas:admin";
         
     }

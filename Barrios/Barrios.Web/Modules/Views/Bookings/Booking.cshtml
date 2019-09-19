@@ -42,34 +42,37 @@
     <div class="col-xs-6 col-md-4" id="formBooking" style="height:inherit">
         @if (Model.ExistEspecialTurns())
         {
-            <section class="styleSerenity dark turnSpecial">
-                <h4>
+        <section class="nav-tabs-custom styleSerenity dark turnSpecial">
+                <ul class="nav nav-tabs">
                     @foreach (var aux in Model.Recursos)
                     {
                         if (aux.Resolucion == 0)
                         {
-                            <strong>/@aux.Nombre</strong>
+                            <li id="Tab_@aux.Id" class="tabs"><a href="#tab_@aux.Id" data-toggle="tab">@aux.Nombre</a></li>
                         }
                     }
-                </h4>
-                <p>
 
-                    Las reservas se solicitan por este medio. Para mas información tiene los reglamentos de estos mismos.<br />
-                    La Administración se pondrá en contacto para confirmar la reserva.<br />
-                    <strong>ADICIONALES</strong><br />
+                </ul>
+                <div class="tab-content " id="tabContent">
+                    @foreach (var aux in Model.Recursos)
+                    {
+                        if (aux.Resolucion == 0)
+                        {
+                            <div class="tab-pane active" id="tab_@aux.Id"> 
+                                @if (!aux.Description.IsEmptyOrNull())
+                                {
+                                    foreach (string line in aux.Description.Split('\n'))
+                                    {
+                                        @line <br />
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            <button type="button" onclick="Booking.showEspecialTurnDialog();" class="btn btn-info">Solicitar Reserva</button>
 
-                    Expendedora de café durante el evento $ 650.-<br />
-                    Chopera Consultar costo y encargar barril con una semana de anticipación mínimo.<br />
-
-                    <strong>ESPECIALES</strong><br />
-
-                    Corporativo (con aprobación previa) solicitar presupuesto<br />
-                    Publicidad (con aprobación previa) Evite multas al no declarar eventos publicitarios.
-
-                </p>
-                <button type="button" onclick="Booking.showEspecialTurnDialog();" class="btn btn-info">Solicitar Reserva</button>
-
-            </section>
+        </section>
         }
         <section class="styleSerenity ">
             <div id="GridDiv"></div>
@@ -81,9 +84,12 @@
 <script>
     var Booking;
     var grid;
+    var tabs = document.getElementsByClassName("tabs");
+    if(tabs.length>0)
+        tabs[0].className += " active";
     jQuery(function () {
-        grid = new Barrios.Default.MyBookingsGrid($('#GridDiv'), @Serenity.Authorization.UserId).init();
-        Booking = new Dashboard.Booking($("#dropdownRecurso"), $(".ItemRecurso"), $("#Bookingtable"), grid);
-        grid.refreshTable = () => { Booking.refresh(); };
-    });
+         grid = new Barrios.Default.MyBookingsGrid($('#GridDiv'), @Serenity.Authorization.UserId).init();
+         Booking = new Dashboard.Booking($("#dropdownRecurso"), $(".ItemRecurso"), $("#Bookingtable"), grid);
+         grid.refreshTable = () => { Booking.refresh(); };
+     });
 </script>

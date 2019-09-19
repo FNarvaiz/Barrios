@@ -124,7 +124,8 @@ namespace Barrios.Default.Repositories
             parameters.Add("turnStart", request.turnStart.ToString());
             parameters.Add("date", request.bookingDate.ToString());
             parameters.Add("UserId", Authorization.UserDefinition.Id.ToString());
-            parameters.Add("extraNeighborId", request.extraNeighborUnit.ToString());
+            if(request.extraNeighborUnit!=0)
+                parameters.Add("extraNeighborId", request.extraNeighborUnit.ToString());
             string storeProcedureName = "YachtBookingTake";
             if (CurrentNeigborhood.Get().Url.Contains("localhost"))
                 storeProcedureName = "vecinosTodos." + storeProcedureName;

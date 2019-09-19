@@ -100,11 +100,17 @@ namespace Barrios
             public static class AccessDenied
             {
                 public static LocalText PageTitle = "Acceso denegado";
-                public static LocalText LackPermissions = "Usted ya tiene activa su cuenta pero aun no tiene los permisos para acceder.\n" +
-                    "Comunice con el administrador de su barrio para autenticar su identidad y le otorguen los permisos.";
+                public static LocalText LackPermissions = "Usted ya tiene áctiva su cuenta pero aun no tiene los permisos para acceder.\n" +
+                    "Comuniquece con el administrador de su barrio para autenticar su identidad y le otorguen los permisos.";
                 public static LocalText NotLoggedIn = "You need to be logged in to access this page!";
                 public static LocalText ClickToChangeUser = "click here to login with another user...";
                 public static LocalText ClickToLogin = "clik here to return to login page...";
+            }
+            public static class Locked
+            {
+                public static LocalText PageTitle = "Seccion bloqueada";
+                public static LocalText LackPermissions = "Esta sección esta temporalmente inhabilitada. Por favor comuniquece con la administración.";
+               
             }
 
             public static class Dashboard

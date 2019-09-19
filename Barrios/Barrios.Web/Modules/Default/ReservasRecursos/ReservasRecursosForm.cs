@@ -21,11 +21,15 @@ namespace Barrios.Default.Forms
         public Int16 Cierre { get; set; }
         public Int16 Resolucion { get; set; }
         public String Emails { get; set; }
+        public String MailBody { get; set; }
+        public String Description { get; set; }
         [Tab("Tipos Reservas"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTiposGrid]
         public List<ReservasTiposRow> TypeList { get; set; }
         [Tab("Turnos Especiales"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTurnosEspecialesGrid]
         public List<ReservasTurnosEspecialesRow> SpecialTurnList { get; set; }
         [Tab("Sub Barrios"), DisplayName(""), LabelWidth(0, UntilNext = true),CheckLookupEditor("Settings.Subbarrios",HideSearch =true, ShowSelectAll = true, CheckedOnTop = true)]
         public List<Int32> NeigborhoodList { get; set; }
+        [Tab("Reglamento"),DisplayName("")]
+        public String Regulation { get; set; }
     }
 }
