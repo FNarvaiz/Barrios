@@ -7,19 +7,44 @@ using System.Collections.Generic;
 using Serenity;
 using Barrios.Modules.Common.Utils;
 using System.Data;
+using Barrios.Administration.Entities;
 
 namespace Barrios.Common
 {
     public class EmailHelper
     {
-        public static string GetRenderMails(string emails,string userMail)
+        public static string GetRenderMails(string emailsResource,UserRow user,UserRow user2=null)
         {
-            if (emails.IsEmptyOrNull())
+            string emails = "";
+            if (emailsResource.IsEmptyOrNull())
                 emails = CurrentNeigborhood.Get().Mail;
             else
-                emails = emails.Replace("\n", ",");
-            emails = emails + "," + userMail;
+                emails = SplitAndCheckMail(emailsResource);
+            
+            emails = emails + UserMails(user);
+            emails = emails + UserMails(user2);
+
             return emails;
+        }
+        private static string UserMails(UserRow user)
+        {
+            string mails = "";
+            if (user != null)
+            {
+                mails = "," + user.Email;
+                if (user.Email_Others.IsEmptyOrNull())
+                    mails = mails + "," + SplitAndCheckMail(user.Email_Others);
+            }
+            return mails;
+        }
+        private static string SplitAndCheckMail(string emails)
+        {
+            string mails = "";
+            if (emails != null) 
+                foreach(string mail in emails.Split('\n'))
+                    if (mail.Contains("@"))
+                        mails = mails + "," + mail;
+            return mails;
         }
         public static void Send(string subject, string body, string addressString, string displayName = "", string from = "group_email@domain.com", List<MailAddress> address =null, string file="")
         {
@@ -32,7 +57,10 @@ namespace Barrios.Common
             }
             if (address == null)
                 foreach (var mail in addressString.Split(','))
-                    message.To.Add(new MailAddress(mail.Trim(), ""));
+                {
+                    if (!string.IsNullOrEmpty(mail))
+                        message.To.Add(new MailAddress(mail.Trim(), ""));
+                }
             else
                 foreach (var mail in address)
                     message.Bcc.Add(mail);

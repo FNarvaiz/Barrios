@@ -1299,6 +1299,7 @@ declare namespace Barrios.Default {
         Resolucion: Serenity.LookupEditor;
         Emails: Serenity.TextAreaEditor;
         MailBody: Serenity.TextAreaEditor;
+        Description: Serenity.TextAreaEditor;
         TypeList: ReservasTiposGrid;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
         NeigborhoodList: Serenity.CheckLookupEditor;
@@ -1317,6 +1318,7 @@ declare namespace Barrios.Default {
         Regulation?: string;
         Emails?: string;
         MailBody?: string;
+        Description?: string;
         Apertura?: number;
         Cierre?: number;
         Tipo?: number;
@@ -1337,6 +1339,7 @@ declare namespace Barrios.Default {
             Regulation = "Regulation",
             Emails = "Emails",
             MailBody = "MailBody",
+            Description = "Description",
             Apertura = "Apertura",
             Cierre = "Cierre",
             Tipo = "Tipo",

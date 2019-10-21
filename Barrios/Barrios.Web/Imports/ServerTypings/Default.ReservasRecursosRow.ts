@@ -5,6 +5,7 @@
         Regulation?: string;
         Emails?: string;
         MailBody?: string;
+        Description?: string;
         Apertura?: number;
         Cierre?: number;
         Tipo?: number;
@@ -27,6 +28,7 @@
             Regulation = "Regulation",
             Emails = "Emails",
             MailBody = "MailBody",
+            Description = "Description",
             Apertura = "Apertura",
             Cierre = "Cierre",
             Tipo = "Tipo",

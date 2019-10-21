@@ -7,6 +7,7 @@
         Resolucion: Serenity.LookupEditor;
         Emails: Serenity.TextAreaEditor;
         MailBody: Serenity.TextAreaEditor;
+        Description: Serenity.TextAreaEditor;
         TypeList: ReservasTiposGrid;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
         NeigborhoodList: Serenity.CheckLookupEditor;
@@ -40,6 +41,7 @@
                     'Resolucion', w1,
                     'Emails', w2,
                     'MailBody', w2,
+                    'Description', w2,
                     'TypeList', w3,
                     'SpecialTurnList', w4,
                     'NeigborhoodList', w5,

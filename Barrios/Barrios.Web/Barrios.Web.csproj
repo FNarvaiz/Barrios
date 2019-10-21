@@ -1803,6 +1803,7 @@
     <Content Include="tools\JsEngine\lib.d.ts_" />
     <Content Include="tsconfig.json" />
     <Content Include="Views\Errors\Locked.cshtml" />
+    <Content Include="Views\Shared\_HeadIcons.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1985,6 +1986,7 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20190919_100600_UpdateReservasStoreProcedure.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190917_114500_AddResourceDescription.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190912_160500_AddEmailFilelds.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190909_235700_AddFileInResources.cs" />

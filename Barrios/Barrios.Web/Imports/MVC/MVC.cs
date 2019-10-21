@@ -208,6 +208,7 @@ namespace MVC
 
         public static class Shared
         {
+            public const string _HeadIcons = "~/Views/Shared/_HeadIcons.cshtml";
             public const string _Layout = "~/Views/Shared/_Layout.cshtml";
             public const string _LayoutHead = "~/Views/Shared/_LayoutHead.cshtml";
             public const string _LayoutNoNavigation = "~/Views/Shared/_LayoutNoNavigation.cshtml";

@@ -19,6 +19,8 @@ namespace Barrios.Default.Endpoints
     using MyRepository = Repositories.ReservasRepository;
     using MyRow = Entities.ReservasRow;
     using Barrios.Modules.Default.Reservas;
+    using Barrios.Administration.Entities;
+
     [RoutePrefix("Services/Default/Reservas"), Route("{action}")]
     [ConnectionKey(typeof(MyRow)), ServiceAuthorize(typeof(MyRow))]
     public class ReservasController : ServiceEndpoint
@@ -48,10 +50,10 @@ namespace Barrios.Default.Endpoints
         [HttpPost, AuthorizeDelete(typeof(MyRow))]
         public DeleteResponse Delete(IUnitOfWork uow, DeleteRequest request)
         {
-           
-                return new MyRepository().Delete(uow, request);
+            SendBookingCancelMail(request);
+            return new MyRepository().Delete(uow, request);
         }
-
+        
         [HttpPost]
         public RetrieveResponse<MyRow> Retrieve(IDbConnection connection, RetrieveRequest request)
         {
@@ -100,46 +102,15 @@ namespace Barrios.Default.Endpoints
             SendBookingTakeMail(request);
             return renderBookingStatus(Utils.GetConnection(), new BookingListRequest() { ID = request.resourceId,Resolution=10 });
         }
-        private void SendBookingTakeMail(BookingTakeRequest request=null, MyRow row = null)
-        {
-            int resourceID=  (request == null) ? row.IdRecurso.Value : request.resourceId;
-            ReservasRecursosRow resource = Utils.GetConnection().Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE id=" + resourceID).SingleOrDefault();
-            if (!resource.Emails.IsEmptyOrNull() || resource.Resolucion == 0)
-            {
-                if (row == null)
-                {
-                    DateTime date = DateTime.ParseExact(request.bookingDate, "yyyyMMdd",
-                                      CultureInfo.InvariantCulture);
-                    row = new MyRow
-                    {
-                        IdRecursoNombre = resource.Nombre,
-                        Turno = request.turnStart.MinutesToString(),
-                        Observaciones = request.comment,
-                        Fecha = date
-                    };
-                }
-                else
-                {
-                    row.Turno = row.Inicio.Value.MinutesToString();
-                    row.IdRecursoNombre = resource.Nombre;
-                }
-                string emails = EmailHelper.GetRenderMails(resource.Emails, Authorization.UserDefinition.Email);
-                var message = TemplateHelper.RenderTemplate(MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody() { Reserva = row,
-                    Body = resource.MailBody,
-                    Title = "Reserva realizada",
-                    BeforeTable = ""
-                });
-
-                EmailHelper.Send($"Reserva {resource.Nombre} realizada", message, emails, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail, null, resource.Regulation);
-            }
-        }
+        
         [HttpPost]
         public string SendRequest(IDbConnection connection, BookingTakeRequest request)
         {
             DateTime date = DateTime.ParseExact(request.bookingDate, "yyyyMMdd",
                                   CultureInfo.InvariantCulture);
-           
 
+
+            UserRow user = Utils.GetUser(Convert.ToInt32(Authorization.UserId));
             bool ok = Convert.ToBoolean(Utils.GetRequestString( "SELECT CAST(CASE WHEN DATEDIFF(D, (SELECT TOP 1 FECHA FROM HOY), " + date.ToSql() + ") <= 180 THEN 1 ELSE 0 END AS BIT)").Rows[0][0]);
             if (ok) {
                 string status = Utils.GetRequestString( "SELECT dbo.ESTADO_TURNO_RESERVA(" + request.resourceId + ", " + date.ToSql() + ", " + request.turnStart + ", " + request.turnDuration + ")").Rows[0][0].ToString();
@@ -153,7 +124,7 @@ namespace Barrios.Default.Endpoints
                         Fecha = date
                     };
                     string emails =Utils.GetRequestString( "SELECT emails FROM [RESERVAS_RECURSOS] WHERE id=" + request.resourceId).Rows[0][0].ToString();
-                    emails = EmailHelper.GetRenderMails(emails, Authorization.UserDefinition.Email);
+                    emails = EmailHelper.GetRenderMails(emails, user);
                     
                     var message = TemplateHelper.RenderTemplate(
                        MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody()
@@ -177,43 +148,95 @@ namespace Barrios.Default.Endpoints
         [HttpPost]
         public string bookingCancel(IDbConnection connection, IdRequest request)
         {
-           
-            MyRow row = Retrieve(Utils.GetConnection(), new RetrieveRequest() { EntityId = request.ID }).Entity;
-            ReservasRecursosRow resource = Utils.GetConnection().Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE id=" + row.IdRecurso).SingleOrDefault();
-            if (resource.Resolucion == 0)
-            {
-                if (row.Fecha < DateTime.Today.AddDays(10))
-                {
-                    throw new Exception("No puede cancelar su reserva con menos de 10 dias de anticipación. Comuniquese con admnistración.");
-                }
-                else
-                {
-                    string emails = EmailHelper.GetRenderMails(resource.Emails, Authorization.UserDefinition.Email);
-                    var message = TemplateHelper.RenderTemplate(MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody() {
-                        Reserva = row,
-                        Body = "",
-                        Title="Reserva cancelada",
-                        BeforeTable= "A partir de este correo.Queda cancelada su reserva."
-                    });
-                    EmailHelper.Send($"Reserva {resource.Nombre} cancelada", message, emails, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail, null, resource.Regulation);
-
-                }
-            }
-            else
-            {
-                DataRow DR = Utils.GetRequestString("SELECT RR.NOMBRE,RR.RESOLUCION,R.ID_RECURSO,R.FECHA, dbo.HOUR_TO_STR(INICIO) AS TURNO, " +
-             "CAST(CASE WHEN DATEDIFF(MINUTE, GETDATE(), dbo.FECHA_INICIO_TURNO(FECHA, INICIO)) >= 1 THEN 1 ELSE 0 END AS BIT) AS OK " +
-             "FROM RESERVAS R INNER JOIN [RESERVAS_RECURSOS] RR ON R.ID_RECURSO=RR.ID WHERE R.ID=" + request.ID).Rows[0];
-                if (!Convert.ToBoolean(DR["OK"]))
-                    throw new ValidationError(DR["NOMBRE"] + ": el turno " + DR["FECHA"] + " " + DR["TURNO"] + "\n\nYa no es posible cancelar la reserva porque la anticipación mínima es de 1 minuto antes.");
-            }
+            
             var UOW = Utils.GetUnitOfWork();
             Delete(UOW, new DeleteRequest() { EntityId = request.ID });
             UOW.Commit();
             return "Se ha eliminado su reserva.";
         }
+
+        #region SEND MAILS
+        private void SendBookingCancelMail(DeleteRequest request)
+        {
+            using (var connection1 = Utils.GetConnection())
+            {
+                MyRow row = Retrieve(connection1, new RetrieveRequest() { EntityId = request.EntityId }).Entity;
+
+                ReservasRecursosRow resource = Utils.GetConnection().Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE id=" + row.IdRecurso).SingleOrDefault();
+
+
+                if (resource.Resolucion == 0)
+                {
+                    if (row.Fecha < DateTime.Today.AddDays(10))
+                    {
+                        throw new Exception("No puede cancelar su reserva con menos de 10 dias de anticipación. Comuniquese con admnistración.");
+                    }
+                    else
+                    {
+                        UserRow user = Utils.GetUser(row.IdVecino);
+                        UserRow user2 = Utils.GetUser(row.IdVecino2);
+                        string emails = EmailHelper.GetRenderMails(resource.Emails, user, user2);
+                        var message = TemplateHelper.RenderTemplate(MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody()
+                        {
+                            Reserva = row,
+                            Body = "",
+                            Title = "Reserva cancelada",
+                            BeforeTable = "A partir de este correo.Queda cancelada su reserva."
+                        });
+                        EmailHelper.Send($"Reserva {resource.Nombre} cancelada", message, emails, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail, null, resource.Regulation);
+
+                    }
+                }
+                else
+                {
+                    DataRow DR = Utils.GetRequestString("SELECT RR.NOMBRE,RR.RESOLUCION,R.ID_RECURSO,R.FECHA, dbo.HOUR_TO_STR(INICIO) AS TURNO, " +
+                 "CAST(CASE WHEN DATEDIFF(MINUTE, GETDATE(), dbo.FECHA_INICIO_TURNO(FECHA, INICIO)) >= 1 THEN 1 ELSE 0 END AS BIT) AS OK " +
+                 "FROM RESERVAS R INNER JOIN [RESERVAS_RECURSOS] RR ON R.ID_RECURSO=RR.ID WHERE R.ID=" + request.EntityId).Rows[0];
+                    if (!Convert.ToBoolean(DR["OK"]))
+                        throw new ValidationError(DR["NOMBRE"] + ": el turno " + DR["FECHA"] + " " + DR["TURNO"] + "\n\nYa no es posible cancelar la reserva porque la anticipación mínima es de 1 minuto antes.");
+                }
+            }
+        }
+        private void SendBookingTakeMail(BookingTakeRequest request = null, MyRow row = null)
+        {
+            int resourceID = (request == null) ? row.IdRecurso.Value : request.resourceId;
+            ReservasRecursosRow resource = Utils.GetConnection().Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE id=" + resourceID).SingleOrDefault();
+            if (!resource.Emails.IsEmptyOrNull() || resource.Resolucion == 0)
+            {
+                if (row == null)
+                {
+                    DateTime date = DateTime.ParseExact(request.bookingDate, "yyyyMMdd",
+                                      CultureInfo.InvariantCulture);
+                    row = new MyRow
+                    {
+                        IdRecursoNombre = resource.Nombre,
+                        Turno = request.turnStart.MinutesToString(),
+                        Observaciones = request.comment,
+                        Fecha = date
+                    };
+                }
+                else
+                {
+                    row.Turno = row.Inicio.Value.MinutesToString();
+                    row.IdRecursoNombre = resource.Nombre;
+                }
+                string emails = EmailHelper.GetRenderMails(resource.Emails, Utils.GetUser(row.IdVecino), Utils.GetUser(row.IdVecino2));
+                var message = TemplateHelper.RenderTemplate(MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody()
+                {
+                    Reserva = row,
+                    Body = resource.MailBody,
+                    Title = "Reserva realizada",
+                    BeforeTable = ""
+                });
+
+                EmailHelper.Send($"Reserva {resource.Nombre} realizada", message, emails, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail, null, resource.Regulation);
+            }
+        }
+        #endregion
+
+
     }
-    
+
     public class IdRequest : ServiceRequest
     {
        public int ID { get; set; }

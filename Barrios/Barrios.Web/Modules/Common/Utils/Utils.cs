@@ -12,6 +12,7 @@ namespace Barrios.Modules.Common.Utils
     using System.Collections.Generic;
     using System.Data;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using System.Web.Hosting;
 
@@ -35,6 +36,15 @@ namespace Barrios.Modules.Common.Utils
                         return DT;
                     }
                 }
+            }
+        }
+        public static UserRow GetUser(int? id)
+        {
+            if (id == null)
+                return null;
+            using (IDbConnection connection = GetConnection())
+            {
+                return connection.Query<UserRow>("SELECT * FROM [Users] WHERE userid=" + id).SingleOrDefault();
             }
         }
         public static int InsertOrUpdateString(IDbConnection connection, string cmdText)

@@ -93,7 +93,7 @@ namespace Barrios.Default.Repositories
                 "T.ID as IDTURNO,T.DIAS  ," +
                 " dbo.ID_VECINO_TURNO_RESERVA(" + resourceId + ", F.FECHA, T.INICIO) as vecinoID, " +
                 "dbo.ESTADO_TURNO_RESERVA(" + resourceId + ", F.FECHA, T.INICIO, T.DURACION)as ESTADO " +
-                "FROM dbo.LISTA_FECHAS_ESPECIALES(7,90) AS F " +
+                "FROM dbo.LISTA_FECHAS_ESPECIALES(7,180) AS F " +
                 "CROSS JOIN RESERVAS_TURNOS_ESPECIALES T where T.ID_RECURSO= " + resourceId + " order by F.Fecha ASC, ESTADO DESC ,INICIO asc");
             DataTable dt = Utils.GetRequestString( sql.ToString());
             int count = 0;
@@ -123,6 +123,7 @@ namespace Barrios.Default.Repositories
             parameters.Add("turnTypeId", request.turnType.ToString());
             parameters.Add("turnStart", request.turnStart.ToString());
             parameters.Add("date", request.bookingDate.ToString());
+            parameters.Add("BarrioId", CurrentNeigborhood.Get().Id.ToString());
             parameters.Add("UserId", Authorization.UserDefinition.Id.ToString());
             if(request.extraNeighborUnit!=0)
                 parameters.Add("extraNeighborId", request.extraNeighborUnit.ToString());
