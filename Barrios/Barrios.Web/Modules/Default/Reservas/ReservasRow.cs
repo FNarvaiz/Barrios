@@ -159,7 +159,7 @@ namespace Barrios.Default.Entities
             get { return Fields.Estado[this]; }
             set { Fields.Estado[this] = value; }
         }
-        [DisplayName("Hora"), SortOrder(2, false), Expression(" CONVERT(varchar(2), [T0].[INICIO]/60) +':' + case  WHEN ([T0].[INICIO]%60) > 9 then CONVERT(varchar(2),  [T0].[INICIO]%60) else '0'+CONVERT(varchar(2),  [T0].[INICIO]%60)   end   ")]
+        [DisplayName("Hora"), SortOrder(2, false), Expression(" case when [T0].[INICIO]/60 <10 then '0' else '' end  +CONVERT(varchar(2), [T0].[INICIO]/60)  +':' + case  WHEN ([T0].[INICIO]%60) <10 then '0' else '' end +CONVERT(varchar(2),  [T0].[INICIO]%60) ")]
         public String Hora
         {
             get { return Fields.Hora[this]; }
