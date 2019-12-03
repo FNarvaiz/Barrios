@@ -1249,6 +1249,7 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosDialog.ts" />
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosGrid.ts" />
+    <TypeScriptCompile Include="Modules\Default\ReservasTurnosEspeciales\DayNamesEditor.ts" />
     <TypeScriptCompile Include="Modules\Default\Reservas\TwoNeighbors\TwoNeighborsDialog.ts" />
     <TypeScriptCompile Include="Modules\Default\Reservas\EspecialTurn\EspecialBookingDialog.ts" />
     <TypeScriptCompile Include="Modules\Perfil\VecinosVisitantesFrecuentes\FrequentVisitorsSelect\FrequentVisitorsSelectDialog.ts" />
@@ -1981,6 +1982,9 @@
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
     <Compile Include="Imports\ClientTypes\Modules.Default.HorariosFormatterAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\Modules.Default.ReservasTurnosEspeciales.DayNamesEditorAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">

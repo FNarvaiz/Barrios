@@ -8,11 +8,27 @@ using Serenity;
 using Barrios.Modules.Common.Utils;
 using System.Data;
 using Barrios.Administration.Entities;
+using Barrios.Default.Endpoints;
+using Barrios.Default.Entities;
+using Barrios.Modules.Default.Reservas;
 
 namespace Barrios.Common
 {
     public class EmailHelper
     {
+        public static ReservasRow GetReservaRowForBody(BookingTakeRequest request, UserRow user, DateTime date,string resourceName)
+        {
+            return new ReservasRow
+            {
+                IdRecursoNombre = resourceName,
+                Hora = request.turnStart.MinutesToString(),
+                Turno = request.turnName,
+                Observaciones = request.comment,
+                Fecha = date,
+                IdVecinoUsername = user.DisplayName,
+                IdVecinoUnidad = user.Unit
+            };
+        }
         public static string GetRenderMails(string emailsResource,UserRow user,UserRow user2=null)
         {
             string emails = "";

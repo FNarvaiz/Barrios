@@ -47,15 +47,17 @@ namespace Barrios.Membership.Pages
 
                 if (string.IsNullOrEmpty(request.Username))
                     throw new ArgumentNullException("username");
-
-                var username = request.Username;
-                if (new UserRepository().isThisNeigborhood(username, CurrentNeigborhood.Get().Id))
+                
+                var repo = new UserRepository();
+                var UsernameBD = repo.GetMail(request.Username, CurrentNeigborhood.Get().Id);
+                
+                if (new UserRepository().isThisNeigborhood(UsernameBD))
                 {
-                    if (WebSecurityHelper.Authenticate(ref username, request.Password, false))
+                    if (WebSecurityHelper.Authenticate(ref UsernameBD, request.Password, false))
                         return new ServiceResponse();
                 }
                 else
-                    throw new ValidationError("AuthenticationError", "Este usuario esta registrado en otro barrio.");
+                    throw new ValidationError("AuthenticationError", "Este usuario no existe o esta registrado en otro barrio.");
                 
 
                 throw new ValidationError("AuthenticationError", Texts.Validation.AuthenticationError);

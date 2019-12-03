@@ -1279,6 +1279,7 @@ declare namespace Barrios.Default {
         IdTurnosEspeciales: Serenity.LookupEditor;
         Inicio: Serenity.LookupEditor;
         Duracion: Serenity.IntegerEditor;
+        Turno: Serenity.StringEditor;
         Observaciones: Serenity.TextAreaEditor;
         IdVecino2: Serenity.LookupEditor;
     }
@@ -1517,6 +1518,13 @@ declare namespace Barrios.Default {
         Inicio: Serenity.LookupEditor;
         Duracion: Serenity.TimeEditor;
         Dias: Serenity.StringEditor;
+        Lunes: Serenity.BooleanEditor;
+        Martes: Serenity.BooleanEditor;
+        Miercoles: Serenity.BooleanEditor;
+        Jueves: Serenity.BooleanEditor;
+        Viernes: Serenity.BooleanEditor;
+        Sabado: Serenity.BooleanEditor;
+        Domingo: Serenity.BooleanEditor;
     }
     class ReservasTurnosEspecialesForm extends Serenity.PrefixedContext {
         static formKey: string;
@@ -1532,6 +1540,13 @@ declare namespace Barrios.Default {
         Duracion?: number;
         Nombre?: string;
         Dias?: string;
+        Lunes?: boolean;
+        Martes?: boolean;
+        Miercoles?: boolean;
+        Jueves?: boolean;
+        Viernes?: boolean;
+        Sabado?: boolean;
+        Domingo?: boolean;
     }
     namespace ReservasTurnosEspecialesRow {
         const idProperty = "Id";
@@ -1545,7 +1560,14 @@ declare namespace Barrios.Default {
             Inicio = "Inicio",
             Duracion = "Duracion",
             Nombre = "Nombre",
-            Dias = "Dias"
+            Dias = "Dias",
+            Lunes = "Lunes",
+            Martes = "Martes",
+            Miercoles = "Miercoles",
+            Jueves = "Jueves",
+            Viernes = "Viernes",
+            Sabado = "Sabado",
+            Domingo = "Domingo"
         }
     }
 }
@@ -2847,6 +2869,8 @@ declare namespace Barrios.Default {
         protected getService(): string;
         protected form: ReservasForm;
         constructor(container: JQuery);
+        protected afterLoadEntity(): void;
+        private UpdateTurnsComboBox;
     }
 }
 declare namespace Barrios.Default {
@@ -2872,7 +2896,9 @@ declare namespace Barrios.Default {
         send: boolean;
         turn: any;
         form: EspecialTurnForm;
+        private turnList;
         constructor(container: JQuery);
+        private UpdateTurnsComboBox;
         protected getToolbarButtons(): {
             title: string;
             cssClass: string;
@@ -2937,11 +2963,27 @@ declare namespace Barrios.Default {
         constructor(container: JQuery);
     }
 }
+declare namespace Barrios.Modules.Default.ReservasTurnosEspeciales {
+    /**
+     * Our select editor with hardcoded values.
+     *
+     * When you define a new editor type, make sure you build
+     * and transform templates for it to be available
+     * in server side forms, e.g. [HardCodedValuesEditor]
+     */
+    class DayNamesEditor extends Serenity.Select2Editor<any, any> {
+        constructor(container: JQuery);
+    }
+}
 declare namespace Barrios.Default {
     class ReservasTurnosEspecialesDialog extends Common.GridEditorDialog<ReservasTurnosEspecialesRow> {
         protected getFormKey(): string;
         protected getLocalTextPrefix(): string;
+        private days;
         protected form: ReservasTurnosEspecialesForm;
+        constructor(container: JQuery);
+        protected afterLoadEntity(): void;
+        protected validateBeforeSave(): boolean;
     }
 }
 declare namespace Barrios.Default {

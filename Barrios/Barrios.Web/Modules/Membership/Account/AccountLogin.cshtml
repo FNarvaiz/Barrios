@@ -36,7 +36,7 @@
             width: 128px;
             height: 128px;
            // background:  transparent url(/upload/@CurrentNeigborhood.Get().Logo) no-repeat center center;
-            background:  transparent url(../Content/@CurrentNeigborhood.Get().ShortDisplayName/android/mipmap-xhdpi/ic_launcher.png) no-repeat center center;
+            background:  transparent url(../Content/@CurrentNeigborhood.Get().Nombre/android/mipmap-xhdpi/ic_launcher.png) no-repeat center center;
         }
 
        #LoginPanel h3 {
@@ -201,9 +201,9 @@ var LoginPanel = (function (_super) {
                     "/gAAAABlBMVEX///8AAABVwtN+AAAAAnRSTlMA/1uRIrUAAAAJcEhZcwAAAsQAAALEAVuRnQsAAAAWdEVYdENyZWF0" +
                     "aW9uIFRpbWUAMDQvMTMvMTGrW0T6AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAAAxJREFUCJljaGBgAAABhACBrONIPgAAAABJRU5ErkJggg==",
                 slides: [
-                    { src: @Html.Raw(ContentHashCache.ResolveWithHash("~/Content/"+CurrentNeigborhood.Get().ShortDisplayName+"/slides/slide1.jpg").ToJson()), transition: 'fade' },
-                    { src: @Html.Raw(ContentHashCache.ResolveWithHash("~/Content/" + CurrentNeigborhood.Get().ShortDisplayName + "/slides/slide2.jpg").ToJson()), transition: 'zoomOut' },
-                    { src: @Html.Raw(ContentHashCache.ResolveWithHash("~/Content/" + CurrentNeigborhood.Get().ShortDisplayName + "/slides/slide3.jpg").ToJson()), transition: 'swirlLeft' }
+                    { src: @Html.Raw(ContentHashCache.ResolveWithHash("~/Content/"+CurrentNeigborhood.Get().Nombre+"/slides/slide1.jpg").ToJson()), transition: 'fade' },
+                    { src: @Html.Raw(ContentHashCache.ResolveWithHash("~/Content/" + CurrentNeigborhood.Get().Nombre + "/slides/slide2.jpg").ToJson()), transition: 'zoomOut' },
+                    { src: @Html.Raw(ContentHashCache.ResolveWithHash("~/Content/" + CurrentNeigborhood.Get().Nombre + "/slides/slide3.jpg").ToJson()), transition: 'swirlLeft' }
                 ]
             });
             $('#LoginButton').click(function (e) {

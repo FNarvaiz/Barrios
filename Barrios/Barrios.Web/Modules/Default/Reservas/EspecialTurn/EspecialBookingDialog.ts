@@ -10,14 +10,18 @@ namespace Barrios.Default {
         public send = false;
         public turn = null;
         public form = new EspecialTurnForm(this.idPrefix);
+        private turnList = [];
         constructor(container: JQuery) {
             super(container);
             this.set_dialogTitle("Solicitud de turno");
 
             this.form.IdRecurso.change((e)=>{
                 if (this.form.IdRecurso.selectedItem != null) {
-
+                    this.UpdateTurnsComboBox();
                 }
+            });
+            this.form.Fecha.change((e) => {
+                this.UpdateTurnsComboBox();
             });
             this.form.IdTurnosEspeciales.change((e)=>{
                 if(this.form.IdTurnosEspeciales.selectedItem !=null){
@@ -27,6 +31,29 @@ namespace Barrios.Default {
             });
             this.form.Fecha.set_minDate(new Date());
             this.form.Fecha.set_maxDate(new Date(new Date().getTime() + (90 * 24 * 60 * 60 * 1000)));
+        }
+        private UpdateTurnsComboBox() {
+            if (this.form.Fecha.valueAsDate && this.form.IdRecurso.selectedItem && (this.form.IdRecurso.selectedItem as ReservasRecursosRow).Resolucion == 0) {
+                let dayOfWeek = this.form.Fecha.valueAsDate.getDay();
+                this.form.IdTurnosEspeciales.items.forEach(e => {
+                    var enable = false;
+                    var dias = (e.source as ReservasTurnosEspecialesRow).Dias;
+                    if (dias) {
+                        if (dias.search(dayOfWeek.toString()) > 0 || dias.charAt(0) == dayOfWeek.toString())
+                            enable = true;
+                    }
+
+                    if (enable)
+                        e.disabled = false;
+                    else {
+                        e.disabled = true;
+                        if (e.source == this.form.IdTurnosEspeciales.selectedItem) {
+                            this.form.IdTurnosEspeciales.value = null;
+                            this.form.IdTurnosEspeciales.set_value("");
+                        }
+                    }
+                });
+            }
         }
         protected getToolbarButtons() {
             return [{

@@ -15,7 +15,9 @@ namespace Barrios.Administration.Repositories
     using System.Web.Security;
     using MyRow = Entities.UserRow;
     using System.Linq;
+    using Barrios.Contenidos;
     using UserPreferenceRow = Common.Entities.UserPreferenceRow;
+    using Barrios.Contenidos.Entities;
 
     public partial class UserRepository
     {
@@ -52,16 +54,24 @@ namespace Barrios.Administration.Repositories
             return new MyDeleteHandler().Process(uow, request);
         }
 
-        internal bool isThisNeigborhood(string username, short? id)
+        internal bool isThisNeigborhood( string UsernameBD, string username="", short? id=null)
         {
-            DataTable DT = Utils.GetRequestString( " SELECT  U.UserId " +
+            if (id != null && username != "")
+                UsernameBD = GetMail(username, id);
+            return (UsernameBD != "");
+        }
+
+        internal string GetMail(string username, short? id)
+        {
+            DataTable DT = Utils.GetRequestString(" SELECT  U.Username " +
               "  FROM [Users] U " +
               "  inner join [Users-Barrios] UB " +
               "  on UB.UserId = U.UserId " +
-              "   where UB.BarrioId = "+id +" and (Username = '"+ username + "' or Email = '" + username + "')");
-            return Convert.ToBoolean(DT.Rows.Count);
+              "  where UB.BarrioId = "+id +" and (Username = "+ username.ToSql() + " or DisplayName = " + username.ToSql() + " or Email = " + username.ToSql() + ")");
+            if (DT.Rows.Count == 0)
+                return "";
+            return Convert.ToString(DT.Rows[0][0]);
         }
-
         public UndeleteResponse Undelete(IUnitOfWork uow, UndeleteRequest request)
         {
             return new MyUndeleteHandler().Process(uow, request);
@@ -283,6 +293,10 @@ namespace Barrios.Administration.Repositories
             protected override void OnBeforeDelete()
             {
                 base.OnBeforeDelete();
+              /*  new SqlDelete(Default.Entities.ReservasRow.Fields.TableName)
+                   .Where(Default.Entities.ReservasRow.Fields.IdVecino == Row.UserId.Value || Default.Entities.ReservasRow.Fields.IdVecino2 == Row.UserId.Value)
+                   .Execute(Connection, ExpectedRows.Ignore);*/
+                
                 new SqlDelete(UsersBarriosRow.Fields.TableName)
                    .Where(UsersBarriosRow.Fields.UserId == Row.UserId.Value)
                    .Execute(Connection, ExpectedRows.Ignore);

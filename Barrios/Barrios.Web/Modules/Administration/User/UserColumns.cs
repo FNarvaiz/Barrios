@@ -24,5 +24,6 @@ namespace Barrios.Administration.Columns
         [DisplayName("Registrado")]
         public DateTime InsertDate { get; set; }
         public short HavePermisions { get; set; }
+        public bool IsActive { get; set; }
     }
 }

@@ -23,7 +23,8 @@
                 if (this.form.Password.value != this.form.PasswordConfirm.value)
                     return "The passwords entered doesn't match!";
             });
-            this.form.ClientIdList.getGridField().toggle(Authorization.hasPermission('Administration:Page'));
+
+            //this.form.ClientIdList.getGridField().toggle( !Authorization.hasPermission('Administration:Barrios'));
            
         }
 

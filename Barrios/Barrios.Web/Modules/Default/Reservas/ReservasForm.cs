@@ -21,6 +21,8 @@ namespace Barrios.Default.Forms
         public Int16 Inicio { get; set; }
         [Hidden]
         public Int16 Duracion { get; set; }
+        [Hidden]
+        public String Turno { get; set; }
         public String Observaciones { get; set; }
         [Hidden]
         public Int32 IdVecino2 { get; set; }

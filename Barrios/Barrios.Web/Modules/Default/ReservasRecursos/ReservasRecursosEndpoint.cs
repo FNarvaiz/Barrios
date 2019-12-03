@@ -33,6 +33,8 @@ namespace Barrios.Default.Endpoints
         [HttpPost, AuthorizeDelete(typeof(MyRow))]
         public DeleteResponse Delete(IUnitOfWork uow, DeleteRequest request)
         {
+            if (new Repositories.ReservasRepository().HasBookings(request.EntityId))
+                throw new ValidationError("El recurso tiene reservas realizadas. No se puede eliminar.");
             return new MyRepository().Delete(uow, request);
         }
 

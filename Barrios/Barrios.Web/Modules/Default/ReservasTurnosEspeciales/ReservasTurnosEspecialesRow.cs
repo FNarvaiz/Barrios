@@ -6,6 +6,7 @@ namespace Barrios.Default.Entities
     using Serenity.Data;
     using Serenity.Data.Mapping;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
 
@@ -55,7 +56,48 @@ namespace Barrios.Default.Entities
             get { return Fields.Dias[this]; }
             set { Fields.Dias[this] = value; }
         }
-
+        [DisplayName("Lunes"),NotMapped]
+        public Boolean? Lunes
+        {
+            get { return Fields.Lunes[this]; }
+            set { Fields.Lunes[this] = value; }
+        }
+        [DisplayName("Martes"), NotMapped]
+        public Boolean? Martes
+        {
+            get { return Fields.Martes[this]; }
+            set { Fields.Martes[this] = value; }
+        }
+        [DisplayName("Miercoles"), NotMapped]
+        public Boolean? Miercoles
+        {
+            get { return Fields.Miercoles[this]; }
+            set { Fields.Miercoles[this] = value; }
+        }
+        [DisplayName("Jueves"), NotMapped]
+        public Boolean? Jueves
+        {
+            get { return Fields.Jueves[this]; }
+            set { Fields.Jueves[this] = value; }
+        }
+        [DisplayName("Viernes"), NotMapped]
+        public Boolean? Viernes
+        {
+            get { return Fields.Viernes[this]; }
+            set { Fields.Viernes[this] = value; }
+        }
+        [DisplayName("Sabado"), NotMapped]
+        public Boolean? Sabado
+        {
+            get { return Fields.Sabado[this]; }
+            set { Fields.Sabado[this] = value; }
+        }
+        [DisplayName("Domingo"), NotMapped]
+        public Boolean? Domingo
+        {
+            get { return Fields.Domingo[this]; }
+            set { Fields.Domingo[this] = value; }
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -81,6 +123,13 @@ namespace Barrios.Default.Entities
             public Int16Field Duracion;
             public StringField Nombre;
             public StringField Dias;
+            public BooleanField Lunes;
+            public BooleanField Martes;
+            public BooleanField Miercoles;
+            public BooleanField Jueves;
+            public BooleanField Viernes;
+            public BooleanField Sabado;
+            public BooleanField Domingo;
         }
     }
 }

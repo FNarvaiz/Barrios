@@ -22,7 +22,7 @@
         [PasswordEditor, OneWay, Required(true)]
         public String PasswordConfirm { get; set; }
         public String Email_Others { get; set; }
-        
+        public bool IsActive { get; set; }
         [OneWay]
         public string Source { get; set; }
         [Hidden,CheckLookupEditor("Administration.Barrios", ShowSelectAll = true, CheckedOnTop = true)

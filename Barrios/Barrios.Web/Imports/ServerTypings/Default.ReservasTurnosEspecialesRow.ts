@@ -6,6 +6,13 @@
         Duracion?: number;
         Nombre?: string;
         Dias?: string;
+        Lunes?: boolean;
+        Martes?: boolean;
+        Miercoles?: boolean;
+        Jueves?: boolean;
+        Viernes?: boolean;
+        Sabado?: boolean;
+        Domingo?: boolean;
     }
 
     export namespace ReservasTurnosEspecialesRow {
@@ -24,7 +31,14 @@
             Inicio = "Inicio",
             Duracion = "Duracion",
             Nombre = "Nombre",
-            Dias = "Dias"
+            Dias = "Dias",
+            Lunes = "Lunes",
+            Martes = "Martes",
+            Miercoles = "Miercoles",
+            Jueves = "Jueves",
+            Viernes = "Viernes",
+            Sabado = "Sabado",
+            Domingo = "Domingo"
         }
     }
 }

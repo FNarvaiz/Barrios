@@ -85,6 +85,15 @@ namespace Barrios.Default.Repositories
             }
             return list;
         }
+
+        public bool HasBookings(object entityId)
+        {
+            DataTable dt = Utils.GetRequestString("Select count(*) from "+ MyRow.Fields.TableName+ " where " + MyRow.Fields.IdRecurso.Name + " = " + entityId);
+            if (Convert.ToInt32(dt.Rows[0][0]) == 0)
+                return false;
+            return true;
+        }
+
         public List<MyRow> BookingEspecialList(IDbConnection connection, int resourceId)
         {
             List<MyRow> list = new List<MyRow>();

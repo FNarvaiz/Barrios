@@ -38,7 +38,14 @@ namespace Barrios.Administration.Endpoints
         [HttpPost, AuthorizeDelete(typeof(MyRow))]
         public DeleteResponse Delete(IUnitOfWork uow, DeleteRequest request)
         {
-            return new MyRepository().Delete(uow, request);
+            try
+            {
+                return new MyRepository().Delete(uow, request);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("El usuario tiene registros a su nombre. Si quiere puede darlo de baja destildando la casilla ACTIVO.",ex);
+            }
         }
 
         [HttpPost, AuthorizeDelete(typeof(MyRow))]

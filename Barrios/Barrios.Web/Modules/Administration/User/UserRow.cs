@@ -98,7 +98,7 @@ namespace Barrios.Administration.Entities
             set { Fields.Password[this] = value; }
         }
 
-        [NotNull, Insertable(false), Updatable(true)]
+        [NotNull, Insertable(false),DisplayName("Activo"), Updatable(true)]
         public Int16? IsActive
         {
             get { return Fields.IsActive[this]; }
