@@ -219,20 +219,25 @@ namespace Barrios.Default.Endpoints
             
             if (!resource.Emails.IsEmptyOrNull() || resource.Resolucion == 0)
             {
-                UserRow user=Utils.GetUser(row.IdVecino);
+                UserRow user;
                 if (row == null)
                 {
+                    user = Utils.GetUser(Convert.ToInt32(Authorization.UserId));
                     DateTime date = DateTime.ParseExact(request.bookingDate, "yyyyMMdd",
                                       CultureInfo.InvariantCulture);
-                    row = EmailHelper.GetReservaRowForBody(request, user, date, resource.Description);
+                    row = EmailHelper.GetReservaRowForBody(request, user, date, resource.Nombre);
                 }
                 else
                 {
+                    user = Utils.GetUser(row.IdVecino);
                     row.Hora = row.Inicio.Value.MinutesToString();
                     row.IdVecinoUnidad = user.Unit;
                     row.IdVecinoUsername = user.DisplayName;
                     row.IdRecursoNombre = resource.Nombre;
                 }
+                if (row.Turno == null)
+                    row.Turno = new ReservasTiposRepository().Retrieve(Utils.GetConnection(), new RetrieveRequest() { EntityId = row.IdTipo }).Entity.Nombre;
+                
                 string emails = EmailHelper.GetRenderMails(resource.Emails, user, Utils.GetUser(row.IdVecino2));
                 var message = TemplateHelper.RenderTemplate(MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody()
                 {

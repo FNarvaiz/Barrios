@@ -23,6 +23,7 @@ namespace Barrios.Common
                 IdRecursoNombre = resourceName,
                 Hora = request.turnStart.MinutesToString(),
                 Turno = request.turnName,
+                IdTipo=request.turnType,
                 Observaciones = request.comment,
                 Fecha = date,
                 IdVecinoUsername = user.DisplayName,
@@ -88,21 +89,26 @@ namespace Barrios.Common
             client.Credentials = new NetworkCredential(from, CurrentNeigborhood.Get().PasswordMail);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.EnableSsl = false;
-            /*if (client.DeliveryMethod == SmtpDeliveryMethod.SpecifiedPickupDirectory &&
-                string.IsNullOrEmpty(client.PickupDirectoryLocation))
+            if (CurrentNeigborhood.Local)
             {
-                var pickupPath = HostingEnvironment.MapPath("~/App_Data");
-                pickupPath = Path.Combine(pickupPath, "Mail");
-                Directory.CreateDirectory(pickupPath);
-                client.PickupDirectoryLocation = pickupPath;
-            }*/
+                client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+
+                if (client.DeliveryMethod == SmtpDeliveryMethod.SpecifiedPickupDirectory &&
+                    string.IsNullOrEmpty(client.PickupDirectoryLocation))
+                {
+                    var pickupPath = HostingEnvironment.MapPath("~/App_Data");
+                    pickupPath = Path.Combine(pickupPath, "Mail");
+                    Directory.CreateDirectory(pickupPath);
+                    client.PickupDirectoryLocation = pickupPath;
+                }
+            }
             try
             {
                 client.Send(message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ex.Source ="HOST: " + client.Host + " Credentials: " + from + " pass: " + CurrentNeigborhood.Get().PasswordMail;
+                ex.Source = "HOST: " + client.Host + " Credentials: " + from + " pass: " + CurrentNeigborhood.Get().PasswordMail;
                 throw ex;
             }
         }
