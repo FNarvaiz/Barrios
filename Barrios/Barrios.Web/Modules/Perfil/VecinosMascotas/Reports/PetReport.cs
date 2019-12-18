@@ -40,9 +40,11 @@ namespace Barrios.Modules.Perfil.VecinosMascotas.Reports
             request.IncludeColumns.Add(VecinosMascotasRow.Fields.UseridUnit.Name);
             request.IncludeColumns.Add(VecinosMascotasRow.Fields.UseridUsername.Name);
             request.IncludeColumns.Add(VecinosMascotasRow.Fields.Foto.Name);
-            ListResponse<VecinosMascotasRow> response = new VecinosMascotasController().List(Utils.GetConnection(), request);
-            
-            return response;
+            using (var connection = Utils.GetConnection())
+            {
+                ListResponse<VecinosMascotasRow> response = new VecinosMascotasController().List(connection, request);
+                return response;
+            }
         }
         public string GetFileName()
         {

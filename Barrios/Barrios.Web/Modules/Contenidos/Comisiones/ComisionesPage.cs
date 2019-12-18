@@ -17,8 +17,11 @@ namespace Barrios.Contenidos.Pages
         }
         public ActionResult CommissionsView()
         {
-            List<Entities.ComisionesRow> list = new Barrios.Contenidos.Endpoints.ComisionesController().ListView(Utils.GetConnection());
-            return View("~/Modules/Views/Commissions/CommissionsIndex.cshtml", list);
+            using (var connection = Utils.GetConnection())
+            {
+                List<Entities.ComisionesRow> list = new Barrios.Contenidos.Endpoints.ComisionesController().ListView(connection);
+                return View("~/Modules/Views/Commissions/CommissionsIndex.cshtml", list);
+            }
         }
     }
 }

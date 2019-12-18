@@ -1,0 +1,59 @@
+﻿@model System.Collections.Generic.List<Barrios.Contenidos.Entities.AvisosRow>
+@{
+    var categorys=new List<string>();
+    ViewData["Title"] = "Avisos"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
+}
+<div class="containerProviders">
+    <h3 class="titleContainer">
+        Directorio de avisos.
+    </h3>
+    <h4 class="subtitleContainer">
+        Avisos y publicidades.<br />
+
+        En caso de querer incluir un aviso envianos un e-mail a <a href="mailto:@CurrentNeigborhood.Get().LargeDisplayName <@CurrentNeigborhood.Get().Mail>">@CurrentNeigborhood.Get().Mail</a><br />
+        <div class="dropdown">
+            <button class="btn btn-secondary btn-info dropdown-toggle" type="button" id="CategoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filtrar por rubro
+            </button>
+            <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                @foreach (var aux in Model)
+                {
+                    if (!categorys.Contains(aux.CategoryName))
+                    {
+                        categorys.Add(aux.CategoryName);
+                        <li><a class="CategoryItem" id="@aux.CategoryName.Replace(" ","_")" href="#">@aux.CategoryName</a></li>
+                    }
+                }
+                <li><a class="CategoryItem" id="todos" href="#">Todos</a></li>
+            </ul>
+        </div>
+    </h4>
+    
+    @foreach (var aux in Model)
+    {
+        <article class="articleItem @aux.CategoryName.Replace(' ','_')">
+            <section class="title">
+                <h4>@aux.Nombre </h4> <h5> - @aux.CategoryName</h5>
+            </section>
+            <p>@aux.Descripcion</p>
+            <img src="/upload/@aux.Imagen"  alt="@aux.Nombre">
+        </article>
+    }
+
+
+</div>
+<script type="text/javascript">
+    jQuery(function () {
+        
+        $(".CategoryItem").click((element) => {
+            if (element.target.id == "todos") {
+                $(".articleItem").show();
+            }
+            else {
+                $(".articleItem").hide();
+                $("." + element.target.id).show();
+            }
+        });
+    });
+  
+</script>

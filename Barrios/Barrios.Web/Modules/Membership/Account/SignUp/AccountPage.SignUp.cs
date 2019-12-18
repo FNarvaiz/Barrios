@@ -109,7 +109,7 @@ namespace Barrios.Membership.Pages
 
 
                 }
-                Utils.InsertOrUpdateString(Utils.GetConnection(), "insert into [Users-Barrios] (userid,BarrioId) values (" + userId + "," + CurrentNeigborhood.Get().Id.Value + ")");
+                Utils.InsertOrUpdateString( "insert into [Users-Barrios] (userid,BarrioId) values (" + userId + "," + CurrentNeigborhood.Get().Id.Value + ")");
                 return new ServiceResponse();
                 }
                 catch (ValidationError)

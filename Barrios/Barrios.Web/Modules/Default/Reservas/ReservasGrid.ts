@@ -8,9 +8,27 @@
         protected getLocalTextPrefix() { return ReservasRow.localTextPrefix; }
         protected getService() { return ReservasService.baseUrl; }
         protected _CurrentRequest;
+        private item: ReservasRow;
         constructor(container: JQuery) {
 
-            super(container);
+            super(container,{
+                selectionMode: 'single',
+                enableRowSelection: true
+            } as EntityGridOptions);
+        }
+        protected onClick(e: JQueryEventObject, row: number, cell: number): void {
+            super.onClick(e, row, cell);
+            this.item = this.itemAt(row);
+            if(this.item && this.item.Confirmada==false){
+                
+            }
+        }
+        protected getSlickOptions(): Slick.GridOptions {
+            var opt = super.getSlickOptions();
+            opt.enableCellNavigation = true;
+            opt.enableTextSelectionOnCells = true;
+            opt.selectedCellCssClass = "slick-row-selected";
+            return opt;
         }
         protected getQuickFilters(): Serenity.QuickFilter<Serenity.Widget<any>, any>[] {
             // get quick filter list from base class, e.g. columns
@@ -24,6 +42,14 @@
             };
 
             return filters;
+        }
+        protected getItemCssClass(item: ReservasRow, index: number): string {
+            let klass: string = "";
+            if (!item.Confirmada)
+                klass = "statusRed";
+                //klass = "statusGreen";
+            //else 
+            return Q.trimToNull(klass);
         }
         protected getButtons() {
             var buttons = super.getButtons();
@@ -49,7 +75,21 @@
                         Q.notifyInfo("No se encuentran registros");
                 }
             });
-           
+            buttons.push({
+                title: 'Confirmar',
+                cssClass: 'checkbox-yes-button',
+                onClick: () => {
+                    if (this.item && !this.item.Confirmada) {
+                        ReservasService.ConfirmReservation({ID:this.item.Id
+                        },(response)=>{
+                            this.item=null;
+                            this.refresh();
+                        });
+                    }
+                    else
+                        Q.notifyError("Seleccione alguna reserva para confirmar");
+                }
+            });
             return buttons;
         }
         

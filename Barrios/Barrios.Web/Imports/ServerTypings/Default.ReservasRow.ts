@@ -16,6 +16,9 @@
         BarrioId?: number;
         IdTurnosEspeciales?: number;
         Hora?: string;
+        Confirmada?: boolean;
+        DateUpdate?: string;
+        UserUpdate?: number;
         Turno?: string;
         Estado?: string;
         Finalizado?: boolean;
@@ -55,6 +58,9 @@
             BarrioId = "BarrioId",
             IdTurnosEspeciales = "IdTurnosEspeciales",
             Hora = "Hora",
+            Confirmada = "Confirmada",
+            DateUpdate = "DateUpdate",
+            UserUpdate = "UserUpdate",
             Turno = "Turno",
             Estado = "Estado",
             Finalizado = "Finalizado",

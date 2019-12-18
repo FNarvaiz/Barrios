@@ -1,27 +1,175 @@
 ﻿@model Barrios.Default.Entities.MailBody
 
-<html>
-    <head>
-        <title>@Model.Title</title>
-    </head>
-    <body>
-        @if (!Model.BeforeTable.IsEmptyOrNull())
-        {
-            <p>@Model.BeforeTable</p>
-        }
-            <table border=1 cellpadding=5>
-                <tr><td>Unidad/Lote:</td><td>@Model.Reserva.IdVecinoUnidad</td></tr>
-                <tr><td>Familia:</td><td>@Model.Reserva.IdVecinoUsername</td></tr>
-                <tr><td>Fecha del evento:</td><td>@Model.Reserva.Fecha.Value.ToString("dd/MM/yyyy")</td></tr>
-                <tr><td>Espacio:</td><td>@Model.Reserva.IdRecursoNombre.ToUpper() </td></tr>
-                <tr><td>Turno:</td><td>@Model.Reserva.Turno.ToUpper()</td></tr>
-                <tr><td>Hora:</td><td>@Model.Reserva.Hora.ToUpper()</td></tr>
-                <tr><td>Observaciones:</td><td>@Model.Reserva.Observaciones</td></tr>
-            </table>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@Model.Title</title>
+
+
+
+</head>
+
+<body>
+    <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <style type="text/css">
+            <!--
+            body, td, th {
+                color: hsl(0, 0%, 100%);
+                font-family: Tahoma,Verdana, sans-serif,Arial, Helvetica;
+            }
+
+            body {
+                background-color: rgb(192, 246, 248);
+                margin-left: 0px;
+                margin-top: 0px;
+                margin-right: 0px;
+                margin-bottom: 0px;
+            }
+
+            .tit {
+                color: #FFFFFF;
+                padding-left: 50px;
+                font-weight: bold;
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .con {
+                padding: 10px;
+                color: #ffffff;
+                font-size: 12px;
+            }
+
+            .contitle {
+                color: #a0d9fa;
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+            .righttitle {
+                color: #FFFFFF;
+                font-weight: bold;
+                font-size: 12px;
+            }
+
+            .rightcon {
+                color: #FFFFFF;
+                font-size: 12px;
+            }
+
+            .tdleft {
+                background-color: #F0F0B4;
+                padding: 20px;
+            }
+
+            .info tr td {
+                border-bottom: 1pt solid white;
+            }
+
+            .tdright {
+                background-color: #c9a441;
+                padding: 20px;
+            }
+
+            
+        </style>
+
+        <tr>
+            <td colspan="2">
+                <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+
+                        <td width="571" bgcolor="#3c8dbc" class="tit">@Model.Title</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" height="4"></td>
+        </tr>
+        <tr>
+            <td width="409" height="257" valign="top">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="15"></td>
+                        <td width="382" bgcolor="#3c8dbc"></td>
+                        <td width="12"></td>
+                    </tr>
+                    <tr>
+                        <td valign="top" bgcolor="#3c8dbc" class="con">
+                            @if (!Model.BeforeTable.IsEmptyOrNull())
+                            {
+                                <div align = "justify" >
+                                    <span class="contitle">@Model.BeforeTable</span>
+                                <br>
+                                </div>
+                            }
+                            
+                            <table class="con info" cellpadding=5>
+                                <tr><td>Unidad/Lote:</td><td>@Model.Reserva.IdVecinoUnidad</td></tr>
+                                <tr><td>Familia:</td><td>@Model.Reserva.IdVecinoUsername</td></tr>
+                                <tr><td>Fecha del evento:</td><td>@Model.Reserva.Fecha.Value.ToString("dd/MM/yyyy")</td></tr>
+                                <tr style:"border-bottom: 5px solid white;"><td>Espacio:</td><td>@Model.Reserva.IdRecursoNombre.ToUpper() </td></tr>
+                                <tr><td>Turno:</td><td>@Model.Reserva.Turno.ToUpper()</td></tr>
+                                <tr><td>Hora:</td><td>@Model.Reserva.Hora.ToUpper()</td></tr>
+                                <tr><td>Observaciones:</td><td>@Model.Reserva.Observaciones</td></tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+            <td width="191" valign="top">
+                <table width="66%" border="0" align="right" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><img src="https://@CurrentNeigborhood.Get().Url/Content/@CurrentNeigborhood.Get().Nombre/android/mipmap-xhdpi/ic_launcher.png" ></td>
+                    </tr>
+                    <tr>
+                        <td height="4"></td>
+                    </tr>
+                    <tr>
+                        <td height="36" bgcolor="#3c8dbc">
+                            <table width="100%" class="con" cellspacing="0" cellpadding="0">
+
+                                <tr>
+                                    <td>@CurrentNeigborhood.Get().LargeDisplayName</td>
+                                </tr>
+                                <tr>
+                                    <td>@CurrentNeigborhood.Current.Mail</td>
+                                </tr>
+                                <tr>
+                                    <td>@CurrentNeigborhood.Current.TelefonOs</td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="4"></td>
+                    </tr>
+
+
+                    <tr>
+                        <td height="4"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td height="4"></td>
+        </tr>
         @if (!Model.Body.IsEmptyOrNull())
         {
-            <p>@Model.Body</p>
+            <tr>
+                <td colspan="2" class="con" bgcolor="#3c8dbc">
+                    @Model.Body
+                </td>
+            </tr>
         }
-    </body>
-    
+    </table>
+</body>
 </html>

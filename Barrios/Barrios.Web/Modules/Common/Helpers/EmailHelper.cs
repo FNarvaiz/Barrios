@@ -20,12 +20,17 @@ namespace Barrios.Common
         {
             return new ReservasRow
             {
+               
+                IdRecurso=request.resourceId,
                 IdRecursoNombre = resourceName,
                 Hora = request.turnStart.MinutesToString(),
                 Turno = request.turnName,
                 IdTipo=request.turnType,
+                IdTurnosEspeciales= request.turnType,
                 Observaciones = request.comment,
                 Fecha = date,
+                Inicio= request.turnStart,
+                Duracion= request.turnDuration,
                 IdVecinoUsername = user.DisplayName,
                 IdVecinoUnidad = user.Unit
             };
@@ -67,7 +72,7 @@ namespace Barrios.Common
         {
             
             var message = new MailMessage();
-            if (!file.IsNullOrEmpty()) {
+            if (!file.IsNullOrEmpty() && !CurrentNeigborhood.Local) {
                 Attachment data = new Attachment(HostingEnvironment.MapPath("~/App_Data") + "/Upload/" + file);
                 data.Name = "ArchivoAdjunto";
                 message.Attachments.Add(data);

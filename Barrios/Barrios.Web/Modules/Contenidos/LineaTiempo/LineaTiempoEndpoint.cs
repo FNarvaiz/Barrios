@@ -84,24 +84,28 @@ namespace Barrios.Contenidos.Endpoints
         [HttpPost]
         public string SendMails(IDbConnection connection, IdRequest request)
         {
-            connection = Utils.GetConnection();
-            MyRow timeLineObj = Retrieve(connection, new RetrieveRequest() { EntityId = request.Id }).Entity;
-            ListRequest userRequest = new ListRequest() { EqualityFilter = new Dictionary<string, object>() };
-            userRequest.EqualityFilter["BarrioId"] = CurrentNeigborhood.Get().Id;
-            List<UserRow> users = new UserRepository().List(connection, userRequest).Entities;
-            return Send(users, timeLineObj);
+            using (var connection2 = Utils.GetConnection())
+            {
+                MyRow timeLineObj = Retrieve(connection2, new RetrieveRequest() { EntityId = request.Id }).Entity;
+                ListRequest userRequest = new ListRequest() { EqualityFilter = new Dictionary<string, object>() };
+                userRequest.EqualityFilter["BarrioId"] = CurrentNeigborhood.Get().Id;
+                List<UserRow> users = new UserRepository().List(connection2, userRequest).Entities;
+                return Send(users, timeLineObj);
+            }
         }
 
         [HttpPost]
         public string SendMailsForSubNeigborhoob(IDbConnection connection, MailsRequest request)
         {
-            connection = Utils.GetConnection();
-            MyRow timeLineObj = Retrieve(connection, new RetrieveRequest() { EntityId = request.LineTimeId }).Entity;
-            ListRequest userRequest = new ListRequest() { EqualityFilter = new Dictionary<string, object>() };
-            userRequest.EqualityFilter["BarrioId"] = CurrentNeigborhood.Get().Id;
-            userRequest.Criteria = new Criteria("subBarrioId").In<string>( request.SubNeigborhoob);
-            List<UserRow> users = new UserRepository().List(connection, userRequest).Entities;
-            return Send(users, timeLineObj);
+            using (var connection2 = Utils.GetConnection())
+            {
+                MyRow timeLineObj = Retrieve(connection2, new RetrieveRequest() { EntityId = request.LineTimeId }).Entity;
+                ListRequest userRequest = new ListRequest() { EqualityFilter = new Dictionary<string, object>() };
+                userRequest.EqualityFilter["BarrioId"] = CurrentNeigborhood.Get().Id;
+                userRequest.Criteria = new Criteria("subBarrioId").In<string>(request.SubNeigborhoob);
+                List<UserRow> users = new UserRepository().List(connection2, userRequest).Entities;
+                return Send(users, timeLineObj);
+            }
         }
     }
     public class MailsRequest : ServiceRequest

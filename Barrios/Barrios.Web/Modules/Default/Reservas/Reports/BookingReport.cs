@@ -37,9 +37,8 @@ namespace Barrios.Modules.Default.Reservas.Reports
         }
         public object GetData()
         {
-            ListResponse<ReservasRow> response = new ReservasRepository().List(Utils.GetConnection(), request);
-            
-            return response;
+            using (var connection = Utils.GetConnection())
+                return new ReservasRepository().List(connection, request);
         }
         public string GetFileName()
         {

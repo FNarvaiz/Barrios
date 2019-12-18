@@ -15,6 +15,9 @@ namespace Barrios.Default.Columns
     {
         [DisplayName("ID"), Width(40), AlignRight]
         public Int32 Id { get; set; }
+
+        [DisplayName("Conf")]
+        public Boolean Confirmada { get; set; }
         [Width(80)]
         public DateTime Fecha { get; set; }
         [Width(70)]

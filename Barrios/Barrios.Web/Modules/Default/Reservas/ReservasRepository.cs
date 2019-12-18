@@ -94,6 +94,12 @@ namespace Barrios.Default.Repositories
             return true;
         }
 
+        public void ConfirmReservation(int BookingId)
+        {
+            Utils.InsertOrUpdateString("update " + MyRow.Fields.TableName + " set " + MyRow.Fields.Confirmada.Name + "=1 where " + MyRow.Fields.Id.Name + "=" + BookingId);
+
+        }
+
         public List<MyRow> BookingEspecialList(IDbConnection connection, int resourceId)
         {
             List<MyRow> list = new List<MyRow>();

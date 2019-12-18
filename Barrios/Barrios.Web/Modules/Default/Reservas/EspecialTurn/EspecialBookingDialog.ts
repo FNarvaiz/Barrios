@@ -30,7 +30,7 @@ namespace Barrios.Default {
                 }
             });
             this.form.Fecha.set_minDate(new Date());
-            this.form.Fecha.set_maxDate(new Date(new Date().getTime() + (90 * 24 * 60 * 60 * 1000)));
+            this.form.Fecha.set_maxDate(new Date(new Date().getTime() + (180 * 24 * 60 * 60 * 1000)));// 6 meses
         }
         private UpdateTurnsComboBox() {
             if (this.form.Fecha.valueAsDate && this.form.IdRecurso.selectedItem && (this.form.IdRecurso.selectedItem as ReservasRecursosRow).Resolucion == 0) {

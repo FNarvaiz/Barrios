@@ -29,8 +29,11 @@ namespace Barrios.Perfil.Pages
             request.IncludeColumns.Add(VecinosMascotasRow.Fields.UseridUnit.Name);
             request.IncludeColumns.Add(VecinosMascotasRow.Fields.UseridUsername.Name);
             request.IncludeColumns.Add(VecinosMascotasRow.Fields.Foto.Name);
-            var response = new Endpoints.VecinosMascotasController().List(Utils.GetConnection(), request);
-            return View(MVC.Views.Perfil.VecinosMascotas.Reports.PetReport, response);
+            using (var connection = Utils.GetConnection())
+            {
+                var response = new Endpoints.VecinosMascotasController().List(connection, request);
+                return View(MVC.Views.Perfil.VecinosMascotas.Reports.PetReport, response);
+            }
         }
     }
 }

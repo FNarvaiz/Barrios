@@ -47,18 +47,21 @@ namespace Barrios.Modules.Common.Utils
                 return connection.Query<UserRow>("SELECT * FROM [Users] WHERE userid=" + id).SingleOrDefault();
             }
         }
-        public static int InsertOrUpdateString(IDbConnection connection, string cmdText)
+        public static int InsertOrUpdateString(string cmdText)
         {
-            using (IDbCommand cmd = connection.CreateCommand())
+            using (IDbConnection connection = GetConnection())
             {
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = cmdText;
-                cmd.CommandTimeout = 0;
-                if (connection.State == ConnectionState.Closed)
-                    connection.EnsureOpen();
-                int rows = cmd.ExecuteNonQuery();
-                connection.Close();
-                return rows;
+                using (IDbCommand cmd = connection.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = cmdText;
+                    cmd.CommandTimeout = 0;
+                    if (connection.State == ConnectionState.Closed)
+                        connection.EnsureOpen();
+                    int rows = cmd.ExecuteNonQuery();
+                    connection.Close();
+                    return rows;
+                }
             }
         }
         public static void ExecuteNonQueryWithParam(IDbConnection connection, string spname, Dictionary<string, string> paramlist)

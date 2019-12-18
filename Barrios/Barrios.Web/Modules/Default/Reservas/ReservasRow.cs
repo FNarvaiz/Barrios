@@ -1,6 +1,7 @@
 ﻿
 namespace Barrios.Default.Entities
 {
+    using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.ComponentModel;
     using Serenity.Data;
@@ -16,7 +17,7 @@ namespace Barrios.Default.Entities
     [InnerJoin("jIdRecurso", "[dbo].[RESERVAS_RECURSOS]", " jIdRecurso.[ID] = t0.[ID_RECURSO] ")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", " jType.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jType.[ID_RECURSO] ")]
     [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", " jTurns.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jTurns.[ID_RECURSO] ")]
-    public sealed class ReservasRow : Row, IIdRow, INameRow
+    public sealed class ReservasRow : Row, IIdRow, INameRow, IActivityClass
     {
         [DisplayName("Id"), Column("ID"), Identity]
         public Int32? Id
@@ -126,6 +127,18 @@ namespace Barrios.Default.Entities
             get { return Fields.UserInsert[this]; }
             set { Fields.UserInsert[this] = value; }
         }
+        [DisplayName("Actualizado")]
+        public DateTime? DateUpdate
+        {
+            get { return Fields.DateUpdate[this]; }
+            set { Fields.DateUpdate[this] = value; }
+        }
+        [DisplayName("User Update")]
+        public Int32? UserUpdate
+        {
+            get { return Fields.UserUpdate[this]; }
+            set { Fields.UserUpdate[this] = value; }
+        }
 
         [DisplayName("Recurso"), Expression("jIdRecurso.[NOMBRE]")]
         public String IdRecursoNombre
@@ -133,7 +146,12 @@ namespace Barrios.Default.Entities
             get { return Fields.IdRecursoNombre[this]; }
             set { Fields.IdRecursoNombre[this] = value; }
         }
-        
+        [DisplayName("Confirmada"),DefaultValue("1")]
+        public Boolean? Confirmada
+        {
+            get { return Fields.Confirmada[this]; }
+            set { Fields.Confirmada[this] = value; }
+        }
         [DisplayName("Vecino"), Expression("jIdVecino.[Username]")]
         public String IdVecinoUsername
         {
@@ -214,6 +232,7 @@ namespace Barrios.Default.Entities
             get { return Fields.Valido[this]; }
             set { Fields.Valido[this] = value; }
         }
+
         [DisplayName("Required Vecino"), NotMapped]
         public Boolean? Required_Vecino
         {
@@ -257,7 +276,9 @@ namespace Barrios.Default.Entities
             public Int32Field BarrioId; 
             public Int32Field IdTurnosEspeciales;
             public StringField Hora;
-            
+            public BooleanField Confirmada;
+            public DateTimeField DateUpdate;
+            public Int32Field UserUpdate;
 
             public StringField Turno;
             public StringField Estado;

@@ -272,6 +272,7 @@ declare namespace Barrios.Administration {
         Password: Serenity.PasswordEditor;
         PasswordConfirm: Serenity.PasswordEditor;
         Email_Others: Serenity.TextAreaEditor;
+        IsActive: Serenity.BooleanEditor;
         Source: Serenity.StringEditor;
         ClientIdList: Serenity.CheckLookupEditor;
     }
@@ -1390,6 +1391,9 @@ declare namespace Barrios.Default {
         BarrioId?: number;
         IdTurnosEspeciales?: number;
         Hora?: string;
+        Confirmada?: boolean;
+        DateUpdate?: string;
+        UserUpdate?: number;
         Turno?: string;
         Estado?: string;
         Finalizado?: boolean;
@@ -1427,6 +1431,9 @@ declare namespace Barrios.Default {
             BarrioId = "BarrioId",
             IdTurnosEspeciales = "IdTurnosEspeciales",
             Hora = "Hora",
+            Confirmada = "Confirmada",
+            DateUpdate = "DateUpdate",
+            UserUpdate = "UserUpdate",
             Turno = "Turno",
             Estado = "Estado",
             Finalizado = "Finalizado",
@@ -1450,6 +1457,7 @@ declare namespace Barrios.Default {
         const baseUrl = "Default/Reservas";
         function Create(request: Serenity.SaveRequest<ReservasRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function Update(request: Serenity.SaveRequest<ReservasRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function ConfirmReservation(request: IdRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<ReservasRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<ReservasRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
@@ -1460,6 +1468,7 @@ declare namespace Barrios.Default {
         const enum Methods {
             Create = "Default/Reservas/Create",
             Update = "Default/Reservas/Update",
+            ConfirmReservation = "Default/Reservas/ConfirmReservation",
             Delete = "Default/Reservas/Delete",
             Retrieve = "Default/Reservas/Retrieve",
             List = "Default/Reservas/List",
@@ -2881,8 +2890,12 @@ declare namespace Barrios.Default {
         protected getLocalTextPrefix(): string;
         protected getService(): string;
         protected _CurrentRequest: any;
+        private item;
         constructor(container: JQuery);
+        protected onClick(e: JQueryEventObject, row: number, cell: number): void;
+        protected getSlickOptions(): Slick.GridOptions;
         protected getQuickFilters(): Serenity.QuickFilter<Serenity.Widget<any>, any>[];
+        protected getItemCssClass(item: ReservasRow, index: number): string;
         protected getButtons(): Serenity.ToolButton[];
     }
 }

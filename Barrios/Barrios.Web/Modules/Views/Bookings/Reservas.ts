@@ -87,6 +87,7 @@ namespace Dashboard {
              if (resourceName == "") {
                  resourceName = this._resource.text();
              }
+             var table = this._table;
              Barrios.Default.ReservasService.SendRequest({
                  bookingDate: date,
                  resourceId: resourceId,
@@ -97,7 +98,9 @@ namespace Dashboard {
                  turnType: turnTypeId,
                  comment: comment
              }, (response) => {
-                 Q.notifySuccess(response);
+                Q.notifySuccess("Se ha enviado la solicitud correctamente");
+                table.html($.parseHTML(response));
+                this._grid.refresh();
              });
          }
        

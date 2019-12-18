@@ -24,7 +24,8 @@ namespace Barrios.Default.Columns
         public String Tipo { get; set; }
         public DateTime FechaFin { get; set; }
         public String Observaciones { get; set; }
-       
+        [DisplayName("Conf")]
+        public Boolean Confirmada { get; set; }
         public DateTime DateInsert { get; set; }
         public Int32 UserInsert { get; set; }
         [Hidden]

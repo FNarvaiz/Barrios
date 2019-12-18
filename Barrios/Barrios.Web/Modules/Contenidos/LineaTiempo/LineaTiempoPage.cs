@@ -24,10 +24,12 @@ namespace Barrios.Contenidos.Pages
                    "PeriodoFecha","Nombre","CategoryName","ContenidoTexto","ArchivoFilename"
             } } ;
             request.Sort[0]=new SortBy() { Field = "PeriodoFecha", Descending = true };
-           
-            List<Entities.LineaTiempoRow> list = new Barrios.Contenidos.Endpoints.LineaTiempoController().List(Utils.GetConnection(), request).Entities;
+            using (var connection = Utils.GetConnection())
+            {
+                List<Entities.LineaTiempoRow> list = new Barrios.Contenidos.Endpoints.LineaTiempoController().List(connection, request).Entities;
 
-            return View("~/Modules/Views/TimeLine/TimeLineIndex.cshtml", list);
+                return View("~/Modules/Views/TimeLine/TimeLineIndex.cshtml", list);
+            }
         }
         public ActionResult RegulationsView()
         {
@@ -41,9 +43,12 @@ namespace Barrios.Contenidos.Pages
             request.Sort[0] = new SortBy() { Field = "PeriodoFecha", Descending = true };
             request.EqualityFilter = new Dictionary<string, object>();
             request.EqualityFilter[Entities.LineaTiempoRow.Fields.IdCategoria.Name] = 264;
-            List<Entities.LineaTiempoRow> list = new Barrios.Contenidos.Endpoints.LineaTiempoController().List(Utils.GetConnection(), request).Entities;
+            using (var connection = Utils.GetConnection())
+            {
+                List<Entities.LineaTiempoRow> list = new Barrios.Contenidos.Endpoints.LineaTiempoController().List(connection, request).Entities;
 
-            return View("~/Modules/Views/TimeLine/Regulations.cshtml", list);
+                return View("~/Modules/Views/TimeLine/Regulations.cshtml", list);
+            }
         }
     }
 }

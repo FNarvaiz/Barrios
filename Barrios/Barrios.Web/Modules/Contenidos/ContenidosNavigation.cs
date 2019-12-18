@@ -13,3 +13,5 @@ using MyPages = Barrios.Contenidos.Pages;
 [assembly: NavigationLink(int.MaxValue, "Proveedores", typeof(MyPages.ProveedoresController),action: "ProviderView", icon: "fa-truck")]
 [assembly: NavigationLink(int.MaxValue, "Histórico", typeof(MyPages.LineaTiempoController),action:"TimeLineView", icon: "fa-file")]
 [assembly: NavigationLink(int.MaxValue, "Reglamentos", typeof(MyPages.LineaTiempoController), action: "RegulationsView", icon: "fa-bank")]
+[assembly: NavigationLink(int.MaxValue, "Avisos", typeof(MyPages.AvisosController), action: "NoticesView", icon: "fa-picture-o")]
+

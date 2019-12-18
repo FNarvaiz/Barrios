@@ -54,7 +54,8 @@ namespace Barrios.Contenidos.Endpoints
         }
         public List<MyRow> ListRatings()
         {
-            return new MyRepository().ListRatings(Utils.GetConnection(), CurrentNeigborhood.Get().Id, Authorization.UserId);
+            using (var connection = Utils.GetConnection())
+                return new MyRepository().ListRatings(connection, CurrentNeigborhood.Get().Id, Authorization.UserId);
         }
         [HttpPost]
         public string Rating(IDbConnection connection, RatingRequest request)
