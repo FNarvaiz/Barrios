@@ -1991,6 +1991,7 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200107_175400_UpdateBookingResources.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20191218_110600_UpdateDateModified.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20191204_115800_UpdateConfirmBooking.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190919_100600_UpdateReservasStoreProcedure.cs" />

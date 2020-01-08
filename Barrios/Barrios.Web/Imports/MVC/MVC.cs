@@ -164,6 +164,11 @@ namespace MVC
             }
         }
 
+        public static class Notices
+        {
+            public const string NoticesIndex = "~/Modules/Views/Notices/NoticesIndex.cshtml";
+        }
+
         public static class Perfil
         {
             public const string PersonalEventos = "~/Modules/Views/Perfil/PersonalEventos.cshtml";

@@ -10,6 +10,8 @@
         Description: Serenity.TextAreaEditor;
         TypeList: ReservasTiposGrid;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
+        Desde: Serenity.IntegerEditor;
+        Hasta: Serenity.IntegerEditor;
         NeigborhoodList: Serenity.CheckLookupEditor;
         Regulation: Serenity.ImageUploadEditor;
     }
@@ -30,8 +32,9 @@
                 var w2 = s.TextAreaEditor;
                 var w3 = ReservasTiposGrid;
                 var w4 = ReservasTurnosEspecialesGrid;
-                var w5 = s.CheckLookupEditor;
-                var w6 = s.ImageUploadEditor;
+                var w5 = s.IntegerEditor;
+                var w6 = s.CheckLookupEditor;
+                var w7 = s.ImageUploadEditor;
 
                 Q.initFormType(ReservasRecursosForm, [
                     'Nombre', w0,
@@ -44,8 +47,10 @@
                     'Description', w2,
                     'TypeList', w3,
                     'SpecialTurnList', w4,
-                    'NeigborhoodList', w5,
-                    'Regulation', w6
+                    'Desde', w5,
+                    'Hasta', w5,
+                    'NeigborhoodList', w6,
+                    'Regulation', w7
                 ]);
             }
         }

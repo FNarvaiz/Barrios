@@ -30,7 +30,7 @@ namespace Barrios.Default.Endpoints
         {
             using (var connection = Utils.GetConnection())
             {
-                ReservasRecursosRow resource = new ReservasRecursosRepository().Retrieve(connection, new RetrieveRequest() { EntityId = obj.IdRecurso }).Entity;
+                ReservasRecursosRow resource = connection.Query<ReservasRecursosRow>("select * from  "+ReservasRecursosRow.Fields.TableName+" where "+ ReservasRecursosRow.Fields.Id.Name+" = "+obj.IdRecurso ).SingleOrDefault();
                 if (resource.Resolucion == 0)
                     obj.IdTipo = obj.IdTurnosEspeciales;
             }
@@ -41,6 +41,8 @@ namespace Barrios.Default.Endpoints
             IdTurnsEspecialToIdType(request.Entity);
             Utils.RegisterUserActivity(request.Entity, true);
             request.Entity.BarrioId = CurrentNeigborhood.Get().Id;
+            if (request.Entity.Confirmada == null)
+                request.Entity.Confirmada = true;
             var response= new MyRepository().Create(uow, request);
             uow.OnCommit += () =>
             {

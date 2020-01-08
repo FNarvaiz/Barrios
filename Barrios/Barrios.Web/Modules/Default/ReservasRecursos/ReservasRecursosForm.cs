@@ -25,8 +25,12 @@ namespace Barrios.Default.Forms
         public String Description { get; set; }
         [Tab("Tipos Reservas"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTiposGrid]
         public List<ReservasTiposRow> TypeList { get; set; }
-        [Tab("Turnos Especiales"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTurnosEspecialesGrid]
+        [Tab("Turnos Especiales"),AllowHide(true), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTurnosEspecialesGrid]
         public List<ReservasTurnosEspecialesRow> SpecialTurnList { get; set; }
+         [DisplayName(""),Placeholder("Cantidad de dias a partir de los que se puede reservar")]
+        public Int16 Desde { get; set; }
+        [DisplayName(""), Placeholder("Cantidad de dias hasta los que se puede reservar")]
+        public Int16 Hasta { get; set; }
         [Tab("Sub Barrios"), DisplayName(""), LabelWidth(0, UntilNext = true),CheckLookupEditor("Settings.Subbarrios",HideSearch =true, ShowSelectAll = true, CheckedOnTop = true)]
         public List<Int32> NeigborhoodList { get; set; }
         [Tab("Reglamento"),DisplayName("")]

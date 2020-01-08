@@ -108,7 +108,8 @@ namespace Barrios.Default.Repositories
                 "T.ID as IDTURNO,T.DIAS  ," +
                 " dbo.ID_VECINO_TURNO_RESERVA(" + resourceId + ", F.FECHA, T.INICIO) as vecinoID, " +
                 "dbo.ESTADO_TURNO_RESERVA(" + resourceId + ", F.FECHA, T.INICIO, T.DURACION)as ESTADO " +
-                "FROM dbo.LISTA_FECHAS_ESPECIALES(7,180) AS F " +
+                "FROM dbo.LISTA_FECHAS_ESPECIALES((select desde from [RESERVAS_RECURSOS] where id=" + resourceId + ")," +
+                "(select hasta from [RESERVAS_RECURSOS] where id=" + resourceId + ")) AS F " +
                 "CROSS JOIN RESERVAS_TURNOS_ESPECIALES T where T.ID_RECURSO= " + resourceId + " order by F.Fecha ASC, ESTADO DESC ,INICIO asc");
             DataTable dt = Utils.GetRequestString( sql.ToString());
             int count = 0;

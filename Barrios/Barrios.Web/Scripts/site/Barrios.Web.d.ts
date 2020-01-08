@@ -1304,6 +1304,8 @@ declare namespace Barrios.Default {
         Description: Serenity.TextAreaEditor;
         TypeList: ReservasTiposGrid;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
+        Desde: Serenity.IntegerEditor;
+        Hasta: Serenity.IntegerEditor;
         NeigborhoodList: Serenity.CheckLookupEditor;
         Regulation: Serenity.ImageUploadEditor;
     }
@@ -1324,6 +1326,8 @@ declare namespace Barrios.Default {
         Apertura?: number;
         Cierre?: number;
         Tipo?: number;
+        Desde?: number;
+        Hasta?: number;
         Resolucion?: number;
         ClientIdList?: number[];
         NeigborhoodList?: number[];
@@ -1345,6 +1349,8 @@ declare namespace Barrios.Default {
             Apertura = "Apertura",
             Cierre = "Cierre",
             Tipo = "Tipo",
+            Desde = "Desde",
+            Hasta = "Hasta",
             Resolucion = "Resolucion",
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",

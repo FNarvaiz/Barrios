@@ -13,7 +13,7 @@ namespace Barrios.Default.Entities
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS_RECURSOS]")]
     [DisplayName("Recursos"), InstanceName("Recurso")]
     [ReadPermission("User:Reservas")]
-    [ModifyPermission("Reservas:Recursos")]
+    [ModifyPermission("User:Reservas")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", "jType.[ID_Recurso] = t0.[ID] ")]
     [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", "jTurns.[ID_Recurso] = t0.[ID] ")]
      public sealed class ReservasRecursosRow : Row, IIdRow, INameRow
@@ -75,6 +75,18 @@ namespace Barrios.Default.Entities
         {
             get { return Fields.Resolucion[this]; }
             set { Fields.Resolucion[this] = value; }
+        }
+        [DisplayName("Hasta los siguientes"), LookupInclude,IntegerEditor(MaxValue =360,MinValue =0,AllowNegatives =false), Column("Hasta")]
+        public Int16? Hasta
+        {
+            get { return Fields.Hasta[this]; }
+            set { Fields.Hasta[this] = value; }
+        }
+        [DisplayName("A partir de los siguientes"), LookupInclude, IntegerEditor(MaxValue = 360, MinValue = 0, AllowNegatives = false), Column("Desde")]
+        public Int16? Desde
+        {
+            get { return Fields.Desde[this]; }
+            set { Fields.Desde[this] = value; }
         }
         [DisplayName("Emails"), Size(200), Placeholder("Ingrese los mails a donde se tiene que enviar la solicitud o reserva,(1 por linea)"), TextAreaEditor()]
         public String Emails
@@ -143,6 +155,8 @@ namespace Barrios.Default.Entities
             public Int16Field Apertura;
             public Int16Field Cierre;
             public Int16Field Tipo;
+            public Int16Field Desde;
+            public Int16Field Hasta;
             public Int16Field Resolucion;
             public ListField<Int32> ClientIdList;
             public ListField<Int16> NeigborhoodList;

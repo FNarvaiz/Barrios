@@ -13,6 +13,8 @@ namespace Barrios.Default.Entities
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[RESERVAS]")]
     [DisplayName("Reservas"), InstanceName("Reserva")]
     [ReadPermission("User:Reservas")]
+    [DeletePermission("User:Reservas")]
+    [InsertPermission("User:Reservas")]
     [ModifyPermission("Administration:General")]
     [InnerJoin("jIdRecurso", "[dbo].[RESERVAS_RECURSOS]", " jIdRecurso.[ID] = t0.[ID_RECURSO] ")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", " jType.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jType.[ID_RECURSO] ")]

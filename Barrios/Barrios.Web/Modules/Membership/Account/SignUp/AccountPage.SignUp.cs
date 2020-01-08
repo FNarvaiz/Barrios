@@ -102,7 +102,7 @@ namespace Barrios.Membership.Pages
 
 
 
-                    Common.EmailHelper.Send("Activa tu cuenta", emailBody, email, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+                    Common.EmailHelper.Send("Activa tu cuenta", emailBody, email+"," + CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
 
                     uow.Commit();
                     UserRetrieveService.RemoveCachedUser(userId, username);

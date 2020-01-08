@@ -9,6 +9,8 @@
         Apertura?: number;
         Cierre?: number;
         Tipo?: number;
+        Desde?: number;
+        Hasta?: number;
         Resolucion?: number;
         ClientIdList?: number[];
         NeigborhoodList?: number[];
@@ -32,6 +34,8 @@
             Apertura = "Apertura",
             Cierre = "Cierre",
             Tipo = "Tipo",
+            Desde = "Desde",
+            Hasta = "Hasta",
             Resolucion = "Resolucion",
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",
