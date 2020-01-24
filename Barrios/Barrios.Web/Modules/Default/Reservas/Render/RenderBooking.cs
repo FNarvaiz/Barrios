@@ -10,7 +10,7 @@ namespace Barrios.Modules.Default.Entities
     {
         void InitTBody();
         void renderHeader(List<DateTime> days);
-        void renderRows(int resourceId);
+        void renderRows(int resourceId,bool needComment);
         void EndTBody();
         string getHTML();
 

@@ -134,6 +134,70 @@ declare namespace Barrios.Administration {
 declare namespace Barrios.Administration {
 }
 declare namespace Barrios.Administration {
+    interface NotesForm {
+        DestinationUserId: Serenity.LookupEditor;
+        Message: Serenity.StringEditor;
+        ShowUser: Serenity.BooleanEditor;
+    }
+    class NotesForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Administration {
+    interface NotesRow {
+        Id?: number;
+        Message?: string;
+        DestinationUserId?: number;
+        CreateUserId?: number;
+        CreateDate?: string;
+        UpdatetionUserId?: number;
+        UpdateDate?: string;
+        ShowUser?: boolean;
+        DestinationUserUsername?: string;
+        CreateUserUsername?: string;
+        UpdatetionUserUsername?: string;
+    }
+    namespace NotesRow {
+        const idProperty = "Id";
+        const nameProperty = "Message";
+        const localTextPrefix = "Administration.Notes";
+        const enum Fields {
+            Id = "Id",
+            Message = "Message",
+            DestinationUserId = "DestinationUserId",
+            CreateUserId = "CreateUserId",
+            CreateDate = "CreateDate",
+            UpdatetionUserId = "UpdatetionUserId",
+            UpdateDate = "UpdateDate",
+            ShowUser = "ShowUser",
+            DestinationUserUsername = "DestinationUserUsername",
+            CreateUserUsername = "CreateUserUsername",
+            UpdatetionUserUsername = "UpdatetionUserUsername"
+        }
+    }
+}
+declare namespace Barrios.Administration {
+    namespace NotesService {
+        const baseUrl = "Administration/Notes";
+        function Create(request: Serenity.SaveRequest<NotesRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<NotesRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<NotesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<NotesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Administration/Notes/Create",
+            Update = "Administration/Notes/Update",
+            Delete = "Administration/Notes/Delete",
+            Retrieve = "Administration/Notes/Retrieve",
+            List = "Administration/Notes/List"
+        }
+    }
+}
+declare namespace Barrios.Administration {
+}
+declare namespace Barrios.Administration {
     interface RoleForm {
         RoleName: Serenity.StringEditor;
     }
@@ -265,10 +329,11 @@ declare namespace Barrios.Administration {
     interface UserForm {
         Username: Serenity.StringEditor;
         DisplayName: Serenity.StringEditor;
-        Unit: Serenity.IntegerEditor;
+        Unit: Serenity.StringEditor;
         subBarrioId: Serenity.LookupEditor;
         Email: Serenity.EmailEditor;
         UserImage: Serenity.ImageUploadEditor;
+        Phone: Serenity.StringEditor;
         Password: Serenity.PasswordEditor;
         PasswordConfirm: Serenity.PasswordEditor;
         Email_Others: Serenity.TextAreaEditor;
@@ -392,6 +457,8 @@ declare namespace Barrios.Administration {
         DisplayName?: string;
         Email?: string;
         Email_Others?: string;
+        Phone?: string;
+        AppHoldId?: number;
         UserImage?: string;
         LastDirectoryUpdate?: string;
         IsActive?: number;
@@ -423,6 +490,8 @@ declare namespace Barrios.Administration {
             DisplayName = "DisplayName",
             Email = "Email",
             Email_Others = "Email_Others",
+            Phone = "Phone",
+            AppHoldId = "AppHoldId",
             UserImage = "UserImage",
             LastDirectoryUpdate = "LastDirectoryUpdate",
             IsActive = "IsActive",
@@ -448,13 +517,17 @@ declare namespace Barrios.Administration {
         function Undelete(request: Serenity.UndeleteRequest, onSuccess?: (response: Serenity.UndeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<UserRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<UserRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function IsValidUsername(request: System.String, onSuccess?: (response: System.Boolean) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function ImportFile(request: Modules.Common.ImportFile.ImportFileRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         const enum Methods {
             Create = "Administration/User/Create",
             Update = "Administration/User/Update",
             Delete = "Administration/User/Delete",
             Undelete = "Administration/User/Undelete",
             Retrieve = "Administration/User/Retrieve",
-            List = "Administration/User/List"
+            List = "Administration/User/List",
+            IsValidUsername = "Administration/User/IsValidUsername",
+            ImportFile = "Administration/User/ImportFile"
         }
     }
 }
@@ -474,6 +547,16 @@ declare namespace Barrios.Administration {
             UserUsername = "UserUsername",
             BarrioNombre = "BarrioNombre"
         }
+    }
+}
+declare namespace Barrios.Common {
+    interface ImportFileForm {
+        FileName: Serenity.ImageUploadEditor;
+    }
+    class ImportFileForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
     }
 }
 declare namespace Barrios.Common {
@@ -1162,6 +1245,7 @@ declare namespace Barrios.Default {
     interface BookingListRequest extends Serenity.ServiceRequest {
         ID?: number;
         Resolution?: number;
+        NeedComment?: boolean;
     }
 }
 declare namespace Barrios.Default {
@@ -1254,6 +1338,16 @@ declare namespace Barrios.Default {
 declare namespace Barrios.Default {
 }
 declare namespace Barrios.Default {
+    interface NeedCommendForm {
+        Observaciones: Serenity.TextAreaEditor;
+    }
+    class NeedCommendForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Default {
     interface RecursosBarriosRow {
         RecursoId?: number;
         BarrioId?: number;
@@ -1295,6 +1389,7 @@ declare namespace Barrios.Default {
 declare namespace Barrios.Default {
     interface ReservasRecursosForm {
         Nombre: Serenity.StringEditor;
+        AppHoldId: Serenity.IntegerEditor;
         Tipo: Serenity.LookupEditor;
         Apertura: Serenity.LookupEditor;
         Cierre: Serenity.LookupEditor;
@@ -1302,6 +1397,7 @@ declare namespace Barrios.Default {
         Emails: Serenity.TextAreaEditor;
         MailBody: Serenity.TextAreaEditor;
         Description: Serenity.TextAreaEditor;
+        NeedComment: Serenity.BooleanEditor;
         TypeList: ReservasTiposGrid;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
         Desde: Serenity.IntegerEditor;
@@ -1329,11 +1425,13 @@ declare namespace Barrios.Default {
         Desde?: number;
         Hasta?: number;
         Resolucion?: number;
+        AppHoldId?: number;
         ClientIdList?: number[];
         NeigborhoodList?: number[];
         BarrioId?: number;
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
+        NeedComment?: boolean;
     }
     namespace ReservasRecursosRow {
         const idProperty = "Id";
@@ -1352,11 +1450,13 @@ declare namespace Barrios.Default {
             Desde = "Desde",
             Hasta = "Hasta",
             Resolucion = "Resolucion",
+            AppHoldId = "AppHoldId",
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",
             BarrioId = "BarrioId",
             TypeList = "TypeList",
-            SpecialTurnList = "SpecialTurnList"
+            SpecialTurnList = "SpecialTurnList",
+            NeedComment = "NeedComment"
         }
     }
 }
@@ -1367,6 +1467,7 @@ declare namespace Barrios.Default {
         function Update(request: Serenity.SaveRequest<ReservasRecursosRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<ReservasRecursosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function ImportFile(request: Modules.Common.ImportFile.ImportFileRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<ReservasRecursosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function ListOfAllowedResources(request: Serenity.ServiceRequest, onSuccess?: (response: System.Collections.Generic.List<ReservasRecursosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         const enum Methods {
@@ -1374,6 +1475,7 @@ declare namespace Barrios.Default {
             Update = "Default/ReservasRecursos/Update",
             Delete = "Default/ReservasRecursos/Delete",
             Retrieve = "Default/ReservasRecursos/Retrieve",
+            ImportFile = "Default/ReservasRecursos/ImportFile",
             List = "Default/ReservasRecursos/List",
             ListOfAllowedResources = "Default/ReservasRecursos/ListOfAllowedResources"
         }
@@ -1400,6 +1502,7 @@ declare namespace Barrios.Default {
         Confirmada?: boolean;
         DateUpdate?: string;
         UserUpdate?: number;
+        SendMail?: boolean;
         Turno?: string;
         Estado?: string;
         Finalizado?: boolean;
@@ -1440,6 +1543,7 @@ declare namespace Barrios.Default {
             Confirmada = "Confirmada",
             DateUpdate = "DateUpdate",
             UserUpdate = "UserUpdate",
+            SendMail = "SendMail",
             Turno = "Turno",
             Estado = "Estado",
             Finalizado = "Finalizado",
@@ -1467,6 +1571,7 @@ declare namespace Barrios.Default {
         function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<ReservasRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<ReservasRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function ImportFile(request: Modules.Common.ImportFile.ImportFileRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function renderBookingStatus(request: BookingListRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function bookingsTake(request: BookingTakeRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         function SendRequest(request: BookingTakeRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
@@ -1478,6 +1583,7 @@ declare namespace Barrios.Default {
             Delete = "Default/Reservas/Delete",
             Retrieve = "Default/Reservas/Retrieve",
             List = "Default/Reservas/List",
+            ImportFile = "Default/Reservas/ImportFile",
             renderBookingStatus = "Default/Reservas/renderBookingStatus",
             bookingsTake = "Default/Reservas/bookingsTake",
             SendRequest = "Default/Reservas/SendRequest",
@@ -1781,6 +1887,11 @@ declare namespace Barrios.Membership {
         Email?: string;
         Password?: string;
         Unit?: string;
+    }
+}
+declare namespace Barrios.Modules.Common.ImportFile {
+    interface ImportFileRequest extends Serenity.ServiceRequest {
+        FileName?: string;
     }
 }
 declare namespace Barrios.Modules.Common.Utils {
@@ -2229,6 +2340,26 @@ declare namespace Barrios.Administration {
     }
 }
 declare namespace Barrios.Administration {
+    class NotesDialog extends Serenity.EntityDialog<NotesRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected form: NotesForm;
+    }
+}
+declare namespace Barrios.Administration {
+    class NotesGrid extends Serenity.EntityGrid<NotesRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof NotesDialog;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
+    }
+}
+declare namespace Barrios.Administration {
     class RoleDialog extends Serenity.EntityDialog<RoleRow, any> {
         protected getFormKey(): string;
         protected getIdProperty(): string;
@@ -2311,6 +2442,7 @@ declare namespace Barrios.Administration {
         protected getService(): string;
         private neighbordhoobId;
         constructor(container: JQuery, neighbordhoobId: any);
+        protected getButtons(): Serenity.ToolButton[];
         protected getDefaultSortBy(): fld[];
         protected getItemCssClass(item: UserRow, index: number): string;
         protected onViewSubmit(): boolean;
@@ -2553,6 +2685,16 @@ declare namespace Barrios {
         isHtml: boolean;
         isLocalText: boolean;
         hideLabel: boolean;
+    }
+}
+declare namespace Barrios.Common {
+    class ImportFileDialog extends Serenity.PropertyDialog<any, any> {
+        protected getFormKey(): string;
+        form: ImportFileForm;
+        methodRequest: any;
+        constructor(sendRequest: any);
+        protected getDialogTitle(): string;
+        protected getDialogButtons(): Serenity.DialogButton[];
     }
 }
 declare namespace Barrios.Common {
@@ -2926,6 +3068,24 @@ declare namespace Barrios.Default {
     }
 }
 declare namespace Barrios.Default {
+    class NeedCommendDialog extends Serenity.EntityDialog<ReservasRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        commend: any;
+        protected form: NeedCommendForm;
+        constructor(container: JQuery);
+        protected getDialogOptions(): JQueryUI.DialogOptions;
+        protected getToolbarButtons(): {
+            title: string;
+            cssClass: string;
+            onClick: () => void;
+        }[];
+    }
+}
+declare namespace Barrios.Default {
     class TwoNeighborsDialog extends Serenity.EntityDialog<ReservasRow, any> {
         protected getFormKey(): string;
         protected getIdProperty(): string;
@@ -2966,6 +3126,7 @@ declare namespace Barrios.Default {
         protected getLocalTextPrefix(): string;
         protected getService(): string;
         constructor(container: JQuery);
+        protected getButtons(): Serenity.ToolButton[];
     }
 }
 declare namespace Barrios.Default {
@@ -3274,8 +3435,9 @@ declare namespace Dashboard {
         constructor(resource: JQuery, items: JQuery, table: JQuery, grid: Barrios.Default.MyBookingsGrid);
         selectItem(item: JQuery): void;
         refresh(): void;
-        bookingsTake(element: any, resourceId: number, date: string, start: number, type: number, neighbour: boolean): void;
-        sendBookingsTake(resourceId: number, date: string, start: number, type: number, neighbour: number): void;
+        bookingsTake(element: any, resourceId: number, date: string, start: number, type: number, neighbour: boolean, needCommend: boolean): void;
+        bookingsTakeWithCommend(element: any, resourceId: number, date: string, start: number, type: number, neighbour: boolean, commend: string): void;
+        sendBookingsTake(resourceId: number, date: string, start: number, type: number, neighbour: number, commend: string): void;
         showEspecialTurnDialog(): void;
         SendBookinRequest(date: any, resourceId: any, resourceName: any, turnName: any, turnDuration: any, turnStart: any, turnTypeId: any, comment?: string): void;
         moveDisplay(HideColumn: any, ShowColumn: any): void;

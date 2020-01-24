@@ -12,11 +12,13 @@
         Desde?: number;
         Hasta?: number;
         Resolucion?: number;
+        AppHoldId?: number;
         ClientIdList?: number[];
         NeigborhoodList?: number[];
         BarrioId?: number;
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
+        NeedComment?: boolean;
     }
 
     export namespace ReservasRecursosRow {
@@ -37,11 +39,13 @@
             Desde = "Desde",
             Hasta = "Hasta",
             Resolucion = "Resolucion",
+            AppHoldId = "AppHoldId",
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",
             BarrioId = "BarrioId",
             TypeList = "TypeList",
-            SpecialTurnList = "SpecialTurnList"
+            SpecialTurnList = "SpecialTurnList",
+            NeedComment = "NeedComment"
         }
     }
 }

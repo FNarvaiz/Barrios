@@ -16,6 +16,7 @@ namespace Barrios.Default.Forms
     {
         [Tab("Info")]
         public String Nombre { get; set; }
+        public Int32 AppHoldId { get; set; }
         public Int16 Tipo { get; set; }
         public Int16 Apertura { get; set; }
         public Int16 Cierre { get; set; }
@@ -23,6 +24,7 @@ namespace Barrios.Default.Forms
         public String Emails { get; set; }
         public String MailBody { get; set; }
         public String Description { get; set; }
+        public Boolean NeedComment { get; set; }
         [Tab("Tipos Reservas"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTiposGrid]
         public List<ReservasTiposRow> TypeList { get; set; }
         [Tab("Turnos Especiales"),AllowHide(true), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTurnosEspecialesGrid]

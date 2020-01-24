@@ -241,6 +241,12 @@ namespace Barrios.Default.Entities
             get { return Fields.Required_Vecino[this]; }
             set { Fields.Required_Vecino[this] = value; }
         }
+        [DisplayName("Send Mail"), NotMapped]
+        public Boolean? SendMail
+        {
+            get { return Fields.SendMail[this]; }
+            set { Fields.SendMail[this] = value; }
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -282,6 +288,7 @@ namespace Barrios.Default.Entities
             public DateTimeField DateUpdate;
             public Int32Field UserUpdate;
 
+            public BooleanField SendMail;
             public StringField Turno;
             public StringField Estado;
             public BooleanField Finalizado;

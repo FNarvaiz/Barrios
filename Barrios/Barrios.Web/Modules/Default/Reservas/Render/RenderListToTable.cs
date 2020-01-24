@@ -35,10 +35,10 @@ namespace Barrios.Modules.Default.Entities
                 builder.Append(" id='" + id + "' ");
             builder.Append(">" + text + "</button>");
         }
-        private void RenderButtonUnique(ReservasRow aux, int resourceId, DateTime d)
+        private void RenderButtonUnique(ReservasRow aux, int resourceId, DateTime d,bool needComment)
         {
             renderButton("btn-success ", aux.Hora, aux.Turno, "Booking.SendBookinRequest('" + d.ToString("yyyyMMdd") +
-                            "'," + resourceId + ",'','" + aux.Turno + "'," + aux.Duracion + "," + aux.Inicio + "," + aux.IdTurnosEspeciales + ")");
+                            "'," + resourceId + ",'','" + aux.Turno + "'," + aux.Duracion + "," + aux.Inicio + "," + aux.IdTurnosEspeciales + ","+ needComment.ToString().ToLower() + ")");
 
         }
         public void renderHeader(List<DateTime> days)
@@ -49,7 +49,7 @@ namespace Barrios.Modules.Default.Entities
                 "</tr>");
             ;
         }
-        public void renderRows(int resourceId)
+        public void renderRows(int resourceId, bool needComment)
         {
             bool disponible = true;
             bool firstRow = true;
@@ -89,7 +89,7 @@ namespace Barrios.Modules.Default.Entities
                         builder.Append("<tr>" +
                        "<th>" + aux.Fecha.Value.ToString("dd/MM") + "</th>" +
                        "<th>");
-                        RenderButtonUnique(aux, resourceId, d);
+                        RenderButtonUnique(aux, resourceId, d, needComment);
                         firstRow = false;
                     }
                 }
@@ -97,7 +97,7 @@ namespace Barrios.Modules.Default.Entities
                 {
                     if (aux.Dias.Contains(((int)aux.Fecha.Value.DayOfWeek).ToString()))
                     {
-                        RenderButtonUnique(aux, resourceId, d);
+                        RenderButtonUnique(aux, resourceId, d, needComment);
                         firstRow = false;
                     }
                 }

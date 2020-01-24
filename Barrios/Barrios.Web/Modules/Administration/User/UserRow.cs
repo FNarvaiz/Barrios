@@ -12,7 +12,6 @@ namespace Barrios.Administration.Entities
     [DisplayName("Users"), InstanceName("User")]
     [ReadPermission(PermissionKeys.Security)]
     [ModifyPermission(PermissionKeys.Security)]
-
     [LookupScript(Permission = "User:Reservas")]
     public sealed class UserRow : LoggingRow, IIdRow, INameRow, IIsActiveRow
     {
@@ -98,7 +97,7 @@ namespace Barrios.Administration.Entities
             set { Fields.Password[this] = value; }
         }
 
-        [NotNull, Insertable(false),DisplayName("Activo"), Updatable(true)]
+        [NotNull, DisplayName("Activo"), Updatable(true)]
         public Int16? IsActive
         {
             get { return Fields.IsActive[this]; }
@@ -111,11 +110,17 @@ namespace Barrios.Administration.Entities
             get { return Fields.PasswordConfirm[this]; }
             set { Fields.PasswordConfirm[this] = value; }
         }
-        [DisplayName("Unidad"),Required, Size(50), IntegerEditor]
+        [DisplayName("Unidad"),Required, Size(50)]
         public String Unit
         {
             get { return Fields.Unit[this]; }
             set { Fields.Unit[this] = value; }
+        }
+        [DisplayName("Telefono"),  Size(50)]
+        public String Phone
+        {
+            get { return Fields.Phone[this]; }
+            set { Fields.Phone[this] = value; }
         }
         [DisplayName("Sub Barrio"),Column("subBarrioId"), Size(50),LookupEditor("Settings.Subbarrios")]
         public short? subBarrioId
@@ -137,7 +142,13 @@ namespace Barrios.Administration.Entities
             get { return Fields.LastDirectoryUpdate[this]; }
             set { Fields.LastDirectoryUpdate[this] = value; }
         }
-       
+        [DisplayName("ID de la app vieja")]
+        public Int32? AppHoldId
+        {
+            get { return Fields.AppHoldId[this]; }
+            set { Fields.AppHoldId[this] = value; }
+        }
+
         IIdField IIdRow.IdField
         {
             get { return Fields.UserId; }
@@ -172,7 +183,9 @@ namespace Barrios.Administration.Entities
             public StringField DisplayName;
             public StringField Email;
             public StringField Email_Others;
-            
+            public StringField Phone;
+
+            public Int32Field AppHoldId;
             public StringField UserImage;
             public DateTimeField LastDirectoryUpdate;
             public Int16Field IsActive;
@@ -182,6 +195,7 @@ namespace Barrios.Administration.Entities
             public ListField<Int32> ClientIdList;
             public StringField Unit;
             public Int16Field HavePermisions;
+            
         }
     }
 }

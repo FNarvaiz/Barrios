@@ -17,7 +17,23 @@
                 "<div class='statusGreen' > Administradores </div>" +
                 "<div class='statusBlue'>Otros</div></div>");
         }
-
+        protected getButtons() {
+            var buttons = super.getButtons();
+            buttons.push({
+                title: "Importar usuarios",
+                cssClass: "import-button",
+                onClick: () => {
+                    var dialog = new Common.ImportFileDialog((fileValue: string) => {
+                        UserService.ImportFile({ FileName:fileValue }, (response) => {
+                            Q.notifySuccess(response);
+                            this.refresh();
+                        });
+                    });
+                    dialog.dialogOpen();
+                }
+            });
+            return buttons;
+        }
         protected getDefaultSortBy() {
             return [UserRow.Fields.Username];
         }

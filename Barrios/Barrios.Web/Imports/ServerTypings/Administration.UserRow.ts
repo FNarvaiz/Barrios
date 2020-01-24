@@ -9,6 +9,8 @@
         DisplayName?: string;
         Email?: string;
         Email_Others?: string;
+        Phone?: string;
+        AppHoldId?: number;
         UserImage?: string;
         LastDirectoryUpdate?: string;
         IsActive?: number;
@@ -45,6 +47,8 @@
             DisplayName = "DisplayName",
             Email = "Email",
             Email_Others = "Email_Others",
+            Phone = "Phone",
+            AppHoldId = "AppHoldId",
             UserImage = "UserImage",
             LastDirectoryUpdate = "LastDirectoryUpdate",
             IsActive = "IsActive",

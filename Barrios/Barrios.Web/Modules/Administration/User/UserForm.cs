@@ -17,6 +17,7 @@
         [EmailEditor]
         public String Email { get; set; }
         public String UserImage { get; set; }
+        public String Phone { get; set; }
         [PasswordEditor, Required(true)]
         public String Password { get; set; }
         [PasswordEditor, OneWay, Required(true)]

@@ -17,13 +17,19 @@ namespace Barrios.Administration.Columns
         public String Unit { get; set; }
         [Width(150)]
         public String DisplayName { get; set; }
+
+        public String Phone { get; set; }
         [Width(250)]
         public String Email { get; set; }
+
+
         [Width(100)]
         public String Source { get; set; }
         [DisplayName("Registrado")]
         public DateTime InsertDate { get; set; }
         public short HavePermisions { get; set; }
         public bool IsActive { get; set; }
+        [Hidden]
+        public int AppHoldId;
     }
 }

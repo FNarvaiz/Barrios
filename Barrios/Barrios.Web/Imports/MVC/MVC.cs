@@ -16,6 +16,11 @@ namespace MVC
                 public const string LanguageIndex = "~/Modules/Administration/Language/LanguageIndex.cshtml";
             }
 
+            public static class Notes
+            {
+                public const string NotesIndex = "~/Modules/Administration/Notes/NotesIndex.cshtml";
+            }
+
             public static class Role
             {
                 public const string RoleIndex = "~/Modules/Administration/Role/RoleIndex.cshtml";
@@ -28,6 +33,7 @@ namespace MVC
 
             public static class User
             {
+                public const string UpdatedPageEmail = "~/Modules/Administration/User/UpdatedPageEmail.cshtml";
                 public const string UserIndex = "~/Modules/Administration/User/UserIndex.cshtml";
             }
         }

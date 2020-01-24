@@ -72,7 +72,7 @@ namespace Barrios.Modules.Default.Entities
 
             builder.Append("</tr>");
         }
-        public void renderRows(int resourceId)
+        public void renderRows(int resourceId,bool needComment)
         {
             foreach (var aux in list)
             {
@@ -125,7 +125,7 @@ namespace Barrios.Modules.Default.Entities
                             if (aux.Estado == "Disponible" && aux.Valido.Value)
                             {
                                 renderButton(buttonGreenClass, aux.Tipo ,"Booking.bookingsTake(this," + resourceId + ", '" + date.ToString("yyyyMMdd") + "'," +
-                                    aux.Inicio + "," + aux.IdTipo + "," + aux.Required_Vecino.ToString().ToLower() + ")");
+                                    aux.Inicio + "," + aux.IdTipo + "," + aux.Required_Vecino.ToString().ToLower() + ","+ needComment.ToString().ToLower()+ ")");
                             }
                         }
                         else

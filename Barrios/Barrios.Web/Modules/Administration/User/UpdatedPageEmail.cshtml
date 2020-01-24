@@ -1,0 +1,26 @@
+﻿@model Barrios.Administration.Entities.UserRow
+
+<html>
+<head>
+    <title>Actualización de página.</title>
+</head>
+<body>
+    <p>Querido vecino, le comunicamos que acabamos de actualizar la página y se migraron los datos de su cuenta.</p>
+    <p>Algunos quedaron con la misma información de usuario contraseña y otros se tubo que cambiar, estos datos se pueden cambiar en cualquier momento.</p>
+    <p>Por favor revise su información. Se puede ingresar tanto con el nombre de usuario o el mail</p>
+
+    <p>Nombre de usuario: @Model.Username</p>
+    <p>Password: @Model.Password</p>
+
+    <p>Unidad: @Model.Unit</p>
+
+    <p>El Id del usuario es: @Model.UserId con el email: @Model.Email</p>
+
+    <p>Saludos</p>
+    
+    <p>Atte</p>
+
+    <p>Sistema</p>
+
+</body>
+</html>

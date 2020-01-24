@@ -36,30 +36,47 @@ namespace Dashboard {
          public refresh() {
              this.selectItem(this._itemForRefresh);
          }
-         public bookingsTake(element, resourceId: number, date: string, start: number, type: number, neighbour: boolean) {
-             
+         public bookingsTake(element, resourceId: number, date: string, start: number, type: number, neighbour: boolean, needCommend: boolean) {
+
+             if (needCommend) {
+                 var dialog = new Barrios.Default.NeedCommendDialog(element);
+                 dialog.element.on("dialogclose", () => {
+                     this.bookingsTakeWithCommend(element, resourceId, date, start, type, neighbour, dialog.commend);
+                 });
+                 dialog.dialogOpen();
+             }
+             else {
+                 this.bookingsTakeWithCommend(element, resourceId, date, start, type, neighbour,"");
+             }
+         }
+
+         public bookingsTakeWithCommend(element, resourceId: number, date: string, start: number, type: number, neighbour: boolean,commend:string) {
+
+
              if (neighbour) {
                  var dialog = new Barrios.Default.TwoNeighborsDialog(element);
                  dialog.element.on("dialogclose", () => {
                      if (dialog.vecinoId != null)
-                         this.sendBookingsTake(resourceId, date, start, type, dialog.vecinoId);
+                         this.sendBookingsTake(resourceId, date, start, type, dialog.vecinoId, commend);
                  });
                  dialog.dialogOpen();
 
 
              }
              else {
-                 this.sendBookingsTake(resourceId, date, start, type, null);
+
+                 this.sendBookingsTake(resourceId, date, start, type, null, commend);
              }
          }
-         public sendBookingsTake(resourceId: number, date: string, start: number, type: number, neighbour: number) {
+         public sendBookingsTake(resourceId: number, date: string, start: number, type: number, neighbour: number, commend:string) {
              var table = this._table;
              Barrios.Default.ReservasService.bookingsTake({
                  resourceId: resourceId,
                  bookingDate: date,
                  turnStart: start,
                  turnType: type,
-                 extraNeighborUnit: neighbour
+                 extraNeighborUnit: neighbour,
+                 comment: commend
              }, (response) => {
                  table.html($.parseHTML(response));
                  this._grid.refresh();

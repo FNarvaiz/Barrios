@@ -173,6 +173,7 @@
                     Database = databaseType,
                     Connection = connectionString,
                     Targets = new string[] { typeof(SiteInitialization).Assembly.Location },
+                    //Version= 20200108181100,
                     Task = "migrate:up",
                     Tags= new List<string>() { "Default" },
                     WorkingDirectory = Path.GetDirectoryName(typeof(SiteInitialization).Assembly.Location),

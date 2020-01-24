@@ -8,6 +8,8 @@
         export declare function Undelete(request: Serenity.UndeleteRequest, onSuccess?: (response: Serenity.UndeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<UserRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<UserRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function IsValidUsername(request: System.String, onSuccess?: (response: System.Boolean) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function ImportFile(request: Modules.Common.ImportFile.ImportFileRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
         export declare const enum Methods {
             Create = "Administration/User/Create",
@@ -15,7 +17,9 @@
             Delete = "Administration/User/Delete",
             Undelete = "Administration/User/Undelete",
             Retrieve = "Administration/User/Retrieve",
-            List = "Administration/User/List"
+            List = "Administration/User/List",
+            IsValidUsername = "Administration/User/IsValidUsername",
+            ImportFile = "Administration/User/ImportFile"
         }
 
         [
@@ -24,7 +28,9 @@
             'Delete', 
             'Undelete', 
             'Retrieve', 
-            'List'
+            'List', 
+            'IsValidUsername', 
+            'ImportFile'
         ].forEach(x => {
             (<any>UserService)[x] = function (r, s, o) {
                 return Q.serviceRequest(baseUrl + '/' + x, r, s, o);

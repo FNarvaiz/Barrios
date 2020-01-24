@@ -21,6 +21,10 @@ namespace Barrios.Default.Endpoints
     using Barrios.Modules.Default.Reservas;
     using Barrios.Administration.Entities;
     using Barrios.Default.Repositories;
+    using Barrios.Modules.Common.ImportFile;
+    using System.IO;
+    using Barrios.Administration.Endpoints;
+    using Barrios.Modules.ImportFiles;
 
     [RoutePrefix("Services/Default/Reservas"), Route("{action}")]
     [ConnectionKey(typeof(MyRow)), ServiceAuthorize(typeof(MyRow))]
@@ -43,10 +47,12 @@ namespace Barrios.Default.Endpoints
             request.Entity.BarrioId = CurrentNeigborhood.Get().Id;
             if (request.Entity.Confirmada == null)
                 request.Entity.Confirmada = true;
+            if (request.Entity.SendMail == null)
+                request.Entity.SendMail = true;
             var response= new MyRepository().Create(uow, request);
             uow.OnCommit += () =>
             {
-                if(request.Entity.Confirmada.Value)
+                if(request.Entity.Confirmada.Value && request.Entity.SendMail.Value)
                     SendBookingTakeMail(null,request.Entity);
             };
             return response;
@@ -96,13 +102,83 @@ namespace Barrios.Default.Endpoints
         }
 
         [HttpPost]
+        public string ImportFile(IDbConnection connection, ImportFileRequest request)
+        {
+            Int16 errors = 0;
+            Int16 success = 0;
+            List<UserRow> users = new UserController().List(connection,  new ListRequest()).Entities;
+            List<ReservasRecursosRow> resources = new ReservasRecursosController().List(Utils.GetConnection() , new ListRequest()).Entities;
+            
+            using (StreamReader sr = new StreamReader(UploadHelper.DbFilePath(request.FileName)))
+            {
+
+                string line;
+                Random random = new Random();
+                while (sr.Peek() >= 0)
+                {
+
+                    line = sr.ReadLine();
+
+                    try
+                    {
+                        string[] lineSplit = line.Split(',');
+                         var row = new ReservasRow()
+                        {
+                            DateInsert = DateTime.FromBinary( Convert.ToInt64( lineSplit[0])),
+                            IdRecurso = Convert.ToInt16(lineSplit[1]),
+                            IdVecino = Convert.ToInt32(lineSplit[2]),
+                                Fecha = DateTime.FromBinary(Convert.ToInt64(lineSplit[3])),
+                                Inicio = Convert.ToInt16(lineSplit[4]),
+                                Duracion = Convert.ToInt16(lineSplit[5]),
+                                Observaciones =lineSplit[6].ToString(),
+                                Confirmada=true
+                        };
+                        ReservasRecursosRow  resource= ImportMethods.GetResource(resources, row.IdRecurso.Value);
+                        row.IdRecurso = resource.Id;
+                        if(resource.Resolucion==0)
+                            row.IdTurnosEspeciales=ImportMethods.GetBookingTurn(resource, row).Id;
+                        else
+                            row.IdTipo = ImportMethods.GetBookingType(resource, row).Id;
+                        row.IdVecino= ImportMethods.GetHoldUser(users, row).UserId;
+                        row.SendMail= false;
+                        using (var connection2 = Utils.GetConnection())
+                        {
+                            using (var UOW = new UnitOfWork(connection2))
+                            {
+
+                                Create(UOW, new SaveRequest<MyRow>() { Entity = row });
+                                UOW.Commit();
+                                success++;
+
+
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        errors++;
+                        Log.Error("Error al cargar esta linea:" + line, e, typeof(ReservasController));
+                    }
+                    // user
+                }
+            }
+            return "Se cargaron correctamente " + success + ". Y hubo una candidad de " + errors + " con errores que no se cargaron";
+        }
+
+
+
+        [HttpPost]
         public string renderBookingStatus(IDbConnection connection, BookingListRequest request)
         {
             MyRepository repo = new MyRepository();
+            ReservasRecursosRow resource;
+            using (var connection2 = Utils.GetConnection())
+                resource = connection2.Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE ID=" + request.ID ).SingleOrDefault();
+
             RenderBooking table;
             List<MyRow> list;
             List<DateTime> days = null;
-            if (request.Resolution == 0)
+            if (resource.Resolucion == 0)
             {
                 list = repo.BookingEspecialList(connection, request.ID);
                 table = new RenderListToTable(list);
@@ -116,7 +192,7 @@ namespace Barrios.Default.Endpoints
 
             table.InitTBody();
             table.renderHeader(days);
-            table.renderRows(request.ID);
+            table.renderRows(request.ID, resource.NeedComment.Value);
             table.EndTBody();
             return table.getHTML();
            
@@ -310,6 +386,7 @@ namespace Barrios.Default.Endpoints
     {
         public int ID { get; set; }
         public int Resolution { get; set; }
+        public Boolean NeedComment { get; set; }
     }
     public class BookingTakeRequest : ServiceRequest
     {

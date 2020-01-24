@@ -7095,6 +7095,12 @@ section.content > .s-DataGrid {
 .s-PermissionCheckEditor .effective-permission.deny {
   background-image: url(../serenity/images/slash.png);
 }
+.s-Administration-NotesDialog > .size {
+  width: 650px;
+}
+.s-Administration-NotesDialog .caption {
+  width: 150px;
+}
 /*Default styles for login/register pages*/
 .page-content .s-ChangePasswordPanel {
   width: 550px;

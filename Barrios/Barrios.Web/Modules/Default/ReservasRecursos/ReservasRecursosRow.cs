@@ -119,7 +119,18 @@ namespace Barrios.Default.Entities
             get => Fields.ClientIdList[this];
             set => Fields.ClientIdList[this] = value;
         }
-
+        [DisplayName("ID de la app vieja")]
+        public Int32? AppHoldId
+        {
+            get { return Fields.AppHoldId[this]; }
+            set { Fields.AppHoldId[this] = value; }
+        }
+        [DisplayName("Necesita Comentario")]
+        public Boolean? NeedComment
+        {
+            get { return Fields.NeedComment[this]; }
+            set { Fields.NeedComment[this] = value; }
+        }
         [DisplayName("Reservar solo para"), NotMapped]
         [LinkingSetRelation(typeof(SubbarriosRecursosRow), "RecursoId", "SubBarrioId")]
         public List<Int16> NeigborhoodList
@@ -158,11 +169,13 @@ namespace Barrios.Default.Entities
             public Int16Field Desde;
             public Int16Field Hasta;
             public Int16Field Resolucion;
+            public Int32Field AppHoldId;
             public ListField<Int32> ClientIdList;
             public ListField<Int16> NeigborhoodList;
             public Int16Field BarrioId;
             public ListField<ReservasTiposRow> TypeList;
             public ListField<ReservasTurnosEspecialesRow> SpecialTurnList;
+            public BooleanField NeedComment;
         }
      }
 }
