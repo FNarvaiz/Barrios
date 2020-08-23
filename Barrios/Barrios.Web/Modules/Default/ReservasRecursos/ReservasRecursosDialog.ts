@@ -10,6 +10,13 @@ namespace Barrios.Default {
         protected getService() { return ReservasRecursosService.baseUrl; }
 
         protected form = new ReservasRecursosForm(this.idPrefix);
+        
 
+        
+        public dialogOpen() {
+            this.element.addClass("s-Default-ReservasRecursosDialog");
+            super.dialogOpen(true);
+           
+        }
     }
 }

@@ -26,6 +26,25 @@ namespace Barrios.Perfil {
                 }));
             return grid;
         }
+        protected getButtons() {
+            var buttons = super.getButtons();
+            if (this.userId == null) {
+                buttons.push({
+                    title: "Importar",
+                    cssClass: "import-button",
+                    onClick: () => {
+                        var dialog = new Common.ImportFileDialog((fileValue: string) => {
+                            VecinosVisitantesFrecuentesService.ImportFile({ FileName: fileValue }, (response) => {
+                                Q.notifySuccess(response);
+                                this.refresh();
+                            });
+                        });
+                        dialog.dialogOpen();
+                    }
+                });
+            }
+            return buttons;
+        }
         protected onViewSubmit() {
             if (!super.onViewSubmit()) {
                 return false;
@@ -36,6 +55,7 @@ namespace Barrios.Perfil {
                     request.Criteria,
                     [[fld.Userid], '=', this.userId]
                 );
+               
             }
             return true;
         }

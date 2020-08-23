@@ -79,9 +79,13 @@ namespace Barrios.Administration.Repositories
 
         public RetrieveResponse<MyRow> Retrieve(IDbConnection connection, RetrieveRequest request)
         {
+
             return new MyRetrieveHandler().Process(connection, request);
         }
-
+        public UsersBarriosRow GetUserBarrios( int userId,int barrioId)
+        {
+            return Utils.GetConnection().Query<UsersBarriosRow>($" SELECT  * FROM [Users-Barrios] where BarrioId = {barrioId} and userid={userId}").Single();
+        }
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
             return new MyListHandler().Process(connection, request);
@@ -200,9 +204,9 @@ namespace Barrios.Administration.Repositories
                     new Criteria(fld.Username) == username |
                     new Criteria(fld.Username) == username.Replace('I', 'İ'));
 
-                if (existing != null && existingUserId != existing.UserId)
-                    throw new ValidationError("UniqueViolation", "Username",
-                        "A user with same name exists. Please choose another!");
+                //if (existing != null && existingUserId != existing.UserId)
+                //    throw new ValidationError("UniqueViolation", "Username",
+                //        "A user with same name exists. Please choose another!");
 
                 return username;
             }
@@ -254,13 +258,21 @@ namespace Barrios.Administration.Repositories
                 base.BeforeSave();
                 if(IsUpdate)
                     new SqlDelete(UsersBarriosRow.Fields.TableName)
-                        .Where(UsersBarriosRow.Fields.UserId == Row.UserId.Value)
+                        .Where(UsersBarriosRow.Fields.UserId == Row.UserId.Value && UsersBarriosRow.Fields.BarrioId == CurrentNeigborhood.Get().Id.Value)
                         .Execute(Connection, ExpectedRows.Ignore);
             }
             protected override void AfterSave()
             {
                 base.AfterSave();
-
+                var sqlUpdate = new SqlUpdate(UsersBarriosRow.Fields.TableName)
+                    .Set("Note", Row.Note)
+                    .Set("Units", Row.Units)
+                    .Where(UsersBarriosRow.Fields.UserId == Row.UserId.Value && UsersBarriosRow.Fields.BarrioId == CurrentNeigborhood.Get().Id.Value);
+                //if (Row.Note == null)
+                //    sqlUpdate.SetNull(Row.Note);
+                //else
+                //    sqlUpdate.Set("Note", Row.Note);
+                sqlUpdate.Execute(Connection, ExpectedRows.Ignore);
                 BatchGenerationUpdater.OnCommit(this.UnitOfWork, fld.GenerationKey);
             }
         }
@@ -277,8 +289,8 @@ namespace Barrios.Administration.Repositories
         }
         public static UserRow GetNewUser(int id)
         {
-            DataRow DR = Utils.GetRequestString( "select email,unit,DisplayName from users where userid=" + id).Rows[0];
-            return new MyRow { UserId = id, Email = DR[0].ToString(), Unit = DR[1].ToString(), DisplayName = DR[2].ToString() };
+            DataRow DR = Utils.GetRequestString($"select email,UB.units,DisplayName from users U inner join [Users-Barrios] UB  on U.UserId=UB.UserId  WHERE  UB.BarrioId={CurrentNeigborhood.Get().Id} userid=" + id).Rows[0];
+            return new MyRow { UserId = id, Email = DR[0].ToString(), Units = DR[1].ToString(), DisplayName = DR[2].ToString() };
 
         }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow>
@@ -316,7 +328,9 @@ namespace Barrios.Administration.Repositories
         }
 
         private class MyUndeleteHandler : UndeleteRequestHandler<MyRow> { }
-        private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
+        private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> {
+            
+        }
         private class MyListHandler : ListRequestHandler<MyRow> { }
     }
 }

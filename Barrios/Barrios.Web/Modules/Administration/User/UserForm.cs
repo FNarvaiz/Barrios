@@ -11,7 +11,7 @@
     {
         public String Username { get; set; }
         public String DisplayName { get; set; }
-        public String Unit { get; set; }
+        public String Units { get; set; }
         
         public short subBarrioId { get; set; }
         [EmailEditor]
@@ -23,7 +23,11 @@
         [PasswordEditor, OneWay, Required(true)]
         public String PasswordConfirm { get; set; }
         public String Email_Others { get; set; }
+        public DateTime TenantLimitDate { get; set; }
+
+        public bool Owner { get; set; }
         public bool IsActive { get; set; }
+        public string Note { get; set; }
         [OneWay]
         public string Source { get; set; }
         [Hidden,CheckLookupEditor("Administration.Barrios", ShowSelectAll = true, CheckedOnTop = true)

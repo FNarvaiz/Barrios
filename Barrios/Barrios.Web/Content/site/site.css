@@ -7493,6 +7493,11 @@ section.content > .s-DataGrid {
 .contentSubTitle {
   color: antiquewhite;
 }
+.not-Available {
+  padding: 4px;
+  margin-right: 4px;
+  display: inline-block;
+}
 .box.dark,
 .styleSerenity.dark {
   border-top: 3px solid #3c8dbc;
@@ -7757,4 +7762,37 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 .s-ReservasGrid .active {
   background-color: deepskyblue !important;
   color: whitesmoke !important;
+}
+.s-Default-ReservasRecursosDialog .category.first-category .category-title {
+  display: none !important;
+}
+.s-Default-ReservasRecursosDialog .categories {
+  display: block;
+}
+@media (min-width: 900px) {
+  .s-Default-ReservasRecursosDialog .field.SpecialTurnList,
+  .s-Default-ReservasRecursosDialog .field.TypeList,
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList {
+    height: 60vh;
+    width: 100%;
+  }
+  .s-Default-ReservasRecursosDialog .field.SpecialTurnList .s-DataGrid,
+  .s-Default-ReservasRecursosDialog .field.TypeList .s-DataGrid,
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .s-DataGrid {
+    height: 98%;
+    float: inherit;
+  }
+  .s-Default-ReservasRecursosDialog .field.SpecialTurnList .slick-pane.slick-pane-top.slick-pane-left,
+  .s-Default-ReservasRecursosDialog .field.TypeList .slick-pane.slick-pane-top.slick-pane-left,
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .slick-pane.slick-pane-top.slick-pane-left {
+    height: 90% !important;
+  }
+  .s-Default-ReservasRecursosDialog .field.SpecialTurnList .slick-viewport.slick-viewport-top.slick-viewport-left,
+  .s-Default-ReservasRecursosDialog .field.TypeList .slick-viewport.slick-viewport-top.slick-viewport-left,
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .slick-viewport.slick-viewport-top.slick-viewport-left {
+    height: 100% !important;
+  }
+  .s-Default-ReservasRecursosDialog .category.first-category {
+    width: 100%;
+  }
 }

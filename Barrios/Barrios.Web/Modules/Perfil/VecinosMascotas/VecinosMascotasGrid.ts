@@ -53,6 +53,19 @@ namespace Barrios.Perfil {
                             Q.notifyInfo("No se encuentran registros");
                     }
                 });
+                buttons.push({
+                    title: "Importar",
+                    cssClass: "import-button",
+                    onClick: () => {
+                        var dialog = new Common.ImportFileDialog((fileValue: string) => {
+                            VecinosMascotasService.ImportFile({ FileName: fileValue }, (response) => {
+                                Q.notifySuccess(response);
+                                this.refresh();
+                            });
+                        });
+                        dialog.dialogOpen();
+                    }
+                });
             }
 
             return buttons;

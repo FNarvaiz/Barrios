@@ -4,6 +4,7 @@
         Nombre?: string;
         ArchivoFilename?: string;
         Aprobado?: boolean;
+        Mostrar?: boolean;
         PeriodoFecha?: string;
         ContenidoTexto?: string;
         Userid?: number;
@@ -23,6 +24,7 @@
             Nombre = "Nombre",
             ArchivoFilename = "ArchivoFilename",
             Aprobado = "Aprobado",
+            Mostrar = "Mostrar",
             PeriodoFecha = "PeriodoFecha",
             ContenidoTexto = "ContenidoTexto",
             Userid = "Userid",

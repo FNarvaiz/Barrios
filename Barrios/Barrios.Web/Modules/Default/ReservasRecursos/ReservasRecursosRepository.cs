@@ -41,7 +41,7 @@ namespace Barrios.Default.Repositories
         }
         public List<MyRow> ListOfAllowedResources(IDbConnection connection)
         {
-            string query = "SELECT TOP (1000) RR.[NOMBRE] " +
+            string query = "SELECT DISTINCT  RR.[NOMBRE] " +
                   " ,[APERTURA] " +
                   " ,[CIERRE] " +
                   " ,[RESOLUCION] " +
@@ -54,7 +54,7 @@ namespace Barrios.Default.Repositories
                   " LEFT JOIN SUBBARRIOS_RECURSOS SBR " +
                   " ON SBR.recursoId= RR.ID " +
                   " LEFT JOIN Users U " +
-                  " ON SBR.subbarrioId= U.subBarrioId " +
+                  " ON SBR.subbarrioId= U.subBarrioId OR U.SUBBARRIOID IS NULL " +
                   " where (SBR.recursoId is null OR U.UserId=" + Authorization.UserId + ") AND RB.BarrioId=" + CurrentNeigborhood.Get().Id + " " +
                   " ORDER BY RESOLUCION desc ,NOMBRE asc ";
             return connection.Query<MyRow>(query).ToList<MyRow>();

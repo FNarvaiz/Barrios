@@ -12,6 +12,7 @@ namespace Barrios.Default.Repositories
     using MyRow = Entities.ReservasRow;
     using System.Linq;
     using Barrios.Default.Endpoints;
+    using Barrios.Default.Entities;
 
     public class ReservasRepository
     {
@@ -39,24 +40,27 @@ namespace Barrios.Default.Repositories
 
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
+
+            Utils.AddNeigborhoodFilter(request);
             return new MyListHandler().Process(connection, request);
         }
-        public List<MyRow> BookingList(IDbConnection connection,int resourceId)
+        public List<MyRow> BookingList(IDbConnection connection,ReservasRecursosRow resource)
         {
+            int resourceId = resource.Id.Value;
             List<MyRow> list = new List<MyRow>();
             StringBuilder sql = new StringBuilder();
             sql.Append("SELECT E.FECHA, dbo.HOUR_TO_STR(dbo.MINUTOS_A_HORA(E.INICIO)) AS TURNO, E.INICIO, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, " +
               "CAST(CASE WHEN dbo.FECHA_FIN_TURNO(E.FECHA, E.INICIO, T.DURACION) < GETDATE() THEN 1 ELSE 0 END AS BIT) AS FINALIZADO, " +
               "CAST(CASE WHEN GETDATE() < dbo.FECHA_INICIO_TURNO(FECHA, INICIO) AND UPPER(E.ESTADO)='DISPONIBLE' THEN 1 ELSE 0 END AS BIT) AS RESERVABLE, " +
-              "dbo.ID_TIPO_RESERVA(dbo.ID_RESERVA_TURNO_RESERVA(" + resourceId + ", E.FECHA, E.INICIO, E.DURACION)) AS TIPO_RESERVA, " +
+              $"dbo.ID_TIPO_RESERVA(dbo.ID_RESERVA_TURNO_RESERVA({resourceId}, E.FECHA, E.INICIO, E.DURACION)) AS TIPO_RESERVA, " +
               "CAST(CAST(T.DURACION AS FLOAT) / 60 AS NVARCHAR) + ' hs (' + T.NOMBRE + ')' AS TIPO, T.NOMBRE AS TipoNombre, T.DURACION, " +
-              "dbo.ESTADO_TURNO_RESERVA(" + resourceId + ", E.FECHA, E.INICIO, T.DURACION) AS ESTADO_TURNO, " +
-              "dbo.TURNO_RESERVA_VALIDO(" + resourceId + ", E.INICIO, T.DURACION) AS VALIDO, T.REQUIERE_VECINO_2, " +
-              "dbo.NOMBRE_TIPO_RESERVA(" + resourceId + ", E.ID_TIPO) AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE,  " +
-                " v1.Unit AS UNIDAD_PRIMARIA, v2.Unit AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS(" + resourceId + ","+(CurrentNeigborhood.Get().CantDiasReservables-1)+","+0+") E JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = " + resourceId +"  AND T.VIGENTE=1 " +
-                " left join Users v1 on v1.userid = E.ID_VECINO " +
-                "left join Users v2 on v2.userid = E.ID_VECINO_2 " +
-                " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, v1.Unit, v2.Unit " +
+              $"dbo.ESTADO_TURNO_RESERVA({resourceId}, E.FECHA, E.INICIO, T.DURACION) AS ESTADO_TURNO, " +
+              $"dbo.TURNO_RESERVA_VALIDO({resourceId}, E.INICIO, T.DURACION) AS VALIDO, T.REQUIERE_VECINO_2, " +
+              $"dbo.NOMBRE_TIPO_RESERVA({resourceId}, E.ID_TIPO) AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE,  " +
+               $" UB.Units AS UNIDAD_PRIMARIA, UB2.Units AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS({resourceId},{(resource.Hasta - 1)},0) E JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = {resourceId}  AND T.VIGENTE=1 " +
+                $" left join [users-barrios] UB on E.ID_VECINO = UB.userid and UB.barrioId= {CurrentNeigborhood.Get().Id } "+
+                $" left join [users-barrios] UB2 on E.ID_VECINO_2 = UB2.userid and UB2.barrioId= {CurrentNeigborhood.Get().Id } " +
+                " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, UB.Units, UB2.Units " +
               "ORDER BY E.INICIO, E.FECHA, T.ID");
             DataTable dt=  Utils.GetRequestString( sql.ToString());
             int count = 0;
@@ -100,17 +104,21 @@ namespace Barrios.Default.Repositories
 
         }
 
-        public List<MyRow> BookingEspecialList(IDbConnection connection, int resourceId)
+        public List<MyRow> BookingEspecialList(IDbConnection connection, ReservasRecursosRow resource)
         {
             List<MyRow> list = new List<MyRow>();
             StringBuilder sql = new StringBuilder();
-            sql.Append("SELECT F.FECHA, T.INICIO, T.DURACION,T.NOMBRE as TURNO, dbo.NOMBRE_TURNO(INICIO, DURACION) AS DESCRIPTIVO,  " +
+            sql.Append("SELECT F.FECHA, T.INICIO, T.DURACION,T.NOMBRE as TURNO, dbo.NOMBRE_TURNO(T.INICIO,T.DURACION) AS DESCRIPTIVO,  " +
                 "T.ID as IDTURNO,T.DIAS  ," +
-                " dbo.ID_VECINO_TURNO_RESERVA(" + resourceId + ", F.FECHA, T.INICIO) as vecinoID, " +
-                "dbo.ESTADO_TURNO_RESERVA(" + resourceId + ", F.FECHA, T.INICIO, T.DURACION)as ESTADO " +
-                "FROM dbo.LISTA_FECHAS_ESPECIALES((select desde from [RESERVAS_RECURSOS] where id=" + resourceId + ")," +
-                "(select hasta from [RESERVAS_RECURSOS] where id=" + resourceId + ")) AS F " +
-                "CROSS JOIN RESERVAS_TURNOS_ESPECIALES T where T.ID_RECURSO= " + resourceId + " order by F.Fecha ASC, ESTADO DESC ,INICIO asc");
+                " U.userid as vecinoID, UB.units, " +
+                $"dbo.ESTADO_TURNO_RESERVA({resource.Id }, F.FECHA, T.INICIO, T.DURACION)as ESTADO " +
+                $"FROM dbo.LISTA_FECHAS_ESPECIALES({ resource.Desde},{ resource.Hasta }) AS F " +
+                "left join HOLIDAYS H on H.Day = F.FECHA " +
+                "INNER JOIN RESERVAS_TURNOS_ESPECIALES T ON dbo.PERTENECEALDIA(F.FECHA, T.DIAS, H.Day) = 1 " +
+                "left join RESERVAS R on R.FECHA =F.FECHA AND R.ID_TIPO=T.ID " +
+                "left join Users U on R.ID_VECINO =U.userID " +
+                $"left join [users-barrios] UB on R.ID_VECINO = UB.userid and UB.barrioId= {CurrentNeigborhood.Get().Id } " +
+                $"where T.ID_RECURSO= { resource.Id }  AND  dbo.PERTENECEALDIA(F.FECHA,T.DIAS, H.Day)=1  order by F.Fecha ASC, ESTADO DESC ,INICIO asc");
             DataTable dt = Utils.GetRequestString( sql.ToString());
             int count = 0;
             foreach (DataRow DR in dt.Rows)
@@ -126,7 +134,8 @@ namespace Barrios.Default.Repositories
                     IdTurnosEspeciales = Convert.ToInt16(DR["IDTURNO"]),
                     Dias = DR["DIAS"].ToString(),
                     Estado = DR["ESTADO"].ToString(),
-                    IdVecino = DR["vecinoID"].ToString().IsEmptyOrNull() ? (int?)null : Convert.ToInt32(DR["vecinoID"])
+                    IdVecino = DR["vecinoID"].ToString().IsEmptyOrNull() ? (int?)null : Convert.ToInt32(DR["vecinoID"]),
+                    IdVecinoUnidad = DR["units"].ToString()
                 });
                 count++;
             }

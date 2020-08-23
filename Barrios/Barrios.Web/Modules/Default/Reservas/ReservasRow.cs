@@ -16,6 +16,8 @@ namespace Barrios.Default.Entities
     [DeletePermission("User:Reservas")]
     [InsertPermission("User:Reservas")]
     [ModifyPermission("Administration:General")]
+    [InnerJoin("jIdVecino", "[dbo].[Users]", " jIdVecino.[UserId] = t0.[Id_Vecino] ")]
+    [InnerJoin("jUserBarrio", "[dbo].[Users-Barrios]", " t0.[Id_Vecino] = jUserBarrio.[UserId] AND t0.[barrioId]=jUserBarrio.BarrioId")]
     [InnerJoin("jIdRecurso", "[dbo].[RESERVAS_RECURSOS]", " jIdRecurso.[ID] = t0.[ID_RECURSO] ")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", " jType.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jType.[ID_RECURSO] ")]
     [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", " jTurns.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jTurns.[ID_RECURSO] ")]
@@ -108,7 +110,7 @@ namespace Barrios.Default.Entities
             get { return Fields.FechaFin[this]; }
             set { Fields.FechaFin[this] = value; }
         }
-        [DisplayName("Vecino"), LookupEditor("Reservas.UsersLookup"), Column("ID_VECINO"), NotNull, ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jIdVecino"), TextualField("IdVecinoUsername")]
+        [DisplayName("Vecino"), LookupEditor("Reservas.UsersLookup"), Column("ID_VECINO"), NotNull,  TextualField("IdVecinoUsername")]
         public Int32? IdVecino
         {
             get { return Fields.IdVecino[this]; }
@@ -161,7 +163,7 @@ namespace Barrios.Default.Entities
             set { Fields.IdVecinoUsername[this] = value; }
         }
         
-        [DisplayName("Unidad"),NotMapped]
+        [DisplayName("Unidad"), Expression("jUserBarrio.[Units]")]
         public String IdVecinoUnidad
         {
             get { return Fields.IdVecinoUnidad[this]; }

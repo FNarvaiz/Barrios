@@ -20,9 +20,12 @@ namespace Barrios.Contenidos.Pages
         {
             ListRequest request = new ListRequest() {
                 Sort = new SortBy[1],
+                EqualityFilter=new Dictionary<string, object>(),
+                
                 IncludeColumns = new HashSet<string>() {
                    "PeriodoFecha","Nombre","CategoryName","ContenidoTexto","ArchivoFilename"
             } } ;
+            request.EqualityFilter[Entities.LineaTiempoRow.Fields.Mostrar.Name] = 1;
             request.Sort[0]=new SortBy() { Field = "PeriodoFecha", Descending = true };
             using (var connection = Utils.GetConnection())
             {
@@ -43,6 +46,7 @@ namespace Barrios.Contenidos.Pages
             request.Sort[0] = new SortBy() { Field = "PeriodoFecha", Descending = true };
             request.EqualityFilter = new Dictionary<string, object>();
             request.EqualityFilter[Entities.LineaTiempoRow.Fields.IdCategoria.Name] = 264;
+            request.EqualityFilter[Entities.LineaTiempoRow.Fields.Mostrar.Name] = 1;
             using (var connection = Utils.GetConnection())
             {
                 List<Entities.LineaTiempoRow> list = new Barrios.Contenidos.Endpoints.LineaTiempoController().List(connection, request).Entities;

@@ -102,6 +102,12 @@ namespace Barrios.Administration.Entities
             get { return Fields.CantDiasReservables[this]; }
             set { Fields.CantDiasReservables[this] = value; }
         }
+        [DisplayName("Ver usuarios en las reservas"), NotNull]
+        public Boolean? VerUserEnReservas
+        {
+            get { return Fields.VerUserEnReservas[this]; }
+            set { Fields.VerUserEnReservas[this] = value; }
+        }
         [DisplayName("Emails"), Size(200), Placeholder("Ingrese los mails a donde se tiene que enviar la solicitud o reserva,(1 por linea)"), TextAreaEditor()]
         public String Emails
         {
@@ -144,7 +150,9 @@ namespace Barrios.Administration.Entities
             public StringField Direccion;
             public StringField PasswordMail;
             public Int16Field CantDiasReservables;
+            
 
+            public BooleanField VerUserEnReservas;
             public BooleanField IsActive; 
             public BooleanField UseSubBarrios;
 

@@ -14,7 +14,7 @@ namespace Barrios.Administration.Columns
         [EditLink, Width(150)]
         public String Username { get; set; }
         [Width(70)]
-        public String Unit { get; set; }
+        public String Units { get; set; }
         [Width(150)]
         public String DisplayName { get; set; }
 
@@ -27,8 +27,12 @@ namespace Barrios.Administration.Columns
         public String Source { get; set; }
         [DisplayName("Registrado")]
         public DateTime InsertDate { get; set; }
-        public short HavePermisions { get; set; }
+        public String Roles { get; set; }
+        public bool Owner { get; set; }
         public bool IsActive { get; set; }
+        [Hidden]
+        public string Note { get; set; }
+        public DateTime TenantLimitDate { get; set; }
         [Hidden]
         public int AppHoldId;
     }

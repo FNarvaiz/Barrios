@@ -21,6 +21,7 @@
             this.addOption("5", "Vierenes");
             this.addOption("6", "Sabado");
             this.addOption("0", "Domingo");
+            this.addOption("7", "Feriados");
 
         }
     }

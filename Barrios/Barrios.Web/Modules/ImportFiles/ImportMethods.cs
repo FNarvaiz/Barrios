@@ -12,14 +12,14 @@ namespace Barrios.Modules.ImportFiles
 {
     public static class ImportMethods
     {
-        public static UserRow GetHoldUser(List<UserRow> list, ReservasRow obj)
+        public static UserRow GetHoldUser(List<UserRow> list, int?  idVecino)
         {
             foreach (var aux in list)
             {
-                if (aux.AppHoldId == obj.IdVecino)
+                if (aux.AppHoldId == idVecino)
                     return aux;
             }
-            throw new Exception("No se encontro el usuario con el id viejo de: " + obj.IdVecino);
+            throw new Exception("No se encontro el usuario con el id viejo de: " + idVecino);
         }
         public static ReservasRecursosRow GetResource(List<ReservasRecursosRow> list, Int16 idResource)
         {
@@ -38,7 +38,7 @@ namespace Barrios.Modules.ImportFiles
                 resource = GetLoadResource(resource);
             foreach(var aux in resource.SpecialTurnList)
             {
-                if (aux.Inicio == obj.Inicio && aux.Duracion == obj.Duracion && (aux.Dias.Contains(((int)obj.Fecha.Value.DayOfWeek).ToString()) || aux.Dias == ""))
+                if (aux.Inicio == obj.Inicio)
                     return aux;
             }
             throw new Exception("No se encontro el turno con el inicio: " + obj.Inicio+ " duracion: " + obj.Duracion + " dia: " + obj.Fecha.Value.DayOfWeek.ToString());

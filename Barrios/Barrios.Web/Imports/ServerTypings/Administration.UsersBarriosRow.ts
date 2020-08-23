@@ -2,6 +2,8 @@
     export interface UsersBarriosRow {
         UserId?: number;
         BarrioId?: number;
+        Units?: string;
+        Note?: string;
         UserUsername?: string;
         BarrioNombre?: string;
     }
@@ -13,6 +15,8 @@
         export declare const enum Fields {
             UserId = "UserId",
             BarrioId = "BarrioId",
+            Units = "Units",
+            Note = "Note",
             UserUsername = "UserUsername",
             BarrioNombre = "BarrioNombre"
         }

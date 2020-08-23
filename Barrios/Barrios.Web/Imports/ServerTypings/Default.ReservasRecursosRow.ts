@@ -12,6 +12,7 @@
         Desde?: number;
         Hasta?: number;
         Resolucion?: number;
+        AmountToReserve?: number;
         AppHoldId?: number;
         ClientIdList?: number[];
         NeigborhoodList?: number[];
@@ -39,6 +40,7 @@
             Desde = "Desde",
             Hasta = "Hasta",
             Resolucion = "Resolucion",
+            AmountToReserve = "AmountToReserve",
             AppHoldId = "AppHoldId",
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",

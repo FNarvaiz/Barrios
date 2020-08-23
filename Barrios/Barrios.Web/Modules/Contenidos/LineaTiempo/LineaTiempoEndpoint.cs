@@ -1,15 +1,19 @@
 ﻿
 namespace Barrios.Contenidos.Endpoints
 {
+    using Barrios.Administration.Endpoints;
     using Barrios.Administration.Entities;
     using Barrios.Administration.Repositories;
+    using Barrios.Modules.Common.ImportFile;
     using Barrios.Modules.Common.Utils;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
+    using Serenity.Web;
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.IO;
     using System.Net.Mail;
     using System.Web.Mvc;
     using MyRepository = Repositories.LineaTiempoRepository;
@@ -106,6 +110,61 @@ namespace Barrios.Contenidos.Endpoints
                 List<UserRow> users = new UserRepository().List(connection2, userRequest).Entities;
                 return Send(users, timeLineObj);
             }
+        }
+        [HttpPost]
+        public string ImportFile(IDbConnection connection, ImportFileRequest request)
+        {
+            Int16 errors = 0;
+            Int16 success = 0;
+            List<UserRow> users = new UserController().List(connection, new ListRequest()).Entities;
+
+            using (StreamReader sr = new StreamReader(UploadHelper.DbFilePath(request.FileName)))
+            {
+
+                Int16[] category = new Int16[] { 257, 260, 261, 262, 263, 265 };
+                string line;
+                Random random = new Random();
+                while (sr.Peek() >= 0)
+                {
+
+                    line = sr.ReadLine();
+
+                    try
+                    {
+                        string[] lineSplit = line.Split(',');
+                        var row = new MyRow()
+                        {
+
+                            IdCategoria = category[Convert.ToInt32(lineSplit[1]) - 1],
+                            Nombre = lineSplit[2].ToString(),
+                            Userid = 1,
+                            BarrioId = CurrentNeigborhood.Current.Id,
+                            PeriodoFecha = DateTime.FromBinary(Convert.ToInt64(lineSplit[5])),
+                            ContenidoTexto = lineSplit[6].ToString().Replace('|', '\n').Replace( '^', ',')
+
+                        };
+                        if (lineSplit[4].ToString().Trim() != "")
+                            row.ArchivoFilename = "TimeLineFiles/" + lineSplit[4].ToString().Trim();
+                        
+                        using (var connection2 = Utils.GetConnection())
+                        {
+                            using (var UOW = new UnitOfWork(connection2))
+                            {
+                                UOW.Connection.Insert<MyRow>(row);
+                                UOW.Commit();
+                                success++;
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        errors++;
+                        Log.Error("Error al cargar esta linea:" + line, e, typeof(LineaTiempoController));
+                    }
+                    // user
+                }
+            }
+            return "Se cargaron correctamente " + success + ". Y hubo una candidad de " + errors + " con errores que no se cargaron";
         }
     }
     public class MailsRequest : ServiceRequest

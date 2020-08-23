@@ -10,6 +10,8 @@
         Email?: string;
         Email_Others?: string;
         Phone?: string;
+        TenantLimitDate?: string;
+        Owner?: boolean;
         AppHoldId?: number;
         UserImage?: string;
         LastDirectoryUpdate?: string;
@@ -18,8 +20,9 @@
         Password?: string;
         PasswordConfirm?: string;
         ClientIdList?: number[];
-        Unit?: string;
-        HavePermisions?: number;
+        Units?: string;
+        Note?: string;
+        Roles?: string;
         InsertUserId?: number;
         InsertDate?: string;
         UpdateUserId?: number;
@@ -48,6 +51,8 @@
             Email = "Email",
             Email_Others = "Email_Others",
             Phone = "Phone",
+            TenantLimitDate = "TenantLimitDate",
+            Owner = "Owner",
             AppHoldId = "AppHoldId",
             UserImage = "UserImage",
             LastDirectoryUpdate = "LastDirectoryUpdate",
@@ -56,8 +61,9 @@
             Password = "Password",
             PasswordConfirm = "PasswordConfirm",
             ClientIdList = "ClientIdList",
-            Unit = "Unit",
-            HavePermisions = "HavePermisions",
+            Units = "Units",
+            Note = "Note",
+            Roles = "Roles",
             InsertUserId = "InsertUserId",
             InsertDate = "InsertDate",
             UpdateUserId = "UpdateUserId",

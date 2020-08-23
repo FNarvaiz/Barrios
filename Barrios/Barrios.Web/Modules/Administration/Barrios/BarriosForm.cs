@@ -25,6 +25,7 @@ namespace Barrios.Administration.Forms
         public String Direccion { get; set; }
         public Boolean UseSubBarrios { get; set; }
         public String Emails { get; set; }
+        public Boolean VerUserEnReservas { get; set; }
         public Boolean IsActive { get; set; }
     }
 }

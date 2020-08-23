@@ -21,7 +21,7 @@ namespace Dashboard {
          public selectItem(item: JQuery) {
              this._itemForRefresh = item;
              var obj = this;
-             if (item != undefined) {
+             if (item != undefined && item.attr("ID") != undefined) {
                  var parameters = item.attr("ID").split(",", 2);
                  Barrios.Default.ReservasService.renderBookingStatus({
                      ID: parseInt(parameters[0]),
@@ -39,11 +39,9 @@ namespace Dashboard {
          public bookingsTake(element, resourceId: number, date: string, start: number, type: number, neighbour: boolean, needCommend: boolean) {
 
              if (needCommend) {
-                 var dialog = new Barrios.Default.NeedCommendDialog(element);
-                 dialog.element.on("dialogclose", () => {
-                     this.bookingsTakeWithCommend(element, resourceId, date, start, type, neighbour, dialog.commend);
-                 });
-                 dialog.dialogOpen();
+                 this.openDialogComment(element, (coment) => {
+                     this.bookingsTakeWithCommend(element, resourceId, date, start, type, neighbour, coment);
+                 })
              }
              else {
                  this.bookingsTakeWithCommend(element, resourceId, date, start, type, neighbour,"");
@@ -68,6 +66,13 @@ namespace Dashboard {
                  this.sendBookingsTake(resourceId, date, start, type, null, commend);
              }
          }
+         public openDialogComment(element ,functionNext) {
+             var dialog = new Barrios.Default.NeedCommendDialog(element);
+             dialog.element.on("dialogclose", () => {
+                 functionNext(dialog.commend);
+             });
+             dialog.dialogOpen();
+         }
          public sendBookingsTake(resourceId: number, date: string, start: number, type: number, neighbour: number, commend:string) {
              var table = this._table;
              Barrios.Default.ReservasService.bookingsTake({
@@ -86,7 +91,7 @@ namespace Dashboard {
              var dialog = new Barrios.Default.EspecialBookingDialog($(""));
              dialog.element.on("dialogclose", () => {
                  if (dialog.send) {
-                     this.SendBookinRequest(
+                     this.sendRequest(
                          dialog.form.Fecha.value.replace("-", "").replace("-", ""),
                          dialog.form.IdRecurso.value,
                          dialog.form.IdRecurso.text,
@@ -100,7 +105,18 @@ namespace Dashboard {
              });
              dialog.dialogOpen();
          }
-         public SendBookinRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId,comment="") {
+         public SendBookinRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId, needCommend,comment="") {
+            
+             if (needCommend) {
+                 this.openDialogComment(this, (coment) => {
+                     this.sendRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId, coment);
+                 })
+             }
+             else {
+                 this.sendRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId);
+             }
+         }
+         public sendRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId,  comment = "") {
              if (resourceName == "") {
                  resourceName = this._resource.text();
              }
@@ -115,9 +131,9 @@ namespace Dashboard {
                  turnType: turnTypeId,
                  comment: comment
              }, (response) => {
-                Q.notifySuccess("Se ha enviado la solicitud correctamente");
-                table.html($.parseHTML(response));
-                this._grid.refresh();
+                 Q.notifySuccess("Se ha enviado la solicitud correctamente");
+                 table.html($.parseHTML(response));
+                 this._grid.refresh();
              });
          }
        

@@ -5,6 +5,7 @@
         PeriodoFecha: Serenity.DateEditor;
         ContenidoTexto: Serenity.StringEditor;
         ArchivoFilename: Serenity.ImageUploadEditor;
+        Mostrar: Serenity.BooleanEditor;
         Aprobado: Serenity.BooleanEditor;
     }
 
@@ -31,6 +32,7 @@
                     'PeriodoFecha', w2,
                     'ContenidoTexto', w0,
                     'ArchivoFilename', w3,
+                    'Mostrar', w4,
                     'Aprobado', w4
                 ]);
             }

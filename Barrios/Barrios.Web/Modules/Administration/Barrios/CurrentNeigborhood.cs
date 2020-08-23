@@ -1,5 +1,6 @@
 ﻿using Barrios.Administration.Entities;
 using Barrios.Modules.Common.Utils;
+using Serenity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

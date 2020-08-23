@@ -46,9 +46,11 @@ namespace Barrios.Modules.Default.Entities
                 builder.Append(" id='" + id + "' ");
             builder.Append(">" + text + "</button>");
         }
-        public void renderPanel(string classStyle, string text)
+        public void renderPanel(string classStyle, string text,string textVecino)
         {
-            builder.Append("<section class='" + classStyle + " panelNoDisponible' >"+ text+" </section>");
+            if (!CurrentNeigborhood.Get().VerUserEnReservas.Value)
+                textVecino = "";
+            builder.Append("<section class='" + classStyle + " panelNoDisponible' >"+ text + textVecino+" </section>");
         }
         public void InitTBody()
         {
@@ -147,16 +149,16 @@ namespace Barrios.Modules.Default.Entities
                         {
                             printButton = false;
                             if (!aux.IdVecinoUnidadExtra.IsEmptyOrNull())
-                                renderPanel(buttonGrayClass, aux.TipoReservaHecha + " <br>con lote " + aux.IdVecinoUnidadExtra );
+                                renderPanel(buttonGrayClass, aux.TipoReservaHecha , " <br>con lote " + aux.IdVecinoUnidadExtra );
                             else
-                                renderPanel(buttonGrayClass, aux.TipoReservaHecha + " <br>(reserva propia)");
+                                renderPanel(buttonGrayClass, aux.TipoReservaHecha + " <br>(reserva propia)","");
 
                         }
                     }
                     else if (aux.IdVecino2 == idUser)
                     {
                         if (turnAnterior != aux.Inicio && datePast != fecha)
-                            renderPanel(buttonGrayClass, aux.TipoReservaHecha + " con lote " + aux.IdVecinoUnidad );
+                            renderPanel(buttonGrayClass, aux.TipoReservaHecha , " con lote " + aux.IdVecinoUnidad );
                     }
                     else
                     {
@@ -164,9 +166,9 @@ namespace Barrios.Modules.Default.Entities
                         {
                             printButton = false;
                             if (!aux.IdVecinoUnidadExtra.IsEmptyOrNull())
-                                renderPanel(buttonRedClass, aux.TipoReservaHecha + "<br>" + aux.IdVecinoUnidad + " y " + aux.IdVecinoUnidadExtra );
+                                renderPanel(buttonRedClass, aux.TipoReservaHecha , "<br>" + aux.IdVecinoUnidad + " y " + aux.IdVecinoUnidadExtra );
                             else
-                                renderPanel(buttonRedClass, aux.TipoReservaHecha + "<br>" + aux.IdVecinoUnidad );
+                                renderPanel(buttonRedClass, aux.TipoReservaHecha , "<br>" + aux.IdVecinoUnidad );
                         }
                     }
                 }

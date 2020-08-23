@@ -42,6 +42,18 @@ namespace Barrios.Administration.Entities
             get { return Fields.BarrioNombre[this]; }
             set { Fields.BarrioNombre[this] = value; }
         }
+        [DisplayName("Unidad")]
+        public String Units
+        {
+            get { return Fields.Units[this]; }
+            set { Fields.Units[this] = value; }
+        }
+        [DisplayName("Notas")]
+        public String Note
+        {
+            get { return Fields.Note[this]; }
+            set { Fields.Note[this] = value; }
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.UserId; }
@@ -58,6 +70,8 @@ namespace Barrios.Administration.Entities
         {
             public Int32Field UserId;
             public Int32Field BarrioId;
+            public StringField Units;
+            public StringField Note;
 
             public StringField UserUsername;
 

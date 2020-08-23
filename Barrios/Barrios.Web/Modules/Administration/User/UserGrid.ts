@@ -39,10 +39,10 @@
         }
         protected getItemCssClass(item: UserRow, index: number): string {
             let klass: string = "";
-            if (item.HavePermisions == 1)
-                klass = "statusGreen";
-            else if (item.HavePermisions==0)
+            if (item.Roles == "" || item.Roles == null)
                 klass = "statusRed";
+            else if (item.Roles.search("Administrador")>-1)
+                klass = "statusGreen";
             else 
                 klass = "statusBlue";
             return Q.trimToNull(klass);

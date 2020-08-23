@@ -27,6 +27,7 @@ namespace Barrios.Modules.Common.Utils
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = cmdText;
                     cmd.CommandTimeout = 0;
+                   
                     connection.EnsureOpen();
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -44,7 +45,7 @@ namespace Barrios.Modules.Common.Utils
                 return null;
             using (IDbConnection connection = GetConnection())
             {
-                return connection.Query<UserRow>("SELECT * FROM [Users] WHERE userid=" + id).SingleOrDefault();
+                return connection.Query<UserRow>($"SELECT *,UB.Units,UB.Note FROM [Users] U inner join [Users-Barrios] UB  on U.UserId=UB.UserId  WHERE  UB.BarrioId={CurrentNeigborhood.Get().Id} and U.userid={id}").SingleOrDefault();
             }
         }
         public static int InsertOrUpdateString(string cmdText)

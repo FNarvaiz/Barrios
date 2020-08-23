@@ -96,7 +96,6 @@ namespace Barrios.Default.Endpoints
         [HttpPost]
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
-            Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
             
         }
@@ -139,7 +138,8 @@ namespace Barrios.Default.Endpoints
                             row.IdTurnosEspeciales=ImportMethods.GetBookingTurn(resource, row).Id;
                         else
                             row.IdTipo = ImportMethods.GetBookingType(resource, row).Id;
-                        row.IdVecino= ImportMethods.GetHoldUser(users, row).UserId;
+                        if(row.IdVecino!=1)
+                            row.IdVecino= ImportMethods.GetHoldUser(users, row.IdVecino).UserId;
                         row.SendMail= false;
                         using (var connection2 = Utils.GetConnection())
                         {
@@ -180,12 +180,12 @@ namespace Barrios.Default.Endpoints
             List<DateTime> days = null;
             if (resource.Resolucion == 0)
             {
-                list = repo.BookingEspecialList(connection, request.ID);
+                list = repo.BookingEspecialList(connection, resource);
                 table = new RenderListToTable(list);
             }
             else
             {
-                list = repo.BookingList(connection, request.ID);
+                list = repo.BookingList(connection, resource);
                 days = repo.DaysList(list);
                 table = new RenderBookingTable(list);
             }
@@ -211,59 +211,81 @@ namespace Barrios.Default.Endpoints
         //{
         //    Update()
         //}
+        public bool CheckLimitBooking(ReservasRecursosRow resource, UserRow user)
+        {
+
+            using (var connection2 = Utils.GetConnection())
+            {
+                List<MyRow> list = connection2.Query<MyRow>("SELECT R.* from RESERVAS R " +
+                    " inner join [Users] US  " +
+                     " ON(R.ID_VECINO = US.UserId OR R.ID_VECINO_2 = US.UserId) " +
+                     " inner join [Users-Barrios] UB on UB.userid=US.UserId AND UB.Units='" + user.Units+"' "+
+
+                     " WHERE ID_recurso=" + resource.Id + "  and R.fecha> GETDATE() ").ToList();
+                if (list.Count >= resource.AmountToReserve)
+                {
+                    string message = "Reservas: \n";
+                    foreach(var obj in list)
+                        message=message+(obj.Confirmada.Value ? "confirmada" : "pendiente") + " para el día " + obj.Fecha.Value.ToLongDateString()+"\n";
+                    throw new Exception(message);
+                }
+            }
+            return true;
+        }
         [HttpPost]
         public string SendRequest(IDbConnection connection, BookingTakeRequest request)
         {
             DateTime date = DateTime.ParseExact(request.bookingDate, "yyyyMMdd",
                                   CultureInfo.InvariantCulture);
             UserRow user = Utils.GetUser(Convert.ToInt32(Authorization.UserId));
-            MyRow obj=null;
-            using (var connection2= Utils.GetConnection())
-                obj = connection2.Query<MyRow>("SELECT * from RESERVAS WHERE ID_recurso="+request.resourceId+  " and id_vecino="+ user.UserId + " and fecha> GETDATE() ").SingleOrDefault();
-            if (obj != null) {
-                throw new Exception("Ya tiene una reserva "+ ( obj.Confirmada.Value ? "confirmada" : "pendiente")+" para el día "+ obj.Fecha.Value.ToLongDateString());
-            }
-            else
+
+            if (!user.Owner.Value)
+                throw new Exception("Solo el propietario o actual inquilino pueden solicitar este tipo de reservas.");
+
+            ReservasRecursosRow resource;
+            using (var connection2 = Utils.GetConnection())
+                resource = connection2.Query<ReservasRecursosRow>("SELECT * FROM[RESERVAS_RECURSOS] WHERE id = " + request.resourceId).SingleOrDefault();
+
+            MyRow obj =null;
+            CheckLimitBooking(resource, user);
+            bool ok = Convert.ToBoolean(Utils.GetRequestString("SELECT CAST(CASE WHEN DATEDIFF(D, (SELECT TOP 1 FECHA FROM HOY), " + date.ToSql() + ") <= "+ resource.Hasta+ " AND DATEDIFF(D, (SELECT TOP 1 FECHA FROM HOY), " + date.ToSql() + ") >= " + resource.Desde + " THEN 1 ELSE 0 END AS BIT)").Rows[0][0]);
+            if (ok)
             {
-                bool ok = Convert.ToBoolean(Utils.GetRequestString("SELECT CAST(CASE WHEN DATEDIFF(D, (SELECT TOP 1 FECHA FROM HOY), " + date.ToSql() + ") <= 180 AND DATEDIFF(D, (SELECT TOP 1 FECHA FROM HOY), " + date.ToSql() + ") > 9 THEN 1 ELSE 0 END AS BIT)").Rows[0][0]);
-                if (ok)
+                string status = Utils.GetRequestString("SELECT dbo.ESTADO_TURNO_RESERVA(" + request.resourceId + ", " + date.ToSql() + ", " + request.turnStart + ", " + request.turnDuration + ")").Rows[0][0].ToString();
+
+                if (status.ToUpper() == "DISPONIBLE")
                 {
-                    string status = Utils.GetRequestString("SELECT dbo.ESTADO_TURNO_RESERVA(" + request.resourceId + ", " + date.ToSql() + ", " + request.turnStart + ", " + request.turnDuration + ")").Rows[0][0].ToString();
+                    obj = EmailHelper.GetReservaRowForBody(request, user, date, request.resourceName);
+                    string emails = resource.Emails;
+                    emails = EmailHelper.GetRenderMails(emails, user);
 
-                    if (status.ToUpper() == "DISPONIBLE")
-                    {
-                        obj = EmailHelper.GetReservaRowForBody(request, user, date, request.resourceName);
-                        string emails = Utils.GetRequestString("SELECT emails FROM [RESERVAS_RECURSOS] WHERE id=" + request.resourceId).Rows[0][0].ToString();
-                        emails = EmailHelper.GetRenderMails(emails, user);
-
-                        var message = TemplateHelper.RenderTemplate(
-                           MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody()
-                           {
-                               Reserva = obj,
-                               Body = "La Administración se pondrá en contacto para confirmar la reserva.",
-                               Title = "Solicitud de reserva",
-                               BeforeTable = ""
-                           });
-                        obj.Confirmada = false;
-                        obj.IdVecino = user.UserId;
-                        using (var connection3 = Utils.GetUnitOfWork())
+                    var message = TemplateHelper.RenderTemplate(
+                        MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody()
                         {
-                            Create(connection3, new SaveRequest<MyRow>() { Entity = obj });
-                            connection3.Commit();
-                        }
-                        EmailHelper.Send("Solicitud reserva " + request.resourceName + " Enviada", message, emails, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
-                        using (var connection2 = Utils.GetConnection())
-                            return renderBookingStatus(connection2, new BookingListRequest() { ID = request.resourceId, Resolution = 0 });
-                    }
-                    else
+                            Reserva = obj,
+                            Body = "La Administración se pondrá en contacto para confirmar la reserva.",
+                            Title = "Solicitud de reserva",
+                            BeforeTable = ""
+                        });
+                    obj.Confirmada = false;
+                    obj.IdVecino = user.UserId;
+                    using (var connection3 = Utils.GetUnitOfWork())
                     {
-                        throw new Exception("El turno indicado no se encuentra disponible.");
+                        Create(connection3, new SaveRequest<MyRow>() { Entity = obj });
+                        connection3.Commit();
                     }
+                    EmailHelper.Send("Solicitud reserva " + request.resourceName + " Enviada", message, emails, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+                    using (var connection2 = Utils.GetConnection())
+                        return renderBookingStatus(connection2, new BookingListRequest() { ID = request.resourceId, Resolution = 0 });
                 }
                 else
                 {
-                    throw new Exception("Las reservas del " + request.resourceName + " deben solicitarse con una anticipación minima de 10 dias y máxima de 6 meses.");
+                    throw new Exception("El turno indicado no se encuentra disponible.");
                 }
+            }
+            else
+            {
+                throw new Exception("Las reservas del " + request.resourceName + " deben solicitarse con una anticipación minima de " + resource.Desde + " dias y máxima de " + resource.Hasta + " dias.");
             }
         }
         [HttpPost]
@@ -318,7 +340,7 @@ namespace Barrios.Default.Endpoints
                     UserRow user2 = Utils.GetUser(row.IdVecino2);
                     string emails = EmailHelper.GetRenderMails(resource.Emails, user, user2);
                     row.Turno = row.Tipo;
-                    row.IdVecinoUnidad = user.Unit;
+                    row.IdVecinoUnidad = user.Units;
                     var message = TemplateHelper.RenderTemplate(MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody()
                     {
                         Reserva = row,
@@ -351,7 +373,7 @@ namespace Barrios.Default.Endpoints
                 {
                     user = Utils.GetUser(row.IdVecino);
                     row.Hora = row.Inicio.Value.MinutesToString();
-                    row.IdVecinoUnidad = user.Unit;
+                    row.IdVecinoUnidad = user.Units;
                     row.IdVecinoUsername = user.DisplayName;
                     row.IdRecursoNombre = resource.Nombre;
                     if (row.Turno == null && row.Tipo != null)

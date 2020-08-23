@@ -1796,7 +1796,9 @@
     <Content Include="Views\Shared\_LayoutNoNavigation.cshtml" />
     <Content Include="Views\Errors\ValidationError.cshtml" />
     <Content Include="Scripts\site\texts\site.texts.de.json" />
-    <Content Include="tools\Web.config" />
+    <Content Include="tools\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Errors\AccessDenied.cshtml" />
     <Content Include="Views\Shared\_LayoutSlim.cshtml" />
     <Content Include="Views\Shared\_LayoutSlimHead.cshtml" />
@@ -2018,6 +2020,16 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200601_214800_UpdateBarrios.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200428_235000_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200428_223000_AddUserNote.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200302_104400_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200302_101300_UpdateResourceBody.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200222_004800_UpdateHistory.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200221_173700_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200221_150700_PerteneceAlDia.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200217_160800_UpdatePets.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200131_110100_UpdateReservasStoreProcedure.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200124_170100_UpdateReservasStoreProcedure.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200113_150100_ResourceHoldId.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200108_181100_CreateNotes.cs" />
@@ -2061,6 +2073,7 @@
     <Compile Include="Modules\Administration\Barrios\BarriosRepository.cs" />
     <Compile Include="Modules\Administration\Barrios\BarriosRow.cs" />
     <Compile Include="Modules\Administration\Barrios\CurrentNeigborhood.cs" />
+    <Compile Include="Modules\Administration\Barrios\ImageUploader.cs" />
     <Compile Include="Modules\Administration\Language\LanguageLookup.cs" />
     <Compile Include="Modules\Administration\RolePermission\RolePermissionUpdateRequest.cs" />
     <Compile Include="Modules\Administration\RolePermission\RolePermissionListResponse.cs" />

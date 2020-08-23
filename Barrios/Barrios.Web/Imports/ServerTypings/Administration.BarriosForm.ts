@@ -12,6 +12,7 @@
         Direccion: Serenity.StringEditor;
         UseSubBarrios: Serenity.BooleanEditor;
         Emails: Serenity.TextAreaEditor;
+        VerUserEnReservas: Serenity.BooleanEditor;
         IsActive: Serenity.BooleanEditor;
     }
 
@@ -46,6 +47,7 @@
                     'Direccion', w0,
                     'UseSubBarrios', w4,
                     'Emails', w5,
+                    'VerUserEnReservas', w4,
                     'IsActive', w4
                 ]);
             }

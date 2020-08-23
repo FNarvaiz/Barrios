@@ -16,6 +16,7 @@ namespace Barrios.Contenidos {
 
             this.UseSubBarrios = UseSubBarrios;
             super(container);
+
         }
         protected onClick(e: JQueryEventObject, row: number, cell: number) {
             super.onClick(e, row, cell);
@@ -82,6 +83,19 @@ namespace Barrios.Contenidos {
                     }
                 });
             }
+            buttons.push({
+                title: "Importar",
+                cssClass: "import-button",
+                onClick: () => {
+                    var dialog = new Common.ImportFileDialog((fileValue: string) => {
+                        LineaTiempoService.ImportFile({ FileName: fileValue }, (response) => {
+                            Q.notifySuccess(response);
+                            this.refresh();
+                        });
+                    });
+                    dialog.dialogOpen();
+                }
+            });
             return buttons;
         }
     }

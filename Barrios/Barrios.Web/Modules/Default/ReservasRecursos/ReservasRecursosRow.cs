@@ -76,13 +76,13 @@ namespace Barrios.Default.Entities
             get { return Fields.Resolucion[this]; }
             set { Fields.Resolucion[this] = value; }
         }
-        [DisplayName("Hasta los siguientes"), LookupInclude,IntegerEditor(MaxValue =360,MinValue =0,AllowNegatives =false), Column("Hasta")]
+        [DisplayName("Hasta los siguientes"), LookupInclude,IntegerEditor(MaxValue =370,MinValue =0,AllowNegatives =false), Column("Hasta")]
         public Int16? Hasta
         {
             get { return Fields.Hasta[this]; }
             set { Fields.Hasta[this] = value; }
         }
-        [DisplayName("A partir de los siguientes"), LookupInclude, IntegerEditor(MaxValue = 360, MinValue = 0, AllowNegatives = false), Column("Desde")]
+        [DisplayName("A partir de los siguientes"), LookupInclude, IntegerEditor(MaxValue = 370, MinValue = 0, AllowNegatives = false), Column("Desde")]
         public Int16? Desde
         {
             get { return Fields.Desde[this]; }
@@ -94,7 +94,7 @@ namespace Barrios.Default.Entities
             get { return Fields.Emails[this]; }
             set { Fields.Emails[this] = value; }
         }
-        [DisplayName("Cuerpo del mensaje"), Size(1000), Placeholder("Texto que se enviará por mail al reservar. (Max 1000 caracteres)"), TextAreaEditor()]
+        [DisplayName("Cuerpo del mensaje"),HtmlContentEditor(),  Size(6000), Placeholder("Texto que se enviará por mail al reservar. (Max 1000 caracteres)")]
         public String MailBody
         {
             get { return Fields.MailBody[this]; }
@@ -124,6 +124,12 @@ namespace Barrios.Default.Entities
         {
             get { return Fields.AppHoldId[this]; }
             set { Fields.AppHoldId[this] = value; }
+        }
+        [DisplayName("Reservables") , Placeholder("Cant de dias reservables por unidad"),Description("Cant de dias reservables por unidad")]
+        public Int16? AmountToReserve
+        {
+            get { return Fields.AmountToReserve[this]; }
+            set { Fields.AmountToReserve[this] = value; }
         }
         [DisplayName("Necesita Comentario")]
         public Boolean? NeedComment
@@ -169,6 +175,7 @@ namespace Barrios.Default.Entities
             public Int16Field Desde;
             public Int16Field Hasta;
             public Int16Field Resolucion;
+            public Int16Field AmountToReserve;
             public Int32Field AppHoldId;
             public ListField<Int32> ClientIdList;
             public ListField<Int16> NeigborhoodList;

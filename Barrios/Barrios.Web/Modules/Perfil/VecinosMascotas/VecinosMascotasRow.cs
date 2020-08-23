@@ -78,7 +78,7 @@ namespace Barrios.Perfil.Entities
         }
 
 
-        [DisplayName("Userid Unit"), Expression("jUserid.[Unit]")]
+        [DisplayName("Userid Unit"), Expression("jBarrio.[Units]")]
         public String UseridUnit
         {
             get { return Fields.UseridUnit[this]; }

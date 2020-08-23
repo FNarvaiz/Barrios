@@ -1,12 +1,19 @@
 ﻿
 namespace Barrios.Perfil.Endpoints
 {
+    using Barrios.Administration.Endpoints;
+    using Barrios.Administration.Entities;
+    using Barrios.Modules.Common.ImportFile;
     using Barrios.Modules.Common.Utils;
+    using Barrios.Modules.ImportFiles;
     using Serenity;
     using Serenity.Data;
     using Serenity.Services;
+    using Serenity.Web;
     using System;
+    using System.Collections.Generic;
     using System.Data;
+    using System.IO;
     using System.Web.Mvc;
     using MyRepository = Repositories.VecinosVisitantesFrecuentesRepository;
     using MyRow = Entities.VecinosVisitantesFrecuentesRow;
@@ -46,6 +53,57 @@ namespace Barrios.Perfil.Endpoints
 
             Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
+        }
+        [HttpPost]
+        public string ImportFile(IDbConnection connection, ImportFileRequest request)
+        {
+            Int16 errors = 0;
+            Int16 success = 0;
+            List<UserRow> users = new UserController().List(connection, new ListRequest()).Entities;
+
+            using (StreamReader sr = new StreamReader(UploadHelper.DbFilePath(request.FileName)))
+            {
+
+                string line;
+                Random random = new Random();
+                while (sr.Peek() >= 0)
+                {
+
+                    line = sr.ReadLine();
+
+                    try
+                    {
+                        string[] lineSplit = line.Split(',');
+                        var row = new MyRow()
+                        {
+                            Userid = Convert.ToInt32(lineSplit[0]),
+                            Nombre = lineSplit[1].ToString(),
+                            Dni = lineSplit[2].ToString(),
+                            Vehiculo = lineSplit[3].ToString(),
+                            Tipo= lineSplit[4].ToString()
+                        };
+                       
+                        row.Userid = ImportMethods.GetHoldUser(users, row.Userid).UserId;
+
+                        using (var connection2 = Utils.GetConnection())
+                        {
+                            using (var UOW = new UnitOfWork(connection2))
+                            {
+                                UOW.Connection.Insert<MyRow>(row);
+                                UOW.Commit();
+                                success++;
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        errors++;
+                        Log.Error("Error al cargar esta linea:" + line, e, typeof(VecinosMascotasController));
+                    }
+                    // user
+                }
+            }
+            return "Se cargaron correctamente " + success + ". Y hubo una candidad de " + errors + " con errores que no se cargaron";
         }
     }
 }

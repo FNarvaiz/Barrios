@@ -32,7 +32,7 @@ namespace Barrios.Common
                 Inicio= request.turnStart,
                 Duracion= request.turnDuration,
                 IdVecinoUsername = user.DisplayName,
-                IdVecinoUnidad = user.Unit
+                IdVecinoUnidad = user.Units
             };
         }
         public static string GetRenderMails(string emailsResource,UserRow user,UserRow user2=null)

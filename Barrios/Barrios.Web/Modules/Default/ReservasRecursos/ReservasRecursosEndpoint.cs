@@ -79,7 +79,8 @@ namespace Barrios.Default.Endpoints
                                 Cierre = Convert.ToInt16(lineSplit[3]),
                                 Resolucion = Convert.ToInt16(lineSplit[4]),
                                 Tipo = Convert.ToInt16(lineSplit[5]),
-
+                                Hasta=6,
+                                Desde=1
                             };
                             resources.Add(resource);
                         }
@@ -92,7 +93,8 @@ namespace Barrios.Default.Endpoints
                                 Nombre = lineSplit[10],
                                 Duracion = Convert.ToInt16(lineSplit[11]),
                                 Inicio = Convert.ToInt16(lineSplit[12]),
-                                Dias =lineSplit[13]
+                                Dias =lineSplit[13],
+                                
                             });
                         }
                         else
@@ -103,8 +105,8 @@ namespace Barrios.Default.Endpoints
                             {
                                 Nombre= lineSplit[6],
                                 Duracion= Convert.ToInt16(lineSplit[7]),
-                                Vigente= lineSplit[8]=="True" || lineSplit[9] == "1" ? true:false,
-                                RequiereVecino2= lineSplit[9] == "1" || lineSplit[9] == "True" ? true :false
+                                Vigente= lineSplit[8].Trim()=="True" || lineSplit[9].Trim() == "1" ? true:false,
+                                RequiereVecino2= lineSplit[9].Trim() == "1" || lineSplit[9].Trim() == "True" ? true :false
                             });
                         }
 

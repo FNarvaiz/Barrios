@@ -6,14 +6,15 @@
         Apertura: Serenity.LookupEditor;
         Cierre: Serenity.LookupEditor;
         Resolucion: Serenity.LookupEditor;
-        Emails: Serenity.TextAreaEditor;
-        MailBody: Serenity.TextAreaEditor;
-        Description: Serenity.TextAreaEditor;
+        AmountToReserve: Serenity.IntegerEditor;
         NeedComment: Serenity.BooleanEditor;
-        TypeList: ReservasTiposGrid;
-        SpecialTurnList: ReservasTurnosEspecialesGrid;
         Desde: Serenity.IntegerEditor;
         Hasta: Serenity.IntegerEditor;
+        Description: Serenity.TextAreaEditor;
+        Emails: Serenity.TextAreaEditor;
+        MailBody: Serenity.HtmlContentEditor;
+        TypeList: ReservasTiposGrid;
+        SpecialTurnList: ReservasTurnosEspecialesGrid;
         NeigborhoodList: Serenity.CheckLookupEditor;
         Regulation: Serenity.ImageUploadEditor;
     }
@@ -32,12 +33,13 @@
                 var w0 = s.StringEditor;
                 var w1 = s.IntegerEditor;
                 var w2 = s.LookupEditor;
-                var w3 = s.TextAreaEditor;
-                var w4 = s.BooleanEditor;
-                var w5 = ReservasTiposGrid;
-                var w6 = ReservasTurnosEspecialesGrid;
-                var w7 = s.CheckLookupEditor;
-                var w8 = s.ImageUploadEditor;
+                var w3 = s.BooleanEditor;
+                var w4 = s.TextAreaEditor;
+                var w5 = s.HtmlContentEditor;
+                var w6 = ReservasTiposGrid;
+                var w7 = ReservasTurnosEspecialesGrid;
+                var w8 = s.CheckLookupEditor;
+                var w9 = s.ImageUploadEditor;
 
                 Q.initFormType(ReservasRecursosForm, [
                     'Nombre', w0,
@@ -46,16 +48,17 @@
                     'Apertura', w2,
                     'Cierre', w2,
                     'Resolucion', w2,
-                    'Emails', w3,
-                    'MailBody', w3,
-                    'Description', w3,
-                    'NeedComment', w4,
-                    'TypeList', w5,
-                    'SpecialTurnList', w6,
+                    'AmountToReserve', w1,
+                    'NeedComment', w3,
                     'Desde', w1,
                     'Hasta', w1,
-                    'NeigborhoodList', w7,
-                    'Regulation', w8
+                    'Description', w4,
+                    'Emails', w4,
+                    'MailBody', w5,
+                    'TypeList', w6,
+                    'SpecialTurnList', w7,
+                    'NeigborhoodList', w8,
+                    'Regulation', w9
                 ]);
             }
         }

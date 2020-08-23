@@ -12,6 +12,7 @@
         Direccion?: string;
         PasswordMail?: string;
         CantDiasReservables?: number;
+        VerUserEnReservas?: boolean;
         IsActive?: boolean;
         UseSubBarrios?: boolean;
     }
@@ -39,6 +40,7 @@
             Direccion = "Direccion",
             PasswordMail = "PasswordMail",
             CantDiasReservables = "CantDiasReservables",
+            VerUserEnReservas = "VerUserEnReservas",
             IsActive = "IsActive",
             UseSubBarrios = "UseSubBarrios"
         }

@@ -16,12 +16,13 @@ namespace Barrios.Default {
             this.days.push(this.form.Jueves);
             this.days.push(this.form.Viernes);
             this.days.push(this.form.Sabado);
+            this.days.push(this.form.Feriados);
         }
         protected afterLoadEntity(){
             if(this.form.Dias.value){
                 for(var x=0; x<this.form.Dias.value.length;x++){
                     var dayOfWeek=parseInt( this.form.Dias.value.charAt(x));
-                    if(dayOfWeek<7)
+                    if(dayOfWeek<8)
                         this.days[dayOfWeek].value= true;
                 }
             }
