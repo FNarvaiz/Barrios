@@ -2020,6 +2020,7 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200822_013000_AddDaysInReservasTipos.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200601_214800_UpdateBarrios.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200428_235000_UpdateReservasStoreProcedure.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200428_223000_AddUserNote.cs" />

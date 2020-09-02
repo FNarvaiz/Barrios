@@ -96,7 +96,7 @@
                 onClick: () => {
                     var dialog = new Common.ImportFileDialog((fileValue: string) => {
                         ReservasService.ImportFile({ FileName: fileValue }, (response) => {
-                            Q.notifySuccess(response);
+                            Q.confirm(response, () => { });
                             this.refresh();
                         });
                     });

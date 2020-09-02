@@ -289,7 +289,7 @@ namespace Barrios.Administration.Repositories
         }
         public static UserRow GetNewUser(int id)
         {
-            DataRow DR = Utils.GetRequestString($"select email,UB.units,DisplayName from users U inner join [Users-Barrios] UB  on U.UserId=UB.UserId  WHERE  UB.BarrioId={CurrentNeigborhood.Get().Id} userid=" + id).Rows[0];
+            DataRow DR = Utils.GetRequestString($"select email,UB.units,DisplayName from users U inner join [Users-Barrios] UB  on U.UserId=UB.UserId  WHERE  UB.BarrioId={CurrentNeigborhood.Get().Id} and  UB.UserId=" + id).Rows[0];
             return new MyRow { UserId = id, Email = DR[0].ToString(), Units = DR[1].ToString(), DisplayName = DR[2].ToString() };
 
         }
@@ -305,9 +305,9 @@ namespace Barrios.Administration.Repositories
             protected override void OnBeforeDelete()
             {
                 base.OnBeforeDelete();
-              /*  new SqlDelete(Default.Entities.ReservasRow.Fields.TableName)
+                new SqlDelete(Default.Entities.ReservasRow.Fields.TableName)
                    .Where(Default.Entities.ReservasRow.Fields.IdVecino == Row.UserId.Value || Default.Entities.ReservasRow.Fields.IdVecino2 == Row.UserId.Value)
-                   .Execute(Connection, ExpectedRows.Ignore);*/
+                   .Execute(Connection, ExpectedRows.Ignore);
                 
                 new SqlDelete(UsersBarriosRow.Fields.TableName)
                    .Where(UsersBarriosRow.Fields.UserId == Row.UserId.Value)
@@ -323,6 +323,26 @@ namespace Barrios.Administration.Repositories
 
                 new SqlDelete(Entities.UserPermissionRow.Fields.TableName)
                     .Where(Entities.UserPermissionRow.Fields.UserId == Row.UserId.Value)
+                    .Execute(Connection, ExpectedRows.Ignore);
+
+                new SqlDelete(Perfil.Entities.VecinosMascotasRow.Fields.TableName)
+                    .Where(Perfil.Entities.VecinosMascotasRow.Fields.Userid == Row.UserId.Value)
+                    .Execute(Connection, ExpectedRows.Ignore);
+
+                new SqlDelete(Perfil.Entities.VecinosActividadesRow.Fields.TableName)
+                    .Where(Perfil.Entities.VecinosActividadesRow.Fields.Userid == Row.UserId.Value)
+                    .Execute(Connection, ExpectedRows.Ignore);
+
+                new SqlDelete(Perfil.Entities.VecinosVisitantesFrecuentesRow.Fields.TableName)
+                    .Where(Perfil.Entities.VecinosVisitantesFrecuentesRow.Fields.Userid == Row.UserId.Value)
+                    .Execute(Connection, ExpectedRows.Ignore);
+
+                new SqlDelete(Perfil.Entities.VecinosEventosRow.Fields.TableName)
+                    .Where(Perfil.Entities.VecinosEventosRow.Fields.Userid == Row.UserId.Value)
+                    .Execute(Connection, ExpectedRows.Ignore);
+
+                new SqlDelete(Perfil.Entities.VecinosEventosConcurrentesRow.Fields.TableName)
+                    .Where(Perfil.Entities.VecinosEventosConcurrentesRow.Fields.Userid == Row.UserId.Value)
                     .Execute(Connection, ExpectedRows.Ignore);
             }
         }

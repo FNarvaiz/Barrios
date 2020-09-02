@@ -93,6 +93,7 @@ namespace Barrios.Modules.Default.Entities
                     vacanteEscrita = false;
                     first = false;
                     firstTurn = true;
+                    printButton = true;
                     turnAnterior = aux.Inicio.Value;
                 }
                 if (pastDay != date && !firstTurn)
@@ -141,6 +142,7 @@ namespace Barrios.Modules.Default.Entities
                         {
                             renderButton(buttonGrayClass, "Vacante" );
                             vacanteEscrita = true;
+                            printButton = false;
                         }
                     }
                     else if (aux.IdVecino == idUser)

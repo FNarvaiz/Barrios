@@ -66,7 +66,6 @@ namespace Barrios.Membership.Pages
                         Email = email,
                         PasswordHash = hash,
                         PasswordSalt = salt,
-                        Units = unit,
                         IsActive = 0,
                         InsertDate = DateTime.Now,
                         InsertUserId = 1,

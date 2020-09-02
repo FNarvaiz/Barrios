@@ -74,7 +74,7 @@ namespace Barrios.Common
             var message = new MailMessage();
             if (!file.IsNullOrEmpty() && !CurrentNeigborhood.Local) {
                 Attachment data = new Attachment(HostingEnvironment.MapPath("~/App_Data") + "/Upload/" + file);
-                data.Name = "ArchivoAdjunto";
+                data.Name = "ArchivoAdjunto" + Path.GetExtension(data.Name);
                 message.Attachments.Add(data);
             }
             if (address == null)

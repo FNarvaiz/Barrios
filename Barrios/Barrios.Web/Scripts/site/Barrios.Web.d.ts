@@ -1423,6 +1423,15 @@ declare namespace Barrios.Default {
         Emails: Serenity.TextAreaEditor;
         MailBody: Serenity.HtmlContentEditor;
         TypeList: ReservasTiposGrid;
+        Dias: Serenity.StringEditor;
+        Lunes: Serenity.BooleanEditor;
+        Martes: Serenity.BooleanEditor;
+        Miercoles: Serenity.BooleanEditor;
+        Jueves: Serenity.BooleanEditor;
+        Viernes: Serenity.BooleanEditor;
+        Sabado: Serenity.BooleanEditor;
+        Domingo: Serenity.BooleanEditor;
+        Feriados: Serenity.BooleanEditor;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
         NeigborhoodList: Serenity.CheckLookupEditor;
         Regulation: Serenity.ImageUploadEditor;
@@ -1455,6 +1464,15 @@ declare namespace Barrios.Default {
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
         NeedComment?: boolean;
+        Dias?: string;
+        Lunes?: boolean;
+        Martes?: boolean;
+        Miercoles?: boolean;
+        Jueves?: boolean;
+        Viernes?: boolean;
+        Sabado?: boolean;
+        Domingo?: boolean;
+        Feriados?: boolean;
     }
     namespace ReservasRecursosRow {
         const idProperty = "Id";
@@ -1480,7 +1498,16 @@ declare namespace Barrios.Default {
             BarrioId = "BarrioId",
             TypeList = "TypeList",
             SpecialTurnList = "SpecialTurnList",
-            NeedComment = "NeedComment"
+            NeedComment = "NeedComment",
+            Dias = "Dias",
+            Lunes = "Lunes",
+            Martes = "Martes",
+            Miercoles = "Miercoles",
+            Jueves = "Jueves",
+            Viernes = "Viernes",
+            Sabado = "Sabado",
+            Domingo = "Domingo",
+            Feriados = "Feriados"
         }
     }
 }
@@ -3147,6 +3174,10 @@ declare namespace Barrios.Default {
         protected getNameProperty(): string;
         protected getService(): string;
         protected form: ReservasRecursosForm;
+        private days;
+        constructor(container: JQuery);
+        protected afterLoadEntity(): void;
+        protected validateBeforeSave(): boolean;
         dialogOpen(): void;
     }
 }

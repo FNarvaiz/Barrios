@@ -120,6 +120,7 @@ namespace Barrios.Administration.Endpoints
         }
         private string GeneratePassword(string Password)
         {
+            Password = Password.Trim();
             if (Password.Length < 5)
                 Password = Password + CurrentNeigborhood.Current.ShortDisplayName;
             return Password;
@@ -221,7 +222,7 @@ namespace Barrios.Administration.Endpoints
                 using (var UOW = Utils.GetUnitOfWork())
                     new UserRoleRepository().InserRoleDefault(UOW, usersId, NeigborhoodRole.RoleId.Value);
             }
-            return "Se cargaron correctamente "+success+". Y hubo una candidad de "+errors+" con errores que no se cargaron";
+            return $"Se cargaron correctamente {success}. Y hubo una candidad de {errors} con errores que no se cargaron.\n{listErrors}";
         }
        
         private static string[] permissionsUsedFromScript;

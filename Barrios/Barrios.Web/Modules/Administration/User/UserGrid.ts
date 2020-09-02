@@ -24,8 +24,8 @@
                 cssClass: "import-button",
                 onClick: () => {
                     var dialog = new Common.ImportFileDialog((fileValue: string) => {
-                        UserService.ImportFile({ FileName:fileValue }, (response) => {
-                            Q.notifySuccess(response);
+                        UserService.ImportFile({ FileName: fileValue }, (response) => {
+                            Q.confirm(response, () => { });
                             this.refresh();
                         });
                     });

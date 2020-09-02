@@ -18,7 +18,7 @@
             this.addOption("2", "Martes");
             this.addOption("3", "Miercoles");
             this.addOption("4", "Jueves");
-            this.addOption("5", "Vierenes");
+            this.addOption("5", "Viernes");
             this.addOption("6", "Sabado");
             this.addOption("0", "Domingo");
             this.addOption("7", "Feriados");

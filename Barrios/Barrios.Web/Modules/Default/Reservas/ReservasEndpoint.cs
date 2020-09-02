@@ -105,9 +105,12 @@ namespace Barrios.Default.Endpoints
         {
             Int16 errors = 0;
             Int16 success = 0;
-            List<UserRow> users = new UserController().List(connection,  new ListRequest()).Entities;
+            var requestUser = new ListRequest();
+            Utils.AddNeigborhoodFilter(requestUser);
+            List<UserRow> users = new UserController().List(connection, requestUser).Entities;
             List<ReservasRecursosRow> resources = new ReservasRecursosController().List(Utils.GetConnection() , new ListRequest()).Entities;
-            
+
+            string listErrors = "";
             using (StreamReader sr = new StreamReader(UploadHelper.DbFilePath(request.FileName)))
             {
 
@@ -157,12 +160,13 @@ namespace Barrios.Default.Endpoints
                     catch (Exception e)
                     {
                         errors++;
+                        listErrors = listErrors + e.Message + "  " + line + "\n";
                         Log.Error("Error al cargar esta linea:" + line, e, typeof(ReservasController));
                     }
                     // user
                 }
             }
-            return "Se cargaron correctamente " + success + ". Y hubo una candidad de " + errors + " con errores que no se cargaron";
+            return $"Se cargaron correctamente {success}. Y hubo una candidad de {errors} con errores que no se cargaron.\n{listErrors}";
         }
 
 

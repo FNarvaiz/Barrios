@@ -58,7 +58,7 @@ namespace Barrios.Contenidos.Entities
             set { Fields.PeriodoFecha[this] = value; }
         }
 
-        [DisplayName("Contenido Texto"), Column("CONTENIDO_TEXTO")]
+        [DisplayName("Contenido Texto"), HtmlContentEditor(), Column("CONTENIDO_TEXTO")]
         public String ContenidoTexto
         {
             get { return Fields.ContenidoTexto[this]; }

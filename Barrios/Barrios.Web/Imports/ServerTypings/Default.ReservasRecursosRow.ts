@@ -20,6 +20,15 @@
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
         NeedComment?: boolean;
+        Dias?: string;
+        Lunes?: boolean;
+        Martes?: boolean;
+        Miercoles?: boolean;
+        Jueves?: boolean;
+        Viernes?: boolean;
+        Sabado?: boolean;
+        Domingo?: boolean;
+        Feriados?: boolean;
     }
 
     export namespace ReservasRecursosRow {
@@ -47,7 +56,16 @@
             BarrioId = "BarrioId",
             TypeList = "TypeList",
             SpecialTurnList = "SpecialTurnList",
-            NeedComment = "NeedComment"
+            NeedComment = "NeedComment",
+            Dias = "Dias",
+            Lunes = "Lunes",
+            Martes = "Martes",
+            Miercoles = "Miercoles",
+            Jueves = "Jueves",
+            Viernes = "Viernes",
+            Sabado = "Sabado",
+            Domingo = "Domingo",
+            Feriados = "Feriados"
         }
     }
 }

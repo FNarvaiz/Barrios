@@ -57,7 +57,10 @@ namespace Barrios.Default.Repositories
               $"dbo.ESTADO_TURNO_RESERVA({resourceId}, E.FECHA, E.INICIO, T.DURACION) AS ESTADO_TURNO, " +
               $"dbo.TURNO_RESERVA_VALIDO({resourceId}, E.INICIO, T.DURACION) AS VALIDO, T.REQUIERE_VECINO_2, " +
               $"dbo.NOMBRE_TIPO_RESERVA({resourceId}, E.ID_TIPO) AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE,  " +
-               $" UB.Units AS UNIDAD_PRIMARIA, UB2.Units AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS({resourceId},{(resource.Hasta - 1)},0) E JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = {resourceId}  AND T.VIGENTE=1 " +
+               $" UB.Units AS UNIDAD_PRIMARIA, UB2.Units AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS({resourceId},{(resource.Hasta - 1)},0) E " +
+               "left join HOLIDAYS H on H.Day = E.FECHA " +
+               $"JOIN RESERVAS_RECURSOS RR ON RR.ID= {resourceId} AND  dbo.PERTENECEALDIA(E.FECHA, RR.DIAS, H.Day) = 1 " +
+               $"JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = RR.ID AND ((T.VIGENTE=1 and ID_VECINO is null) OR E.ID_TIPO=T.ID) " +
                 $" left join [users-barrios] UB on E.ID_VECINO = UB.userid and UB.barrioId= {CurrentNeigborhood.Get().Id } "+
                 $" left join [users-barrios] UB2 on E.ID_VECINO_2 = UB2.userid and UB2.barrioId= {CurrentNeigborhood.Get().Id } " +
                 " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, UB.Units, UB2.Units " +

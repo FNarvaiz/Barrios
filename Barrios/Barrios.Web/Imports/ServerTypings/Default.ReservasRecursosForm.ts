@@ -14,6 +14,15 @@
         Emails: Serenity.TextAreaEditor;
         MailBody: Serenity.HtmlContentEditor;
         TypeList: ReservasTiposGrid;
+        Dias: Serenity.StringEditor;
+        Lunes: Serenity.BooleanEditor;
+        Martes: Serenity.BooleanEditor;
+        Miercoles: Serenity.BooleanEditor;
+        Jueves: Serenity.BooleanEditor;
+        Viernes: Serenity.BooleanEditor;
+        Sabado: Serenity.BooleanEditor;
+        Domingo: Serenity.BooleanEditor;
+        Feriados: Serenity.BooleanEditor;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
         NeigborhoodList: Serenity.CheckLookupEditor;
         Regulation: Serenity.ImageUploadEditor;
@@ -56,6 +65,15 @@
                     'Emails', w4,
                     'MailBody', w5,
                     'TypeList', w6,
+                    'Dias', w0,
+                    'Lunes', w3,
+                    'Martes', w3,
+                    'Miercoles', w3,
+                    'Jueves', w3,
+                    'Viernes', w3,
+                    'Sabado', w3,
+                    'Domingo', w3,
+                    'Feriados', w3,
                     'SpecialTurnList', w7,
                     'NeigborhoodList', w8,
                     'Regulation', w9

@@ -44,6 +44,25 @@ namespace Barrios.Default.Forms
 
         [Tab("Tipos Reservas"), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTiposGrid]
         public List<ReservasTiposRow> TypeList { get; set; }
+        [Hidden]
+        public String Dias { get; set; }
+
+        [Category("Dias"), OneThirdWidth, LabelWidth(150)]
+        public Boolean Lunes { get; set; }
+        [OneThirdWidth,LabelWidth(150)]
+        public Boolean Martes { get; set; }
+        [OneThirdWidth, LabelWidth(150)]
+        public Boolean Miercoles { get; set; }
+        [OneThirdWidth, LabelWidth(150)]
+        public Boolean Jueves { get; set; }
+        [OneThirdWidth, LabelWidth(150)]
+        public Boolean Viernes { get; set; }
+        [OneThirdWidth, LabelWidth(150)]
+        public Boolean Sabado { get; set; }
+        [OneThirdWidth, LabelWidth(150)]
+        public Boolean Domingo { get; set; }
+        [OneThirdWidth, LabelWidth(150)]
+        public Boolean Feriados { get; set; }
         [Tab("Turnos Especiales"),AllowHide(true), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTurnosEspecialesGrid]
         public List<ReservasTurnosEspecialesRow> SpecialTurnList { get; set; }
         

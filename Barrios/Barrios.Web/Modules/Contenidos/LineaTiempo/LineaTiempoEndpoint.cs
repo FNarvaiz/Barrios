@@ -56,6 +56,13 @@ namespace Barrios.Contenidos.Endpoints
             Utils.AddNeigborhoodFilter(request);
             return new MyRepository().List(connection, request);
         }
+        private void Sending(MyRow timeLineObj, List<MailAddress> mails)
+        {
+            Common.EmailHelper.Send(timeLineObj.Nombre, timeLineObj.ContenidoTexto, "",
+                                CurrentNeigborhood.Get().LargeDisplayName,
+                                CurrentNeigborhood.Get().Mail, mails, timeLineObj.ArchivoFilename);
+            mails.Clear();
+        }
         private string Send(List<UserRow> users, MyRow timeLineObj)
         {
             if (timeLineObj.Aprobado.Value)
@@ -63,8 +70,12 @@ namespace Barrios.Contenidos.Endpoints
                 if (users.Count > 0)
                 {
                     List<MailAddress> mails = new List<MailAddress>();
+                 
+
                     foreach (var aux in users)
                     {
+                        if (mails.Count > 90)
+                            Sending(timeLineObj, mails);
                         mails.Add(new MailAddress(aux.Email, aux.DisplayName));
                         if (!aux.Email_Others.IsEmptyOrNull())
                         {
@@ -73,9 +84,8 @@ namespace Barrios.Contenidos.Endpoints
                                     mails.Add(new MailAddress(mailOther.Trim(), aux.DisplayName));
                         }
                     }
-                    Common.EmailHelper.Send(timeLineObj.Nombre, timeLineObj.ContenidoTexto, "",
-                        CurrentNeigborhood.Get().LargeDisplayName,
-                        CurrentNeigborhood.Get().Mail, mails, timeLineObj.ArchivoFilename);
+                    if(mails.Count>0)
+                        Sending(timeLineObj, mails);
                     return "Se han enviado a los " + users.Count;
                 }
                 else

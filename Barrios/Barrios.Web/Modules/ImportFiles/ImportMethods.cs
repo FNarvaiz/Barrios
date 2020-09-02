@@ -30,7 +30,8 @@ namespace Barrios.Modules.ImportFiles
         }
         public static ReservasRecursosRow GetLoadResource(ReservasRecursosRow obj)
         {
-            return new ReservasRecursosController().Retrieve(Utils.GetConnection(), new RetrieveRequest() { EntityId = obj.Id }).Entity;
+            using(var connection = Utils.GetConnection())
+                return new ReservasRecursosController().Retrieve(connection, new RetrieveRequest() { EntityId = obj.Id }).Entity;
         }
         public static ReservasTurnosEspecialesRow GetBookingTurn(ReservasRecursosRow resource,ReservasRow obj)
         {

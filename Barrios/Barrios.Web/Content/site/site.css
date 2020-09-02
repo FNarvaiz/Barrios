@@ -7792,6 +7792,9 @@ You could also use a data-* attribute and content for this. That way "bloats" th
   .s-Default-ReservasRecursosDialog .field.NeigborhoodList .slick-viewport.slick-viewport-top.slick-viewport-left {
     height: 100% !important;
   }
+  .s-Default-ReservasRecursosDialog .field.TypeList {
+    height: 40vh;
+  }
   .s-Default-ReservasRecursosDialog .category.first-category {
     width: 100%;
   }
