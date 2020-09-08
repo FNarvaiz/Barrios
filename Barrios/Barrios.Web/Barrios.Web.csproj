@@ -2020,6 +2020,7 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200907_163600_UpdateReservasStoreProcedure.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200822_013000_AddDaysInReservasTipos.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200601_214800_UpdateBarrios.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200428_235000_UpdateReservasStoreProcedure.cs" />
@@ -2062,9 +2063,6 @@
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190617_223100_Tables.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190618_132600_Functions.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190616_130000_ZeroPad.cs" />
-    <Compile Include="Migrations\OthersDB\Other_20190321_140000_Initial.cs" />
-    <Compile Include="Migrations\OthersDB\TestDB_20190321_200000_TestUser2.cs" />
-    <Compile Include="Migrations\OthersDB\TestDB_20190326_145500_Logs.cs" />
     <Compile Include="Modules\Administration\AdministrationNavigation.cs" />
     <Compile Include="Modules\Administration\Barrios\BarrioLookup.cs" />
     <Compile Include="Modules\Administration\Barrios\BarriosColumns.cs" />

@@ -7,6 +7,7 @@
         Cierre: Serenity.LookupEditor;
         Resolucion: Serenity.LookupEditor;
         AmountToReserve: Serenity.IntegerEditor;
+        AmountForDays: Serenity.IntegerEditor;
         NeedComment: Serenity.BooleanEditor;
         Desde: Serenity.IntegerEditor;
         Hasta: Serenity.IntegerEditor;
@@ -58,6 +59,7 @@
                     'Cierre', w2,
                     'Resolucion', w2,
                     'AmountToReserve', w1,
+                    'AmountForDays', w1,
                     'NeedComment', w3,
                     'Desde', w1,
                     'Hasta', w1,

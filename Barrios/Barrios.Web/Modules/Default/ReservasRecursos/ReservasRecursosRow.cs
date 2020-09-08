@@ -131,6 +131,12 @@ namespace Barrios.Default.Entities
             get { return Fields.AmountToReserve[this]; }
             set { Fields.AmountToReserve[this] = value; }
         }
+        [DisplayName("Reservables por día"), Placeholder("Cant de reservas permitidas por día"), Description("Cant de reservas permitidas por día")]
+        public Int16? AmountForDays
+        {
+            get { return Fields.AmountForDays[this]; }
+            set { Fields.AmountForDays[this] = value; }
+        }
         [DisplayName("Necesita Comentario")]
         public Boolean? NeedComment
         {
@@ -234,6 +240,7 @@ namespace Barrios.Default.Entities
             public ListField<Int32> ClientIdList;
             public ListField<Int16> NeigborhoodList;
             public Int16Field BarrioId;
+            public Int16Field AmountForDays;
             public ListField<ReservasTiposRow> TypeList;
             public ListField<ReservasTurnosEspecialesRow> SpecialTurnList;
             public BooleanField NeedComment;

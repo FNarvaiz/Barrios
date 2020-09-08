@@ -14,7 +14,7 @@ namespace Barrios.Default.Forms
     [BasedOnRow(typeof(Entities.ReservasRecursosRow), CheckNames = true)]
     public class ReservasRecursosForm
     {
-        [Tab("Info"),Category("Detalles"), OneThirdWidth]
+        [Tab("Info"), Category("Detalles"), OneThirdWidth]
         public String Nombre { get; set; }
         [OneThirdWidth]
         public Int32 AppHoldId { get; set; }
@@ -26,13 +26,15 @@ namespace Barrios.Default.Forms
         public Int16 Cierre { get; set; }
         [OneThirdWidth]
         public Int16 Resolucion { get; set; }
-        [OneThirdWidth]
+        [OneThirdWidth,  IntegerEditor(AllowNegatives = false, MaxValue = 10, MinValue = 0)]
         public Int16 AmountToReserve { get; set; }
+        [OneThirdWidth, IntegerEditor(AllowNegatives = false, MaxValue = 10, MinValue = 0)]
+        public Int16 AmountForDays { get; set; }
         [OneThirdWidth]
         public Boolean NeedComment { get; set; }
-        [DisplayName("Desde"), OneThirdWidth, Placeholder("Cantidad de dias a partir de los que se puede reservar")]
+        [DisplayName("Desde"), HalfWidth, Placeholder("Cantidad de dias a partir de los que se puede reservar")]
         public Int16 Desde { get; set; }
-        [DisplayName("Hasta"), OneThirdWidth, Placeholder("Cantidad de dias hasta los que se puede reservar")]
+        [DisplayName("Hasta"), HalfWidth, Placeholder("Cantidad de dias hasta los que se puede reservar")]
         public Int16 Hasta { get; set; }
         [Category("Página")]
         public String Description { get; set; }
@@ -46,7 +48,6 @@ namespace Barrios.Default.Forms
         public List<ReservasTiposRow> TypeList { get; set; }
         [Hidden]
         public String Dias { get; set; }
-
         [Category("Dias"), OneThirdWidth, LabelWidth(150)]
         public Boolean Lunes { get; set; }
         [OneThirdWidth,LabelWidth(150)]

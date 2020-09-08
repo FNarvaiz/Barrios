@@ -9,12 +9,15 @@
     [BasedOnRow(typeof(Entities.UserRow), CheckNames = true)]
     public class UserForm
     {
+        [Required]
         public String Username { get; set; }
+        [Required]
         public String DisplayName { get; set; }
+        [Required]
         public String Units { get; set; }
         
         public short subBarrioId { get; set; }
-        [EmailEditor]
+        [EmailEditor,Required]
         public String Email { get; set; }
         public String UserImage { get; set; }
         public String Phone { get; set; }

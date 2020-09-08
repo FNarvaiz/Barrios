@@ -76,7 +76,8 @@ namespace Barrios.Contenidos.Endpoints
                     {
                         if (mails.Count > 90)
                             Sending(timeLineObj, mails);
-                        mails.Add(new MailAddress(aux.Email, aux.DisplayName));
+                        if(!aux.Email.IsEmptyOrNull())
+                            mails.Add(new MailAddress(aux.Email, aux.DisplayName));
                         if (!aux.Email_Others.IsEmptyOrNull())
                         {
                             foreach (var mailOther in aux.Email_Others.Split('\n'))

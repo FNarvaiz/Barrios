@@ -30,6 +30,7 @@ namespace Barrios.Default.Endpoints
     [ConnectionKey(typeof(MyRow)), ServiceAuthorize(typeof(MyRow))]
     public class ReservasController : ServiceEndpoint
     {
+
         private void IdTurnsEspecialToIdType(MyRow obj)
         {
             using (var connection = Utils.GetConnection())
@@ -202,6 +203,7 @@ namespace Barrios.Default.Endpoints
            
         }
         [HttpPost]
+        [ServiceAuthorize("User:RealizarReservas")]
         public string bookingsTake(IDbConnection connection, BookingTakeRequest request)
         {
 
@@ -237,6 +239,7 @@ namespace Barrios.Default.Endpoints
             return true;
         }
         [HttpPost]
+        [ServiceAuthorize("User:RealizarReservas")]
         public string SendRequest(IDbConnection connection, BookingTakeRequest request)
         {
             DateTime date = DateTime.ParseExact(request.bookingDate, "yyyyMMdd",

@@ -17,6 +17,7 @@
         ClientIdList?: number[];
         NeigborhoodList?: number[];
         BarrioId?: number;
+        AmountForDays?: number;
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
         NeedComment?: boolean;
@@ -54,6 +55,7 @@
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",
             BarrioId = "BarrioId",
+            AmountForDays = "AmountForDays",
             TypeList = "TypeList",
             SpecialTurnList = "SpecialTurnList",
             NeedComment = "NeedComment",

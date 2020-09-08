@@ -1037,8 +1037,8 @@ declare namespace Barrios.Contenidos {
         Nombre: Serenity.StringEditor;
         IdCategoria: Serenity.LookupEditor;
         PeriodoFecha: Serenity.DateEditor;
-        ContenidoTexto: Serenity.StringEditor;
         ArchivoFilename: Serenity.ImageUploadEditor;
+        ContenidoTexto: Serenity.HtmlContentEditor;
         Mostrar: Serenity.BooleanEditor;
         Aprobado: Serenity.BooleanEditor;
     }
@@ -1416,6 +1416,7 @@ declare namespace Barrios.Default {
         Cierre: Serenity.LookupEditor;
         Resolucion: Serenity.LookupEditor;
         AmountToReserve: Serenity.IntegerEditor;
+        AmountForDays: Serenity.IntegerEditor;
         NeedComment: Serenity.BooleanEditor;
         Desde: Serenity.IntegerEditor;
         Hasta: Serenity.IntegerEditor;
@@ -1461,6 +1462,7 @@ declare namespace Barrios.Default {
         ClientIdList?: number[];
         NeigborhoodList?: number[];
         BarrioId?: number;
+        AmountForDays?: number;
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
         NeedComment?: boolean;
@@ -1496,6 +1498,7 @@ declare namespace Barrios.Default {
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",
             BarrioId = "BarrioId",
+            AmountForDays = "AmountForDays",
             TypeList = "TypeList",
             SpecialTurnList = "SpecialTurnList",
             NeedComment = "NeedComment",
