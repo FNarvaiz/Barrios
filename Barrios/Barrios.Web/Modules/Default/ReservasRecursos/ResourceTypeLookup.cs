@@ -26,7 +26,8 @@ namespace Barrios.Modules.Barrios.Barrio
             new GenericComboBoxRow(3,"A pedido por mail"),
             new GenericComboBoxRow(4,"Automatica conciderando reservas de destape"),
             new GenericComboBoxRow(5,"Automatica conciderando reservas de Futboll Sintetico"),
-            new GenericComboBoxRow(6,"Automatica conciderando reservas de Playon")
+            new GenericComboBoxRow(6,"Automatica conciderando reservas de Playon"),
+            new GenericComboBoxRow(7,"Automatica conciderando reservas de Gimnasio")
             };
         }
 

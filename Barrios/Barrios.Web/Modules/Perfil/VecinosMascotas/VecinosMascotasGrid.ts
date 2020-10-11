@@ -3,6 +3,7 @@ namespace Barrios.Perfil {
 
     import fld = VecinosMascotasRow.Fields;
     @Serenity.Decorators.registerClass()
+    
     export class VecinosMascotasGrid extends Serenity.EntityGrid<VecinosMascotasRow, any> {
         protected getColumnsKey() { return 'Perfil.VecinosMascotas'; }
         protected getDialogType() { return VecinosMascotasDialog; }
@@ -15,8 +16,9 @@ namespace Barrios.Perfil {
 
             this.userId = userId;
             super(container);
-            if (this.userId != null)
+            if (this.userId != null) {
                 this.element.find(".quick-filters-bar").remove();
+            }
 
 
         }
@@ -32,6 +34,16 @@ namespace Barrios.Perfil {
                 );
             }
             return true;
+        }
+        protected getColumns() {
+            var columns = super.getColumns();
+            
+            if (this.userId == null) {
+                Q.first(columns, x => x.field == fld.UseridUnit).visible = true;
+                Q.first(columns, x => x.field == fld.UseridUsername).visible = true;
+              
+            }
+            return columns;
         }
         protected getButtons() {
             var buttons = super.getButtons();

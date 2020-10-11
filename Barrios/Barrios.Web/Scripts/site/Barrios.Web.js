@@ -5669,10 +5669,12 @@ var Barrios;
                         title: 'Selecctionar',
                         cssClass: 'add-button',
                         onClick: function () {
-                            if (_this.validateForm()) {
+                            if (!Q.isEmptyOrNull(_this.form.IdVecino2.value)) {
                                 _this.vecinoId = _this.form.IdVecino2.value;
                                 _this.dialogClose();
                             }
+                            else
+                                Q.alert("Seleccione el vecino con quien reservará");
                         }
                     }];
             };
@@ -6379,8 +6381,9 @@ var Barrios;
                 var _this = this;
                 _this.userId = userId;
                 _this = _super.call(this, container) || this;
-                if (_this.userId != null)
+                if (_this.userId != null) {
                     _this.element.find(".quick-filters-bar").remove();
+                }
                 return _this;
             }
             VecinosMascotasGrid.prototype.getColumnsKey = function () { return 'Perfil.VecinosMascotas'; };
@@ -6397,6 +6400,14 @@ var Barrios;
                     request.Criteria = Serenity.Criteria.and(request.Criteria, [["Userid" /* Userid */], '=', this.userId]);
                 }
                 return true;
+            };
+            VecinosMascotasGrid.prototype.getColumns = function () {
+                var columns = _super.prototype.getColumns.call(this);
+                if (this.userId == null) {
+                    Q.first(columns, function (x) { return x.field == "UseridUnit" /* UseridUnit */; }).visible = true;
+                    Q.first(columns, function (x) { return x.field == "UseridUsername" /* UseridUsername */; }).visible = true;
+                }
+                return columns;
             };
             VecinosMascotasGrid.prototype.getButtons = function () {
                 var _this = this;
@@ -6861,7 +6872,7 @@ var Barrios;
             MyBookingsGrid.prototype.getColumns = function () {
                 var columns = _super.prototype.getColumns.call(this);
                 // Canequita delete column 
-                columns.splice(1, 0, {
+                columns.splice(5, 0, {
                     field: "DeleteRow",
                     name: "",
                     format: function (ctx) {
@@ -6968,6 +6979,7 @@ var Dashboard;
             if (neighbour) {
                 var dialog = new Barrios.Default.TwoNeighborsDialog(element);
                 dialog.element.on("dialogclose", function () {
+                    console.log(dialog.vecinoId);
                     if (dialog.vecinoId != null)
                         _this.sendBookingsTake(resourceId, date, start, type, dialog.vecinoId, commend);
                 });

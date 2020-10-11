@@ -63,7 +63,7 @@ namespace Barrios.Perfil.Entities
             set { Fields.Userid[this] = value; }
         }
 
-        [DisplayName("Userid Username"), Expression("jUserid.[Username]")]
+        [DisplayName("Vecino"), Expression("jUserid.[Username]")]
         public String UseridUsername
         {
             get { return Fields.UseridUsername[this]; }
@@ -78,7 +78,7 @@ namespace Barrios.Perfil.Entities
         }
 
 
-        [DisplayName("Userid Unit"), Expression("jBarrio.[Units]")]
+        [DisplayName("Unit"), Expression("jBarrio.[Units]")]
         public String UseridUnit
         {
             get { return Fields.UseridUnit[this]; }

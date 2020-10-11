@@ -15,8 +15,13 @@ namespace Barrios.Perfil.Columns
     {
         [EditLink, DisplayName("Db.Shared.RecordId"),Hidden, AlignRight]
         public Int32 Id { get; set; }
+        [Hidden]
+        public String UseridUsername { get; set; }
+        [Hidden]
+        public String UseridUnit { get; set; }
         [EditLink]
         public String Nombre { get; set; }
+
         public Int16 IdTipo { get; set; }
         public String Raza { get; set; }
     }

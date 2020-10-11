@@ -3347,6 +3347,7 @@ declare namespace Barrios.Perfil {
         private userId;
         constructor(container: JQuery, userId?: any);
         protected onViewSubmit(): boolean;
+        protected getColumns(): Slick.Column[];
         protected getButtons(): Serenity.ToolButton[];
     }
 }

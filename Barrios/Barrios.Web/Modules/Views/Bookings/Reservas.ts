@@ -54,6 +54,7 @@ namespace Dashboard {
              if (neighbour) {
                  var dialog = new Barrios.Default.TwoNeighborsDialog(element);
                  dialog.element.on("dialogclose", () => {
+                     console.log(dialog.vecinoId)
                      if (dialog.vecinoId != null)
                          this.sendBookingsTake(resourceId, date, start, type, dialog.vecinoId, commend);
                  });

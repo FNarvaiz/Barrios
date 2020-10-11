@@ -875,6 +875,7 @@
     <Content Include="Modules\Default\Reservas\Mail\BookingEmail.cshtml" />
     <Content Include="Modules\Views\Notices\NoticesIndex.cshtml" />
     <Content Include="Modules\Administration\User\UpdatedPageEmail.cshtml" />
+    <Content Include="Modules\Views\Bookings\MyBookingsIndex.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -2020,6 +2021,7 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20201011_014800_CreateReservasRecurrentes.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200907_163600_UpdateReservasStoreProcedure.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200822_013000_AddDaysInReservasTipos.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200601_214800_UpdateBarrios.cs" />
@@ -2360,6 +2362,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Modules\Contenidos\ProveedoresValoraciones\ProviderView\" />
+    <Folder Include="MyPages\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

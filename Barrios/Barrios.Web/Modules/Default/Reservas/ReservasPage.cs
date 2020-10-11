@@ -13,5 +13,9 @@ namespace Barrios.Default.Pages
         {
             return View("~/Modules/Default/Reservas/ReservasIndex.cshtml");
         }
+        public ActionResult MyBookings()
+        {
+            return View(MVC.Views.Bookings.MyBookingsIndex);
+        }
     }
 }

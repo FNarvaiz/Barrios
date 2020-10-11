@@ -32,10 +32,10 @@ namespace Barrios.Membership.Pages
         {
             return this.UseConnection("Default", connection =>
             {
-                try
-                {
-                    request.CheckNotNull();
-
+            try
+            {
+                request.CheckNotNull();
+                string unit;
                 Check.NotNullOrWhiteSpace(request.Email, "email");
                 Check.NotNullOrEmpty(request.Password, "password");
                 UserRepository.ValidatePassword(request.Email, request.Password, true);
@@ -55,7 +55,7 @@ namespace Barrios.Membership.Pages
                     var displayName = request.DisplayName.TrimToEmpty();
                     var email = request.Email;
                     var username = request.Email;
-                    var unit = request.Unit;
+                    unit = request.Unit;
 
                     var fld = UserRow.Fields;
                     userId = (int)connection.InsertAndGetID(new UserRow
@@ -95,20 +95,20 @@ namespace Barrios.Membership.Pages
                     emailModel.DisplayName = displayName;
                     emailModel.ActivateLink = activateLink;
 
-                    
+
                     var emailBody = TemplateHelper.RenderTemplate(MVC.Views.Membership.Account.SignUp.AccountActivateEmail, emailModel);
 
                     if (!CurrentNeigborhood.Get().Emails.IsNullOrEmpty())
                         email = email + "," + CurrentNeigborhood.Get().Emails.Replace('\n', ',');
 
-                    Common.EmailHelper.Send("Activa tu cuenta", emailBody, email+"," + CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+                    Common.EmailHelper.Send("Activa tu cuenta", emailBody, email + "," + CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
 
                     uow.Commit();
                     UserRetrieveService.RemoveCachedUser(userId, username);
 
 
                 }
-                Utils.InsertOrUpdateString( "insert into [Users-Barrios] (userid,BarrioId) values (" + userId + "," + CurrentNeigborhood.Get().Id.Value + ")");
+                Utils.InsertOrUpdateString($"insert into [Users-Barrios] (userid,BarrioId,Units) values ({userId},{CurrentNeigborhood.Get().Id.Value},'{unit}')");
                 return new ServiceResponse();
                 }
                 catch (ValidationError)

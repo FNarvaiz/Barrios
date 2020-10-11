@@ -41,6 +41,7 @@ namespace MVC
         public static class Bookings
         {
             public const string Booking = "~/Modules/Views/Bookings/Booking.cshtml";
+            public const string MyBookingsIndex = "~/Modules/Views/Bookings/MyBookingsIndex.cshtml";
         }
 
         public static class Commissions

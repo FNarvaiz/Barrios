@@ -58,10 +58,19 @@ namespace Barrios.Contenidos.Endpoints
         }
         private void Sending(MyRow timeLineObj, List<MailAddress> mails)
         {
-            Common.EmailHelper.Send(timeLineObj.Nombre, timeLineObj.ContenidoTexto, "",
-                                CurrentNeigborhood.Get().LargeDisplayName,
-                                CurrentNeigborhood.Get().Mail, mails, timeLineObj.ArchivoFilename);
-            mails.Clear();
+            try { 
+                Common.EmailHelper.Send(timeLineObj.Nombre, timeLineObj.ContenidoTexto, "",
+                                    CurrentNeigborhood.Get().LargeDisplayName,
+                                    CurrentNeigborhood.Get().Mail, mails, timeLineObj.ArchivoFilename);
+                mails.Clear();
+               
+            }
+            catch(Exception)
+            {
+                string _mails = "";
+                mails.ForEach((x) => { _mails += x.Address+","; } );
+                throw new Exception("Erro al enviar mail. Mails destinos: " + _mails);
+            }
         }
         private string Send(List<UserRow> users, MyRow timeLineObj)
         {
@@ -87,6 +96,7 @@ namespace Barrios.Contenidos.Endpoints
                     }
                     if(mails.Count>0)
                         Sending(timeLineObj, mails);
+
                     return "Se han enviado a los " + users.Count;
                 }
                 else
