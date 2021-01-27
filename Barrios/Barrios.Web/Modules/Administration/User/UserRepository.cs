@@ -44,7 +44,11 @@ namespace Barrios.Administration.Repositories
         {
             return new MySaveHandler().Process(uow, request, SaveRequestType.Update);
         }
-
+        public bool IsOnlyUserInThisNeigbordhoob(int userId)
+        {
+            using (var conn = Utils.GetConnection())
+                return conn.Query<int>($" SELECT  count(*) FROM [Users-Barrios] where userid={userId}").Single()==1;            
+        }
         public DeleteResponse Delete(IUnitOfWork uow, DeleteRequest request)
         {
           /*  new SqlDelete(UsersBarriosRow.Fields.TableName)
@@ -60,14 +64,17 @@ namespace Barrios.Administration.Repositories
                 UsernameBD = GetMail(username, id);
             return (UsernameBD != "");
         }
-
+        internal void DeleteOnlyThisNeigborhood(DeleteRequest request)
+        {
+            Utils.InsertOrUpdateString($"delete [users-barrios] where userid={request.EntityId} and barrioId={CurrentNeigborhood.Get().Id}");
+        }
         internal string GetMail(string username, short? id)
         {
             DataTable DT = Utils.GetRequestString(" SELECT  U.Username " +
               "  FROM [Users] U " +
               "  inner join [Users-Barrios] UB " +
               "  on UB.UserId = U.UserId " +
-              "  where UB.BarrioId = "+id +" and (Username = "+ username.ToSql() + " or DisplayName = " + username.ToSql() + " or Email = " + username.ToSql() + ")");
+              $"  where UB.BarrioId = {id} and (UB.owner=1 OR (UB.Limitdate is not null and UB.Limitdate>GETDATE())) and (Username = {username.ToSql()} or DisplayName = {username.ToSql()} or Email = {username.ToSql()})");
             if (DT.Rows.Count == 0)
                 return "";
             return Convert.ToString(DT.Rows[0][0]);
@@ -82,9 +89,10 @@ namespace Barrios.Administration.Repositories
 
             return new MyRetrieveHandler().Process(connection, request);
         }
-        public UsersBarriosRow GetUserBarrios( int userId,int barrioId)
+        public UsersBarriosRow GetUserBarrios(int userId, int barrioId)
         {
-            return Utils.GetConnection().Query<UsersBarriosRow>($" SELECT  * FROM [Users-Barrios] where BarrioId = {barrioId} and userid={userId}").Single();
+            using (var conn = Utils.GetConnection())
+                return conn.Query<UsersBarriosRow>($" SELECT  * FROM [Users-Barrios] where BarrioId = {barrioId} and userid={userId}").Single();
         }
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
@@ -267,6 +275,8 @@ namespace Barrios.Administration.Repositories
                 var sqlUpdate = new SqlUpdate(UsersBarriosRow.Fields.TableName)
                     .Set("Note", Row.Note)
                     .Set("Units", Row.Units)
+                    .Set("LimitDate", Row.LimitDate)
+                    .Set("Owner", Row.Owner)
                     .Where(UsersBarriosRow.Fields.UserId == Row.UserId.Value && UsersBarriosRow.Fields.BarrioId == CurrentNeigborhood.Get().Id.Value);
                 //if (Row.Note == null)
                 //    sqlUpdate.SetNull(Row.Note);

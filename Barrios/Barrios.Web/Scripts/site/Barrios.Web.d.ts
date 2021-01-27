@@ -340,7 +340,7 @@ declare namespace Barrios.Administration {
         Password: Serenity.PasswordEditor;
         PasswordConfirm: Serenity.PasswordEditor;
         Email_Others: Serenity.TextAreaEditor;
-        TenantLimitDate: Serenity.DateEditor;
+        LimitDate: Serenity.DateEditor;
         Owner: Serenity.BooleanEditor;
         IsActive: Serenity.BooleanEditor;
         Note: Serenity.TextAreaEditor;
@@ -464,7 +464,7 @@ declare namespace Barrios.Administration {
         Email?: string;
         Email_Others?: string;
         Phone?: string;
-        TenantLimitDate?: string;
+        LimitDate?: string;
         Owner?: boolean;
         AppHoldId?: number;
         UserImage?: string;
@@ -500,7 +500,7 @@ declare namespace Barrios.Administration {
             Email = "Email",
             Email_Others = "Email_Others",
             Phone = "Phone",
-            TenantLimitDate = "TenantLimitDate",
+            LimitDate = "LimitDate",
             Owner = "Owner",
             AppHoldId = "AppHoldId",
             UserImage = "UserImage",
@@ -549,6 +549,8 @@ declare namespace Barrios.Administration {
         BarrioId?: number;
         Units?: string;
         Note?: string;
+        LimitDate?: string;
+        Owner?: boolean;
         UserUsername?: string;
         BarrioNombre?: string;
     }
@@ -560,6 +562,8 @@ declare namespace Barrios.Administration {
             BarrioId = "BarrioId",
             Units = "Units",
             Note = "Note",
+            LimitDate = "LimitDate",
+            Owner = "Owner",
             UserUsername = "UserUsername",
             BarrioNombre = "BarrioNombre"
         }
@@ -1408,6 +1412,68 @@ declare namespace Barrios.Default {
 declare namespace Barrios.Default {
 }
 declare namespace Barrios.Default {
+    interface ReservasRecurrentesForm {
+        Observaciones: Serenity.StringEditor;
+        Inicio: Serenity.LookupEditor;
+        Duracion: Serenity.TimeEditor;
+        Dias: Serenity.StringEditor;
+        Lunes: Serenity.BooleanEditor;
+        Martes: Serenity.BooleanEditor;
+        Miercoles: Serenity.BooleanEditor;
+        Jueves: Serenity.BooleanEditor;
+        Viernes: Serenity.BooleanEditor;
+        Sabado: Serenity.BooleanEditor;
+        Domingo: Serenity.BooleanEditor;
+        Feriados: Serenity.BooleanEditor;
+    }
+    class ReservasRecurrentesForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Default {
+    interface ReservasRecurrentesRow {
+        Id?: number;
+        Dias?: string;
+        Observaciones?: string;
+        ResourceId?: number;
+        Inicio?: number;
+        Duracion?: number;
+        Lunes?: boolean;
+        Martes?: boolean;
+        Miercoles?: boolean;
+        Jueves?: boolean;
+        Viernes?: boolean;
+        Sabado?: boolean;
+        Domingo?: boolean;
+        Feriados?: boolean;
+    }
+    namespace ReservasRecurrentesRow {
+        const idProperty = "Id";
+        const nameProperty = "Dias";
+        const localTextPrefix = "Default.ReservasRecurrentes";
+        const enum Fields {
+            Id = "Id",
+            Dias = "Dias",
+            Observaciones = "Observaciones",
+            ResourceId = "ResourceId",
+            Inicio = "Inicio",
+            Duracion = "Duracion",
+            Lunes = "Lunes",
+            Martes = "Martes",
+            Miercoles = "Miercoles",
+            Jueves = "Jueves",
+            Viernes = "Viernes",
+            Sabado = "Sabado",
+            Domingo = "Domingo",
+            Feriados = "Feriados"
+        }
+    }
+}
+declare namespace Barrios.Default {
+}
+declare namespace Barrios.Default {
     interface ReservasRecursosForm {
         Nombre: Serenity.StringEditor;
         AppHoldId: Serenity.IntegerEditor;
@@ -1433,6 +1499,7 @@ declare namespace Barrios.Default {
         Sabado: Serenity.BooleanEditor;
         Domingo: Serenity.BooleanEditor;
         Feriados: Serenity.BooleanEditor;
+        BookingRecurringList: ReservasRecurrentesGrid;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
         NeigborhoodList: Serenity.CheckLookupEditor;
         Regulation: Serenity.ImageUploadEditor;
@@ -1465,6 +1532,7 @@ declare namespace Barrios.Default {
         AmountForDays?: number;
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
+        BookingRecurringList?: ReservasRecurrentesRow[];
         NeedComment?: boolean;
         Dias?: string;
         Lunes?: boolean;
@@ -1501,6 +1569,7 @@ declare namespace Barrios.Default {
             AmountForDays = "AmountForDays",
             TypeList = "TypeList",
             SpecialTurnList = "SpecialTurnList",
+            BookingRecurringList = "BookingRecurringList",
             NeedComment = "NeedComment",
             Dias = "Dias",
             Lunes = "Lunes",
@@ -2239,6 +2308,7 @@ declare namespace Barrios.Perfil {
         Userid?: number;
         BarrioId?: number;
         UseridUsername?: string;
+        UseridUnit?: string;
     }
     namespace VecinosVisitantesFrecuentesRow {
         const idProperty = "Id";
@@ -2252,7 +2322,8 @@ declare namespace Barrios.Perfil {
             Tipo = "Tipo",
             Userid = "Userid",
             BarrioId = "BarrioId",
-            UseridUsername = "UseridUsername"
+            UseridUsername = "UseridUsername",
+            UseridUnit = "UseridUnit"
         }
     }
 }
@@ -3161,6 +3232,24 @@ declare namespace Barrios.Default {
             cssClass: string;
             onClick: () => void;
         }[];
+    }
+}
+declare namespace Barrios.Default {
+    class ReservasRecurrentesDialog extends Common.GridEditorDialog<ReservasRecurrentesRow> {
+        protected getFormKey(): string;
+        protected getLocalTextPrefix(): string;
+        private days;
+        protected form: ReservasRecurrentesForm;
+        constructor(container: JQuery);
+        protected afterLoadEntity(): void;
+        protected validateBeforeSave(): boolean;
+    }
+}
+declare namespace Barrios.Default {
+    class ReservasRecurrentesGrid extends Common.GridEditorBase<ReservasRecurrentesRow> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof ReservasRecurrentesDialog;
+        constructor(container: JQuery);
     }
 }
 declare namespace Barrios.Modules.Default {

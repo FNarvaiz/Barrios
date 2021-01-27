@@ -164,6 +164,7 @@ namespace MVC
                 public static class SignUp
                 {
                     public const string AccountActivateEmail = "~/Modules/Membership/Account/SignUp/AccountActivateEmail.cshtml";
+                    public const string AccountOtherNeigbordhoodEmail = "~/Modules/Membership/Account/SignUp/AccountOtherNeigbordhoodEmail.cshtml";
                     public const string AccountSignUp = "~/Modules/Membership/Account/SignUp/AccountSignUp.cshtml";
                     public const string AccountSignUp_AdminLTE = "~/Modules/Membership/Account/SignUp/AccountSignUp.AdminLTE.cshtml";
                     public const string NewUserActivatedEmail = "~/Modules/Membership/Account/SignUp/NewUserActivatedEmail.cshtml";
@@ -200,6 +201,10 @@ namespace MVC
 
             public static class VecinosVisitantesFrecuentes
             {
+                public static class Reports
+                {
+                    public const string VisitReport = "~/Modules/Perfil/VecinosVisitantesFrecuentes/Reports/VisitReport.cshtml";
+                }
                 public const string VecinosVisitantesFrecuentesIndex = "~/Modules/Perfil/VecinosVisitantesFrecuentes/VecinosVisitantesFrecuentesIndex.cshtml";
             }
             public const string VisitantesFrecuentes = "~/Modules/Views/Perfil/VisitantesFrecuentes.cshtml";

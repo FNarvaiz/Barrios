@@ -206,6 +206,7 @@ namespace Barrios.Default.Endpoints
         [ServiceAuthorize("User:RealizarReservas")]
         public string bookingsTake(IDbConnection connection, BookingTakeRequest request)
         {
+            
             new MyRepository().BookingTake(connection,request);
             SendBookingTakeMail(request);
             using (var connection2 = Utils.GetConnection())

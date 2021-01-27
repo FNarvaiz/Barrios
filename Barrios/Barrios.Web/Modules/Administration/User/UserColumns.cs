@@ -9,8 +9,10 @@ namespace Barrios.Administration.Columns
     [BasedOnRow(typeof(Entities.UserRow), CheckNames = true)]
     public class UserColumns
     {
-        [EditLink, AlignRight, Width(55)]
+        [EditLink,Hidden, AlignRight, Width(55)]
         public String UserId { get; set; }
+        public bool Owner { get; set; }
+        public DateTime LimitDate { get; set; }
         [EditLink, Width(150)]
         public String Username { get; set; }
         [Width(70)]
@@ -28,11 +30,9 @@ namespace Barrios.Administration.Columns
         [DisplayName("Registrado")]
         public DateTime InsertDate { get; set; }
         public String Roles { get; set; }
-        public bool Owner { get; set; }
         public bool IsActive { get; set; }
         [Hidden]
         public string Note { get; set; }
-        public DateTime TenantLimitDate { get; set; }
         [Hidden]
         public int AppHoldId;
     }

@@ -10,7 +10,7 @@
         Password: Serenity.PasswordEditor;
         PasswordConfirm: Serenity.PasswordEditor;
         Email_Others: Serenity.TextAreaEditor;
-        TenantLimitDate: Serenity.DateEditor;
+        LimitDate: Serenity.DateEditor;
         Owner: Serenity.BooleanEditor;
         IsActive: Serenity.BooleanEditor;
         Note: Serenity.TextAreaEditor;
@@ -50,7 +50,7 @@
                     'Password', w4,
                     'PasswordConfirm', w4,
                     'Email_Others', w5,
-                    'TenantLimitDate', w6,
+                    'LimitDate', w6,
                     'Owner', w7,
                     'IsActive', w7,
                     'Note', w5,

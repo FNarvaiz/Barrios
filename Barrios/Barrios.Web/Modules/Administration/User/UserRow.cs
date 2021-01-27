@@ -27,11 +27,11 @@ namespace Barrios.Administration.Entities
             get { return Fields.BarrioId[this]; }
             set { Fields.BarrioId[this] = value; }
         }
-        [DisplayName("Fecha limite de alquiler")]
-        public DateTime? TenantLimitDate
+        [DisplayName("Fecha limite de alquiler"), Expression("jBarrio.LimitDate")]
+        public DateTime? LimitDate
         {
-            get { return Fields.TenantLimitDate[this]; }
-            set { Fields.TenantLimitDate[this] = value; }
+            get { return Fields.LimitDate[this]; }
+            set { Fields.LimitDate[this] = value; }
         }
         
         [DisplayName("Username"), Size(100), NotNull, QuickSearch, LookupInclude]
@@ -110,7 +110,7 @@ namespace Barrios.Administration.Entities
             get { return Fields.IsActive[this]; }
             set { Fields.IsActive[this] = value; }
         }
-        [DisplayName("Propiertario")]
+        [DisplayName("Propiertario"), Expression("jBarrio.Owner")]
         public Boolean? Owner
         {
             get { return Fields.Owner[this]; }
@@ -202,7 +202,7 @@ namespace Barrios.Administration.Entities
             public StringField Email;
             public StringField Email_Others;
             public StringField Phone;
-            public DateTimeField TenantLimitDate;
+            public DateTimeField LimitDate;
             public BooleanField Owner;
 
             public Int32Field AppHoldId;

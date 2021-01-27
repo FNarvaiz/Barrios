@@ -32,84 +32,110 @@ namespace Barrios.Membership.Pages
         {
             return this.UseConnection("Default", connection =>
             {
-            try
-            {
-                request.CheckNotNull();
-                string unit;
-                Check.NotNullOrWhiteSpace(request.Email, "email");
-                Check.NotNullOrEmpty(request.Password, "password");
-                UserRepository.ValidatePassword(request.Email, request.Password, true);
-                Check.NotNullOrWhiteSpace(request.DisplayName, "displayName");
-
-                if (connection.Exists<UserRow>(
-                        UserRow.Fields.Username == request.Email |
-                        UserRow.Fields.Email == request.Email))
+                try
                 {
-                    throw new ValidationError("EmailInUse", Texts.Validation.EmailInUse);
-                }
-                var userId = 0;
-                using (var uow = new UnitOfWork(connection))
-                {
-                    string salt = null;
-                    var hash = UserRepository.GenerateHash(request.Password, ref salt);
-                    var displayName = request.DisplayName.TrimToEmpty();
+                    request.CheckNotNull();
+                    string unit = request.Unit;
+                    Check.NotNullOrWhiteSpace(request.Email, "email");
+                    Check.NotNullOrEmpty(request.Password, "password");
+                    UserRepository.ValidatePassword(request.Email, request.Password, true);
+                    Check.NotNullOrWhiteSpace(request.DisplayName, "displayName");
+                    bool owner = true;
                     var email = request.Email;
-                    var username = request.Email;
-                    unit = request.Unit;
-
-                    var fld = UserRow.Fields;
-                    userId = (int)connection.InsertAndGetID(new UserRow
+                   
+                    if (connection.Exists<UserRow>(
+                            UserRow.Fields.Username == request.Email |
+                            UserRow.Fields.Email == request.Email) )
                     {
-                        Username = username,
-                        Source = "sign",
-                        DisplayName = displayName,
-                        Email = email,
-                        PasswordHash = hash,
-                        PasswordSalt = salt,
-                        IsActive = 0,
-                        InsertDate = DateTime.Now,
-                        InsertUserId = 1,
-                        LastDirectoryUpdate = DateTime.Now,
-                    });
+                        UserRow obj = connection.First<UserRow>(
+                                   UserRow.Fields.Username == request.Email |
+                                   UserRow.Fields.Email == request.Email);
+                        if (connection.Exists<UserRow>((
+                            UserRow.Fields.Username == request.Email |
+                            UserRow.Fields.Email == request.Email) & UserRow.Fields.BarrioId == (int)CurrentNeigborhood.Get().Id))
+                        {
+                            throw new ValidationError("EmailInUse", Texts.Validation.EmailInUse);
+                        }
+                        else
+                        {
+                            owner = false;
+                            Utils.InsertOrUpdateString($"insert into [Users-Barrios] (userid,BarrioId,Units,Owner) values ({obj.UserId},{CurrentNeigborhood.Get().Id.Value},'{unit}',0)");
+                            var emailModel = new ActivateEmailModel();
+                            emailModel.DisplayName = obj.DisplayName;
+                        
+                            var emailBody = TemplateHelper.RenderTemplate(MVC.Views.Membership.Account.SignUp.AccountOtherNeigbordhoodEmail, emailModel);
 
-                    byte[] bytes;
-                    using (var ms = new MemoryStream())
-                    using (var bw = new BinaryWriter(ms))
-                    {
-                        bw.Write(DateTime.UtcNow.AddHours(3).ToBinary());
-                        bw.Write(userId);
-                        bw.Flush();
-                        bytes = ms.ToArray();
+                            if (!CurrentNeigborhood.Get().Emails.IsNullOrEmpty())
+                                email = email + "," + CurrentNeigborhood.Get().Emails.Replace('\n', ',');
+
+                            Common.EmailHelper.Send("Registro de tu cuenta", emailBody, email + "," + CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+
+                        }
                     }
+                    var userId = 0;
+                    if (owner) { 
+                        using (var uow = new UnitOfWork(connection))
+                        {
+                            string salt = null;
+                            var hash = UserRepository.GenerateHash(request.Password, ref salt);
+                            var displayName = request.DisplayName.TrimToEmpty();
+                            var username = request.Email;
 
-                    var token = Convert.ToBase64String(MachineKey.Protect(bytes, "Activate"));
+                            var fld = UserRow.Fields;
+                            userId = (int)connection.InsertAndGetID(new UserRow
+                            {
+                                Username = username,
+                                Source = "sign",
+                                DisplayName = displayName,
+                                Email = email,
+                                PasswordHash = hash,
+                                PasswordSalt = salt,
+                                IsActive = 0,
+                                InsertDate = DateTime.Now,
+                                InsertUserId = 1,
+                                LastDirectoryUpdate = DateTime.Now,
+                            });
 
-                    var externalUrl = Config.Get<EnvironmentSettings>().SiteExternalUrl ??
-                        Request.Url.GetLeftPart(UriPartial.Authority) + VirtualPathUtility.ToAbsolute("~/");
+                            byte[] bytes;
+                            using (var ms = new MemoryStream())
+                            using (var bw = new BinaryWriter(ms))
+                            {
+                                bw.Write(DateTime.UtcNow.AddHours(3).ToBinary());
+                                bw.Write(userId);
+                                bw.Flush();
+                                bytes = ms.ToArray();
+                            }
 
-                    var activateLink = UriHelper.Combine(externalUrl, "Account/Activate?t=");
-                    activateLink = activateLink + Uri.EscapeDataString(token);
+                            var token = Convert.ToBase64String(MachineKey.Protect(bytes, "Activate"));
 
-                    var emailModel = new ActivateEmailModel();
-                    emailModel.Username = username;
-                    emailModel.DisplayName = displayName;
-                    emailModel.ActivateLink = activateLink;
+                            var externalUrl = Config.Get<EnvironmentSettings>().SiteExternalUrl ??
+                                Request.Url.GetLeftPart(UriPartial.Authority) + VirtualPathUtility.ToAbsolute("~/");
 
+                            var activateLink = UriHelper.Combine(externalUrl, "Account/Activate?t=");
+                            activateLink = activateLink + Uri.EscapeDataString(token);
 
-                    var emailBody = TemplateHelper.RenderTemplate(MVC.Views.Membership.Account.SignUp.AccountActivateEmail, emailModel);
-
-                    if (!CurrentNeigborhood.Get().Emails.IsNullOrEmpty())
-                        email = email + "," + CurrentNeigborhood.Get().Emails.Replace('\n', ',');
-
-                    Common.EmailHelper.Send("Activa tu cuenta", emailBody, email + "," + CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
-
-                    uow.Commit();
-                    UserRetrieveService.RemoveCachedUser(userId, username);
+                            var emailModel = new ActivateEmailModel();
+                            emailModel.Username = username;
+                            emailModel.DisplayName = displayName;
+                            emailModel.ActivateLink = activateLink;
 
 
-                }
-                Utils.InsertOrUpdateString($"insert into [Users-Barrios] (userid,BarrioId,Units) values ({userId},{CurrentNeigborhood.Get().Id.Value},'{unit}')");
-                return new ServiceResponse();
+                            var emailBody = TemplateHelper.RenderTemplate(MVC.Views.Membership.Account.SignUp.AccountActivateEmail, emailModel);
+
+                            if (!CurrentNeigborhood.Get().Emails.IsNullOrEmpty())
+                                email = email + "," + CurrentNeigborhood.Get().Emails.Replace('\n', ',');
+
+                            Common.EmailHelper.Send("Activa tu cuenta", emailBody, email + "," + CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+
+                            uow.Commit();
+                            UserRetrieveService.RemoveCachedUser(userId, username);
+
+
+                        }
+                
+                        Utils.InsertOrUpdateString($"insert into [Users-Barrios] (userid,BarrioId,Units) values ({userId},{CurrentNeigborhood.Get().Id.Value},'{unit}')");
+                    }
+                    return new ServiceResponse();
                 }
                 catch (ValidationError)
                 {

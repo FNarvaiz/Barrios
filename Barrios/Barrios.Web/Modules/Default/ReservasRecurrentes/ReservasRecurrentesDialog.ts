@@ -2,15 +2,12 @@
 namespace Barrios.Default {
 
     @Serenity.Decorators.registerClass()
-    export class ReservasRecursosDialog extends Serenity.EntityDialog<ReservasRecursosRow, any> {
-        protected getFormKey() { return ReservasRecursosForm.formKey; }
-        protected getIdProperty() { return ReservasRecursosRow.idProperty; }
-        protected getLocalTextPrefix() { return ReservasRecursosRow.localTextPrefix; }
-        protected getNameProperty() { return ReservasRecursosRow.nameProperty; }
-        protected getService() { return ReservasRecursosService.baseUrl; }
+    export class ReservasRecurrentesDialog extends Common.GridEditorDialog<ReservasRecurrentesRow> {
+        protected getFormKey() { return ReservasRecurrentesForm.formKey; }
+        protected getLocalTextPrefix() { return ReservasRecurrentesRow.localTextPrefix; }
 
-        protected form = new ReservasRecursosForm(this.idPrefix);
         private days = [];
+        protected form = new ReservasRecurrentesForm(this.idPrefix);
         constructor(container: JQuery) {
             super(container);
             this.days.push(this.form.Domingo);
@@ -34,19 +31,12 @@ namespace Barrios.Default {
         }
         protected validateBeforeSave(): boolean {
             this.form.Dias.value = "";
-            console.log(this.days);
             for (var x = 0; x < this.days.length; x++) {
                 if (this.days[x].value == true)
                     this.form.Dias.value = this.form.Dias.value + x.toString();
             }
             return super.validateBeforeSave();
 
-        }
-        
-        public dialogOpen() {
-            this.element.addClass("s-Default-ReservasRecursosDialog");
-            super.dialogOpen(true);
-           
         }
     }
 }

@@ -71,6 +71,13 @@ namespace Barrios.Perfil.Entities
             get { return Fields.BarrioId[this]; }
             set { Fields.BarrioId[this] = value; }
         }
+        [DisplayName("Unit"), Expression("jBarrio.[Units]")]
+        public String UseridUnit
+        {
+            get { return Fields.UseridUnit[this]; }
+            set { Fields.UseridUnit[this] = value; }
+        }
+
 
         IIdField IIdRow.IdField
         {
@@ -100,6 +107,7 @@ namespace Barrios.Perfil.Entities
             public Int32Field BarrioId;
 
             public StringField UseridUsername;
+            public StringField UseridUnit;
         }
     }
 }

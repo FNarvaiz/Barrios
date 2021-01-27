@@ -54,6 +54,18 @@ namespace Barrios.Administration.Entities
             get { return Fields.Note[this]; }
             set { Fields.Note[this] = value; }
         }
+        [DisplayName("Fecha limite de alquiler")]
+        public DateTime? LimitDate
+        {
+            get { return Fields.LimitDate[this]; }
+            set { Fields.LimitDate[this] = value; }
+        }
+        [DisplayName("Propiertario")]
+        public Boolean? Owner
+        {
+            get { return Fields.Owner[this]; }
+            set { Fields.Owner[this] = value; }
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.UserId; }
@@ -72,7 +84,8 @@ namespace Barrios.Administration.Entities
             public Int32Field BarrioId;
             public StringField Units;
             public StringField Note;
-
+            public DateTimeField LimitDate;
+            public BooleanField Owner;
             public StringField UserUsername;
 
             public StringField BarrioNombre;

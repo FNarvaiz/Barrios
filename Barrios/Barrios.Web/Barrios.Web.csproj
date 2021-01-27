@@ -592,6 +592,9 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Default.NeedCommendForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasRecurrentesColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Modules.Common.ImportFile.ImportFileRequest.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
@@ -876,6 +879,8 @@
     <Content Include="Modules\Views\Notices\NoticesIndex.cshtml" />
     <Content Include="Modules\Administration\User\UpdatedPageEmail.cshtml" />
     <Content Include="Modules\Views\Bookings\MyBookingsIndex.cshtml" />
+    <Content Include="Modules\Membership\Account\SignUp\AccountOtherNeigbordhoodEmail.cshtml" />
+    <Content Include="Modules\Perfil\VecinosVisitantesFrecuentes\Reports\VisitReport.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1986,6 +1991,14 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Administration.NotesForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasRecurrentesRow.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesDialog.ts" />
+    <TypeScriptCompile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesGrid.ts" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasRecurrentesForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -2006,6 +2019,9 @@
     <Compile Include="Imports\ClientTypes\Contenidos.ComisionesIntegrantesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ClientTypes\Default.ReservasRecurrentesGridAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
     <Compile Include="Imports\ClientTypes\Default.ReservasTiposGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
@@ -2021,6 +2037,8 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20201027_221200_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20201020_001500_UpdateUsersBarrios.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20201011_014800_CreateReservasRecurrentes.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200907_163600_UpdateReservasStoreProcedure.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200822_013000_AddDaysInReservasTipos.cs" />
@@ -2245,6 +2263,7 @@
     <Compile Include="Modules\Common\Helpers\GetNextNumberRequest.cs" />
     <Compile Include="Modules\Perfil\VecinosMascotas\PetTypeLookup.cs" />
     <Compile Include="Modules\Perfil\VecinosMascotas\Reports\PetReport.cs" />
+    <Compile Include="Modules\Perfil\VecinosVisitantesFrecuentes\Reports\VisitReport.cs" />
     <Compile Include="Modules\Settings\SettingsPermissionKeys.cs" />
     <Compile Include="Modules\Settings\Subbarrios\SubBarriosLookup.cs" />
     <Compile Include="Modules\Texts.cs" />
@@ -2358,6 +2377,10 @@
     <Compile Include="Modules\Administration\Notes\NotesPage.cs" />
     <Compile Include="Modules\Administration\Notes\NotesColumns.cs" />
     <Compile Include="Modules\Administration\Notes\NotesForm.cs" />
+    <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesRow.cs" />
+    <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesRepository.cs" />
+    <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesColumns.cs" />
+    <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

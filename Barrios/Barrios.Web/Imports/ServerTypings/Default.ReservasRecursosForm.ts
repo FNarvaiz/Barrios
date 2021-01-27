@@ -24,6 +24,7 @@
         Sabado: Serenity.BooleanEditor;
         Domingo: Serenity.BooleanEditor;
         Feriados: Serenity.BooleanEditor;
+        BookingRecurringList: ReservasRecurrentesGrid;
         SpecialTurnList: ReservasTurnosEspecialesGrid;
         NeigborhoodList: Serenity.CheckLookupEditor;
         Regulation: Serenity.ImageUploadEditor;
@@ -47,9 +48,10 @@
                 var w4 = s.TextAreaEditor;
                 var w5 = s.HtmlContentEditor;
                 var w6 = ReservasTiposGrid;
-                var w7 = ReservasTurnosEspecialesGrid;
-                var w8 = s.CheckLookupEditor;
-                var w9 = s.ImageUploadEditor;
+                var w7 = ReservasRecurrentesGrid;
+                var w8 = ReservasTurnosEspecialesGrid;
+                var w9 = s.CheckLookupEditor;
+                var w10 = s.ImageUploadEditor;
 
                 Q.initFormType(ReservasRecursosForm, [
                     'Nombre', w0,
@@ -76,9 +78,10 @@
                     'Sabado', w3,
                     'Domingo', w3,
                     'Feriados', w3,
-                    'SpecialTurnList', w7,
-                    'NeigborhoodList', w8,
-                    'Regulation', w9
+                    'BookingRecurringList', w7,
+                    'SpecialTurnList', w8,
+                    'NeigborhoodList', w9,
+                    'Regulation', w10
                 ]);
             }
         }

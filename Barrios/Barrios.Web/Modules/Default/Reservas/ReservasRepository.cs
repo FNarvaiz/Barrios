@@ -51,19 +51,22 @@ namespace Barrios.Default.Repositories
             StringBuilder sql = new StringBuilder();
             sql.Append("SELECT E.FECHA, dbo.HOUR_TO_STR(dbo.MINUTOS_A_HORA(E.INICIO)) AS TURNO, E.INICIO, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, " +
               "CAST(CASE WHEN dbo.FECHA_FIN_TURNO(E.FECHA, E.INICIO, T.DURACION) < GETDATE() THEN 1 ELSE 0 END AS BIT) AS FINALIZADO, " +
-              "CAST(CASE WHEN GETDATE() < dbo.FECHA_INICIO_TURNO(FECHA, INICIO) AND UPPER(E.ESTADO)='DISPONIBLE' THEN 1 ELSE 0 END AS BIT) AS RESERVABLE, " +
+              "CAST(CASE WHEN GETDATE() < dbo.FECHA_INICIO_TURNO(FECHA, E.INICIO) AND UPPER(E.ESTADO)='DISPONIBLE' THEN 1 ELSE 0 END AS BIT) AS RESERVABLE, " +
               $"dbo.ID_TIPO_RESERVA(dbo.ID_RESERVA_TURNO_RESERVA({resourceId}, E.FECHA, E.INICIO, E.DURACION)) AS TIPO_RESERVA, " +
               "CAST(CAST(T.DURACION AS FLOAT) / 60 AS NVARCHAR) + ' hs (' + T.NOMBRE + ')' AS TIPO, T.NOMBRE AS TipoNombre, T.DURACION, " +
               $"dbo.ESTADO_TURNO_RESERVA({resourceId}, E.FECHA, E.INICIO, T.DURACION) AS ESTADO_TURNO, " +
               $"dbo.TURNO_RESERVA_VALIDO({resourceId}, E.INICIO, T.DURACION) AS VALIDO, T.REQUIERE_VECINO_2, " +
-              $"dbo.NOMBRE_TIPO_RESERVA({resourceId}, E.ID_TIPO) AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE,  " +
+              $"case when RRR.id is not null then RRR.OBSERVACIONES ELSE  dbo.NOMBRE_TIPO_RESERVA({resourceId}, E.ID_TIPO)END  AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE,  " +
                $" UB.Units AS UNIDAD_PRIMARIA, UB2.Units AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS({resourceId},{(resource.Hasta - 1)},0) E " +
                "left join HOLIDAYS H on H.Day = E.FECHA " +
+               $"left join RESERVAS_RECURRENTES RRR on RRR.ResourceId = {resourceId}  AND (E.inicio between RRR.inicio and RRR.inicio+RRR.Duracion-1) AND  dbo.PERTENECEALDIA(E.FECHA, RRR.DIAS, H.Day) = 1 " +
                $"JOIN RESERVAS_RECURSOS RR ON RR.ID= {resourceId} AND  dbo.PERTENECEALDIA(E.FECHA, RR.DIAS, H.Day) = 1 " +
                $"JOIN RESERVAS_TIPOS T ON T.ID_RECURSO = RR.ID AND ((T.VIGENTE=1 and ID_VECINO is null) OR E.ID_TIPO=T.ID) " +
+
+
                 $" left join [users-barrios] UB on E.ID_VECINO = UB.userid and UB.barrioId= {CurrentNeigborhood.Get().Id } "+
                 $" left join [users-barrios] UB2 on E.ID_VECINO_2 = UB2.userid and UB2.barrioId= {CurrentNeigborhood.Get().Id } " +
-                " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, UB.Units, UB2.Units " +
+                " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, UB.Units, UB2.Units,RRR.id,RRR.OBSERVACIONES  " +
               "ORDER BY E.INICIO, E.FECHA, T.ID");
             DataTable dt=  Utils.GetRequestString( sql.ToString());
             int count = 0;
@@ -146,6 +149,8 @@ namespace Barrios.Default.Repositories
         }
         public void BookingTake(IDbConnection connection, BookingTakeRequest request)
         {
+            if (request.extraNeighborUnit == Convert.ToInt16(Authorization.UserDefinition.Id))
+                throw new Exception("Tiene que seleccionar otro vecino para realizar una reserva doble.");
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("resourceId", request.resourceId.ToString());
             parameters.Add("turnTypeId", request.turnType.ToString());

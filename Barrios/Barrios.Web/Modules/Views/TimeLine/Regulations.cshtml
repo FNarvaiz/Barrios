@@ -21,7 +21,7 @@
 
                 <th class="cellTitle">@aux.Nombre</th>
                 <td>@aux.PeriodoFecha.Value.ToString("dd/MM/yyyy")</td>
-                <td>@aux.ContenidoTexto</td>
+                <td>@Html.Raw(@aux.ContenidoTexto)</td>
 
                 <td>
                     @if (!aux.ArchivoFilename.IsEmptyOrNull())

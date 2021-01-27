@@ -10,7 +10,7 @@
         Email?: string;
         Email_Others?: string;
         Phone?: string;
-        TenantLimitDate?: string;
+        LimitDate?: string;
         Owner?: boolean;
         AppHoldId?: number;
         UserImage?: string;
@@ -51,7 +51,7 @@
             Email = "Email",
             Email_Others = "Email_Others",
             Phone = "Phone",
-            TenantLimitDate = "TenantLimitDate",
+            LimitDate = "LimitDate",
             Owner = "Owner",
             AppHoldId = "AppHoldId",
             UserImage = "UserImage",

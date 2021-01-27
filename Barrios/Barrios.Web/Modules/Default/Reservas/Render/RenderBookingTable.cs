@@ -10,8 +10,9 @@ namespace Barrios.Modules.Default.Entities
 {
     public class RenderBookingTable: RenderBooking
     {
+
         string buttonRedClass = " btn-danger";
-        string buttonBlueClass = "btn-info";
+        string buttonBlueClass = " btn-blue";
         string buttonGrayClass = "btn-default";
         string buttonGreenClass = "btn-success";
         int idUser = Convert.ToInt32(Serenity.Authorization.UserDefinition.Id);
@@ -168,9 +169,12 @@ namespace Barrios.Modules.Default.Entities
                         {
                             printButton = false;
                             if (!aux.IdVecinoUnidadExtra.IsEmptyOrNull())
-                                renderPanel(buttonRedClass, aux.TipoReservaHecha , "<br>" + aux.IdVecinoUnidad + " y " + aux.IdVecinoUnidadExtra );
+                                renderPanel(buttonRedClass, aux.TipoReservaHecha, "<br>" + aux.IdVecinoUnidad + " y " + aux.IdVecinoUnidadExtra);
+                            else if(!aux.IdVecinoUnidad.IsEmptyOrNull())
+                                renderPanel(buttonRedClass, aux.TipoReservaHecha, "<br>" + aux.IdVecinoUnidad);
                             else
-                                renderPanel(buttonRedClass, aux.TipoReservaHecha , "<br>" + aux.IdVecinoUnidad );
+                                renderPanel(buttonBlueClass, aux.TipoReservaHecha, "<br>" + aux.IdVecinoUnidad);
+
                         }
                     }
                 }

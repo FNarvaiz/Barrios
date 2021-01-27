@@ -26,7 +26,7 @@
         [PasswordEditor, OneWay, Required(true)]
         public String PasswordConfirm { get; set; }
         public String Email_Others { get; set; }
-        public DateTime TenantLimitDate { get; set; }
+        public DateTime LimitDate { get; set; }
 
         public bool Owner { get; set; }
         public bool IsActive { get; set; }

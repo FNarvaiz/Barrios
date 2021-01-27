@@ -4,6 +4,8 @@
         BarrioId?: number;
         Units?: string;
         Note?: string;
+        LimitDate?: string;
+        Owner?: boolean;
         UserUsername?: string;
         BarrioNombre?: string;
     }
@@ -17,6 +19,8 @@
             BarrioId = "BarrioId",
             Units = "Units",
             Note = "Note",
+            LimitDate = "LimitDate",
+            Owner = "Owner",
             UserUsername = "UserUsername",
             BarrioNombre = "BarrioNombre"
         }

@@ -20,6 +20,7 @@
         AmountForDays?: number;
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
+        BookingRecurringList?: ReservasRecurrentesRow[];
         NeedComment?: boolean;
         Dias?: string;
         Lunes?: boolean;
@@ -58,6 +59,7 @@
             AmountForDays = "AmountForDays",
             TypeList = "TypeList",
             SpecialTurnList = "SpecialTurnList",
+            BookingRecurringList = "BookingRecurringList",
             NeedComment = "NeedComment",
             Dias = "Dias",
             Lunes = "Lunes",

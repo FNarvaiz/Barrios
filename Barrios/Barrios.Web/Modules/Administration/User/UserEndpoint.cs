@@ -45,7 +45,13 @@ namespace Barrios.Administration.Endpoints
         {
             try
             {
-                return new MyRepository().Delete(uow, request);
+                var repo = new MyRepository();
+                if (repo.IsOnlyUserInThisNeigbordhoob(Convert.ToInt32(request.EntityId)))
+                    return repo.Delete(uow, request);
+                else {
+                    repo.DeleteOnlyThisNeigborhood(request);
+                    return new DeleteResponse();
+                }
             }
             catch (Exception ex)
             {
@@ -64,6 +70,9 @@ namespace Barrios.Administration.Endpoints
             var response= new MyRepository().Retrieve(connection, request);
             var neibord = new MyRepository().GetUserBarrios(Convert.ToInt32(request.EntityId), CurrentNeigborhood.Get().Id.Value);
             response.Entity.Note = neibord.Note;
+            response.Entity.Units = neibord.Units;
+            response.Entity.LimitDate = neibord.LimitDate;
+            response.Entity.Owner = neibord.Owner;
             response.Entity.Units = neibord.Units;
             return response;
         }

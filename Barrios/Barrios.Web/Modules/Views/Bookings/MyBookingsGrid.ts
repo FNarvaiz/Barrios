@@ -40,7 +40,7 @@ namespace Barrios.Default {
         protected getColumns() {
             var columns = super.getColumns();
             // Canequita delete column 
-            columns.splice(5, 0,
+            columns.splice(0, 0,
                 {
                     field: "DeleteRow",
                     name: "",

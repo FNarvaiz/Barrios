@@ -16,8 +16,16 @@ namespace Barrios.Default.Entities
     [ModifyPermission("User:Reservas")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", "jType.[ID_Recurso] = t0.[ID] ")]
     [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", "jTurns.[ID_Recurso] = t0.[ID] ")]
-     public sealed class ReservasRecursosRow : Row, IIdRow, INameRow
+    [LeftJoin("jReservas", "[dbo].[RESERVAS_RECURRENTES]", "jReservas.[ResourceId] = t0.[ID] ")]
+    public sealed class ReservasRecursosRow : Row, IIdRow, INameRow
     {
+        
+        [DisplayName("Reservas recurrentes"), MasterDetailRelation("ResourceId", IncludeColumns = "*"), NotMapped]
+        public List<ReservasRecurrentesRow> BookingRecurringList
+        {
+            get => Fields.BookingRecurringList[this];
+            set => Fields.BookingRecurringList[this] = value;
+        }
         [DisplayName("Tipos de reserva"), MasterDetailRelation("ID_recurso", IncludeColumns = "*"), NotMapped]
         public List<ReservasTiposRow> TypeList
         {
@@ -243,6 +251,7 @@ namespace Barrios.Default.Entities
             public Int16Field AmountForDays;
             public ListField<ReservasTiposRow> TypeList;
             public ListField<ReservasTurnosEspecialesRow> SpecialTurnList;
+            public ListField<ReservasRecurrentesRow> BookingRecurringList;
             public BooleanField NeedComment;
             public StringField Dias;
             public BooleanField Lunes;

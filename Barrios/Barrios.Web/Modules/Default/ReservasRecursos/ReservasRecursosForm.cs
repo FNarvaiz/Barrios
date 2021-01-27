@@ -64,6 +64,8 @@ namespace Barrios.Default.Forms
         public Boolean Domingo { get; set; }
         [OneThirdWidth, LabelWidth(150)]
         public Boolean Feriados { get; set; }
+        [Tab("Reservas Recurrentes"), AllowHide(true), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasRecurrentesGrid]
+        public List<ReservasRecurrentesRow> BookingRecurringList { get; set; }
         [Tab("Turnos Especiales"),AllowHide(true), LabelWidth(0, UntilNext = true), DisplayName(""), ReservasTurnosEspecialesGrid]
         public List<ReservasTurnosEspecialesRow> SpecialTurnList { get; set; }
         

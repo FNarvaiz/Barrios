@@ -7441,6 +7441,12 @@ section.content > .s-DataGrid {
 .s-Default-HolidaysDialog .caption {
   width: 150px;
 }
+.s-Default-ReservasRecurrentesDialog > .size {
+  width: 650px;
+}
+.s-Default-ReservasRecurrentesDialog .caption {
+  width: 150px;
+}
 .s-Perfil-VecinosActividadesDialog > .size {
   width: 650px;
 }
@@ -7734,6 +7740,9 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 .statusBlue {
   background-color: lightblue !important;
 }
+.btn-blue {
+  background-color: dodgerblue !important;
+}
 .statusGreen {
   background-color: lightgreen !important;
 }
@@ -7772,24 +7781,28 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 @media (min-width: 900px) {
   .s-Default-ReservasRecursosDialog .field.SpecialTurnList,
   .s-Default-ReservasRecursosDialog .field.TypeList,
-  .s-Default-ReservasRecursosDialog .field.NeigborhoodList {
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList,
+  .s-Default-ReservasRecursosDialog .field.BookingRecurringList {
     height: 60vh;
     width: 100%;
   }
   .s-Default-ReservasRecursosDialog .field.SpecialTurnList .s-DataGrid,
   .s-Default-ReservasRecursosDialog .field.TypeList .s-DataGrid,
-  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .s-DataGrid {
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .s-DataGrid,
+  .s-Default-ReservasRecursosDialog .field.BookingRecurringList .s-DataGrid {
     height: 98%;
     float: inherit;
   }
   .s-Default-ReservasRecursosDialog .field.SpecialTurnList .slick-pane.slick-pane-top.slick-pane-left,
   .s-Default-ReservasRecursosDialog .field.TypeList .slick-pane.slick-pane-top.slick-pane-left,
-  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .slick-pane.slick-pane-top.slick-pane-left {
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .slick-pane.slick-pane-top.slick-pane-left,
+  .s-Default-ReservasRecursosDialog .field.BookingRecurringList .slick-pane.slick-pane-top.slick-pane-left {
     height: 90% !important;
   }
   .s-Default-ReservasRecursosDialog .field.SpecialTurnList .slick-viewport.slick-viewport-top.slick-viewport-left,
   .s-Default-ReservasRecursosDialog .field.TypeList .slick-viewport.slick-viewport-top.slick-viewport-left,
-  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .slick-viewport.slick-viewport-top.slick-viewport-left {
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .slick-viewport.slick-viewport-top.slick-viewport-left,
+  .s-Default-ReservasRecursosDialog .field.BookingRecurringList .slick-viewport.slick-viewport-top.slick-viewport-left {
     height: 100% !important;
   }
   .s-Default-ReservasRecursosDialog .field.TypeList {
