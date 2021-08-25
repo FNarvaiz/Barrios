@@ -18,6 +18,8 @@ namespace Barrios.Perfil.Endpoints
         [HttpPost, AuthorizeCreate(typeof(MyRow))]
         public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
+            request.Entity.Userid = Convert.ToInt32(Authorization.UserId);
+            request.Entity.BarrioId = CurrentNeigborhood.Get().Id;
             return new MyRepository().Create(uow, request);
         }
 

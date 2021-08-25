@@ -10,6 +10,8 @@ namespace Barrios.Membership
     {
         [Required(true), Placeholder("Full name")]
         public String DisplayName { get; set; }
+        [DisplayName("SubBarrio"), LookupEditor("Settings.Subbarrios")]
+        public short subBarrioId { get; set; }
         [Required(true), DisplayName("Unidad"), Placeholder("Numero de unidad ")]
         public String Unit { get; set; }
         [EmailEditor, Required(true), Placeholder("Email")]

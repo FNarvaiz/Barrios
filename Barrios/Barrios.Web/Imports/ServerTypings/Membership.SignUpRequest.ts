@@ -4,6 +4,7 @@
         Email?: string;
         Password?: string;
         Unit?: string;
+        subBarrioId?: number;
     }
 }
 

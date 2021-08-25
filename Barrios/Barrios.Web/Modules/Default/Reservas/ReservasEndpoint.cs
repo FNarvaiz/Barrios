@@ -176,9 +176,7 @@ namespace Barrios.Default.Endpoints
         public string renderBookingStatus(IDbConnection connection, BookingListRequest request)
         {
             MyRepository repo = new MyRepository();
-            ReservasRecursosRow resource;
-            using (var connection2 = Utils.GetConnection())
-                resource = connection2.Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE ID=" + request.ID ).SingleOrDefault();
+            ReservasRecursosRow resource = repo.GetResource(request.ID);
 
             RenderBooking table;
             List<MyRow> list;
@@ -190,7 +188,7 @@ namespace Barrios.Default.Endpoints
             }
             else
             {
-                list = repo.BookingList(connection, resource);
+                list = repo.BookingList(resource);
                 days = repo.DaysList(list);
                 table = new RenderBookingTable(list);
             }
@@ -206,11 +204,16 @@ namespace Barrios.Default.Endpoints
         [ServiceAuthorize("User:RealizarReservas")]
         public string bookingsTake(IDbConnection connection, BookingTakeRequest request)
         {
-            
-            new MyRepository().BookingTake(connection,request);
-            SendBookingTakeMail(request);
-            using (var connection2 = Utils.GetConnection())
-                return renderBookingStatus(connection2, new BookingListRequest() { ID = request.resourceId,Resolution=10 });
+            MyRepository repo = new MyRepository();
+            if (repo.EnableBooking(request))
+            {
+                repo.BookingTake(connection, request);
+                SendBookingTakeMail(request);
+                using (var connection2 = Utils.GetConnection())
+                    return renderBookingStatus(connection2, new BookingListRequest() { ID = request.resourceId, Resolution = 10 });
+            }
+            else
+                throw new Exception("La disponibilidad de ese recurso ha cambiado.\nRevise nuevamente y vuelva a intentarlo.");
         }
         //[HttpPost]
         //public string ConfirmReservation(IDbConnection connection, IdRequest request)
@@ -341,7 +344,7 @@ namespace Barrios.Default.Endpoints
                 using (var connection2 = Utils.GetConnection())
                     resource = connection2.Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE id=" + row.IdRecurso).SingleOrDefault();
 
-                if (resource.Resolucion == 0)
+                if (!resource.Emails.IsEmptyOrNull() || resource.Resolucion == 0)
                 {
                     UserRow user = Utils.GetUser(row.IdVecino);
                     UserRow user2 = Utils.GetUser(row.IdVecino2);

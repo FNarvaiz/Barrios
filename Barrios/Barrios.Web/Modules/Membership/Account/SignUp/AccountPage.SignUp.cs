@@ -86,6 +86,7 @@ namespace Barrios.Membership.Pages
                             {
                                 Username = username,
                                 Source = "sign",
+                                subBarrioId = request.subBarrioId,
                                 DisplayName = displayName,
                                 Email = email,
                                 PasswordHash = hash,

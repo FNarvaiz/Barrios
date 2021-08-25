@@ -70,13 +70,20 @@ namespace Barrios.Administration.Repositories
         }
         internal string GetMail(string username, short? id)
         {
-            DataTable DT = Utils.GetRequestString(" SELECT  U.Username " +
+            DataTable DT = Utils.GetRequestString(" SELECT  U.Username , UB.owner," +
+              "  case when UB.Limitdate is not null  and UB.Limitdate>GETDATE() then 1 else 0 end as inquilino, " +
+              "  U.isActive, U.InsertDate " +
               "  FROM [Users] U " +
               "  inner join [Users-Barrios] UB " +
               "  on UB.UserId = U.UserId " +
-              $"  where UB.BarrioId = {id} and (UB.owner=1 OR (UB.Limitdate is not null and UB.Limitdate>GETDATE())) and (Username = {username.ToSql()} or DisplayName = {username.ToSql()} or Email = {username.ToSql()})");
+              $"  where UB.BarrioId = {id} and (Username = {username.ToSql()} or DisplayName = {username.ToSql()} or Email = {username.ToSql()})");
+
             if (DT.Rows.Count == 0)
                 return "";
+            if (!Convert.ToBoolean(DT.Rows[0][1]) && !Convert.ToBoolean(DT.Rows[0][2]))
+                throw new ValidationError("AuthenticationError", "Error de login:\nEste usuario aun no tiene permisos de acceso.\nLa administración se los otorgará a la brevedad. Aguarde 72hs. Gracias"); 
+           else if (!Convert.ToBoolean(DT.Rows[0][3]))
+                throw new ValidationError("AuthenticationError", "Error de login:\nEste usuario no se encuentra activo");
             return Convert.ToString(DT.Rows[0][0]);
         }
         public UndeleteResponse Undelete(IUnitOfWork uow, UndeleteRequest request)

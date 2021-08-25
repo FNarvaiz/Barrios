@@ -44,17 +44,18 @@ namespace Barrios.Default.Repositories
             Utils.AddNeigborhoodFilter(request);
             return new MyListHandler().Process(connection, request);
         }
-        public List<MyRow> BookingList(IDbConnection connection,ReservasRecursosRow resource)
+        public List<MyRow> BookingList(ReservasRecursosRow resource)
         {
             int resourceId = resource.Id.Value;
             List<MyRow> list = new List<MyRow>();
             StringBuilder sql = new StringBuilder();
+            var now = DateTime.Now;
             sql.Append("SELECT E.FECHA, dbo.HOUR_TO_STR(dbo.MINUTOS_A_HORA(E.INICIO)) AS TURNO, E.INICIO, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, " +
               "CAST(CASE WHEN dbo.FECHA_FIN_TURNO(E.FECHA, E.INICIO, T.DURACION) < GETDATE() THEN 1 ELSE 0 END AS BIT) AS FINALIZADO, " +
               "CAST(CASE WHEN GETDATE() < dbo.FECHA_INICIO_TURNO(FECHA, E.INICIO) AND UPPER(E.ESTADO)='DISPONIBLE' THEN 1 ELSE 0 END AS BIT) AS RESERVABLE, " +
               $"dbo.ID_TIPO_RESERVA(dbo.ID_RESERVA_TURNO_RESERVA({resourceId}, E.FECHA, E.INICIO, E.DURACION)) AS TIPO_RESERVA, " +
               "CAST(CAST(T.DURACION AS FLOAT) / 60 AS NVARCHAR) + ' hs (' + T.NOMBRE + ')' AS TIPO, T.NOMBRE AS TipoNombre, T.DURACION, " +
-              $"dbo.ESTADO_TURNO_RESERVA({resourceId}, E.FECHA, E.INICIO, T.DURACION) AS ESTADO_TURNO, " +
+              $"CASE WHEN ({now.Hour}+RR.LimitHour)*60+{now.Minute}>DATEDIFF(DAY,GETDATE(),E.FECHA)*24*60+ E.INICIO then dbo.ESTADO_TURNO_RESERVA({resourceId}, E.FECHA, E.INICIO, T.DURACION) else 'No disponible' end AS ESTADO_TURNO, " +
               $"dbo.TURNO_RESERVA_VALIDO({resourceId}, E.INICIO, T.DURACION) AS VALIDO, T.REQUIERE_VECINO_2, " +
               $"case when RRR.id is not null then RRR.OBSERVACIONES ELSE  dbo.NOMBRE_TIPO_RESERVA({resourceId}, E.ID_TIPO)END  AS TIPO_RESERVA_HECHA, T.ID AS ID_TIPO_RESERVA_DISPONIBLE,  " +
                $" UB.Units AS UNIDAD_PRIMARIA, UB2.Units AS UNIDAD_EXTRA FROM dbo.ESTADOS_RESERVAS({resourceId},{(resource.Hasta - 1)},0) E " +
@@ -66,7 +67,7 @@ namespace Barrios.Default.Repositories
 
                 $" left join [users-barrios] UB on E.ID_VECINO = UB.userid and UB.barrioId= {CurrentNeigborhood.Get().Id } "+
                 $" left join [users-barrios] UB2 on E.ID_VECINO_2 = UB2.userid and UB2.barrioId= {CurrentNeigborhood.Get().Id } " +
-                " GROUP BY E.INICIO, E.FECHA, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, UB.Units, UB2.Units,RRR.id,RRR.OBSERVACIONES  " +
+                " GROUP BY E.INICIO, E.FECHA,RR.LimitHour, T.ID, T.DURACION, T.NOMBRE, E.ID_VECINO, E.ID_VECINO_2, E.ESTADO, E.DURACION, T.REQUIERE_VECINO_2, E.ID_TIPO, UB.Units, UB2.Units,RRR.id,RRR.OBSERVACIONES  " +
               "ORDER BY E.INICIO, E.FECHA, T.ID");
             DataTable dt=  Utils.GetRequestString( sql.ToString());
             int count = 0;
@@ -110,6 +111,23 @@ namespace Barrios.Default.Repositories
 
         }
 
+        public ReservasRecursosRow GetResource(int id)
+        {
+            using (var connection = Utils.GetConnection())
+                return connection.Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE ID=" + id).SingleOrDefault();
+
+        }
+        public bool EnableBooking(BookingTakeRequest request)
+        {
+            ReservasRecursosRow resource = GetResource(request.resourceId);
+            var list = BookingList(resource);
+            foreach(var x in list)
+            {
+                if (x.Estado == "Disponible" && request.bookingDate == x.Fecha.Value.ToString("yyyyMMdd") && request.turnStart == x.Inicio && request.turnType == x.IdTipo)
+                    return true;
+            };
+            return false;
+        }
         public List<MyRow> BookingEspecialList(IDbConnection connection, ReservasRecursosRow resource)
         {
             List<MyRow> list = new List<MyRow>();

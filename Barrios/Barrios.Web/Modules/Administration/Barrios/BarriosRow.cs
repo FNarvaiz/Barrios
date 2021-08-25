@@ -114,7 +114,12 @@ namespace Barrios.Administration.Entities
             get { return Fields.Emails[this]; }
             set { Fields.Emails[this] = value; }
         }
-
+        [DisplayName("Pagina de inicio"), Size(200)]
+        public String PageHome
+        {
+            get { return Fields.PageHome[this]; }
+            set { Fields.PageHome[this] = value; }
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -150,12 +155,12 @@ namespace Barrios.Administration.Entities
             public StringField Direccion;
             public StringField PasswordMail;
             public Int16Field CantDiasReservables;
-            
 
+            
             public BooleanField VerUserEnReservas;
             public BooleanField IsActive; 
             public BooleanField UseSubBarrios;
-
+            public StringField PageHome;
         }
     }
 }

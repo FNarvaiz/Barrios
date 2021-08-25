@@ -11,6 +11,7 @@
         NeedComment: Serenity.BooleanEditor;
         Desde: Serenity.IntegerEditor;
         Hasta: Serenity.IntegerEditor;
+        LimitHour: Serenity.IntegerEditor;
         Description: Serenity.TextAreaEditor;
         Emails: Serenity.TextAreaEditor;
         MailBody: Serenity.HtmlContentEditor;
@@ -65,6 +66,7 @@
                     'NeedComment', w3,
                     'Desde', w1,
                     'Hasta', w1,
+                    'LimitHour', w1,
                     'Description', w4,
                     'Emails', w4,
                     'MailBody', w5,

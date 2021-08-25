@@ -23,5 +23,8 @@ namespace Barrios.Default
         [Description("Comisiones")]
         public const string Comisiones = "Contenidos:Comisiones";
 
+        [Description("Buscar Lote")]
+        public const string Location = "User:BuscarLote";
+
     }
 }

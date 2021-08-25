@@ -7483,6 +7483,12 @@ section.content > .s-DataGrid {
 .s-Settings-SubbarriosDialog .caption {
   width: 150px;
 }
+.s-Contenidos-NewsDialog > .size {
+  width: 650px;
+}
+.s-Contenidos-NewsDialog .caption {
+  width: 150px;
+}
 .btn-success {
   background: #365D34;
 }
@@ -7503,6 +7509,19 @@ section.content > .s-DataGrid {
   padding: 4px;
   margin-right: 4px;
   display: inline-block;
+}
+.posible-fixed.fixed {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #00000082;
+  top: 0;
+  z-index: 10000;
+  left: 0;
+  padding: 15px;
+}
+.posible-fixed.fixed img {
+  max-height: 100% !important;
 }
 .box.dark,
 .styleSerenity.dark {
@@ -7699,6 +7718,8 @@ You could also use a data-* attribute and content for this. That way "bloats" th
   padding: 0px;
   width: 49%;
   display: inline-block;
+  float: left;
+  margin-right: 10px;
 }
 .containerSurveys .articleItem .dropdown,
 .containerProviders .articleItem .dropdown {
@@ -7721,6 +7742,11 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 .containerProviders .articleItem .title .fa {
   float: right;
   padding: 5px;
+}
+.containerSurveys .articleItem img,
+.containerProviders .articleItem img {
+  max-width: 100%;
+  max-height: 300px;
 }
 .containerSurveys .articleItem p,
 .containerProviders .articleItem p {

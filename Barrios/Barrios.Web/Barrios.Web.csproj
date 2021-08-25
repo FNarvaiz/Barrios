@@ -589,10 +589,16 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Common.ImportFileForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.NewsColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Default.NeedCommendForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasRecurrentesColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Barrios.Default.PageHomeRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Modules.Common.ImportFile.ImportFileRequest.ts">
@@ -881,6 +887,8 @@
     <Content Include="Modules\Views\Bookings\MyBookingsIndex.cshtml" />
     <Content Include="Modules\Membership\Account\SignUp\AccountOtherNeigbordhoodEmail.cshtml" />
     <Content Include="Modules\Perfil\VecinosVisitantesFrecuentes\Reports\VisitReport.cshtml" />
+    <Content Include="Modules\Views\News\NewsIndex.cshtml" />
+    <Content Include="Modules\Views\Location\LocationIndex.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1999,6 +2007,19 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasRecurrentesForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.NewsRow.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.NewsService.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <Content Include="Modules\Contenidos\News\NewsIndex.cshtml" />
+    <TypeScriptCompile Include="Modules\Contenidos\News\NewsDialog.ts" />
+    <TypeScriptCompile Include="Modules\Contenidos\News\NewsGrid.ts" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.NewsForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <Content Include="Content\site\site.contenidos.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -2037,6 +2058,9 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20210317_224500_LimitBookingForHour.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20210208_222200_CreateNews.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20210128_102200_UpdateBarriosPageHome.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20201027_221200_UpdateReservasStoreProcedure.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20201020_001500_UpdateUsersBarrios.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20201011_014800_CreateReservasRecurrentes.cs" />
@@ -2093,6 +2117,8 @@
     <Compile Include="Modules\Administration\Barrios\BarriosRow.cs" />
     <Compile Include="Modules\Administration\Barrios\CurrentNeigborhood.cs" />
     <Compile Include="Modules\Administration\Barrios\ImageUploader.cs" />
+    <Compile Include="Modules\Administration\Barrios\PageHomeLookup.cs" />
+    <Compile Include="Modules\Administration\Barrios\PageHomeRow.cs" />
     <Compile Include="Modules\Administration\Language\LanguageLookup.cs" />
     <Compile Include="Modules\Administration\RolePermission\RolePermissionUpdateRequest.cs" />
     <Compile Include="Modules\Administration\RolePermission\RolePermissionListResponse.cs" />
@@ -2381,6 +2407,12 @@
     <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesRepository.cs" />
     <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesColumns.cs" />
     <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesForm.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsRow.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsRepository.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsEndpoint.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsPage.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsColumns.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

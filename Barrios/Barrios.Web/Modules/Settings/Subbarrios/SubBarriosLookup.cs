@@ -7,7 +7,7 @@ using Serenity.Web;
 
 namespace Barrios.Modules.Settings
 {
-    [LookupScript("Settings.Subbarrios", Permission = "?")]
+    [LookupScript("Settings.Subbarrios", Permission = "*")]
     public class SubBarriosLookup : RowLookupScript<SubbarriosRow>
     {
         public SubBarriosLookup()
@@ -24,6 +24,7 @@ namespace Barrios.Modules.Settings
     
         protected override void ApplyOrder(SqlQuery query)
         {
+            query.OrderBy(SubbarriosRow.Fields.Nombre.PropertyName, false);
         }
     }
 }

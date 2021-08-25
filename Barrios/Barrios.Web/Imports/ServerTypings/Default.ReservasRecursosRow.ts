@@ -14,6 +14,7 @@
         Resolucion?: number;
         AmountToReserve?: number;
         AppHoldId?: number;
+        LimitHour?: number;
         ClientIdList?: number[];
         NeigborhoodList?: number[];
         BarrioId?: number;
@@ -53,6 +54,7 @@
             Resolucion = "Resolucion",
             AmountToReserve = "AmountToReserve",
             AppHoldId = "AppHoldId",
+            LimitHour = "LimitHour",
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",
             BarrioId = "BarrioId",

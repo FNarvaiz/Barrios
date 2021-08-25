@@ -39,6 +39,12 @@ namespace Barrios.Default.Repositories
         {
             return new MyListHandler().Process(connection, request);
         }
+        public MyRow GetResource(int id)
+        {
+            using (var connection = Utils.GetConnection())
+            return connection.Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE ID=" + id).SingleOrDefault();
+
+        }
         public List<MyRow> ListOfAllowedResources(IDbConnection connection)
         {
             string query = "SELECT DISTINCT  RR.[NOMBRE] " +

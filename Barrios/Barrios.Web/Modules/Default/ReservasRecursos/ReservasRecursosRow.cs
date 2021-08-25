@@ -44,6 +44,13 @@ namespace Barrios.Default.Entities
             get { return Fields.Id[this]; }
             set { Fields.Id[this] = value; }
         }
+        [DisplayName("Limite de hora."), Column("LimitHour")]
+        public Int32? LimitHour
+        {
+            get { return Fields.LimitHour[this]; }
+            set { Fields.LimitHour[this] = value; }
+        }
+        
         [DisplayName("Barrio"), Expression("jBarrio.[BarrioId]")]
         public Int16? BarrioId
         {
@@ -245,6 +252,7 @@ namespace Barrios.Default.Entities
             public Int16Field Resolucion;
             public Int16Field AmountToReserve;
             public Int32Field AppHoldId;
+            public Int32Field LimitHour;
             public ListField<Int32> ClientIdList;
             public ListField<Int16> NeigborhoodList;
             public Int16Field BarrioId;

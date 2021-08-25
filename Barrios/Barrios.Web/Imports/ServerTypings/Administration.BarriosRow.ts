@@ -15,6 +15,7 @@
         VerUserEnReservas?: boolean;
         IsActive?: boolean;
         UseSubBarrios?: boolean;
+        PageHome?: string;
     }
 
     export namespace BarriosRow {
@@ -42,7 +43,8 @@
             CantDiasReservables = "CantDiasReservables",
             VerUserEnReservas = "VerUserEnReservas",
             IsActive = "IsActive",
-            UseSubBarrios = "UseSubBarrios"
+            UseSubBarrios = "UseSubBarrios",
+            PageHome = "PageHome"
         }
     }
 }

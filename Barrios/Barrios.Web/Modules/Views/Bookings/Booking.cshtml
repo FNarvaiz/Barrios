@@ -6,12 +6,17 @@
     }
 
     @section ContentHeader {
-    <h1 class="contentTitle">
-        Tablero Principal <!--@LocalText.Get("Navigation.Dashboard")--><small class="contentSubTitle">
-            Incio para novedades del barrio.
-            <!--@Html.Raw(Texts.Site.Dashboard.ContentDescription)-->
-        </small>
-    </h1>
+<h1 class="contentTitle">
+    Tablero Principal <!--@LocalText.Get("Navigation.Dashboard")--><small class="contentSubTitle">
+        Incio para novedades del barrio.
+        <!--@Html.Raw(Texts.Site.Dashboard.ContentDescription)-->
+    </small>
+    @if (CurrentNeigborhood.Get().Nombre == "Yoo")
+    {
+        <img src="../Content/@CurrentNeigborhood.Get().Nombre/QRYoo.jpg" style="float:right;height: 30px;" />
+    }
+</h1>
+    
 }
 <div class="row containerBooking">
     <div class="col-xs-12 col-md-8" style="height:inherit">

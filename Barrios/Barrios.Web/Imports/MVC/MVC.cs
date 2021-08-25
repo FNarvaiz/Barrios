@@ -96,6 +96,11 @@ namespace MVC
                 public const string LineaTiempoIndex = "~/Modules/Contenidos/LineaTiempo/LineaTiempoIndex.cshtml";
             }
 
+            public static class News
+            {
+                public const string NewsIndex = "~/Modules/Contenidos/News/NewsIndex.cshtml";
+            }
+
             public static class Proveedores
             {
                 public const string ProveedoresIndex = "~/Modules/Contenidos/Proveedores/ProveedoresIndex.cshtml";
@@ -137,6 +142,11 @@ namespace MVC
             public const string ValidationError = "~/Views/Errors/ValidationError.cshtml";
         }
 
+        public static class Location
+        {
+            public const string LocationIndex = "~/Modules/Views/Location/LocationIndex.cshtml";
+        }
+
         public static class Membership
         {
             public static class Account
@@ -170,6 +180,11 @@ namespace MVC
                     public const string NewUserActivatedEmail = "~/Modules/Membership/Account/SignUp/NewUserActivatedEmail.cshtml";
                 }
             }
+        }
+
+        public static class News
+        {
+            public const string NewsIndex = "~/Modules/Views/News/NewsIndex.cshtml";
         }
 
         public static class Notices

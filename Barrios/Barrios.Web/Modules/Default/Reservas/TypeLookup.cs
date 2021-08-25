@@ -1,12 +1,8 @@
-﻿using Barrios.Administration.Repositories;
-using Barrios.Modules.Common.Utils;
-using Serenity;
+﻿using Barrios.Modules.Common.Utils;
 using Serenity.ComponentModel;
 using Serenity.Data;
 using Serenity.Web;
-using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 
 namespace Barrios.Modules.Barrios.Default
 {

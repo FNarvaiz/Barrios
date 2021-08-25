@@ -36,6 +36,9 @@ namespace Barrios.Default.Forms
         public Int16 Desde { get; set; }
         [DisplayName("Hasta"), HalfWidth, Placeholder("Cantidad de dias hasta los que se puede reservar")]
         public Int16 Hasta { get; set; }
+        [HalfWidth, Placeholder("Si pone 2 horas, siendo las 4:01pm, solo se podra reservar 5pm y 6pm."),Required]
+        public Int32 LimitHour { get; set; }
+        
         [Category("Página")]
         public String Description { get; set; }
         [Category("Correo")]

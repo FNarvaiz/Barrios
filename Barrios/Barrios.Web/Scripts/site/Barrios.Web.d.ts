@@ -7,6 +7,7 @@ declare namespace Barrios.Administration {
         Nombre: Serenity.StringEditor;
         ShortDisplayName: Serenity.StringEditor;
         LargeDisplayName: Serenity.StringEditor;
+        PageHome: Serenity.LookupEditor;
         Mail: Serenity.EmailEditor;
         PasswordMail: Serenity.StringEditor;
         Logo: Serenity.ImageUploadEditor;
@@ -42,6 +43,7 @@ declare namespace Barrios.Administration {
         VerUserEnReservas?: boolean;
         IsActive?: boolean;
         UseSubBarrios?: boolean;
+        PageHome?: string;
     }
     namespace BarriosRow {
         const idProperty = "Id";
@@ -64,7 +66,8 @@ declare namespace Barrios.Administration {
             CantDiasReservables = "CantDiasReservables",
             VerUserEnReservas = "VerUserEnReservas",
             IsActive = "IsActive",
-            UseSubBarrios = "UseSubBarrios"
+            UseSubBarrios = "UseSubBarrios",
+            PageHome = "PageHome"
         }
     }
 }
@@ -1119,6 +1122,69 @@ declare namespace Barrios.Contenidos {
 declare namespace Barrios.Contenidos {
 }
 declare namespace Barrios.Contenidos {
+    interface NewsForm {
+        Nombre: Serenity.StringEditor;
+        Descripcion: Serenity.HtmlContentEditor;
+        Imagen: Serenity.ImageUploadEditor;
+        Vigente: Serenity.BooleanEditor;
+    }
+    class NewsForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Barrios.Contenidos {
+    interface NewsRow {
+        Id?: number;
+        Nombre?: string;
+        Vigente?: boolean;
+        Descripcion?: string;
+        UserInsert?: number;
+        UserUpdate?: number;
+        DateUpdate?: string;
+        DateInsert?: string;
+        Imagen?: string;
+        BarrioId?: number;
+    }
+    namespace NewsRow {
+        const idProperty = "Id";
+        const nameProperty = "Nombre";
+        const localTextPrefix = "Contenidos.News";
+        const enum Fields {
+            Id = "Id",
+            Nombre = "Nombre",
+            Vigente = "Vigente",
+            Descripcion = "Descripcion",
+            UserInsert = "UserInsert",
+            UserUpdate = "UserUpdate",
+            DateUpdate = "DateUpdate",
+            DateInsert = "DateInsert",
+            Imagen = "Imagen",
+            BarrioId = "BarrioId"
+        }
+    }
+}
+declare namespace Barrios.Contenidos {
+    namespace NewsService {
+        const baseUrl = "Contenidos/News";
+        function Create(request: Serenity.SaveRequest<NewsRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<NewsRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<NewsRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<NewsRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Contenidos/News/Create",
+            Update = "Contenidos/News/Update",
+            Delete = "Contenidos/News/Delete",
+            Retrieve = "Contenidos/News/Retrieve",
+            List = "Contenidos/News/List"
+        }
+    }
+}
+declare namespace Barrios.Contenidos {
+}
+declare namespace Barrios.Contenidos {
     interface ProveedoresForm {
         Nombre: Serenity.StringEditor;
         IdCategoria: Serenity.LookupEditor;
@@ -1486,6 +1552,7 @@ declare namespace Barrios.Default {
         NeedComment: Serenity.BooleanEditor;
         Desde: Serenity.IntegerEditor;
         Hasta: Serenity.IntegerEditor;
+        LimitHour: Serenity.IntegerEditor;
         Description: Serenity.TextAreaEditor;
         Emails: Serenity.TextAreaEditor;
         MailBody: Serenity.HtmlContentEditor;
@@ -1526,6 +1593,7 @@ declare namespace Barrios.Default {
         Resolucion?: number;
         AmountToReserve?: number;
         AppHoldId?: number;
+        LimitHour?: number;
         ClientIdList?: number[];
         NeigborhoodList?: number[];
         BarrioId?: number;
@@ -1563,6 +1631,7 @@ declare namespace Barrios.Default {
             Resolucion = "Resolucion",
             AmountToReserve = "AmountToReserve",
             AppHoldId = "AppHoldId",
+            LimitHour = "LimitHour",
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",
             BarrioId = "BarrioId",
@@ -1995,6 +2064,7 @@ declare namespace Barrios.Membership {
 declare namespace Barrios.Membership {
     interface SignUpForm {
         DisplayName: Serenity.StringEditor;
+        subBarrioId: Serenity.LookupEditor;
         Unit: Serenity.StringEditor;
         Email: Serenity.EmailEditor;
         ConfirmEmail: Serenity.EmailEditor;
@@ -2013,6 +2083,22 @@ declare namespace Barrios.Membership {
         Email?: string;
         Password?: string;
         Unit?: string;
+        subBarrioId?: number;
+    }
+}
+declare namespace Barrios.Modules.Barrios.Default {
+    interface PageHomeRow {
+        Name?: string;
+        Path?: string;
+    }
+    namespace PageHomeRow {
+        const idProperty = "Path";
+        const nameProperty = "Name";
+        const localTextPrefix = "Modules.Barrios.Default.PageHome";
+        const enum Fields {
+            Name = "Name",
+            Path = "Path"
+        }
     }
 }
 declare namespace Barrios.Modules.Common.ImportFile {
@@ -3084,6 +3170,26 @@ declare namespace Barrios.Contenidos {
         constructor(container: JQuery, UseSubBarrios: boolean);
         protected onClick(e: JQueryEventObject, row: number, cell: number): void;
         protected getButtons(): Serenity.ToolButton[];
+    }
+}
+declare namespace Barrios.Contenidos {
+    class NewsDialog extends Serenity.EntityDialog<NewsRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected form: NewsForm;
+    }
+}
+declare namespace Barrios.Contenidos {
+    class NewsGrid extends Serenity.EntityGrid<NewsRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof NewsDialog;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
     }
 }
 declare namespace Barrios.Contenidos {
