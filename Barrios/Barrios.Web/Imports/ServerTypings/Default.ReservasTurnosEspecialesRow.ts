@@ -13,6 +13,7 @@
         Viernes?: boolean;
         Sabado?: boolean;
         Domingo?: boolean;
+        Feriados?: boolean;
     }
 
     export namespace ReservasTurnosEspecialesRow {
@@ -38,7 +39,8 @@
             Jueves = "Jueves",
             Viernes = "Viernes",
             Sabado = "Sabado",
-            Domingo = "Domingo"
+            Domingo = "Domingo",
+            Feriados = "Feriados"
         }
     }
 }

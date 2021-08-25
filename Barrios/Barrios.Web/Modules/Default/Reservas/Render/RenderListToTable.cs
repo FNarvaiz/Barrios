@@ -35,10 +35,11 @@ namespace Barrios.Modules.Default.Entities
                 builder.Append(" id='" + id + "' ");
             builder.Append(">" + text + "</button>");
         }
-        private void RenderButtonUnique(ReservasRow aux, int resourceId, DateTime d)
+       
+        private void RenderButtonUnique(ReservasRow aux, int resourceId, DateTime d,bool needComment)
         {
             renderButton("btn-success ", aux.Hora, aux.Turno, "Booking.SendBookinRequest('" + d.ToString("yyyyMMdd") +
-                            "'," + resourceId + ",'','" + aux.Turno + "'," + aux.Duracion + "," + aux.Inicio + "," + aux.IdTurnosEspeciales + ")");
+                            "'," + resourceId + ",'','" + aux.Turno + "'," + aux.Duracion + "," + aux.Inicio + "," + aux.IdTurnosEspeciales + ","+ needComment.ToString().ToLower() + ")");
 
         }
         public void renderHeader(List<DateTime> days)
@@ -49,9 +50,8 @@ namespace Barrios.Modules.Default.Entities
                 "</tr>");
             ;
         }
-        public void renderRows(int resourceId)
+        public void renderRows(int resourceId, bool needComment)
         {
-            bool disponible = true;
             bool firstRow = true;
 
             DateTime fecha = DateTime.Today;
@@ -59,53 +59,45 @@ namespace Barrios.Modules.Default.Entities
             int contador = 0;
             foreach (var aux in list)
             {
-                if (d != aux.Fecha && disponible && !firstRow)
+                if (d != aux.Fecha && !firstRow)
                 {
                     builder.Append("</th>");
                     builder.Append("</tr>");
+                    firstRow = false;
                     contador++;
                 }
-
+                if (d != aux.Fecha)
+                {
+                    d = aux.Fecha.Value;
+                    builder.Append(writeDateLabel(aux.Fecha.Value));
+                   
+                }
                 if (aux.Estado == "No disponible")
                 {
-
-                    if (d != aux.Fecha)
+                    if (aux.IdVecino != null)
                     {
-                        disponible = false;
-                        d = aux.Fecha.Value;
-                        builder.Append("<tr>" +
-                        "<th>" + aux.Fecha.Value.ToString("dd/mm") + "</th>");
-                        builder.Append("<th>No disponible</th>");
-                        builder.Append("</tr>");
-                        firstRow = false;
+                        if(CurrentNeigborhood.Get().VerUserEnReservas.Value)
+                            builder.Append("<div class='btn-danger not-Available'> " + aux.Turno + " U: " + aux.IdVecinoUnidad + "</div>");
+                        else
+                            builder.Append("<div class='btn-danger not-Available'> " + aux.Turno +"</div>");
                     }
                 }
-                else if (d != aux.Fecha)
-                {
-                    if (aux.Dias.Contains(((int)aux.Fecha.Value.DayOfWeek).ToString()))
-                    {
-                        d = aux.Fecha.Value;
-                        disponible = true;
-                        builder.Append("<tr>" +
-                       "<th>" + aux.Fecha.Value.ToString("dd/MM") + "</th>" +
-                       "<th>");
-                        RenderButtonUnique(aux, resourceId, d);
-                        firstRow = false;
-                    }
-                }
-                else if (disponible)
-                {
-                    if (aux.Dias.Contains(((int)aux.Fecha.Value.DayOfWeek).ToString()))
-                    {
-                        RenderButtonUnique(aux, resourceId, d);
-                        firstRow = false;
-                    }
-                }
+                else
+                    RenderButtonUnique(aux, resourceId, d, needComment);
             }
-            if (disponible)
-                builder.Append("</td></tr>");
+           
+            if (!firstRow)
+            {
+                builder.Append("</th>");
+                builder.Append("</tr>");
+            }
         }
-      
+        public string writeDateLabel(DateTime date)
+        {
+            return "<tr>" +
+                    "<th>" + date.ToString("dd/MM") + "</th>" +
+                    "<th>";
+        }
         public void EndTBody()
         {
             builder.Append("</tbody>");

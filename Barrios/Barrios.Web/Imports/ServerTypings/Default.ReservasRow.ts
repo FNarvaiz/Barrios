@@ -19,6 +19,7 @@
         Confirmada?: boolean;
         DateUpdate?: string;
         UserUpdate?: number;
+        SendMail?: boolean;
         Turno?: string;
         Estado?: string;
         Finalizado?: boolean;
@@ -61,6 +62,7 @@
             Confirmada = "Confirmada",
             DateUpdate = "DateUpdate",
             UserUpdate = "UserUpdate",
+            SendMail = "SendMail",
             Turno = "Turno",
             Estado = "Estado",
             Finalizado = "Finalizado",

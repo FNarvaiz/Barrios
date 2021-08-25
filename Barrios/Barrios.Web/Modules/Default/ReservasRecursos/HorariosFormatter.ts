@@ -5,7 +5,7 @@
         format(ctx: Slick.FormatterContext) {
             if (ctx.value != undefined) {
                 let min = parseInt(ctx.value);
-                let hour = Math.round( min / 60);
+                let hour = Math.floor(min / 60);
                 min = min % 60;
                 return "<span class='fa fa-clock-o clock-cell'></span>"
                     + Q.htmlEncode(this.checkTime(hour) + ':' + this.checkTime(min)) + '';

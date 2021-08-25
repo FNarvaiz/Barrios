@@ -19,10 +19,12 @@ namespace Barrios.Default {
                 title: 'Selecctionar',
                 cssClass: 'add-button',
                 onClick: () => {
-                    if (this.validateForm()) {
+                    if (!Q.isEmptyOrNull(this.form.IdVecino2.value)) {
                         this.vecinoId = this.form.IdVecino2.value;
                         this.dialogClose();
                     }
+                    else
+                        Q.alert("Seleccione el vecino con quien reservará");
                 }
             }];
         }

@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = Serenity.LocalText.Get("Db.Default.Reservas.EntityPlural");
+}
+
+<div id="GridDiv"></div>
+
+<script type="text/javascript">
+    jQuery(function () {
+        new Barrios.Default.MyBookingsGrid($('#GridDiv'), @Serenity.Authorization.UserId).init();
+
+        Q.initFullHeightGridPage($('#GridDiv'));
+    });
+</script>

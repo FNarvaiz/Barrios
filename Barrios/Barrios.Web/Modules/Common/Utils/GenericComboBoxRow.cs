@@ -1,10 +1,7 @@
 ﻿using Serenity.Data;
 using Serenity.Data.Mapping;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Web;
 
 namespace Barrios.Modules.Common.Utils
 {

@@ -12,8 +12,10 @@
         Direccion?: string;
         PasswordMail?: string;
         CantDiasReservables?: number;
+        VerUserEnReservas?: boolean;
         IsActive?: boolean;
         UseSubBarrios?: boolean;
+        PageHome?: string;
     }
 
     export namespace BarriosRow {
@@ -39,8 +41,10 @@
             Direccion = "Direccion",
             PasswordMail = "PasswordMail",
             CantDiasReservables = "CantDiasReservables",
+            VerUserEnReservas = "VerUserEnReservas",
             IsActive = "IsActive",
-            UseSubBarrios = "UseSubBarrios"
+            UseSubBarrios = "UseSubBarrios",
+            PageHome = "PageHome"
         }
     }
 }

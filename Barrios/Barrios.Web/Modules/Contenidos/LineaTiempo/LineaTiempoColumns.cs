@@ -21,6 +21,7 @@ namespace Barrios.Contenidos.Columns
         public DateTime PeriodoFecha { get; set; }
         public String ContenidoTexto { get; set; }
         public String ArchivoFilename { get; set; }
+        public Boolean Mostrar { get; set; }
         public Boolean Aprobado { get; set; }
     }
 }

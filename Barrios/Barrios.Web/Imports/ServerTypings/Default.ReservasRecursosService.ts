@@ -6,6 +6,7 @@
         export declare function Update(request: Serenity.SaveRequest<ReservasRecursosRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<ReservasRecursosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function ImportFile(request: Modules.Common.ImportFile.ImportFileRequest, onSuccess?: (response: System.String) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<ReservasRecursosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function ListOfAllowedResources(request: Serenity.ServiceRequest, onSuccess?: (response: System.Collections.Generic.List<ReservasRecursosRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
@@ -14,6 +15,7 @@
             Update = "Default/ReservasRecursos/Update",
             Delete = "Default/ReservasRecursos/Delete",
             Retrieve = "Default/ReservasRecursos/Retrieve",
+            ImportFile = "Default/ReservasRecursos/ImportFile",
             List = "Default/ReservasRecursos/List",
             ListOfAllowedResources = "Default/ReservasRecursos/ListOfAllowedResources"
         }
@@ -23,6 +25,7 @@
             'Update', 
             'Delete', 
             'Retrieve', 
+            'ImportFile', 
             'List', 
             'ListOfAllowedResources'
         ].forEach(x => {

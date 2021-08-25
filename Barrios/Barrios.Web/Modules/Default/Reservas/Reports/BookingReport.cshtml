@@ -23,6 +23,7 @@ else
                     <tr class="header" style="background-color: #a9a9a9 !important">
                         <th class="cellCenter">Fecha</th>
                         <th class="cellCenter">Hora</th>
+                        <th class="cellCenter">Unidad</th>
                         <th class="cellCenter">Vecino</th>
                         <th class="cellCenter">Recurso</th>
                         <th class="cellCenter">Tipo</th>
@@ -34,6 +35,7 @@ else
                     <tr>
                         <td><div class="cellCenter">@row.Fecha.Value.ToShortDateString() </div></td>
                         <td><div class="cellCenter">@row.Hora</div></td>
+                        <td><div class="cellCenter">@row.IdVecinoUnidad</div></td>
                         <td><div class="cellCenter">@row.IdVecinoUsername</div></td>
                         <td><div class="cellCenter">@row.IdRecursoNombre</div></td>
                         <td><div class="cellCenter">@row.Tipo</div></td>

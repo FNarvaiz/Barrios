@@ -34,5 +34,7 @@ namespace Barrios.Default.Forms
         public Boolean Sabado{ get; set; }
         [OneThirdWidth]
         public Boolean Domingo{ get; set; }
+        [OneThirdWidth]
+        public Boolean Feriados { get; set; }
     }
 }

@@ -53,7 +53,7 @@ namespace Barrios.Contenidos.Endpoints
         [HttpPost]
         public string SendMail(IDbConnection connection, EmailRequest request)
         {
-            Common.EmailHelper.Send("Consulta por página de comisiones de"+ Authorization.UserDefinition.Email, request.Message,request.Mails, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+            Common.EmailHelper.Send("Consulta por página de comisiones de "+ Authorization.UserDefinition.Email, request.Message,request.Mails+","+ Authorization.UserDefinition.Email, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
 
             return "El mensaje se ha enviado correctamente, en breve le responderemos.";
         }

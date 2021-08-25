@@ -19,6 +19,7 @@ namespace Barrios.Contenidos.Pages
         }
         public ActionResult NoticesView()
         {
+            return Redirect("~/News/NoticesView");
             ListRequest request = new ListRequest()
             {
                 Sort = new SortBy[1],

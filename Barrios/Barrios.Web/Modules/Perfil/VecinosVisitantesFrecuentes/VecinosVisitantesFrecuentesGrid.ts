@@ -26,6 +26,64 @@ namespace Barrios.Perfil {
                 }));
             return grid;
         }
+        protected getButtons() {
+            var buttons = super.getButtons();
+            if (this.userId == null) {
+                buttons.push({
+                    title: 'Reporte',
+                    cssClass: 'export-pdf-button',
+                    onClick: () => {
+                        if (this.getItems().length > 0) {
+                            Q.postToUrl({
+                                url: "~/Report/Render",
+                                params: {
+                                    key: "Visit.Report",
+                                    ext: "pdf",
+                                    print: 0,
+                                    opt: $.toJSON({
+                                        request: this.view.params
+                                    })
+                                },
+                                target: "_blank"
+                            });
+                        }
+                        else
+                            Q.notifyInfo("No se encuentran registros");
+                    }
+                });
+                //buttons.push({
+                //    title: 'Reporte',
+                //    cssClass: 'export-pdf-button',
+                //    onClick: () => {
+                //        if (this.getItems().length > 0) {
+                //            Q.postToUrl({
+                //                url: "~/VecinosVisitantesFrecuentes/VisitReport",
+                //                params: {
+                //                    requestString: $.toJSON(this.view.params)
+                //                },
+                //                target: "_blank"
+                //            });
+                //        }
+                //        else
+                //            Q.notifyInfo("No se encuentran registros");
+                //    }
+                //});
+                buttons.push({
+                    title: "Importar",
+                    cssClass: "import-button",
+                    onClick: () => {
+                        var dialog = new Common.ImportFileDialog((fileValue: string) => {
+                            VecinosVisitantesFrecuentesService.ImportFile({ FileName: fileValue }, (response) => {
+                                Q.notifySuccess(response);
+                                this.refresh();
+                            });
+                        });
+                        dialog.dialogOpen();
+                    }
+                });
+            }
+            return buttons;
+        }
         protected onViewSubmit() {
             if (!super.onViewSubmit()) {
                 return false;
@@ -36,6 +94,7 @@ namespace Barrios.Perfil {
                     request.Criteria,
                     [[fld.Userid], '=', this.userId]
                 );
+               
             }
             return true;
         }

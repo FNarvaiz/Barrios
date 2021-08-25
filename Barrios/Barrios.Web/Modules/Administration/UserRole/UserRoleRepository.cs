@@ -63,11 +63,29 @@ namespace Barrios.Administration.Repositories
 
         private List<MyRow> GetExisting(IDbConnection connection, Int32 userId)
         {
+
             return connection.List<MyRow>(q =>
             {
                 q.Select(fld.UserRoleId, fld.RoleId)
                     .Where(new Criteria(fld.UserId) == userId);
             });
+        }
+
+        public void InserRoleDefault(IUnitOfWork uow, List<int> newList, Int32 roleId)
+        {
+            foreach (var id in newList)
+            {
+                uow.Connection.Insert(new MyRow
+                {
+                    UserId = id,
+                    RoleId = roleId
+                });
+            }
+
+            BatchGenerationUpdater.OnCommit(uow, fld.GenerationKey);
+            BatchGenerationUpdater.OnCommit(uow, Entities.UserPermissionRow.Fields.GenerationKey);
+
+            ((UnitOfWork)uow).Commit();
         }
 
         public UserRoleListResponse List(IDbConnection connection, UserRoleListRequest request)

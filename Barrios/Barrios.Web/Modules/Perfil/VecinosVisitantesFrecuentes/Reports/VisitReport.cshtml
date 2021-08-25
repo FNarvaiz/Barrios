@@ -1,0 +1,110 @@
+﻿@model Serenity.Services.ListResponse<Barrios.Perfil.Entities.VecinosVisitantesFrecuentesRow>
+@*<link href="~/Content/css/PPAReport.css" rel="stylesheet" />*@
+@if ((bool?)ViewData["Printing"] == true)
+{
+    Layout = MVC.Views.Shared._LayoutNoNavigation;
+}
+@if (Model.Entities.Count == 0)
+{
+    <h1>No se encontraron visitantes</h1>
+}
+else
+{
+    <section style="width: 100%; text-align: center; padding-right:70px;padding-left:70px;" class="rebatereportsbody">
+        <div class="box">
+            <h1 style="width: auto; font-weight: bold; display: inline-block;">Visitantes Frecuentes</h1>
+            <h4 style="float: right; font-weight: bold;">@DateTime.Today.ToShortDateString() <br />@DateTime.Now.ToShortTimeString()</h4>
+            <h4 style="float: left; font-weight: bold;">Barrio <br />@CurrentNeigborhood.Get().LargeDisplayName</h4>
+
+        </div>
+        <table class="rebatereport-table-head">
+            <tbody>
+
+                <tr class="header" style="background-color: #a9a9a9 !important">
+                    <th class="cellCenter">Unidad</th>
+                    <th class="cellCenter">Vecino</th>
+                    <th class="cellCenter">Visitante</th>
+                    <th class="cellCenter">Dni</th>
+                    <th class="cellCenter">Tipo</th>
+                    <th class="cellCenter">Vehiculo</th>
+                </tr>
+
+                @foreach (var row in Model.Entities)
+                {
+
+                    <tr>
+                        <td><div class="cellCenter">@row.UseridUnit </div></td>
+                        <td><div class="cellCenter">@row.UseridUsername</div></td>
+                        <td><div class="cellCenter">@row.Nombre</div></td>
+                        <td><div class="cellCenter">@row.Dni</div></td>
+                        <td><div class="cellCenter">@row.Tipo</div></td>
+                        <td><div class="cellCenter">@row.Vehiculo</div></td>
+
+                    </tr>
+
+                }
+                <tr>
+                    <td colspan="5">Total de reservas: @Model.TotalCount</td>
+                </tr>
+            </tbody>
+        </table>
+        }
+    </section>
+}
+@*<br />
+    <br />
+    <p style="page-break-after: always;"></p>*@
+<style>
+    .rebatereportsbody * {
+        border: 0 !important;
+        font-size: 30px;
+    }
+
+    .rebatereport-table-head {
+        width: 100%;
+    }
+
+    .header * {
+        border: 1px solid black !important;
+    }
+
+    .lineTop {
+        border-top: 1px solid black !important;
+    }
+
+    .box {
+        /*border: 1px solid black !important;*/
+        width: 100%;
+        padding: 10px;
+    }
+
+    .cellRight {
+        text-align: right;
+        padding-right: 5px;
+    }
+
+    .cellLeft {
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .cellCenter {
+        text-align: center;
+    }
+
+    .rebatereportsbody table thead tr th, .rebatereportsbody table tbody tr td {
+        padding: 10px;
+    }
+
+    .rebatereportsbody table thead tr, .rebatereportsbody table tbody tr {
+        height: 20px;
+    }
+
+    table {
+        width: -webkit-fill-available;
+    }
+
+    .greybox {
+        background-color: #bbbbbb
+    }
+</style>

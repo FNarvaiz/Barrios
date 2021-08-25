@@ -16,6 +16,8 @@ namespace Barrios.Administration.Forms
         public String Nombre { get; set; }
         public String ShortDisplayName { get; set; }
         public String LargeDisplayName { get; set; }
+        [LookupEditor("Settings.PageHomeLookup")]
+        public String PageHome { get; set; }
         public String Mail { get; set; }
         public String PasswordMail { get; set; }
         public String Logo { get; set; }
@@ -25,6 +27,7 @@ namespace Barrios.Administration.Forms
         public String Direccion { get; set; }
         public Boolean UseSubBarrios { get; set; }
         public String Emails { get; set; }
+        public Boolean VerUserEnReservas { get; set; }
         public Boolean IsActive { get; set; }
     }
 }

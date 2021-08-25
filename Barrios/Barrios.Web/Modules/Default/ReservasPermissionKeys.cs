@@ -10,6 +10,7 @@ namespace Barrios.Default
     {
         [Description("Reservas")]
         public const string Reservas = "Reservas:admin";
-        
+        [Description("Link al Golf")]
+        public const string Golf = "User:redirecGolf";
     }
 }

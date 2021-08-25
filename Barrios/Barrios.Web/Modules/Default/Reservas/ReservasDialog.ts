@@ -56,8 +56,12 @@ namespace Barrios.Default {
         }
         protected afterLoadEntity(){
             super.afterLoadEntity();
+
+
             if (this.isEditMode() && this.entity.IdTipo!=null) {
                 this.form.IdTurnosEspeciales.value = this.entity.IdTipo.toString();
+
+                this.form.Inicio.value = this.entity.Inicio.toString();
             }
         }
         private UpdateTurnsComboBox() {

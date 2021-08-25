@@ -8,7 +8,7 @@ namespace Barrios.Migrations.DefaultDB
     {
         public override void Up()
         {
-            Alter.Table("[RESERVAS_RECURSOS]").AddColumn("Desde").AsInt16().Nullable();
+             Alter.Table("[RESERVAS_RECURSOS]").AddColumn("Desde").AsInt16().Nullable();
             Alter.Table("[RESERVAS_RECURSOS]").AddColumn("Hasta").AsInt16().Nullable();
             Execute.Sql("update [RESERVAS_RECURSOS] set Desde=0,Hasta=180 where resolucion=0");
         }

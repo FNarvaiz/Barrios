@@ -13,16 +13,14 @@ namespace Barrios.Default.Columns
     [BasedOnRow(typeof(Entities.ReservasRow), CheckNames = true)]
     public class MyBookingsColumns
     {
-        [DisplayName("ID"), Width(40), AlignRight]
-        public Int32 Id { get; set; }
+        
 
-        [DisplayName("Conf")]
-        public Boolean Confirmada { get; set; }
+        
         [Width(80)]
         public DateTime Fecha { get; set; }
-        [Width(70)]
+        [Width(200)]
         public String IdRecursoNombre { get; set; }
-        [Width(40)]
+        [Width(50)]
         public String Hora { get; set; }
         [Width(80)]
         public String  Tipo { get; set; }
@@ -32,6 +30,9 @@ namespace Barrios.Default.Columns
         public DateTime DateInsert { get; set; }
         [Hidden]
         public Int16 IdRecurso { get; set; }
-        
+        [DisplayName("Conf")]
+        public Boolean Confirmada { get; set; }
+        [DisplayName("ID"), Width(40), AlignRight]
+        public Int32 Id { get; set; }
     }
 }

@@ -2,9 +2,13 @@
 
 namespace Barrios.Administration.Repositories
 {
+    using Barrios.Administration.Entities;
+    using Barrios.Modules.Common.Utils;
     using Serenity.Data;
     using Serenity.Services;
+    using System;
     using System.Data;
+    using System.Linq;
     using MyRow = Entities.RoleRow;
 
     public class RoleRepository
@@ -40,5 +44,31 @@ namespace Barrios.Administration.Repositories
         private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
         private class MyListHandler : ListRequestHandler<MyRow> { }
+
+
+        private MyRow GetNeigborhoodRole(string roleName)
+        {
+            RoleRow obj = null;
+            using (var connection2 = Utils.GetConnection())
+                obj = connection2.Query<RoleRow>("SELECT * from Roles WHERE RoleName='" + roleName + "'").SingleOrDefault();
+            return obj;
+        }
+
+        internal MyRow GetOrCreateNeigborhoodRole()
+        {
+            string roleName = "Vecinos de " + CurrentNeigborhood.Get().Nombre;
+            RoleRow obj = GetNeigborhoodRole(roleName);
+            if (obj == null)
+            {
+                using(var uow= Utils.GetUnitOfWork())
+                {
+                    SaveRequest<MyRow> request = new SaveRequest<MyRow>() { Entity = new MyRow() { RoleName = roleName } };
+                    Create(uow, request);
+                    uow.Commit();
+                    obj = request.Entity;
+                }
+            }
+            return obj;
+        }
     }
 }

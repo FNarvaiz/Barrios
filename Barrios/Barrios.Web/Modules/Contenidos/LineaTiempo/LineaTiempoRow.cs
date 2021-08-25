@@ -44,15 +44,21 @@ namespace Barrios.Contenidos.Entities
             get { return Fields.Aprobado[this]; }
             set { Fields.Aprobado[this] = value; }
         }
-        
-        [DisplayName("Periodo Fecha"), Column("PERIODO_FECHA")]
+        [DisplayName("Mostrar"), Column("Mostrar"), NotNull]
+        public Boolean? Mostrar
+        {
+            get { return Fields.Mostrar[this]; }
+            set { Fields.Mostrar[this] = value; }
+        }
+
+        [DisplayName("Periodo Fecha"), Column("PERIODO_FECHA"),SortOrder(1,true)]
         public DateTime? PeriodoFecha
         {
             get { return Fields.PeriodoFecha[this]; }
             set { Fields.PeriodoFecha[this] = value; }
         }
 
-        [DisplayName("Contenido Texto"), Column("CONTENIDO_TEXTO")]
+        [DisplayName("Contenido Texto"), HtmlContentEditor(), Column("CONTENIDO_TEXTO")]
         public String ContenidoTexto
         {
             get { return Fields.ContenidoTexto[this]; }
@@ -120,6 +126,8 @@ namespace Barrios.Contenidos.Entities
             public StringField ArchivoFilename;
 
             public BooleanField Aprobado;
+
+            public BooleanField Mostrar;
 
             public DateTimeField PeriodoFecha;
 

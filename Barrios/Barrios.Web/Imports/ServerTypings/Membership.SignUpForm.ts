@@ -1,6 +1,7 @@
 ﻿namespace Barrios.Membership {
     export interface SignUpForm {
         DisplayName: Serenity.StringEditor;
+        subBarrioId: Serenity.LookupEditor;
         Unit: Serenity.StringEditor;
         Email: Serenity.EmailEditor;
         ConfirmEmail: Serenity.EmailEditor;
@@ -20,16 +21,18 @@
 
                 var s = Serenity;
                 var w0 = s.StringEditor;
-                var w1 = s.EmailEditor;
-                var w2 = s.PasswordEditor;
+                var w1 = s.LookupEditor;
+                var w2 = s.EmailEditor;
+                var w3 = s.PasswordEditor;
 
                 Q.initFormType(SignUpForm, [
                     'DisplayName', w0,
+                    'subBarrioId', w1,
                     'Unit', w0,
-                    'Email', w1,
-                    'ConfirmEmail', w1,
-                    'Password', w2,
-                    'ConfirmPassword', w2
+                    'Email', w2,
+                    'ConfirmEmail', w2,
+                    'Password', w3,
+                    'ConfirmPassword', w3
                 ]);
             }
         }

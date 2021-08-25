@@ -44,7 +44,7 @@ namespace Barrios.Default.Entities
             set { Fields.Inicio[this] = value; }
         }
 
-        [DisplayName("Duración"), Required, LookupInclude, TimeEditor(EndHour = 8), Column("DURACION"), NotNull]
+        [DisplayName("Duración"), Required, LookupInclude, TimeEditor(EndHour = 15), Column("DURACION"), NotNull]
         public Int16? Duracion
         {
             get { return Fields.Duracion[this]; }
@@ -98,6 +98,12 @@ namespace Barrios.Default.Entities
             get { return Fields.Domingo[this]; }
             set { Fields.Domingo[this] = value; }
         }
+        [DisplayName("Feriados"), NotMapped]
+        public Boolean? Feriados
+        {
+            get { return Fields.Feriados[this]; }
+            set { Fields.Feriados[this] = value; }
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -130,6 +136,8 @@ namespace Barrios.Default.Entities
             public BooleanField Viernes;
             public BooleanField Sabado;
             public BooleanField Domingo;
+            public BooleanField Feriados;
+
         }
     }
 }

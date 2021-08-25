@@ -2,15 +2,19 @@
 
 namespace Barrios.Administration.Endpoints
 {
+    using Barrios.Modules.Common.ImportFile;
+    using Barrios.Modules.Common.Utils;
     using Entities;
     using Repositories;
     using Serenity;
     using Serenity.ComponentModel;
     using Serenity.Data;
     using Serenity.Services;
+    using Serenity.Web;
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.IO;
     using System.Linq;
     using System.Web.Mvc;
     using MyRepository = Repositories.UserRepository;
@@ -26,6 +30,7 @@ namespace Barrios.Administration.Endpoints
             if (request.Entity.ClientIdList == null)
                 request.Entity.ClientIdList = new List<int>();
             request.Entity.ClientIdList.Add(CurrentNeigborhood.Get().Id.Value);
+
             return new MyRepository().Create(uow, request);
         }
 
@@ -40,7 +45,13 @@ namespace Barrios.Administration.Endpoints
         {
             try
             {
-                return new MyRepository().Delete(uow, request);
+                var repo = new MyRepository();
+                if (repo.IsOnlyUserInThisNeigbordhoob(Convert.ToInt32(request.EntityId)))
+                    return repo.Delete(uow, request);
+                else {
+                    repo.DeleteOnlyThisNeigborhood(request);
+                    return new DeleteResponse();
+                }
             }
             catch (Exception ex)
             {
@@ -56,14 +67,173 @@ namespace Barrios.Administration.Endpoints
 
         public RetrieveResponse<MyRow> Retrieve(IDbConnection connection, RetrieveRequest request)
         {
-            return new MyRepository().Retrieve(connection, request);
+            var response= new MyRepository().Retrieve(connection, request);
+            var neibord = new MyRepository().GetUserBarrios(Convert.ToInt32(request.EntityId), CurrentNeigborhood.Get().Id.Value);
+            response.Entity.Note = neibord.Note;
+            response.Entity.Units = neibord.Units;
+            response.Entity.LimitDate = neibord.LimitDate;
+            response.Entity.Owner = neibord.Owner;
+            response.Entity.Units = neibord.Units;
+            return response;
         }
 
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
             return new MyRepository().List(connection, request);
         }
+        private UserRow GetUser(List<MyRow> list,int appholdId)
+        {
+            foreach (var aux in list)
+                if (aux.AppHoldId == appholdId)
+                    return aux;
+            return null;
+        }
+        
+        private bool IsInvariantLetter(Char c)
+        {
+            return (c >= 'A' && c <= 'Z') ||
+                (c >= 'a' && c <= 'z');
+        }
+        private  bool IsDigit(Char c)
+        {
+            return (c >= '0' && c <= '9');
+        }
 
+        private  bool IsValidEmailChar(Char c)
+        {
+            return IsInvariantLetter(c) ||
+                IsDigit(c) ||
+                c == '.' ||
+                c == '_' ||
+                c == '-' ||
+                c == '@';
+        }
+        public bool IsValidUsername(string name)
+        {
+            if (name == null ||
+                name.Length < 0)
+                return false;
+
+            var c = name[0];
+            if (!IsInvariantLetter(c))
+                return false;
+
+            for (var i = 1; i < name.Length - 1; i++)
+            {
+                c = name[i];
+                if (!IsValidEmailChar(c))
+                    return false;
+            }
+
+            return true;
+        }
+        private string GeneratePassword(string Password)
+        {
+            Password = Password.Trim();
+            if (Password.Length < 5)
+                Password = Password + CurrentNeigborhood.Current.ShortDisplayName;
+            return Password;
+        }
+        public string ImportFile(IDbConnection connection, ImportFileRequest request)
+        {
+
+            Int16 errors = 0;
+            Int16 success = 0;
+            var requestList = new ListRequest()
+            {
+                EqualityFilter = new Dictionary<string, object>()
+            };
+            requestList.EqualityFilter.Add("barrioid", CurrentNeigborhood.Get().Id);
+            List<MyRow>list= List(connection, requestList).Entities;
+            RoleRow NeigborhoodRole = new RoleRepository().GetOrCreateNeigborhoodRole();
+            List<int> usersId = new List<int>();
+            string listErrors = "";
+            using (StreamReader sr = new StreamReader(UploadHelper.DbFilePath(request.FileName)))
+            {
+                string line;
+                Random random = new Random();
+                while (sr.Peek() >= 0)
+                {
+
+                    line = sr.ReadLine();
+                   
+                    try
+                    {
+                        string[] lineSplit = line.Split(',');
+                        var user = GetUser(list, Convert.ToInt32(lineSplit[0]));
+                        if (user==null)
+                        {
+                            if (lineSplit[3].Contains("@"))
+                            {
+                                user = new UserRow()
+                                {
+                                    AppHoldId = Convert.ToInt32(lineSplit[0]),
+                                    Username = lineSplit[1],
+                                    Units = lineSplit[2],
+                                    Email = lineSplit[3],
+                                    Phone = lineSplit[5],
+                                    Note = lineSplit[6].ToString().Replace('|', '\n').Replace('^', ','),
+                                    IsActive = 1
+                                };
+                                if (!IsValidUsername(user.Username))
+                                    user.Username = user.Email.Split('@')[0];
+                                if (Utils.GetRequestString("select userid from users where username='" + user.Username + "'").Rows.Count > 0)
+                                    user.Username = user.Username + random.Next();
+                                user.DisplayName = user.Username;
+                                user.Password = GeneratePassword(lineSplit[4]);
+
+
+                                using (var connection2 = Utils.GetConnection())
+                                {
+                                    using (var UOW = new UnitOfWork(connection2))
+                                    {
+                                        SaveRequest<MyRow> requestUser = new SaveRequest<MyRow>() { Entity = user };
+
+                                        Create(UOW, requestUser);
+                                        UOW.Commit();
+                                        usersId.Add(requestUser.Entity.UserId.Value);
+                                        var emailBody = TemplateHelper.RenderTemplate(
+                                         MVC.Views.Administration.User.UpdatedPageEmail, user);
+
+
+
+                                        Common.EmailHelper.Send("Actualización de página", emailBody, user.Email + "," + CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+
+                                        success++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception(line);
+                            }
+                        }
+                        else
+                        {
+
+                            user.Password = GeneratePassword(lineSplit[4]);
+                            user.Units = lineSplit[2];
+                            var emailBody = TemplateHelper.RenderTemplate(
+                                         MVC.Views.Administration.User.UpdatedPageEmail, user);
+                            Common.EmailHelper.Send("Actualización de página", emailBody, user.Email + "," + CurrentNeigborhood.Get().Mail, CurrentNeigborhood.Get().LargeDisplayName, CurrentNeigborhood.Get().Mail);
+
+                            success++;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        errors++;
+                        listErrors = listErrors +e.Message+"  "+ line + "\n";
+                        Log.Error("Error al cargar esta linea:"+line, e, typeof(UserController));
+                    }
+                   // user
+                }
+                using (var UOW = Utils.GetUnitOfWork())
+                    new UserRoleRepository().InserRoleDefault(UOW, usersId, NeigborhoodRole.RoleId.Value);
+            }
+            return $"Se cargaron correctamente {success}. Y hubo una candidad de {errors} con errores que no se cargaron.\n{listErrors}";
+        }
+       
         private static string[] permissionsUsedFromScript;
 
         /// <summary>

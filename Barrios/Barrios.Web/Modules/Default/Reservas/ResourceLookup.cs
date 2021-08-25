@@ -22,7 +22,8 @@ namespace Barrios.Modules.Barrios.Default
         protected override void PrepareQuery(SqlQuery query)
         {
             base.PrepareQuery(query);
-            query.Where(new Criteria(ReservasRecursosRow.Fields.BarrioId) == CurrentNeigborhood.Get().Id.ToString() );
+            query.Where(new Criteria(ReservasRecursosRow.Fields.BarrioId) == CurrentNeigborhood.Get().Id.ToString() )
+                .OrderBy(ReservasRecursosRow.Fields.Description);
         }
     
         protected override void ApplyOrder(SqlQuery query)

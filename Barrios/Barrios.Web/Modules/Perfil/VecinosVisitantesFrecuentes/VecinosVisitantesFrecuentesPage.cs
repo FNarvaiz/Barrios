@@ -1,7 +1,11 @@
 ﻿
 namespace Barrios.Perfil.Pages
 {
+    using Barrios.Modules.Common.Utils;
+    using Barrios.Perfil.Entities;
+    using Newtonsoft.Json;
     using Serenity;
+    using Serenity.Services;
     using Serenity.Web;
     using System.Web.Mvc;
 
@@ -17,6 +21,5 @@ namespace Barrios.Perfil.Pages
         {
             return View("~/Modules/Views/Perfil/VisitantesFrecuentes.cshtml");
         }
-        
     }
 }

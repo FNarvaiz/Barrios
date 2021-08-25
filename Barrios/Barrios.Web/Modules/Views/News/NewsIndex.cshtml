@@ -1,0 +1,35 @@
+﻿@model System.Collections.Generic.List<Barrios.Contenidos.Entities.NewsRow>
+@{
+    var categorys=new List<string>();
+    ViewData["Title"] = "Novedades"; //Serenity.LocalText.Get("Db.Contenidos.ProveedoresValoraciones.EntityPlural");
+}
+<div class="containerProviders">
+    <h3 class="titleContainer">
+        Novedades
+    </h3>
+    
+    @foreach (var aux in Model)
+    {
+        <article class="articleItem ">
+            <section class="title">
+                <h4>@aux.Nombre </h4> 
+            </section>
+            <p>@Html.Raw(aux.Descripcion)</p>
+            <div class="posible-fixed" onclick="fixedContainer(this)">
+                <img src="/upload/@aux.Imagen" alt="@aux.Nombre">
+            </div>
+        </article>
+    }
+
+
+</div>
+<script type="text/javascript">
+    function fixedContainer(element) {
+        div = $(element);
+        if (div.hasClass("fixed")) 
+            div.removeClass("fixed");
+        else 
+            div.addClass("fixed");
+    }
+  
+</script>

@@ -8,6 +8,7 @@
         Userid?: number;
         BarrioId?: number;
         UseridUsername?: string;
+        UseridUnit?: string;
     }
 
     export namespace VecinosVisitantesFrecuentesRow {
@@ -23,7 +24,8 @@
             Tipo = "Tipo",
             Userid = "Userid",
             BarrioId = "BarrioId",
-            UseridUsername = "UseridUsername"
+            UseridUsername = "UseridUsername",
+            UseridUnit = "UseridUnit"
         }
     }
 }

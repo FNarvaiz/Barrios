@@ -51,7 +51,7 @@
                 TimeSpan.Zero, TimeSpan.FromDays(1), fld.GenerationKey, () =>
             {
                 using (var connection = SqlConnections.NewByKey("Default"))
-                    return GetFirst(connection, new Criteria(fld.Username) == username);
+                    return GetFirst(connection, new Criteria(fld.Username) == username && new Criteria(fld.BarrioId) == Convert.ToInt32(CurrentNeigborhood.Get().Id));
             });
         }
 

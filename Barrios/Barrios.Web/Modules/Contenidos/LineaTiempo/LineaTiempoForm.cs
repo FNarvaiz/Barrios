@@ -17,8 +17,9 @@ namespace Barrios.Contenidos.Forms
         [LookupEditor("Category.TimeLineCategoryLookup", InplaceAdd = true, DialogType = "Contenidos.CategoriasDialog")]
         public Int16 IdCategoria { get; set; }
         public DateTime PeriodoFecha { get; set; }
-        public String ContenidoTexto { get; set; }
         public String ArchivoFilename { get; set; }
+        public String ContenidoTexto { get; set; }
+        public Boolean Mostrar { get; set; }
         public Boolean Aprobado { get; set; }
     }
 }

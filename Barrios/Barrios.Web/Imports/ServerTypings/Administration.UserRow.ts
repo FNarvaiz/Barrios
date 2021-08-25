@@ -9,6 +9,10 @@
         DisplayName?: string;
         Email?: string;
         Email_Others?: string;
+        Phone?: string;
+        LimitDate?: string;
+        Owner?: boolean;
+        AppHoldId?: number;
         UserImage?: string;
         LastDirectoryUpdate?: string;
         IsActive?: number;
@@ -16,8 +20,9 @@
         Password?: string;
         PasswordConfirm?: string;
         ClientIdList?: number[];
-        Unit?: string;
-        HavePermisions?: number;
+        Units?: string;
+        Note?: string;
+        Roles?: string;
         InsertUserId?: number;
         InsertDate?: string;
         UpdateUserId?: number;
@@ -45,6 +50,10 @@
             DisplayName = "DisplayName",
             Email = "Email",
             Email_Others = "Email_Others",
+            Phone = "Phone",
+            LimitDate = "LimitDate",
+            Owner = "Owner",
+            AppHoldId = "AppHoldId",
             UserImage = "UserImage",
             LastDirectoryUpdate = "LastDirectoryUpdate",
             IsActive = "IsActive",
@@ -52,8 +61,9 @@
             Password = "Password",
             PasswordConfirm = "PasswordConfirm",
             ClientIdList = "ClientIdList",
-            Unit = "Unit",
-            HavePermisions = "HavePermisions",
+            Units = "Units",
+            Note = "Note",
+            Roles = "Roles",
             InsertUserId = "InsertUserId",
             InsertDate = "InsertDate",
             UpdateUserId = "UpdateUserId",

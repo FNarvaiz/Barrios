@@ -16,8 +16,16 @@ namespace Barrios.Default.Entities
     [ModifyPermission("User:Reservas")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", "jType.[ID_Recurso] = t0.[ID] ")]
     [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", "jTurns.[ID_Recurso] = t0.[ID] ")]
-     public sealed class ReservasRecursosRow : Row, IIdRow, INameRow
+    [LeftJoin("jReservas", "[dbo].[RESERVAS_RECURRENTES]", "jReservas.[ResourceId] = t0.[ID] ")]
+    public sealed class ReservasRecursosRow : Row, IIdRow, INameRow
     {
+        
+        [DisplayName("Reservas recurrentes"), MasterDetailRelation("ResourceId", IncludeColumns = "*"), NotMapped]
+        public List<ReservasRecurrentesRow> BookingRecurringList
+        {
+            get => Fields.BookingRecurringList[this];
+            set => Fields.BookingRecurringList[this] = value;
+        }
         [DisplayName("Tipos de reserva"), MasterDetailRelation("ID_recurso", IncludeColumns = "*"), NotMapped]
         public List<ReservasTiposRow> TypeList
         {
@@ -36,6 +44,13 @@ namespace Barrios.Default.Entities
             get { return Fields.Id[this]; }
             set { Fields.Id[this] = value; }
         }
+        [DisplayName("Limite de hora."), Column("LimitHour")]
+        public Int32? LimitHour
+        {
+            get { return Fields.LimitHour[this]; }
+            set { Fields.LimitHour[this] = value; }
+        }
+        
         [DisplayName("Barrio"), Expression("jBarrio.[BarrioId]")]
         public Int16? BarrioId
         {
@@ -76,13 +91,13 @@ namespace Barrios.Default.Entities
             get { return Fields.Resolucion[this]; }
             set { Fields.Resolucion[this] = value; }
         }
-        [DisplayName("Hasta los siguientes"), LookupInclude,IntegerEditor(MaxValue =360,MinValue =0,AllowNegatives =false), Column("Hasta")]
+        [DisplayName("Hasta los siguientes"), LookupInclude,IntegerEditor(MaxValue =370,MinValue =0,AllowNegatives =false), Column("Hasta")]
         public Int16? Hasta
         {
             get { return Fields.Hasta[this]; }
             set { Fields.Hasta[this] = value; }
         }
-        [DisplayName("A partir de los siguientes"), LookupInclude, IntegerEditor(MaxValue = 360, MinValue = 0, AllowNegatives = false), Column("Desde")]
+        [DisplayName("A partir de los siguientes"), LookupInclude, IntegerEditor(MaxValue = 370, MinValue = 0, AllowNegatives = false), Column("Desde")]
         public Int16? Desde
         {
             get { return Fields.Desde[this]; }
@@ -94,7 +109,7 @@ namespace Barrios.Default.Entities
             get { return Fields.Emails[this]; }
             set { Fields.Emails[this] = value; }
         }
-        [DisplayName("Cuerpo del mensaje"), Size(1000), Placeholder("Texto que se enviará por mail al reservar. (Max 1000 caracteres)"), TextAreaEditor()]
+        [DisplayName("Cuerpo del mensaje"),HtmlContentEditor(),  Size(6000), Placeholder("Texto que se enviará por mail al reservar. (Max 1000 caracteres)")]
         public String MailBody
         {
             get { return Fields.MailBody[this]; }
@@ -119,13 +134,90 @@ namespace Barrios.Default.Entities
             get => Fields.ClientIdList[this];
             set => Fields.ClientIdList[this] = value;
         }
-
+        [DisplayName("ID de la app vieja")]
+        public Int32? AppHoldId
+        {
+            get { return Fields.AppHoldId[this]; }
+            set { Fields.AppHoldId[this] = value; }
+        }
+        [DisplayName("Reservables") , Placeholder("Cant de dias reservables por unidad"),Description("Cant de dias reservables por unidad")]
+        public Int16? AmountToReserve
+        {
+            get { return Fields.AmountToReserve[this]; }
+            set { Fields.AmountToReserve[this] = value; }
+        }
+        [DisplayName("Reservables por día"), Placeholder("Cant de reservas permitidas por día"), Description("Cant de reservas permitidas por día")]
+        public Int16? AmountForDays
+        {
+            get { return Fields.AmountForDays[this]; }
+            set { Fields.AmountForDays[this] = value; }
+        }
+        [DisplayName("Necesita Comentario")]
+        public Boolean? NeedComment
+        {
+            get { return Fields.NeedComment[this]; }
+            set { Fields.NeedComment[this] = value; }
+        }
         [DisplayName("Reservar solo para"), NotMapped]
         [LinkingSetRelation(typeof(SubbarriosRecursosRow), "RecursoId", "SubBarrioId")]
         public List<Int16> NeigborhoodList
         {
             get => Fields.NeigborhoodList[this];
             set => Fields.NeigborhoodList[this] = value;
+        }
+        [DisplayName("Días"), LookupInclude, Required,DefaultValue("01234567"), Column("DIAS"), Size(8)]
+        public String Dias
+        {
+            get { return Fields.Dias[this]; }
+            set { Fields.Dias[this] = value; }
+        }
+        [DisplayName("Lunes"), NotMapped]
+        public Boolean? Lunes
+        {
+            get { return Fields.Lunes[this]; }
+            set { Fields.Lunes[this] = value; }
+        }
+        [DisplayName("Martes"), NotMapped]
+        public Boolean? Martes
+        {
+            get { return Fields.Martes[this]; }
+            set { Fields.Martes[this] = value; }
+        }
+        [DisplayName("Miercoles"), NotMapped]
+        public Boolean? Miercoles
+        {
+            get { return Fields.Miercoles[this]; }
+            set { Fields.Miercoles[this] = value; }
+        }
+        [DisplayName("Jueves"), NotMapped]
+        public Boolean? Jueves
+        {
+            get { return Fields.Jueves[this]; }
+            set { Fields.Jueves[this] = value; }
+        }
+        [DisplayName("Viernes"), NotMapped]
+        public Boolean? Viernes
+        {
+            get { return Fields.Viernes[this]; }
+            set { Fields.Viernes[this] = value; }
+        }
+        [DisplayName("Sabado"), NotMapped]
+        public Boolean? Sabado
+        {
+            get { return Fields.Sabado[this]; }
+            set { Fields.Sabado[this] = value; }
+        }
+        [DisplayName("Domingo"), NotMapped]
+        public Boolean? Domingo
+        {
+            get { return Fields.Domingo[this]; }
+            set { Fields.Domingo[this] = value; }
+        }
+        [DisplayName("Feriados"), NotMapped]
+        public Boolean? Feriados
+        {
+            get { return Fields.Feriados[this]; }
+            set { Fields.Feriados[this] = value; }
         }
         IIdField IIdRow.IdField
         {
@@ -158,11 +250,26 @@ namespace Barrios.Default.Entities
             public Int16Field Desde;
             public Int16Field Hasta;
             public Int16Field Resolucion;
+            public Int16Field AmountToReserve;
+            public Int32Field AppHoldId;
+            public Int32Field LimitHour;
             public ListField<Int32> ClientIdList;
             public ListField<Int16> NeigborhoodList;
             public Int16Field BarrioId;
+            public Int16Field AmountForDays;
             public ListField<ReservasTiposRow> TypeList;
             public ListField<ReservasTurnosEspecialesRow> SpecialTurnList;
+            public ListField<ReservasRecurrentesRow> BookingRecurringList;
+            public BooleanField NeedComment;
+            public StringField Dias;
+            public BooleanField Lunes;
+            public BooleanField Martes;
+            public BooleanField Miercoles;
+            public BooleanField Jueves;
+            public BooleanField Viernes;
+            public BooleanField Sabado;
+            public BooleanField Domingo;
+            public BooleanField Feriados;
         }
      }
 }

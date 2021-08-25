@@ -90,6 +90,19 @@
                         Q.notifyError("Seleccione alguna reserva para confirmar");
                 }
             });
+            buttons.push({
+                title: "Importar reservas",
+                cssClass: "import-button",
+                onClick: () => {
+                    var dialog = new Common.ImportFileDialog((fileValue: string) => {
+                        ReservasService.ImportFile({ FileName: fileValue }, (response) => {
+                            Q.confirm(response, () => { });
+                            this.refresh();
+                        });
+                    });
+                    dialog.dialogOpen();
+                }
+            });
             return buttons;
         }
         

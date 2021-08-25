@@ -12,6 +12,23 @@ namespace Barrios.Default {
         constructor(container: JQuery) {
             super(container);
         }
+        protected getButtons() {
+            var buttons = super.getButtons();
+            buttons.push({
+                title: "Importar recursos",
+                cssClass: "import-button",
+                onClick: () => {
+                    var dialog = new Common.ImportFileDialog((fileValue: string) => {
+                        ReservasRecursosService.ImportFile({ FileName: fileValue }, (response) => {
+                            Q.notifySuccess(response);
+                            this.refresh();
+                        });
+                    });
+                    dialog.dialogOpen();
+                }
+            });
+            return buttons;
+        }
     }
 
 }

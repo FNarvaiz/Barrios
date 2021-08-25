@@ -24,5 +24,6 @@ namespace Barrios.Default.Columns
         public Int16 Cierre { get; set; }
         public Int16 Resolucion { get; set; }
         public String Regulation { get; set; }
+        public String Dias { get; set; }
     }
 }

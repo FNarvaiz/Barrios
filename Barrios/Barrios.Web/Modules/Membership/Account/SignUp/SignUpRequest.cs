@@ -10,5 +10,6 @@ namespace Barrios.Membership
         public String Email { get; set; }
         public String Password { get; set; }
         public String Unit { get; set; }
+        public short? subBarrioId { get; set; }
     }
 }

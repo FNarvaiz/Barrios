@@ -23,7 +23,12 @@
                     return Q.text('Validation.PasswordConfirm');
                 }
             });
-
+            if (this.form.subBarrioId.items.length == 0) {
+                $(".subBarrioId").hide()
+            }
+            else {
+                this.form.subBarrioId.element.addClass("required");
+            }
             this.byId('SubmitButton').click(e => {
                 e.preventDefault();
 
@@ -37,7 +42,8 @@
                         DisplayName: this.form.DisplayName.value,
                         Email: this.form.Email.value,
                         Password: this.form.Password.value,
-                        Unit: this.form.Unit.value
+                        Unit: this.form.Unit.value,
+                        subBarrioId: this.form.subBarrioId.value
                     },
                     onSuccess: response => {
                         Q.information(Q.text('Forms.Membership.SignUp.Success'), () => {

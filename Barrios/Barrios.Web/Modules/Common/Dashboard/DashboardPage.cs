@@ -14,16 +14,19 @@ namespace Barrios.Common.Pages
     [RoutePrefix("Dashboard"), Route("{action=index}")]
     public class DashboardController : Controller
     {
-        [Authorize, HttpGet, Route("~/Dashboard")]
+        [Authorize, HttpGet, Route("~/")]
         public ActionResult Index()
         {
-            return View(MVC.Views.Common.Dashboard.DashboardIndex, new DashboardPageModel());
+            return Redirect(CurrentNeigborhood.Get().PageHome);
+
+           // return View(MVC.Views.Common.Dashboard.DashboardIndex, new DashboardPageModel());
         }
-        [Authorize, HttpGet, Route("~/")]
+        [Authorize, HttpGet, Route("Reservas")]
         public ActionResult Booking()
         {
             try
             {
+                
                 if (Authorization.HasPermission("User:Reservas"))
                 {
                     System.Data.IDbConnection connection = new SqlConnection(SqlConnections.GetConnectionString("Default").ConnectionString);

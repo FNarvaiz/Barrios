@@ -16,6 +16,11 @@ namespace MVC
                 public const string LanguageIndex = "~/Modules/Administration/Language/LanguageIndex.cshtml";
             }
 
+            public static class Notes
+            {
+                public const string NotesIndex = "~/Modules/Administration/Notes/NotesIndex.cshtml";
+            }
+
             public static class Role
             {
                 public const string RoleIndex = "~/Modules/Administration/Role/RoleIndex.cshtml";
@@ -28,6 +33,7 @@ namespace MVC
 
             public static class User
             {
+                public const string UpdatedPageEmail = "~/Modules/Administration/User/UpdatedPageEmail.cshtml";
                 public const string UserIndex = "~/Modules/Administration/User/UserIndex.cshtml";
             }
         }
@@ -35,6 +41,7 @@ namespace MVC
         public static class Bookings
         {
             public const string Booking = "~/Modules/Views/Bookings/Booking.cshtml";
+            public const string MyBookingsIndex = "~/Modules/Views/Bookings/MyBookingsIndex.cshtml";
         }
 
         public static class Commissions
@@ -89,6 +96,11 @@ namespace MVC
                 public const string LineaTiempoIndex = "~/Modules/Contenidos/LineaTiempo/LineaTiempoIndex.cshtml";
             }
 
+            public static class News
+            {
+                public const string NewsIndex = "~/Modules/Contenidos/News/NewsIndex.cshtml";
+            }
+
             public static class Proveedores
             {
                 public const string ProveedoresIndex = "~/Modules/Contenidos/Proveedores/ProveedoresIndex.cshtml";
@@ -130,6 +142,11 @@ namespace MVC
             public const string ValidationError = "~/Views/Errors/ValidationError.cshtml";
         }
 
+        public static class Location
+        {
+            public const string LocationIndex = "~/Modules/Views/Location/LocationIndex.cshtml";
+        }
+
         public static class Membership
         {
             public static class Account
@@ -157,11 +174,17 @@ namespace MVC
                 public static class SignUp
                 {
                     public const string AccountActivateEmail = "~/Modules/Membership/Account/SignUp/AccountActivateEmail.cshtml";
+                    public const string AccountOtherNeigbordhoodEmail = "~/Modules/Membership/Account/SignUp/AccountOtherNeigbordhoodEmail.cshtml";
                     public const string AccountSignUp = "~/Modules/Membership/Account/SignUp/AccountSignUp.cshtml";
                     public const string AccountSignUp_AdminLTE = "~/Modules/Membership/Account/SignUp/AccountSignUp.AdminLTE.cshtml";
                     public const string NewUserActivatedEmail = "~/Modules/Membership/Account/SignUp/NewUserActivatedEmail.cshtml";
                 }
             }
+        }
+
+        public static class News
+        {
+            public const string NewsIndex = "~/Modules/Views/News/NewsIndex.cshtml";
         }
 
         public static class Notices
@@ -193,6 +216,10 @@ namespace MVC
 
             public static class VecinosVisitantesFrecuentes
             {
+                public static class Reports
+                {
+                    public const string VisitReport = "~/Modules/Perfil/VecinosVisitantesFrecuentes/Reports/VisitReport.cshtml";
+                }
                 public const string VecinosVisitantesFrecuentesIndex = "~/Modules/Perfil/VecinosVisitantesFrecuentes/VecinosVisitantesFrecuentesIndex.cshtml";
             }
             public const string VisitantesFrecuentes = "~/Modules/Views/Perfil/VisitantesFrecuentes.cshtml";

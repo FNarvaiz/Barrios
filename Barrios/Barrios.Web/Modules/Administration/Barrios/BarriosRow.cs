@@ -102,13 +102,24 @@ namespace Barrios.Administration.Entities
             get { return Fields.CantDiasReservables[this]; }
             set { Fields.CantDiasReservables[this] = value; }
         }
+        [DisplayName("Ver usuarios en las reservas"), NotNull]
+        public Boolean? VerUserEnReservas
+        {
+            get { return Fields.VerUserEnReservas[this]; }
+            set { Fields.VerUserEnReservas[this] = value; }
+        }
         [DisplayName("Emails"), Size(200), Placeholder("Ingrese los mails a donde se tiene que enviar la solicitud o reserva,(1 por linea)"), TextAreaEditor()]
         public String Emails
         {
             get { return Fields.Emails[this]; }
             set { Fields.Emails[this] = value; }
         }
-
+        [DisplayName("Pagina de inicio"), Size(200)]
+        public String PageHome
+        {
+            get { return Fields.PageHome[this]; }
+            set { Fields.PageHome[this] = value; }
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -145,9 +156,11 @@ namespace Barrios.Administration.Entities
             public StringField PasswordMail;
             public Int16Field CantDiasReservables;
 
+            
+            public BooleanField VerUserEnReservas;
             public BooleanField IsActive; 
             public BooleanField UseSubBarrios;
-
+            public StringField PageHome;
         }
     }
 }

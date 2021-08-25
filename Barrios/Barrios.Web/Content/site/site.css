@@ -7095,6 +7095,12 @@ section.content > .s-DataGrid {
 .s-PermissionCheckEditor .effective-permission.deny {
   background-image: url(../serenity/images/slash.png);
 }
+.s-Administration-NotesDialog > .size {
+  width: 650px;
+}
+.s-Administration-NotesDialog .caption {
+  width: 150px;
+}
 /*Default styles for login/register pages*/
 .page-content .s-ChangePasswordPanel {
   width: 550px;
@@ -7435,6 +7441,12 @@ section.content > .s-DataGrid {
 .s-Default-HolidaysDialog .caption {
   width: 150px;
 }
+.s-Default-ReservasRecurrentesDialog > .size {
+  width: 650px;
+}
+.s-Default-ReservasRecurrentesDialog .caption {
+  width: 150px;
+}
 .s-Perfil-VecinosActividadesDialog > .size {
   width: 650px;
 }
@@ -7471,6 +7483,12 @@ section.content > .s-DataGrid {
 .s-Settings-SubbarriosDialog .caption {
   width: 150px;
 }
+.s-Contenidos-NewsDialog > .size {
+  width: 650px;
+}
+.s-Contenidos-NewsDialog .caption {
+  width: 150px;
+}
 .btn-success {
   background: #365D34;
 }
@@ -7486,6 +7504,24 @@ section.content > .s-DataGrid {
 }
 .contentSubTitle {
   color: antiquewhite;
+}
+.not-Available {
+  padding: 4px;
+  margin-right: 4px;
+  display: inline-block;
+}
+.posible-fixed.fixed {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #00000082;
+  top: 0;
+  z-index: 10000;
+  left: 0;
+  padding: 15px;
+}
+.posible-fixed.fixed img {
+  max-height: 100% !important;
 }
 .box.dark,
 .styleSerenity.dark {
@@ -7682,6 +7718,8 @@ You could also use a data-* attribute and content for this. That way "bloats" th
   padding: 0px;
   width: 49%;
   display: inline-block;
+  float: left;
+  margin-right: 10px;
 }
 .containerSurveys .articleItem .dropdown,
 .containerProviders .articleItem .dropdown {
@@ -7705,6 +7743,11 @@ You could also use a data-* attribute and content for this. That way "bloats" th
   float: right;
   padding: 5px;
 }
+.containerSurveys .articleItem img,
+.containerProviders .articleItem img {
+  max-width: 100%;
+  max-height: 300px;
+}
 .containerSurveys .articleItem p,
 .containerProviders .articleItem p {
   text-align: left;
@@ -7722,6 +7765,9 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 }
 .statusBlue {
   background-color: lightblue !important;
+}
+.btn-blue {
+  background-color: dodgerblue !important;
 }
 .statusGreen {
   background-color: lightgreen !important;
@@ -7751,4 +7797,44 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 .s-ReservasGrid .active {
   background-color: deepskyblue !important;
   color: whitesmoke !important;
+}
+.s-Default-ReservasRecursosDialog .category.first-category .category-title {
+  display: none !important;
+}
+.s-Default-ReservasRecursosDialog .categories {
+  display: block;
+}
+@media (min-width: 900px) {
+  .s-Default-ReservasRecursosDialog .field.SpecialTurnList,
+  .s-Default-ReservasRecursosDialog .field.TypeList,
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList,
+  .s-Default-ReservasRecursosDialog .field.BookingRecurringList {
+    height: 60vh;
+    width: 100%;
+  }
+  .s-Default-ReservasRecursosDialog .field.SpecialTurnList .s-DataGrid,
+  .s-Default-ReservasRecursosDialog .field.TypeList .s-DataGrid,
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .s-DataGrid,
+  .s-Default-ReservasRecursosDialog .field.BookingRecurringList .s-DataGrid {
+    height: 98%;
+    float: inherit;
+  }
+  .s-Default-ReservasRecursosDialog .field.SpecialTurnList .slick-pane.slick-pane-top.slick-pane-left,
+  .s-Default-ReservasRecursosDialog .field.TypeList .slick-pane.slick-pane-top.slick-pane-left,
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .slick-pane.slick-pane-top.slick-pane-left,
+  .s-Default-ReservasRecursosDialog .field.BookingRecurringList .slick-pane.slick-pane-top.slick-pane-left {
+    height: 90% !important;
+  }
+  .s-Default-ReservasRecursosDialog .field.SpecialTurnList .slick-viewport.slick-viewport-top.slick-viewport-left,
+  .s-Default-ReservasRecursosDialog .field.TypeList .slick-viewport.slick-viewport-top.slick-viewport-left,
+  .s-Default-ReservasRecursosDialog .field.NeigborhoodList .slick-viewport.slick-viewport-top.slick-viewport-left,
+  .s-Default-ReservasRecursosDialog .field.BookingRecurringList .slick-viewport.slick-viewport-top.slick-viewport-left {
+    height: 100% !important;
+  }
+  .s-Default-ReservasRecursosDialog .field.TypeList {
+    height: 40vh;
+  }
+  .s-Default-ReservasRecursosDialog .category.first-category {
+    width: 100%;
+  }
 }

@@ -583,6 +583,28 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\ionicons.svg" />
     <Content Include="fonts\Simple-Line-Icons.svg" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Administration.NotesColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Common.ImportFileForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.NewsColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.NeedCommendForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasRecurrentesColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Barrios.Default.PageHomeRow.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Common.ImportFile.ImportFileRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Modules\Common\ImportFile\ImportFileDialog.ts" />
     <TypeScriptCompile Include="Modules\Default\ReservasRecursos\HorariosFormatter.ts" />
     <Content Include="Readme.CodeGenerator.txt" />
     <Content Include="Scripts\bootstrap.js" />
@@ -861,6 +883,12 @@
     <Content Include="Modules\Perfil\VecinosMascotas\Reports\PetReport.cshtml" />
     <Content Include="Modules\Default\Reservas\Mail\BookingEmail.cshtml" />
     <Content Include="Modules\Views\Notices\NoticesIndex.cshtml" />
+    <Content Include="Modules\Administration\User\UpdatedPageEmail.cshtml" />
+    <Content Include="Modules\Views\Bookings\MyBookingsIndex.cshtml" />
+    <Content Include="Modules\Membership\Account\SignUp\AccountOtherNeigbordhoodEmail.cshtml" />
+    <Content Include="Modules\Perfil\VecinosVisitantesFrecuentes\Reports\VisitReport.cshtml" />
+    <Content Include="Modules\Views\News\NewsIndex.cshtml" />
+    <Content Include="Modules\Views\Location\LocationIndex.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1251,6 +1279,7 @@
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosDialog.ts" />
     <TypeScriptCompile Include="Modules\Administration\Barrios\BarriosGrid.ts" />
     <TypeScriptCompile Include="Modules\Default\ReservasTurnosEspeciales\DayNamesEditor.ts" />
+    <TypeScriptCompile Include="Modules\Default\Reservas\NeedCommend\NeedCommendDialog.ts" />
     <TypeScriptCompile Include="Modules\Default\Reservas\TwoNeighbors\TwoNeighborsDialog.ts" />
     <TypeScriptCompile Include="Modules\Default\Reservas\EspecialTurn\EspecialBookingDialog.ts" />
     <TypeScriptCompile Include="Modules\Perfil\VecinosVisitantesFrecuentes\FrequentVisitorsSelect\FrequentVisitorsSelectDialog.ts" />
@@ -1781,7 +1810,9 @@
     <Content Include="Views\Shared\_LayoutNoNavigation.cshtml" />
     <Content Include="Views\Errors\ValidationError.cshtml" />
     <Content Include="Scripts\site\texts\site.texts.de.json" />
-    <Content Include="tools\Web.config" />
+    <Content Include="tools\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Errors\AccessDenied.cshtml" />
     <Content Include="Views\Shared\_LayoutSlim.cshtml" />
     <Content Include="Views\Shared\_LayoutSlimHead.cshtml" />
@@ -1956,6 +1987,39 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Default.HolidaysForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Administration.NotesRow.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Administration.NotesService.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <Content Include="Modules\Administration\Notes\NotesIndex.cshtml" />
+    <TypeScriptCompile Include="Modules\Administration\Notes\NotesDialog.ts" />
+    <TypeScriptCompile Include="Modules\Administration\Notes\NotesGrid.ts" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Administration.NotesForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasRecurrentesRow.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesDialog.ts" />
+    <TypeScriptCompile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesGrid.ts" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.ReservasRecurrentesForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.NewsRow.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.NewsService.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <Content Include="Modules\Contenidos\News\NewsIndex.cshtml" />
+    <TypeScriptCompile Include="Modules\Contenidos\News\NewsDialog.ts" />
+    <TypeScriptCompile Include="Modules\Contenidos\News\NewsGrid.ts" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Contenidos.NewsForm.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <Content Include="Content\site\site.contenidos.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -1976,6 +2040,9 @@
     <Compile Include="Imports\ClientTypes\Contenidos.ComisionesIntegrantesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ClientTypes\Default.ReservasRecurrentesGridAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
     <Compile Include="Imports\ClientTypes\Default.ReservasTiposGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
@@ -1991,6 +2058,27 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20210317_224500_LimitBookingForHour.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20210208_222200_CreateNews.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20210128_102200_UpdateBarriosPageHome.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20201027_221200_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20201020_001500_UpdateUsersBarrios.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20201011_014800_CreateReservasRecurrentes.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200907_163600_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200822_013000_AddDaysInReservasTipos.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200601_214800_UpdateBarrios.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200428_235000_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200428_223000_AddUserNote.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200302_104400_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200302_101300_UpdateResourceBody.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200222_004800_UpdateHistory.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200221_173700_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200221_150700_PerteneceAlDia.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200217_160800_UpdatePets.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200131_110100_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200124_170100_UpdateReservasStoreProcedure.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200113_150100_ResourceHoldId.cs" />
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20200108_181100_CreateNotes.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20200107_175400_UpdateBookingResources.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20191218_110600_UpdateDateModified.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20191204_115800_UpdateConfirmBooking.cs" />
@@ -2019,9 +2107,6 @@
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190617_223100_Tables.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190618_132600_Functions.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20190616_130000_ZeroPad.cs" />
-    <Compile Include="Migrations\OthersDB\Other_20190321_140000_Initial.cs" />
-    <Compile Include="Migrations\OthersDB\TestDB_20190321_200000_TestUser2.cs" />
-    <Compile Include="Migrations\OthersDB\TestDB_20190326_145500_Logs.cs" />
     <Compile Include="Modules\Administration\AdministrationNavigation.cs" />
     <Compile Include="Modules\Administration\Barrios\BarrioLookup.cs" />
     <Compile Include="Modules\Administration\Barrios\BarriosColumns.cs" />
@@ -2031,6 +2116,9 @@
     <Compile Include="Modules\Administration\Barrios\BarriosRepository.cs" />
     <Compile Include="Modules\Administration\Barrios\BarriosRow.cs" />
     <Compile Include="Modules\Administration\Barrios\CurrentNeigborhood.cs" />
+    <Compile Include="Modules\Administration\Barrios\ImageUploader.cs" />
+    <Compile Include="Modules\Administration\Barrios\PageHomeLookup.cs" />
+    <Compile Include="Modules\Administration\Barrios\PageHomeRow.cs" />
     <Compile Include="Modules\Administration\Language\LanguageLookup.cs" />
     <Compile Include="Modules\Administration\RolePermission\RolePermissionUpdateRequest.cs" />
     <Compile Include="Modules\Administration\RolePermission\RolePermissionListResponse.cs" />
@@ -2082,6 +2170,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Common\ImportFile\ImportFileForm.cs" />
+    <Compile Include="Modules\Common\ImportFile\ImportFileRequest.cs" />
     <Compile Include="Modules\Common\Navigation\NavigationItems.cs" />
     <Compile Include="Modules\Common\Navigation\NavigationModel.cs" />
     <Compile Include="Modules\Default\Holidays\NoLaboralesAPI.cs" />
@@ -2171,6 +2261,7 @@
     <Compile Include="Modules\Default\Reservas\Render\RenderBooking.cs" />
     <Compile Include="Modules\Default\Reservas\Render\RenderListToTable.cs" />
     <Compile Include="Modules\Default\Reservas\Reports\BookingReport.cs" />
+    <Compile Include="Modules\Default\Reservas\NeedCommend\NeedCommendForm.cs" />
     <Compile Include="Modules\Default\Reservas\TwoNeighbors\TwoNeighborsForm.cs" />
     <Compile Include="Modules\Default\Reservas\EspecialTurn\EspecialTurnForm.cs" />
     <Compile Include="Modules\Default\Reservas\EspecialTurn\ResourceEspecialLookup.cs" />
@@ -2179,6 +2270,7 @@
     <Compile Include="Modules\Default\Reservas\TypeLookup.cs" />
     <Compile Include="Modules\Default\Reservas\StartLookup.cs" />
     <Compile Include="Modules\Default\Reservas\ResourceLookup.cs" />
+    <Compile Include="Modules\ImportFiles\ImportMethods.cs" />
     <Compile Include="Modules\Membership\Account\ChangePassword\AccountPage.ChangePassword.cs" />
     <Compile Include="Modules\Membership\Account\EnvironmentSettings.cs" />
     <Compile Include="Modules\Membership\Account\ForgotPassword\AccountPage.ForgotPassword.cs" />
@@ -2197,6 +2289,7 @@
     <Compile Include="Modules\Common\Helpers\GetNextNumberRequest.cs" />
     <Compile Include="Modules\Perfil\VecinosMascotas\PetTypeLookup.cs" />
     <Compile Include="Modules\Perfil\VecinosMascotas\Reports\PetReport.cs" />
+    <Compile Include="Modules\Perfil\VecinosVisitantesFrecuentes\Reports\VisitReport.cs" />
     <Compile Include="Modules\Settings\SettingsPermissionKeys.cs" />
     <Compile Include="Modules\Settings\Subbarrios\SubBarriosLookup.cs" />
     <Compile Include="Modules\Texts.cs" />
@@ -2304,10 +2397,27 @@
     <Compile Include="Modules\Default\Holidays\HolidaysPage.cs" />
     <Compile Include="Modules\Default\Holidays\HolidaysColumns.cs" />
     <Compile Include="Modules\Default\Holidays\HolidaysForm.cs" />
+    <Compile Include="Modules\Administration\Notes\NotesRow.cs" />
+    <Compile Include="Modules\Administration\Notes\NotesRepository.cs" />
+    <Compile Include="Modules\Administration\Notes\NotesEndpoint.cs" />
+    <Compile Include="Modules\Administration\Notes\NotesPage.cs" />
+    <Compile Include="Modules\Administration\Notes\NotesColumns.cs" />
+    <Compile Include="Modules\Administration\Notes\NotesForm.cs" />
+    <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesRow.cs" />
+    <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesRepository.cs" />
+    <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesColumns.cs" />
+    <Compile Include="Modules\Default\ReservasRecurrentes\ReservasRecurrentesForm.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsRow.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsRepository.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsEndpoint.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsPage.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsColumns.cs" />
+    <Compile Include="Modules\Contenidos\News\NewsForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Modules\Contenidos\ProveedoresValoraciones\ProviderView\" />
+    <Folder Include="MyPages\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

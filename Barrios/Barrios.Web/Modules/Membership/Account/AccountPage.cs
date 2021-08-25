@@ -57,7 +57,7 @@ namespace Barrios.Membership.Pages
                         return new ServiceResponse();
                 }
                 else
-                    throw new ValidationError("AuthenticationError", "Este usuario no existe o esta registrado en otro barrio.");
+                    throw new ValidationError("AuthenticationError", "Error de login:\nEste usuario no existe.\nEsta registrado en otro barrio.\nLa fecha limite del inquilino expiró.");
                 
 
                 throw new ValidationError("AuthenticationError", Texts.Validation.AuthenticationError);

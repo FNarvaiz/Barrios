@@ -12,7 +12,6 @@ namespace Barrios.Administration.Entities
     [DisplayName("Users"), InstanceName("User")]
     [ReadPermission(PermissionKeys.Security)]
     [ModifyPermission(PermissionKeys.Security)]
-
     [LookupScript(Permission = "User:Reservas")]
     public sealed class UserRow : LoggingRow, IIdRow, INameRow, IIsActiveRow
     {
@@ -28,20 +27,27 @@ namespace Barrios.Administration.Entities
             get { return Fields.BarrioId[this]; }
             set { Fields.BarrioId[this] = value; }
         }
-
+        [DisplayName("Fecha limite de alquiler"), Expression("jBarrio.LimitDate")]
+        public DateTime? LimitDate
+        {
+            get { return Fields.LimitDate[this]; }
+            set { Fields.LimitDate[this] = value; }
+        }
+        
         [DisplayName("Username"), Size(100), NotNull, QuickSearch, LookupInclude]
         public String Username
         {
             get { return Fields.Username[this]; }
             set { Fields.Username[this] = value; }
         }
-        [DisplayName("IDRole"), Expression("(SELECT ISNULL(sum([RoleId]),0) FROM[Barrios].[dbo].[UserRoles]  where userid = T0.userid)")]
-        public short? HavePermisions
+        [DisplayName("Roles"), Expression("STUFF((SELECT ',' + R.RoleName AS[text()] FROM[UserRoles] UR join[Roles] R ON UR.RoleId = R.RoleId where UR.UserId = T0.userid FOR XML PATH('')), 1, 1, NULL)")]
+            //Expression(" (SELECT STRING_AGG(R.RoleName,',') FROM [Barrios].[dbo].[UserRoles] UR join[Roles] R ON UR.RoleId = R.RoleId where UR.UserId = T0.userid)")]
+        public String Roles
         {
-            get { return Fields.HavePermisions[this]; }
-            set { Fields.HavePermisions[this] = value; }
+            get { return Fields.Roles[this]; }
+            set { Fields.Roles[this] = value; }
         }
-       
+
         [DisplayName("Source"), Size(4), NotNull, Insertable(false), Updatable(false), DefaultValue("site")]
         public String Source
         {
@@ -98,24 +104,41 @@ namespace Barrios.Administration.Entities
             set { Fields.Password[this] = value; }
         }
 
-        [NotNull, Insertable(false),DisplayName("Activo"), Updatable(true)]
+        [NotNull, DisplayName("Activo"), Updatable(true)]
         public Int16? IsActive
         {
             get { return Fields.IsActive[this]; }
             set { Fields.IsActive[this] = value; }
         }
-
+        [DisplayName("Propiertario"), Expression("jBarrio.Owner")]
+        public Boolean? Owner
+        {
+            get { return Fields.Owner[this]; }
+            set { Fields.Owner[this] = value; }
+        }
         [DisplayName("Confirm Password"), Size(50), NotMapped]
         public String PasswordConfirm
         {
             get { return Fields.PasswordConfirm[this]; }
             set { Fields.PasswordConfirm[this] = value; }
         }
-        [DisplayName("Unidad"),Required, Size(50), IntegerEditor]
-        public String Unit
+        [DisplayName("Unidad"),Expression( "jBarrio.Units")]
+        public String Units
         {
-            get { return Fields.Unit[this]; }
-            set { Fields.Unit[this] = value; }
+            get { return Fields.Units[this]; }
+            set { Fields.Units[this] = value; }
+        }
+        [DisplayName("Notas"),TextAreaEditor(),Expression("jBarrio.Note")]
+        public String Note
+        {
+            get { return Fields.Note[this]; }
+            set { Fields.Note[this] = value; }
+        }
+        [DisplayName("Telefono"),  Size(50)]
+        public String Phone
+        {
+            get { return Fields.Phone[this]; }
+            set { Fields.Phone[this] = value; }
         }
         [DisplayName("Sub Barrio"),Column("subBarrioId"), Size(50),LookupEditor("Settings.Subbarrios")]
         public short? subBarrioId
@@ -137,7 +160,13 @@ namespace Barrios.Administration.Entities
             get { return Fields.LastDirectoryUpdate[this]; }
             set { Fields.LastDirectoryUpdate[this] = value; }
         }
-       
+        [DisplayName("ID de la app vieja")]
+        public Int32? AppHoldId
+        {
+            get { return Fields.AppHoldId[this]; }
+            set { Fields.AppHoldId[this] = value; }
+        }
+
         IIdField IIdRow.IdField
         {
             get { return Fields.UserId; }
@@ -172,7 +201,11 @@ namespace Barrios.Administration.Entities
             public StringField DisplayName;
             public StringField Email;
             public StringField Email_Others;
-            
+            public StringField Phone;
+            public DateTimeField LimitDate;
+            public BooleanField Owner;
+
+            public Int32Field AppHoldId;
             public StringField UserImage;
             public DateTimeField LastDirectoryUpdate;
             public Int16Field IsActive;
@@ -180,8 +213,10 @@ namespace Barrios.Administration.Entities
             public StringField Password;
             public StringField PasswordConfirm;
             public ListField<Int32> ClientIdList;
-            public StringField Unit;
-            public Int16Field HavePermisions;
+            public StringField Units;
+            public StringField Note;
+            public StringField Roles;
+            
         }
     }
 }

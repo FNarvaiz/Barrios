@@ -5,6 +5,7 @@
 @import "site.default.less";
 @import "site.perfil.less";
 @import "site.settings.less";
+@import "site.contenidos.less";
 
 .btn-success {
     background :#365D34;
@@ -22,6 +23,28 @@
 .contentSubTitle {
     color: antiquewhite;
 }
+.not-Available {
+    padding: 4px;
+    margin-right: 4px;
+    display:inline-block;
+}
+
+.posible-fixed.fixed {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #00000082;
+    top: 0;
+    z-index: 10000;
+    left: 0;
+    padding: 15px;
+
+    img {
+        max-height: 100% !important;
+    }
+}
+
+
 .box.dark, .styleSerenity.dark {
     border-top: 3px solid #3c8dbc;
 
@@ -39,7 +62,6 @@
         a {
             color: #444;
         }
-
     }
 
     .box-header {
@@ -238,6 +260,8 @@ You could also use a data-* attribute and content for this. That way "bloats" th
         padding: 0px;
         width: 49%;
         display: inline-block;
+        float: left;
+        margin-right: 10px;
 
         .dropdown {
             padding: 5px;
@@ -261,6 +285,11 @@ You could also use a data-* attribute and content for this. That way "bloats" th
             }
         }
 
+        img {
+            max-width: 100%;
+            max-height: 300px;
+        }
+
         p {
             text-align: left;
             padding: 5px;
@@ -280,6 +309,9 @@ You could also use a data-* attribute and content for this. That way "bloats" th
 }
 .statusBlue {
     background-color: lightblue !important;
+}
+.btn-blue {
+    background-color: dodgerblue !important;
 }
 .statusGreen {
     background-color: lightgreen !important;
@@ -313,5 +345,49 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     .active {
         background-color: deepskyblue !important;
         color: whitesmoke !important;
+    }
+}
+
+.s-Default-ReservasRecursosDialog {
+
+
+    .category.first-category .category-title {
+        display: none !important;
+    }
+
+    .categories {
+        display: block;
+    }
+
+    @media (min-width : 900px) {
+
+
+        .field.SpecialTurnList, .field.TypeList,
+        .field.NeigborhoodList, .field.BookingRecurringList {
+            height: 60vh;
+            width: 100%;
+
+            .s-DataGrid {
+                height: 98%;
+                float: inherit;
+            }
+
+            .slick-pane.slick-pane-top.slick-pane-left {
+                height: 90% !important;
+            }
+
+            .slick-viewport.slick-viewport-top.slick-viewport-left {
+                height: 100% !important;
+            }
+        }
+
+        .field.TypeList {
+            height: 40vh;
+        }
+
+        .category.first-category {
+            //display: flex;
+            width: 100%;
+        }
     }
 }

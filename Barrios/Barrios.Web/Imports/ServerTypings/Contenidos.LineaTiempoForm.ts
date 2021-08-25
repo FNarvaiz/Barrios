@@ -3,8 +3,9 @@
         Nombre: Serenity.StringEditor;
         IdCategoria: Serenity.LookupEditor;
         PeriodoFecha: Serenity.DateEditor;
-        ContenidoTexto: Serenity.StringEditor;
         ArchivoFilename: Serenity.ImageUploadEditor;
+        ContenidoTexto: Serenity.HtmlContentEditor;
+        Mostrar: Serenity.BooleanEditor;
         Aprobado: Serenity.BooleanEditor;
     }
 
@@ -23,15 +24,17 @@
                 var w1 = s.LookupEditor;
                 var w2 = s.DateEditor;
                 var w3 = s.ImageUploadEditor;
-                var w4 = s.BooleanEditor;
+                var w4 = s.HtmlContentEditor;
+                var w5 = s.BooleanEditor;
 
                 Q.initFormType(LineaTiempoForm, [
                     'Nombre', w0,
                     'IdCategoria', w1,
                     'PeriodoFecha', w2,
-                    'ContenidoTexto', w0,
                     'ArchivoFilename', w3,
-                    'Aprobado', w4
+                    'ContenidoTexto', w4,
+                    'Mostrar', w5,
+                    'Aprobado', w5
                 ]);
             }
         }

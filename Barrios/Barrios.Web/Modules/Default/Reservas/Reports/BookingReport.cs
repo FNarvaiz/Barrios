@@ -37,6 +37,7 @@ namespace Barrios.Modules.Default.Reservas.Reports
         }
         public object GetData()
         {
+            
             using (var connection = Utils.GetConnection())
                 return new ReservasRepository().List(connection, request);
         }

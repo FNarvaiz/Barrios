@@ -12,11 +12,26 @@
         Desde?: number;
         Hasta?: number;
         Resolucion?: number;
+        AmountToReserve?: number;
+        AppHoldId?: number;
+        LimitHour?: number;
         ClientIdList?: number[];
         NeigborhoodList?: number[];
         BarrioId?: number;
+        AmountForDays?: number;
         TypeList?: ReservasTiposRow[];
         SpecialTurnList?: ReservasTurnosEspecialesRow[];
+        BookingRecurringList?: ReservasRecurrentesRow[];
+        NeedComment?: boolean;
+        Dias?: string;
+        Lunes?: boolean;
+        Martes?: boolean;
+        Miercoles?: boolean;
+        Jueves?: boolean;
+        Viernes?: boolean;
+        Sabado?: boolean;
+        Domingo?: boolean;
+        Feriados?: boolean;
     }
 
     export namespace ReservasRecursosRow {
@@ -37,11 +52,26 @@
             Desde = "Desde",
             Hasta = "Hasta",
             Resolucion = "Resolucion",
+            AmountToReserve = "AmountToReserve",
+            AppHoldId = "AppHoldId",
+            LimitHour = "LimitHour",
             ClientIdList = "ClientIdList",
             NeigborhoodList = "NeigborhoodList",
             BarrioId = "BarrioId",
+            AmountForDays = "AmountForDays",
             TypeList = "TypeList",
-            SpecialTurnList = "SpecialTurnList"
+            SpecialTurnList = "SpecialTurnList",
+            BookingRecurringList = "BookingRecurringList",
+            NeedComment = "NeedComment",
+            Dias = "Dias",
+            Lunes = "Lunes",
+            Martes = "Martes",
+            Miercoles = "Miercoles",
+            Jueves = "Jueves",
+            Viernes = "Viernes",
+            Sabado = "Sabado",
+            Domingo = "Domingo",
+            Feriados = "Feriados"
         }
     }
 }

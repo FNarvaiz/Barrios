@@ -11,3 +11,4 @@ using Administration = Barrios.Administration.Pages;
 [assembly: NavigationLink(9000, "Administration/Usuarios/Roles", typeof(Administration.RoleController), icon: "fa-lock")]
 [assembly: NavigationLink(9000, "Administration/Usuarios/User Management", typeof(Administration.UserController), icon: "fa-users")]
 [assembly: NavigationLink(int.MaxValue, "Administration/Settings/Barrios", typeof(MyPages.BarriosController), icon: "fa-building")]
+//[assembly: NavigationLink(int.MaxValue, "Administration/Notes", typeof(MyPages.NotesController), icon: null)]

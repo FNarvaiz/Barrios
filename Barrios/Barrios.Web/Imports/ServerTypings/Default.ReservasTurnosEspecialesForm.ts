@@ -11,6 +11,7 @@
         Viernes: Serenity.BooleanEditor;
         Sabado: Serenity.BooleanEditor;
         Domingo: Serenity.BooleanEditor;
+        Feriados: Serenity.BooleanEditor;
     }
 
     export class ReservasTurnosEspecialesForm extends Serenity.PrefixedContext {
@@ -40,7 +41,8 @@
                     'Jueves', w3,
                     'Viernes', w3,
                     'Sabado', w3,
-                    'Domingo', w3
+                    'Domingo', w3,
+                    'Feriados', w3
                 ]);
             }
         }
