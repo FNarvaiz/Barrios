@@ -161,7 +161,7 @@
 
             string databaseType = isOracle ? "OracleManaged" : serverType;
             var connectionString = cs.ConnectionString;
-
+            
             using (var sw = new StringWriter())
             {
                 Announcer announcer = isOracle ?

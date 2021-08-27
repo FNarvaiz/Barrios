@@ -36,6 +36,7 @@ namespace Barrios.Membership.Pages
                 {
                     request.CheckNotNull();
                     string unit = request.Unit;
+                    short? subBarrioId = request.subBarrioId;
                     Check.NotNullOrWhiteSpace(request.Email, "email");
                     Check.NotNullOrEmpty(request.Password, "password");
                     UserRepository.ValidatePassword(request.Email, request.Password, true);
@@ -86,7 +87,6 @@ namespace Barrios.Membership.Pages
                             {
                                 Username = username,
                                 Source = "sign",
-                                subBarrioId = request.subBarrioId,
                                 DisplayName = displayName,
                                 Email = email,
                                 PasswordHash = hash,
@@ -134,7 +134,7 @@ namespace Barrios.Membership.Pages
 
                         }
                 
-                        Utils.InsertOrUpdateString($"insert into [Users-Barrios] (userid,BarrioId,Units) values ({userId},{CurrentNeigborhood.Get().Id.Value},'{unit}')");
+                        Utils.InsertOrUpdateString($"insert into [Users-Barrios] (userid,BarrioId,Units,subBarrioId) values ({userId},{CurrentNeigborhood.Get().Id.Value},'{unit}',{subBarrioId})");
                     }
                     return new ServiceResponse();
                 }

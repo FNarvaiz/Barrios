@@ -17,6 +17,8 @@ namespace Barrios.Administration.Columns
         public String Username { get; set; }
         [Width(70)]
         public String Units { get; set; }
+        [Width(70)]
+        public String SubBarrioNombre { get; set; }
         [Width(150)]
         public String DisplayName { get; set; }
 

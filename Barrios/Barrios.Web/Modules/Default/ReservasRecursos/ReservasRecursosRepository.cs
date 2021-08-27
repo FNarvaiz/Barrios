@@ -59,9 +59,9 @@ namespace Barrios.Default.Repositories
                   " ON RB.RecursoId= RR.ID " +
                   " LEFT JOIN SUBBARRIOS_RECURSOS SBR " +
                   " ON SBR.recursoId= RR.ID " +
-                  " LEFT JOIN Users U " +
-                  " ON SBR.subbarrioId= U.subBarrioId OR U.SUBBARRIOID IS NULL " +
-                  " where (SBR.recursoId is null OR U.UserId=" + Authorization.UserId + ") AND RB.BarrioId=" + CurrentNeigborhood.Get().Id + " " +
+                  " LEFT JOIN [Users-Barrios] UB " +
+                  " ON SBR.subbarrioId= UB.subBarrioId OR UB.subBarrioId IS NULL " +
+                  " where (SBR.recursoId is null OR UB.UserId=" + Authorization.UserId + ") AND RB.BarrioId=" + CurrentNeigborhood.Get().Id + " " +
                   " ORDER BY RESOLUCION desc ,NOMBRE asc ";
             return connection.Query<MyRow>(query).ToList<MyRow>();
         }

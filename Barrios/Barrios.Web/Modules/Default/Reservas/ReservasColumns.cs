@@ -18,7 +18,6 @@ namespace Barrios.Default.Columns
         public Int32 Id { get; set; }
         [EditLink, QuickFilter()]
         public DateTime Fecha { get; set; }
-        [Width(50)]
         public String IdVecinoUnidad { get; set; }
         public String IdVecinoUsername { get; set; }
 

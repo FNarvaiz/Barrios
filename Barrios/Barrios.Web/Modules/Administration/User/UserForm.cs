@@ -16,7 +16,7 @@
         [Required]
         public String Units { get; set; }
         
-        public short subBarrioId { get; set; }
+        public short SubBarrioId { get; set; }
         [EmailEditor,Required]
         public String Email { get; set; }
         public String UserImage { get; set; }

@@ -350,7 +350,7 @@ namespace Barrios.Default.Endpoints
                     UserRow user2 = Utils.GetUser(row.IdVecino2);
                     string emails = EmailHelper.GetRenderMails(resource.Emails, user, user2);
                     row.Turno = row.Tipo;
-                    row.IdVecinoUnidad = user.Units;
+                    row.IdVecinoUnidad = user.getUnitSubBarrio();
                     var message = TemplateHelper.RenderTemplate(MVC.Views.Default.Reservas.Mail.BookingEmail, new MailBody()
                     {
                         Reserva = row,
@@ -383,7 +383,7 @@ namespace Barrios.Default.Endpoints
                 {
                     user = Utils.GetUser(row.IdVecino);
                     row.Hora = row.Inicio.Value.MinutesToString();
-                    row.IdVecinoUnidad = user.Units;
+                    row.IdVecinoUnidad = user.getUnitSubBarrio();
                     row.IdVecinoUsername = user.DisplayName;
                     row.IdRecursoNombre = resource.Nombre;
                     if (row.Turno == null && row.Tipo != null)

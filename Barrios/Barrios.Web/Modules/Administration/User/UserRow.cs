@@ -1,4 +1,5 @@
 ﻿
+
 namespace Barrios.Administration.Entities
 {
     using Serenity.ComponentModel;
@@ -13,9 +14,11 @@ namespace Barrios.Administration.Entities
     [ReadPermission(PermissionKeys.Security)]
     [ModifyPermission(PermissionKeys.Security)]
     [LookupScript(Permission = "User:Reservas")]
+    [InnerJoin("jBarrio", "[dbo].[Users-barrios]", " jBarrio.[UserId] = t0.[UserId] ")]
+    [LeftJoin("jSubBarrio", "[dbo].[SuBbarrios]", " jSubBarrio.[ID] = jBarrio.[subBarrioId]")]
     public sealed class UserRow : LoggingRow, IIdRow, INameRow, IIsActiveRow
     {
-        [DisplayName("User Id"), Identity,ForeignKey("[dbo].[Users-barrios]", "UserId"), LeftJoin("jBarrio")]
+        [DisplayName("User Id"), Identity]
         public Int32? UserId
         {
             get { return Fields.UserId[this]; }
@@ -27,13 +30,25 @@ namespace Barrios.Administration.Entities
             get { return Fields.BarrioId[this]; }
             set { Fields.BarrioId[this] = value; }
         }
+        [DisplayName("SubBarrio Id"), Expression("jBarrio.subBarrioId"), LookupEditor("Settings.Subbarrios")]
+        public Int32? SubBarrioId
+        {
+            get { return Fields.SubBarrioId[this]; }
+            set { Fields.SubBarrioId[this] = value; }
+        }
+        [DisplayName("Sub-Barrio"), Expression("jSubBarrio.Nombre")]
+        public String SubBarrioNombre
+        {
+            get { return Fields.SubBarrioNombre[this]; }
+            set { Fields.SubBarrioNombre[this] = value; }
+        }
         [DisplayName("Fecha limite de alquiler"), Expression("jBarrio.LimitDate")]
         public DateTime? LimitDate
         {
             get { return Fields.LimitDate[this]; }
             set { Fields.LimitDate[this] = value; }
         }
-        
+
         [DisplayName("Username"), Size(100), NotNull, QuickSearch, LookupInclude]
         public String Username
         {
@@ -41,7 +56,7 @@ namespace Barrios.Administration.Entities
             set { Fields.Username[this] = value; }
         }
         [DisplayName("Roles"), Expression("STUFF((SELECT ',' + R.RoleName AS[text()] FROM[UserRoles] UR join[Roles] R ON UR.RoleId = R.RoleId where UR.UserId = T0.userid FOR XML PATH('')), 1, 1, NULL)")]
-            //Expression(" (SELECT STRING_AGG(R.RoleName,',') FROM [Barrios].[dbo].[UserRoles] UR join[Roles] R ON UR.RoleId = R.RoleId where UR.UserId = T0.userid)")]
+        //Expression(" (SELECT STRING_AGG(R.RoleName,',') FROM [Barrios].[dbo].[UserRoles] UR join[Roles] R ON UR.RoleId = R.RoleId where UR.UserId = T0.userid)")]
         public String Roles
         {
             get { return Fields.Roles[this]; }
@@ -82,7 +97,7 @@ namespace Barrios.Administration.Entities
             get { return Fields.Email[this]; }
             set { Fields.Email[this] = value; }
         }
-        [DisplayName("Otros emails"), Size(200),Placeholder("Ingrese lo mails,1 por linea."),TextAreaEditor()]
+        [DisplayName("Otros emails"), Size(200), Placeholder("Ingrese lo mails,1 por linea."), TextAreaEditor()]
         public String Email_Others
         {
             get { return Fields.Email_Others[this]; }
@@ -122,30 +137,25 @@ namespace Barrios.Administration.Entities
             get { return Fields.PasswordConfirm[this]; }
             set { Fields.PasswordConfirm[this] = value; }
         }
-        [DisplayName("Unidad"),Expression( "jBarrio.Units")]
+        [DisplayName("Unidad"), Expression("jBarrio.Units")]
         public String Units
         {
             get { return Fields.Units[this]; }
             set { Fields.Units[this] = value; }
         }
-        [DisplayName("Notas"),TextAreaEditor(),Expression("jBarrio.Note")]
+        [DisplayName("Notas"), TextAreaEditor(), Expression("jBarrio.Note")]
         public String Note
         {
             get { return Fields.Note[this]; }
             set { Fields.Note[this] = value; }
         }
-        [DisplayName("Telefono"),  Size(50)]
+        [DisplayName("Telefono"), Size(50)]
         public String Phone
         {
             get { return Fields.Phone[this]; }
             set { Fields.Phone[this] = value; }
         }
-        [DisplayName("Sub Barrio"),Column("subBarrioId"), Size(50),LookupEditor("Settings.Subbarrios")]
-        public short? subBarrioId
-        {
-            get { return Fields.subBarrioId[this]; }
-            set { Fields.subBarrioId[this] = value; }
-        }
+       
         [DisplayName("Lista de barrios"), NotMapped]
         //[LookupEditor(typeof(ClientRow), Multiple = true)]
         [LinkingSetRelation(typeof(UsersBarriosRow), "UserID", "BarrioID")]
@@ -193,7 +203,9 @@ namespace Barrios.Administration.Entities
         {
             public Int32Field UserId;
             public Int32Field BarrioId;
-            
+            public Int32Field SubBarrioId;
+            public StringField SubBarrioNombre;
+
             public StringField Username;
             public StringField Source;
             public StringField PasswordHash;
@@ -209,14 +221,19 @@ namespace Barrios.Administration.Entities
             public StringField UserImage;
             public DateTimeField LastDirectoryUpdate;
             public Int16Field IsActive;
-            public Int16Field subBarrioId;
             public StringField Password;
             public StringField PasswordConfirm;
             public ListField<Int32> ClientIdList;
             public StringField Units;
             public StringField Note;
             public StringField Roles;
-            
+
+        }
+
+        public string getUnitSubBarrio()
+        {
+            return this.Units + " " + this.SubBarrioNombre;
+           
         }
     }
 }

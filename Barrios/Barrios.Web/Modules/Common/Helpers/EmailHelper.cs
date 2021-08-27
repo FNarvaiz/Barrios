@@ -20,19 +20,19 @@ namespace Barrios.Common
         {
             return new ReservasRow
             {
-               
-                IdRecurso=request.resourceId,
+
+                IdRecurso = request.resourceId,
                 IdRecursoNombre = resourceName,
                 Hora = request.turnStart.MinutesToString(),
                 Turno = request.turnName,
-                IdTipo=request.turnType,
-                IdTurnosEspeciales= request.turnType,
+                IdTipo = request.turnType,
+                IdTurnosEspeciales = request.turnType,
                 Observaciones = request.comment,
                 Fecha = date,
-                Inicio= request.turnStart,
-                Duracion= request.turnDuration,
+                Inicio = request.turnStart,
+                Duracion = request.turnDuration,
                 IdVecinoUsername = user.DisplayName,
-                IdVecinoUnidad = user.Units
+                IdVecinoUnidad = user.getUnitSubBarrio()
             };
         }
         public static string GetRenderMails(string emailsResource,UserRow user,UserRow user2=null)

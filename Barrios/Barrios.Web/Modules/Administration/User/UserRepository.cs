@@ -282,6 +282,7 @@ namespace Barrios.Administration.Repositories
                 var sqlUpdate = new SqlUpdate(UsersBarriosRow.Fields.TableName)
                     .Set("Note", Row.Note)
                     .Set("Units", Row.Units)
+                    .Set("SubBarrioId", Row.SubBarrioId)
                     .Set("LimitDate", Row.LimitDate)
                     .Set("Owner", Row.Owner)
                     .Where(UsersBarriosRow.Fields.UserId == Row.UserId.Value && UsersBarriosRow.Fields.BarrioId == CurrentNeigborhood.Get().Id.Value);
@@ -306,8 +307,8 @@ namespace Barrios.Administration.Repositories
         }
         public static UserRow GetNewUser(int id)
         {
-            DataRow DR = Utils.GetRequestString($"select email,UB.units,DisplayName from users U inner join [Users-Barrios] UB  on U.UserId=UB.UserId  WHERE  UB.BarrioId={CurrentNeigborhood.Get().Id} and  UB.UserId=" + id).Rows[0];
-            return new MyRow { UserId = id, Email = DR[0].ToString(), Units = DR[1].ToString(), DisplayName = DR[2].ToString() };
+            DataRow DR = Utils.GetRequestString($"select email,UB.units,DisplayName,UB.SubBarrioId from users U inner join [Users-Barrios] UB  on U.UserId=UB.UserId  WHERE  UB.BarrioId={CurrentNeigborhood.Get().Id} and  UB.UserId=" + id).Rows[0];
+            return new MyRow { UserId = id, Email = DR[0].ToString(), Units = DR[1].ToString(), DisplayName = DR[2].ToString(), SubBarrioId = (short?)DR[3] };
 
         }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow>

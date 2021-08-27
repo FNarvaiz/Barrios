@@ -73,7 +73,6 @@ namespace Barrios.Administration.Endpoints
             response.Entity.Units = neibord.Units;
             response.Entity.LimitDate = neibord.LimitDate;
             response.Entity.Owner = neibord.Owner;
-            response.Entity.Units = neibord.Units;
             return response;
         }
 

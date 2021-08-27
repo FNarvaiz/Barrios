@@ -2058,6 +2058,7 @@
     <Compile Include="Imports\ClientTypes\Perfil.VecinosEventosConcurrentesGridAttribute.cs">
       <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\DefaultDB\DefaultDB_20210825_172010_ChangeSubBarrioToUserBarrio.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20210317_224500_LimitBookingForHour.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20210208_222200_CreateNews.cs" />
     <Compile Include="Migrations\DefaultDB\DefaultDB_20210128_102200_UpdateBarriosPageHome.cs" />

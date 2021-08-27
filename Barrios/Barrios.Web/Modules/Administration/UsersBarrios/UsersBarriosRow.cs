@@ -15,13 +15,18 @@ namespace Barrios.Administration.Entities
     [ModifyPermission("Administration:General")]
     public sealed class UsersBarriosRow : Row, IIdRow
     {
-        [DisplayName("User222"),  ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jUser"), TextualField("UserUsername")]
+        [DisplayName("User"),  ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jUser"), TextualField("UserUsername")]
         public Int32? UserId
         {
             get { return Fields.UserId[this]; }
             set { Fields.UserId[this] = value; }
         }
-
+        [DisplayName("SubBarrio id"), ForeignKey("[dbo].[SUBBARRIOS]", "id"), LeftJoin("jSubBarrio"), TextualField("Nombre"), LookupEditor("Settings.Subbarrios")]
+        public Int32? SubBarrioId
+        {
+            get { return Fields.SubBarrioId[this]; }
+            set { Fields.SubBarrioId[this] = value; }
+        }
         [DisplayName("Barrio"), NotNull, ForeignKey("[dbo].[BARRIOS]", "ID"), LeftJoin("jBarrio"), TextualField("BarrioNombre")]
         public Int32? BarrioId
         {
@@ -35,7 +40,12 @@ namespace Barrios.Administration.Entities
             get { return Fields.UserUsername[this]; }
             set { Fields.UserUsername[this] = value; }
         }
-        
+        [DisplayName("Sub-Barrio"), Expression("jSubBarrio.[Nombre]")]
+        public String SubBarrioNombre
+        {
+            get { return Fields.SubBarrioNombre[this]; }
+            set { Fields.SubBarrioNombre[this] = value; }
+        }
         [DisplayName("Barrio Nombre"), Expression("jBarrio.[Nombre]")]
         public String BarrioNombre
         {
@@ -81,12 +91,14 @@ namespace Barrios.Administration.Entities
         public class RowFields : RowFieldsBase
         {
             public Int32Field UserId;
+            public Int32Field SubBarrioId;
             public Int32Field BarrioId;
             public StringField Units;
             public StringField Note;
             public DateTimeField LimitDate;
             public BooleanField Owner;
             public StringField UserUsername;
+            public StringField SubBarrioNombre;
 
             public StringField BarrioNombre;
         }

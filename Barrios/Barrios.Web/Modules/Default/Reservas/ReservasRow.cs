@@ -21,6 +21,7 @@ namespace Barrios.Default.Entities
     [InnerJoin("jIdRecurso", "[dbo].[RESERVAS_RECURSOS]", " jIdRecurso.[ID] = t0.[ID_RECURSO] ")]
     [LeftJoin("jType", "[dbo].[RESERVAS_TIPOS]", " jType.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jType.[ID_RECURSO] ")]
     [LeftJoin("jTurns", "[dbo].[RESERVAS_TURNOS_ESPECIALES]", " jTurns.[ID] = t0.[ID_TIPO] AND jIdRecurso.ID= jTurns.[ID_RECURSO] ")]
+    [LeftJoin("jSubBarrio", "[dbo].[SubBarrios]", " jSubBarrio.[id] = jUserBarrio.[SubBarrioId]")]
     public sealed class ReservasRow : Row, IIdRow, INameRow, IActivityClass
     {
         [DisplayName("Id"), Column("ID"), Identity]
@@ -163,7 +164,7 @@ namespace Barrios.Default.Entities
             set { Fields.IdVecinoUsername[this] = value; }
         }
         
-        [DisplayName("Unidad"), Expression("jUserBarrio.[Units]")]
+        [DisplayName("Unidad"), Expression("CONCAT(jUserBarrio.[Units] ,' ', jSubBarrio.Nombre)")]
         public String IdVecinoUnidad
         {
             get { return Fields.IdVecinoUnidad[this]; }
