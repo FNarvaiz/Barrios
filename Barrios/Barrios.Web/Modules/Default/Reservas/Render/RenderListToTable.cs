@@ -38,9 +38,12 @@ namespace Barrios.Modules.Default.Entities
        
         private void RenderButtonUnique(ReservasRow aux, int resourceId, DateTime d,bool needComment)
         {
-            renderButton("btn-success ", aux.Hora, aux.Turno, "Booking.SendBookinRequest('" + d.ToString("yyyyMMdd") +
-                            "'," + resourceId + ",'','" + aux.Turno + "'," + aux.Duracion + "," + aux.Inicio + "," + aux.IdTurnosEspeciales + ","+ needComment.ToString().ToLower() + ")");
-
+            string style = "btn-success ";
+            if (aux.Vecinos != "")
+                style = "btn-medium ";
+            renderButton(style, aux.Hora, aux.Turno, "Booking.SendBookinRequest('" + d.ToString("yyyyMMdd") +
+                            "'," + resourceId + ",'','" + aux.Turno + "'," + aux.Duracion + "," + aux.Inicio + "," + aux.IdTurnosEspeciales + ","+ needComment.ToString().ToLower() + ",'',"+aux.Cant_Reservas+")");
+            
         }
         public void renderHeader(List<DateTime> days)
         {
@@ -74,7 +77,7 @@ namespace Barrios.Modules.Default.Entities
                 }
                 if (aux.Estado == "No disponible")
                 {
-                    if (aux.IdVecino != null)
+                    if (aux.Vecinos != "")
                     {
                         if(CurrentNeigborhood.Get().VerUserEnReservas.Value)
                             builder.Append("<div class='btn-danger not-Available'> " + aux.Turno + " U: " + aux.IdVecinoUnidad + "</div>");

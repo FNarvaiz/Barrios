@@ -43,6 +43,7 @@ namespace Barrios.Default.Endpoints
         [HttpPost, AuthorizeCreate(typeof(MyRow))]
         public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
+            CheckOverlapBooking(request.Entity.Fecha.Value, request.Entity.Inicio.Value, request.Entity.IdRecurso.Value);
             IdTurnsEspecialToIdType(request.Entity);
             Utils.RegisterUserActivity(request.Entity, true);
             request.Entity.BarrioId = CurrentNeigborhood.Get().Id;
@@ -62,7 +63,8 @@ namespace Barrios.Default.Endpoints
         [HttpPost, AuthorizeUpdate(typeof(MyRow))]
         public SaveResponse Update(IUnitOfWork uow, SaveRequest<MyRow> request)
         {
-            
+
+            CheckOverlapBooking(request.Entity.Fecha.Value, request.Entity.Inicio.Value, request.Entity.IdRecurso.Value);
             Utils.RegisterUserActivity(request.Entity, false);
             IdTurnsEspecialToIdType(request.Entity);
             uow.OnCommit += () =>
@@ -74,9 +76,10 @@ namespace Barrios.Default.Endpoints
         [HttpPost, AuthorizeUpdate(typeof(MyRow))]
         public string ConfirmReservation(IDbConnection connection, IdRequest request)
         {
-
-            new MyRepository().ConfirmReservation(request.ID);
             MyRow row = Retrieve(connection, new RetrieveRequest() { EntityId = request.ID }).Entity;
+            CheckOverlapBooking(row.Fecha.Value, row.Inicio.Value, row.IdRecurso.Value);
+            new MyRepository().ConfirmReservation(request.ID);
+            row = Retrieve(connection, new RetrieveRequest() { EntityId = request.ID }).Entity;
             SendBookingTakeMail(null, row);
             return "Se confirmo correctamente";
         }
@@ -222,15 +225,16 @@ namespace Barrios.Default.Endpoints
         //}
         public bool CheckLimitBooking(ReservasRecursosRow resource, UserRow user)
         {
-
+            
             using (var connection2 = Utils.GetConnection())
             {
-                List<MyRow> list = connection2.Query<MyRow>("SELECT R.* from RESERVAS R " +
+                string cmd = "SELECT R.* from RESERVAS R " +
                     " inner join [Users] US  " +
                      " ON(R.ID_VECINO = US.UserId OR R.ID_VECINO_2 = US.UserId) " +
-                     " inner join [Users-Barrios] UB on UB.userid=US.UserId AND UB.Units='" + user.Units+"' "+
+                     " inner join [Users-Barrios] UB on UB.userid=US.UserId AND UB.Units='" + user.Units + "' " +
 
-                     " WHERE ID_recurso=" + resource.Id + "  and R.fecha> GETDATE() ").ToList();
+                     " WHERE ID_recurso=" + resource.Id + "  and R.fecha> GETDATE() ";
+                List<MyRow> list = connection2.Query<MyRow>(cmd).ToList();
                 if (list.Count >= resource.AmountToReserve)
                 {
                     string message = "Reservas: \n";
@@ -241,6 +245,26 @@ namespace Barrios.Default.Endpoints
             }
             return true;
         }
+        public bool CheckOverlapBooking(DateTime fecha, int inicio, int resource_id)
+        {
+
+            using (var connection2 = Utils.GetConnection())
+            {
+                var request = new ListRequest();
+                request.EqualityFilter = new Dictionary<string, object>();
+                request.EqualityFilter.Add("ID_RECURSO", resource_id);
+                request.EqualityFilter.Add("FECHA", fecha);
+                request.EqualityFilter.Add("INICIO", inicio);
+                request.EqualityFilter.Add("CONFIRMADA", 1);
+                var response = new MyRepository().List(connection2, request);
+                
+                if (response.TotalCount > 0)
+                   throw new Exception("Ya se encuentra una reserva confirmada para este turno. Por favor actualice la pagina");
+                
+            }
+            return true;
+        }
+
         [HttpPost]
         [ServiceAuthorize("User:RealizarReservas")]
         public string SendRequest(IDbConnection connection, BookingTakeRequest request)
@@ -256,8 +280,9 @@ namespace Barrios.Default.Endpoints
             using (var connection2 = Utils.GetConnection())
                 resource = connection2.Query<ReservasRecursosRow>("SELECT * FROM[RESERVAS_RECURSOS] WHERE id = " + request.resourceId).SingleOrDefault();
 
-            MyRow obj =null;
             CheckLimitBooking(resource, user);
+            CheckOverlapBooking(date, request.turnStart, request.resourceId);
+            MyRow obj = null;
             bool ok = Convert.ToBoolean(Utils.GetRequestString("SELECT CAST(CASE WHEN DATEDIFF(D, (SELECT TOP 1 FECHA FROM HOY), " + date.ToSql() + ") <= "+ resource.Hasta+ " AND DATEDIFF(D, (SELECT TOP 1 FECHA FROM HOY), " + date.ToSql() + ") >= " + resource.Desde + " THEN 1 ELSE 0 END AS BIT)").Rows[0][0]);
             if (ok)
             {
@@ -319,7 +344,7 @@ namespace Barrios.Default.Endpoints
                     ReservasRecursosRow resource = connection2.Query<ReservasRecursosRow>("SELECT * FROM [RESERVAS_RECURSOS] WHERE id=" + row.IdRecurso).SingleOrDefault();
                     if (resource.Resolucion == 0)
                     {
-                        if (row.Fecha < DateTime.Today.AddDays(10))
+                        if (row.Fecha < DateTime.Today.AddDays(10) && row.Confirmada.Value)
                             throw new Exception("No puede cancelar su reserva con menos de 10 dias de anticipación. Comuniquese con admnistración.");
                     }
                     else

@@ -250,6 +250,18 @@ namespace Barrios.Default.Entities
             get { return Fields.SendMail[this]; }
             set { Fields.SendMail[this] = value; }
         }
+        [DisplayName("Cant_reservas"), NotMapped]
+        public Int16? Cant_Reservas
+        {
+            get { return Fields.Cant_Reservas[this]; }
+            set { Fields.Cant_Reservas[this] = value; }
+        }
+        [DisplayName("Vecinos"), NotMapped]
+        public String Vecinos
+        {
+            get { return Fields.Vecinos[this]; }
+            set { Fields.Vecinos[this] = value; }
+        }
         IIdField IIdRow.IdField
         {
             get { return Fields.Id; }
@@ -301,6 +313,8 @@ namespace Barrios.Default.Entities
             public StringField Estado_Turno;
             public BooleanField Valido;
             public BooleanField Required_Vecino;
+            public Int16Field Cant_Reservas;
+            public StringField Vecinos;
             public StringField IdVecinoUnidadExtra;
             public StringField Dias;
 

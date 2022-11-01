@@ -29,6 +29,8 @@
         Estado_Turno?: string;
         Valido?: boolean;
         Required_Vecino?: boolean;
+        Cant_Reservas?: number;
+        Vecinos?: string;
         IdVecinoUnidadExtra?: string;
         Dias?: string;
         IdRecursoNombre?: string;
@@ -72,6 +74,8 @@
             Estado_Turno = "Estado_Turno",
             Valido = "Valido",
             Required_Vecino = "Required_Vecino",
+            Cant_Reservas = "Cant_Reservas",
+            Vecinos = "Vecinos",
             IdVecinoUnidadExtra = "IdVecinoUnidadExtra",
             Dias = "Dias",
             IdRecursoNombre = "IdRecursoNombre",

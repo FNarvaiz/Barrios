@@ -134,10 +134,13 @@ namespace Barrios.Default.Repositories
         {
             List<MyRow> list = new List<MyRow>();
             StringBuilder sql = new StringBuilder();
-            sql.Append("SELECT F.FECHA, T.INICIO, T.DURACION,T.NOMBRE as TURNO, dbo.NOMBRE_TURNO(T.INICIO,T.DURACION) AS DESCRIPTIVO,  " +
+            sql.Append("select R.FECHA, R.INICIO, R.DURACION, R.TURNO, R.DESCRIPTIVO, R.IDTURNO, R.DIAS, STRING_AGG(R.vecinoID,',') AS vecinoID," +
+                "STRING_AGG(R.units,',') AS units, R.ESTADO, COUNT(vecinoID) as Cant_reservas  FROM (" +
+                "SELECT F.FECHA, T.INICIO, T.DURACION,T.NOMBRE as TURNO, dbo.NOMBRE_TURNO(T.INICIO,T.DURACION) AS DESCRIPTIVO,  " +
                 "T.ID as IDTURNO,T.DIAS  ," +
                 " U.userid as vecinoID, CONCAT(UB.Units,' ',SUB.Nombre) as units, " +
-                $"dbo.ESTADO_TURNO_RESERVA({resource.Id }, F.FECHA, T.INICIO, T.DURACION)as ESTADO " +
+                $"dbo.ESTADO_TURNO_RESERVA({resource.Id }, F.FECHA, T.INICIO, T.DURACION)as ESTADO, " +
+                $"R.Confirmada " +
                 $"FROM dbo.LISTA_FECHAS_ESPECIALES({ resource.Desde},{ resource.Hasta }) AS F " +
                 "left join HOLIDAYS H on H.Day = F.FECHA " +
                 "INNER JOIN RESERVAS_TURNOS_ESPECIALES T ON dbo.PERTENECEALDIA(F.FECHA, T.DIAS, H.Day) = 1 " +
@@ -145,7 +148,10 @@ namespace Barrios.Default.Repositories
                 "left join Users U on R.ID_VECINO =U.userID " +
                 $"left join [users-barrios] UB on R.ID_VECINO = UB.userid and UB.barrioId= {CurrentNeigborhood.Get().Id } " + 
                 " left join [SUBbarrios] SUB on SUB.ID = UB.subbarrioID " +
-                $"where T.ID_RECURSO= { resource.Id }  AND  dbo.PERTENECEALDIA(F.FECHA,T.DIAS, H.Day)=1  order by F.Fecha ASC, ESTADO DESC ,INICIO asc");
+                $"where T.ID_RECURSO= { resource.Id }  AND  dbo.PERTENECEALDIA(F.FECHA,T.DIAS, H.Day)=1 " +
+                $") R WHERE (R.Confirmada = 1 and R.ESTADO =  'No disponible') or R.ESTADO != 'No disponible' " +
+                $"GROUP BY R.FECHA, R.INICIO, R.DURACION, R.TURNO, R.DESCRIPTIVO, R.IDTURNO, R.DIAS, R.ESTADO " +
+                $"order by R.FECHA ASC, R.ESTADO DESC, R.INICIO asc");
             DataTable dt = Utils.GetRequestString( sql.ToString());
             int count = 0;
             foreach (DataRow DR in dt.Rows)
@@ -161,8 +167,9 @@ namespace Barrios.Default.Repositories
                     IdTurnosEspeciales = Convert.ToInt16(DR["IDTURNO"]),
                     Dias = DR["DIAS"].ToString(),
                     Estado = DR["ESTADO"].ToString(),
-                    IdVecino = DR["vecinoID"].ToString().IsEmptyOrNull() ? (int?)null : Convert.ToInt32(DR["vecinoID"]),
-                    IdVecinoUnidad = DR["units"].ToString()
+                    Vecinos = DR["vecinoID"].ToString(),
+                    IdVecinoUnidad = DR["units"].ToString(),
+                    Cant_Reservas = Convert.ToInt16(DR["cant_reservas"]),
                 });
                 count++;
             }

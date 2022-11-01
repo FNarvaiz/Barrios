@@ -106,8 +106,8 @@ namespace Dashboard {
              });
              dialog.dialogOpen();
          }
-         public SendBookinRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId, needCommend,comment="") {
-            
+         public NextStepForBooking(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId, needCommend, comment = "")
+         {
              if (needCommend) {
                  this.openDialogComment(this, (coment) => {
                      this.sendRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId, coment);
@@ -116,6 +116,22 @@ namespace Dashboard {
              else {
                  this.sendRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId);
              }
+         }
+         public SendBookinRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId, needCommend, comment = "", cant_reservas = 0) {
+             console.log(cant_reservas)
+             console.log(cant_reservas > 0)
+             if (cant_reservas > 0) {
+                 var reserva = " reseva pendiente";
+                 if (cant_reservas > 1)
+                     reserva = " resevas pendientes";
+                 console.log("ACA ESTA ACTUALIZADO");
+                 Q.confirm("Hay " + cant_reservas + reserva+" para este turno. Quiere solicitar una reserva igual?", () => {
+                     this.NextStepForBooking(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId, needCommend, comment);
+                 });
+             }
+             else
+                 this.NextStepForBooking(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId, needCommend, comment);
+             
          }
          public sendRequest(date, resourceId, resourceName, turnName, turnDuration, turnStart, turnTypeId,  comment = "") {
              if (resourceName == "") {
