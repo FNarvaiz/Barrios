@@ -19,7 +19,7 @@ namespace Barrios.Common.Pages
         {
             return Redirect(CurrentNeigborhood.Get().PageHome);
 
-           // return View(MVC.Views.Common.Dashboard.DashboardIndex, new DashboardPageModel());
+            // return View(MVC.Views.Common.Dashboard.DashboardIndex, new DashboardPageModel());
         }
         [Authorize, HttpGet, Route("Reservas")]
         public ActionResult Booking()

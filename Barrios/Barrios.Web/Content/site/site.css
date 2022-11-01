@@ -7495,6 +7495,9 @@ section.content > .s-DataGrid {
 .btn-info {
   background: #1F2934;
 }
+.btn-medium {
+  background: #f68a05;
+}
 .contentTitle {
   background-color: #000000ab;
   padding: 5px;

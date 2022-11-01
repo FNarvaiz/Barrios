@@ -2,6 +2,8 @@
     export interface UserRow {
         UserId?: number;
         BarrioId?: number;
+        SubBarrioId?: number;
+        SubBarrioNombre?: string;
         Username?: string;
         Source?: string;
         PasswordHash?: string;
@@ -16,7 +18,6 @@
         UserImage?: string;
         LastDirectoryUpdate?: string;
         IsActive?: number;
-        subBarrioId?: number;
         Password?: string;
         PasswordConfirm?: string;
         ClientIdList?: number[];
@@ -43,6 +44,8 @@
         export declare const enum Fields {
             UserId = "UserId",
             BarrioId = "BarrioId",
+            SubBarrioId = "SubBarrioId",
+            SubBarrioNombre = "SubBarrioNombre",
             Username = "Username",
             Source = "Source",
             PasswordHash = "PasswordHash",
@@ -57,7 +60,6 @@
             UserImage = "UserImage",
             LastDirectoryUpdate = "LastDirectoryUpdate",
             IsActive = "IsActive",
-            subBarrioId = "subBarrioId",
             Password = "Password",
             PasswordConfirm = "PasswordConfirm",
             ClientIdList = "ClientIdList",

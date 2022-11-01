@@ -55,6 +55,7 @@ namespace MVC
             {
                 public const string DashboardIndex = "~/Modules/Common/Dashboard/DashboardIndex.cshtml";
                 public const string DashboardIndex2 = "~/Modules/Common/Dashboard/DashboardIndex2.cshtml";
+                public const string DashboardIndexOriginal = "~/Modules/Common/Dashboard/DashboardIndexOriginal.cshtml";
             }
 
             public static class Reporting

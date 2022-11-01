@@ -530,6 +530,19 @@
     <Content Include="Content\serenity\images\zoom.png" />
     <Content Include="Content\serenity\serenity.css" />
     <Content Include="Content\simple-line-icons.css" />
+    <Content Include="Content\site\icons\autorizados.svg" />
+    <Content Include="Content\site\icons\buscarLote.svg" />
+    <Content Include="Content\site\icons\comunicados.svg" />
+    <Content Include="Content\site\icons\encuestas.svg" />
+    <Content Include="Content\site\icons\evento.svg" />
+    <Content Include="Content\site\icons\institucional.svg" />
+    <Content Include="Content\site\icons\invitados.svg" />
+    <Content Include="Content\site\icons\mascotas.svg" />
+    <Content Include="Content\site\icons\novedades.svg" />
+    <Content Include="Content\site\icons\por_dia.svg" />
+    <Content Include="Content\site\icons\proveedores.svg" />
+    <Content Include="Content\site\icons\reglamentos.svg" />
+    <Content Include="Content\site\icons\reservas.svg" />
     <Content Include="Content\slick-default-theme.css" />
     <Content Include="Content\slick.columnpicker.css" />
     <Content Include="Content\slick.grid.css" />
@@ -889,6 +902,7 @@
     <Content Include="Modules\Perfil\VecinosVisitantesFrecuentes\Reports\VisitReport.cshtml" />
     <Content Include="Modules\Views\News\NewsIndex.cshtml" />
     <Content Include="Modules\Views\Location\LocationIndex.cshtml" />
+    <Content Include="Modules\Common\Dashboard\DashboardIndexOriginal.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

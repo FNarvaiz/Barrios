@@ -3,7 +3,7 @@
         Username: Serenity.StringEditor;
         DisplayName: Serenity.StringEditor;
         Units: Serenity.StringEditor;
-        subBarrioId: Serenity.LookupEditor;
+        SubBarrioId: Serenity.LookupEditor;
         Email: Serenity.EmailEditor;
         UserImage: Serenity.ImageUploadEditor;
         Phone: Serenity.StringEditor;
@@ -43,7 +43,7 @@
                     'Username', w0,
                     'DisplayName', w0,
                     'Units', w0,
-                    'subBarrioId', w1,
+                    'SubBarrioId', w1,
                     'Email', w2,
                     'UserImage', w3,
                     'Phone', w0,
