@@ -114,6 +114,7 @@ namespace Barrios.Contenidos.Endpoints
                 MyRow timeLineObj = Retrieve(connection2, new RetrieveRequest() { EntityId = request.Id }).Entity;
                 ListRequest userRequest = new ListRequest() { EqualityFilter = new Dictionary<string, object>() };
                 userRequest.EqualityFilter["BarrioId"] = CurrentNeigborhood.Get().Id;
+                userRequest.EqualityFilter["IsActive"] = 1;
                 List<UserRow> users = new UserRepository().List(connection2, userRequest).Entities;
                 return Send(users, timeLineObj);
             }
@@ -127,6 +128,7 @@ namespace Barrios.Contenidos.Endpoints
                 MyRow timeLineObj = Retrieve(connection2, new RetrieveRequest() { EntityId = request.LineTimeId }).Entity;
                 ListRequest userRequest = new ListRequest() { EqualityFilter = new Dictionary<string, object>() };
                 userRequest.EqualityFilter["BarrioId"] = CurrentNeigborhood.Get().Id;
+                userRequest.EqualityFilter["IsActive"] = 1;
                 userRequest.Criteria = new Criteria("subBarrioId").In<string>(request.SubNeigborhoob);
                 List<UserRow> users = new UserRepository().List(connection2, userRequest).Entities;
                 return Send(users, timeLineObj);
